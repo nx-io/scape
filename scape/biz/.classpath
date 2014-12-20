@@ -40,6 +40,7 @@
   </classpathentry>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="src" path="/scape-core"/>
+  <classpathentry kind="var" path="M2_REPO/org/webjars/jquery/1.9.1/jquery-1.9.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/proxool/proxool/0.8.3/proxool-0.8.3.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/cloudhopper/proxool/proxool-cglib/0.9.1/proxool-cglib-0.9.1.jar" sourcepath="M2_REPO/com/cloudhopper/proxool/proxool-cglib/0.9.1/proxool-cglib-0.9.1-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/cloudhopper/proxool/proxool/0.9.1/proxool-0.9.1.jar"/>
