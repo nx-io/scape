@@ -1,8 +1,18 @@
 package me.scape.ti.dataobject;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 用户信息。
@@ -11,243 +21,68 @@ import javax.persistence.Table;
  * @version 1.0.0
  * @since 2014年12月17日 下午11:55:39
  */
-@Entity(name = "ls_user")
-@Table(name = "ls_user", catalog = "scape")
-public class UserDO extends BaseDO {
+@Entity
+@Table(name = "user", catalog = "scape")
+public class UserDO implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true, nullable = false)
+    protected Integer id;
 
-	@Column(name = "nick", nullable = false, length = 128)
-	private String nick;// 昵称
+    @Column(name = "name", nullable = false, length = 64)
+    private String name;// 设计师/企业名称
 
-	@Column(name = "name", nullable = false, length = 128)
-	private String name;// 真实姓名
+    @Column(name = "fullname", length = 64)
+    private String fullname;// 真实姓名
 
-	@Column(name = "avatar", nullable = false, length = 256)
-	private String avatar;// 头像
+    @Column(name = "status", nullable = false)
+    private Boolean status;// 状态，1:可用，0:不可用，-1:删除
 
-	@Column(name = "passwd", nullable = false, length = 256)
-	private String passwd;
+    @Column(name = "avatar", length = 256)
+    private String avatar;// 头像
 
-	@Column(name = "email", nullable = true, length = 64)
-	private String email;
+    @Column(name = "password", nullable = false, length = 64)
+    private String password;// 密码
 
-	@Column(name = "mobile", nullable = true, length = 64)
-	private String mobile;
+    @Column(name = "salt", nullable = false, length = 64)
+    private String salt;// 密码salt
 
-	@Column(name = "phone", nullable = true, length = 64)
-	private String phone;
+    @Column(name = "email", length = 64)
+    private String email;// 邮箱
 
-	@Column(name = "weixin", nullable = true, length = 128)
-	private String weixin;
+    @Column(name = "mobile", length = 64)
+    private String mobile;// 手机
 
-	@Column(name = "idNo", nullable = true, length = 128)
-	private String idNo;// 身份证号
+    @Column(name = "contact", length = 64)
+    private String contact;// 联系方式
 
-	@Column(name = "address", nullable = true, length = 512)
-	private String address;// 地址
+    @Column(name = "category_id")
+    private Integer category_id;// 特长
 
-	@Column(name = "province", nullable = true, length = 64)
-	private String province;// 所在省
+    @Lob
+    @Column(name = "profile", nullable = false)
+    private String profile;// 简介
 
-	@Column(name = "city", nullable = true, length = 64)
-	private String city;// 所在市
+    @Column(name = "is_email_verified", nullable = false)
+    private Boolean is_email_verified = false;// 邮箱是否验证
 
-	@Column(name = "extend", nullable = true, length = 512)
-	private String extend;// 扩展信息
+    @Column(name = "is_mobile_verified", nullable = false)
+    private Boolean is_mobile_verified = false;// 手机是否验证
 
-	/**
-	 * @return the nick
-	 */
-	public String getNick() {
-		return nick;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "last_login")
+    private Date last_login;// 最后一次登录的时间
 
-	/**
-	 * @param nick
-	 *            the nick to set
-	 */
-	public void setNick(String nick) {
-		this.nick = nick;
-	}
+    @Column(name = "last_ip", nullable = false)
+    private long last_ip;// 最后一次登录的IP
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "gmt_created", nullable = false)
+    protected Date gmt_created;
 
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "gmt_modified")
+    protected Date gmt_modified;
 
-	/**
-	 * @return the avatar
-	 */
-	public String getAvatar() {
-		return avatar;
-	}
-
-	/**
-	 * @param avatar
-	 *            the avatar to set
-	 */
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
-
-	/**
-	 * @return the passwd
-	 */
-	public String getPasswd() {
-		return passwd;
-	}
-
-	/**
-	 * @param passwd
-	 *            the passwd to set
-	 */
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
-	}
-
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * @param email
-	 *            the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	/**
-	 * @return the mobile
-	 */
-	public String getMobile() {
-		return mobile;
-	}
-
-	/**
-	 * @param mobile
-	 *            the mobile to set
-	 */
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-
-	/**
-	 * @return the phone
-	 */
-	public String getPhone() {
-		return phone;
-	}
-
-	/**
-	 * @param phone
-	 *            the phone to set
-	 */
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	/**
-	 * @return the weixin
-	 */
-	public String getWeixin() {
-		return weixin;
-	}
-
-	/**
-	 * @param weixin
-	 *            the weixin to set
-	 */
-	public void setWeixin(String weixin) {
-		this.weixin = weixin;
-	}
-
-	/**
-	 * @return the idNo
-	 */
-	public String getIdNo() {
-		return idNo;
-	}
-
-	/**
-	 * @param idNo
-	 *            the idNo to set
-	 */
-	public void setIdNo(String idNo) {
-		this.idNo = idNo;
-	}
-
-	/**
-	 * @return the address
-	 */
-	public String getAddress() {
-		return address;
-	}
-
-	/**
-	 * @param address
-	 *            the address to set
-	 */
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	/**
-	 * @return the province
-	 */
-	public String getProvince() {
-		return province;
-	}
-
-	/**
-	 * @param province
-	 *            the province to set
-	 */
-	public void setProvince(String province) {
-		this.province = province;
-	}
-
-	/**
-	 * @return the city
-	 */
-	public String getCity() {
-		return city;
-	}
-
-	/**
-	 * @param city
-	 *            the city to set
-	 */
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	/**
-	 * @return the extend
-	 */
-	public String getExtend() {
-		return extend;
-	}
-
-	/**
-	 * @param extend
-	 *            the extend to set
-	 */
-	public void setExtend(String extend) {
-		this.extend = extend;
-	}
 }

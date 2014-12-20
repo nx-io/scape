@@ -13,15 +13,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * 景观分类。
+ * 景观风格。
  * 
- * @author 刘飞 E-mail:liufei_it@126.com
+ * @author WangJianZheng E-mail:zing.wang@look.com
  * @version 1.0.0
- * @since 2014年12月18日 下午10:33:37
+ * @since 2014年12月21日 上午01:30:00
  */
 @Entity
-@Table(name = "category", catalog = "scape")
-public class CategoryDO implements Serializable {
+@Table(name = "style", catalog = "scape")
+public class StyleDO implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,13 +29,13 @@ public class CategoryDO implements Serializable {
     protected Integer id;
 
     @Column(name = "name", unique = true, nullable = false, length = 64)
-    private String name;// 分类名称
+    private String name;// 风格名称
 
     @Column(name = "description", length = 256)
-    private String description;// 分类描述
+    private String description;// 风格描述
 
     @Column(name = "icon", length = 256)
-    private String icon;// 分类图标
+    private String icon;// 风格图标
 
     @Column(name = "is_listed", nullable = false)
     private Boolean is_listed;// 是否展示

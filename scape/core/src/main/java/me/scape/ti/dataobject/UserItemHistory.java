@@ -13,35 +13,31 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * 景观案例标签。
+ * 收藏/赞的景观。
  * 
- * @author 刘飞 E-mail:liufei_it@126.com
+ * @author WangJianZheng E-mail:zing.wang@look.com
  * @version 1.0.0
- * @since 2014年12月18日 下午11:43:12
+ * @since 2014年12月21日 上午01:30:00
  */
 @Entity
-@Table(name = "label", catalog = "scape")
-public class LabelDO implements Serializable {
+@Table(name = "user_item_history", catalog = "scape")
+public class UserItemHistory implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true, nullable = false)
-    protected Integer id;
+    protected Long id;
 
-    @Column(name = "name", nullable = false, length = 64, unique = true)
-    private String name;// 标签名称
+    @Column(name = "user_id", nullable = false)
+    private Integer user_id;// 用户ID
 
-    @Column(name = "description", length = 256)
-    private String description;// 标签描述
+    @Column(name = "item_id", nullable = false)
+    private Integer item_id;// 案例ID
 
-    @Column(name = "icon", length = 256)
-    private String icon;// 标签图标
+    @Column(name = "type", nullable = false)
+    private Integer type;// 1:赞，2:收藏
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "gmt_created", nullable = false)
     protected Date gmt_created;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "gmt_modified")
-    protected Date gmt_modified;
 }

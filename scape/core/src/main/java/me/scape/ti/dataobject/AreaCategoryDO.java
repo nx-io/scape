@@ -1,8 +1,16 @@
 package me.scape.ti.dataobject;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 景观区域分类。
@@ -11,63 +19,33 @@ import javax.persistence.Table;
  * @version 1.0.0
  * @since 2014年12月18日 下午10:47:42
  */
-@Entity(name = "ls_area_category")
-@Table(name = "ls_area_category", catalog = "scape")
-public class AreaCategoryDO extends BaseDO {
+@Entity
+@Table(name = "area_category", catalog = "scape")
+public class AreaCategoryDO implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true, nullable = false)
+    protected Integer id;
 
-    @Column(name = "name", nullable = false, length = 64, unique = true)
-	private String name;// 分类名称
-    
-    @Column(name = "description", nullable = true, length = 256)
-	private String description;// 分类描述
-    
-    @Column(name = "icon", nullable = true, length = 256)
-	private String icon;// 分类图标
+    @Column(name = "name", unique = true, nullable = false, length = 46)
+    private String name;// 区域分类名称
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+    @Column(name = "description", length = 256)
+    private String description;// 区域分类描述
 
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Column(name = "icon", length = 256)
+    private String icon;// 区域分类图标
 
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
+    @Column(name = "is_listed", nullable = false)
+    private Boolean is_listed;// 是否展示
 
-	/**
-	 * @param description
-	 *            the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "gmt_created", nullable = false)
+    protected Date gmt_created;
 
-	/**
-	 * @return the icon
-	 */
-	public String getIcon() {
-		return icon;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "gmt_modified")
+    protected Date gmt_modified;
 
-	/**
-	 * @param icon
-	 *            the icon to set
-	 */
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
 }
