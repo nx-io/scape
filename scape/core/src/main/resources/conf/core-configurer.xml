@@ -5,8 +5,7 @@
 	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:util="http://www.springframework.org/schema/util" xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:tool="http://www.springframework.org/schema/tool" xmlns:cache="http://www.springframework.org/schema/cache"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:orcl="http://www.springframework.org/schema/data/orcl"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:orcl="http://www.springframework.org/schema/data/orcl"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 
 	xsi:schemaLocation="
@@ -31,25 +30,26 @@
 		http://www.springframework.org/schema/jdbc 
 		http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
 		http://www.springframework.org/schema/data/jpa
-    	http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
 		"
 	default-lazy-init="false">
-	
+
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<context:annotation-config />
-	<context:component-scan base-package="me.scape.ti.dao.impl"/>
-	
-	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="scape" />
-        <property name="packagesToScan" value="me.scape.ti.dataobject"/>
-    </bean>
+	<context:component-scan base-package="me.scape.ti.dao.impl" />
 
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory" />
-    </bean>
-    
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-    
-    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
-    
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="scape" />
+		<property name="packagesToScan" value="me.scape.ti.dataobject" />
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
 </beans>
