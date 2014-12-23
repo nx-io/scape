@@ -23,7 +23,7 @@ CREATE TABLE `area_category` (
   `name` varchar(64) NOT NULL,
   `icon` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `display` tinyint(4) NOT NULL,
+  `display` tinyint(4) NOT NULL DEFAULT 1,
   `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `gmt_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -41,7 +41,7 @@ CREATE TABLE `category` (
   `name` varchar(64) NOT NULL,
   `icon` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `display` tinyint(4) NOT NULL,
+  `display` tinyint(4) NOT NULL DEFAULT 1,
   `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `gmt_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -80,14 +80,14 @@ CREATE TABLE `item` (
   `style_id` bigint(20) NOT NULL,
   `area_category_id` bigint(20) NOT NULL,
   `category_id` bigint(20) NOT NULL,
-  `user_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL DEFAULT 0,
   `designer` varchar(64) DEFAULT NULL,
   `designer_contact` varchar(64) DEFAULT NULL,
   `constructor` varchar(64) DEFAULT NULL,
   `constructor_contact` varchar(64) DEFAULT NULL,
   `cover_media` varchar(255) NOT NULL,
   `description` longtext,
-  `status` tinyint(4) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
   `media_count` int(11) NOT NULL,
   `comment_count` int(11) NOT NULL,
   `like_count` int(11) NOT NULL,
@@ -125,7 +125,7 @@ CREATE TABLE `item_media` (
   `item_id` bigint(20) NOT NULL,
   `type` tinyint(4) NOT NULL,
   `url` varchar(255) NOT NULL,
-  `status` tinyint(4) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
   `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `gmt_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -149,6 +149,23 @@ CREATE TABLE `label` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+--
+-- Table structure for table `item_labels`
+--
+
+DROP TABLE IF EXISTS `item_labels`;
+
+CREATE TABLE `item_labels` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `item_id` bigint(20) NOT NULL,
+  `label_id` bigint(20) NOT NULL,
+  `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 --
 -- Table structure for table `manager`
 --
@@ -162,7 +179,7 @@ CREATE TABLE `manager` (
   `email` varchar(64) NOT NULL,
   `last_ip` bigint(20) NOT NULL,
   `last_login` datetime DEFAULT NULL,
-  `status` tinyint(4) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
   `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `gmt_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -196,7 +213,7 @@ CREATE TABLE `role` (
   `code` varchar(32) NOT NULL,
   `name` varchar(64) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `status` tinyint(4) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
   `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `gmt_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -237,7 +254,7 @@ CREATE TABLE `user` (
   `mobile` varchar(64) DEFAULT NULL,
   `password` varchar(64) NOT NULL,
   `salt` varchar(64) NOT NULL,
-  `status` tinyint(4) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
   `avatar` varchar(255) DEFAULT NULL,
   `contact` varchar(64) DEFAULT NULL,
   `profile` varchar(255) DEFAULT NULL,
@@ -276,5 +293,3 @@ CREATE TABLE `user_favorite` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-12-28 17:41:38
