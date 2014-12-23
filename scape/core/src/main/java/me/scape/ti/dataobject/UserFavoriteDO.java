@@ -23,7 +23,12 @@ import javax.persistence.TemporalType;
 @Table(name = "user_favorite", catalog = "scape")
 public class UserFavoriteDO implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3678668514140278373L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", unique = true, nullable = false)
+	private Long id;
 
 	@Column(name = "user_id", nullable = false)
 	private Long user_id;// 用户ID
@@ -31,26 +36,50 @@ public class UserFavoriteDO implements Serializable {
 	@Column(name = "favorite_id", nullable = false)
 	private Long favorite_id;// 被收藏的用户ID
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true, nullable = false)
-	private Long id;
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "gmt_created", nullable = false)
 	private Date gmt_created;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "gmt_modified", nullable = false)
-	private Date gmt_modified;
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(Long user_id) {
+		this.user_id = user_id;
+	}
+
+	public Long getFavorite_id() {
+		return favorite_id;
+	}
+
+	public void setFavorite_id(Long favorite_id) {
+		this.favorite_id = favorite_id;
+	}
+
+	public Date getGmt_created() {
+		return gmt_created;
+	}
+
+	public void setGmt_created(Date gmt_created) {
+		this.gmt_created = gmt_created;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((favorite_id == null) ? 0 : favorite_id.hashCode());
-		result = prime * result + ((gmt_created == null) ? 0 : gmt_created.hashCode());
-		result = prime * result + ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
+		result = prime * result
+				+ ((favorite_id == null) ? 0 : favorite_id.hashCode());
+		result = prime * result
+				+ ((gmt_created == null) ? 0 : gmt_created.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((user_id == null) ? 0 : user_id.hashCode());
 		return result;
@@ -75,11 +104,6 @@ public class UserFavoriteDO implements Serializable {
 				return false;
 		} else if (!gmt_created.equals(other.gmt_created))
 			return false;
-		if (gmt_modified == null) {
-			if (other.gmt_modified != null)
-				return false;
-		} else if (!gmt_modified.equals(other.gmt_modified))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -93,57 +117,4 @@ public class UserFavoriteDO implements Serializable {
 		return true;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Date getGmt_created() {
-		return gmt_created;
-	}
-
-	public void setGmt_created(Date gmt_created) {
-		this.gmt_created = gmt_created;
-	}
-
-	public Date getGmt_modified() {
-		return gmt_modified;
-	}
-
-	public void setGmt_modified(Date gmt_modified) {
-		this.gmt_modified = gmt_modified;
-	}
-
-	/**
-	 * @return the user_id
-	 */
-	public Long getUser_id() {
-		return user_id;
-	}
-
-	/**
-	 * @param user_id
-	 *            the user_id to set
-	 */
-	public void setUser_id(Long user_id) {
-		this.user_id = user_id;
-	}
-
-	/**
-	 * @return the favorite_id
-	 */
-	public Long getFavorite_id() {
-		return favorite_id;
-	}
-
-	/**
-	 * @param favorite_id
-	 *            the favorite_id to set
-	 */
-	public void setFavorite_id(Long favorite_id) {
-		this.favorite_id = favorite_id;
-	}
 }

@@ -23,7 +23,12 @@ import javax.persistence.TemporalType;
 @Table(name = "item", catalog = "scape")
 public class ItemDO implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -2996946613320703028L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", unique = true, nullable = false)
+	private Long id;
 
 	@Column(name = "title", nullable = false, length = 64)
 	private String title;// 标题
@@ -58,7 +63,7 @@ public class ItemDO implements Serializable {
 	@Column(name = "constructor_contact", length = 64)
 	private String constructor_contact;// 施工者联系方式
 
-	@Column(name = "cover_media", nullable = false, length = 256)
+	@Column(name = "cover_media", nullable = false, length = 255)
 	private String cover_media;// 案例封皮
 
 	@Column(name = "media_count", nullable = false)
@@ -76,40 +81,214 @@ public class ItemDO implements Serializable {
 	@Column(name = "user_id", nullable = false)
 	private Long user_id;// 发布者
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true, nullable = false)
-	private Long id;
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "gmt_created", nullable = false)
 	private Date gmt_created;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "gmt_modified", nullable = false)
+	@Column(name = "gmt_modified")
 	private Date gmt_modified;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Byte getType() {
+		return type;
+	}
+
+	public void setType(Byte type) {
+		this.type = type;
+	}
+
+	public Long getCategory_id() {
+		return category_id;
+	}
+
+	public void setCategory_id(Long category_id) {
+		this.category_id = category_id;
+	}
+
+	public Long getArea_category_id() {
+		return area_category_id;
+	}
+
+	public void setArea_category_id(Long area_category_id) {
+		this.area_category_id = area_category_id;
+	}
+
+	public Long getStyle_id() {
+		return style_id;
+	}
+
+	public void setStyle_id(Long style_id) {
+		this.style_id = style_id;
+	}
+
+	public Byte getStatus() {
+		return status;
+	}
+
+	public void setStatus(Byte status) {
+		this.status = status;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDesigner() {
+		return designer;
+	}
+
+	public void setDesigner(String designer) {
+		this.designer = designer;
+	}
+
+	public String getDesigner_contact() {
+		return designer_contact;
+	}
+
+	public void setDesigner_contact(String designer_contact) {
+		this.designer_contact = designer_contact;
+	}
+
+	public String getConstructor() {
+		return constructor;
+	}
+
+	public void setConstructor(String constructor) {
+		this.constructor = constructor;
+	}
+
+	public String getConstructor_contact() {
+		return constructor_contact;
+	}
+
+	public void setConstructor_contact(String constructor_contact) {
+		this.constructor_contact = constructor_contact;
+	}
+
+	public String getCover_media() {
+		return cover_media;
+	}
+
+	public void setCover_media(String cover_media) {
+		this.cover_media = cover_media;
+	}
+
+	public Integer getMedia_count() {
+		return media_count;
+	}
+
+	public void setMedia_count(Integer media_count) {
+		this.media_count = media_count;
+	}
+
+	public Integer getComment_count() {
+		return comment_count;
+	}
+
+	public void setComment_count(Integer comment_count) {
+		this.comment_count = comment_count;
+	}
+
+	public Integer getPraise_count() {
+		return praise_count;
+	}
+
+	public void setPraise_count(Integer praise_count) {
+		this.praise_count = praise_count;
+	}
+
+	public Integer getLike_count() {
+		return like_count;
+	}
+
+	public void setLike_count(Integer like_count) {
+		this.like_count = like_count;
+	}
+
+	public Long getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(Long user_id) {
+		this.user_id = user_id;
+	}
+
+	public Date getGmt_created() {
+		return gmt_created;
+	}
+
+	public void setGmt_created(Date gmt_created) {
+		this.gmt_created = gmt_created;
+	}
+
+	public Date getGmt_modified() {
+		return gmt_modified;
+	}
+
+	public void setGmt_modified(Date gmt_modified) {
+		this.gmt_modified = gmt_modified;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((area_category_id == null) ? 0 : area_category_id.hashCode());
-		result = prime * result + ((category_id == null) ? 0 : category_id.hashCode());
-		result = prime * result + ((comment_count == null) ? 0 : comment_count.hashCode());
-		result = prime * result + ((constructor == null) ? 0 : constructor.hashCode());
-		result = prime * result + ((constructor_contact == null) ? 0 : constructor_contact.hashCode());
-		result = prime * result + ((cover_media == null) ? 0 : cover_media.hashCode());
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((designer == null) ? 0 : designer.hashCode());
-		result = prime * result + ((designer_contact == null) ? 0 : designer_contact.hashCode());
-		result = prime * result + ((gmt_created == null) ? 0 : gmt_created.hashCode());
-		result = prime * result + ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
+		result = prime
+				* result
+				+ ((area_category_id == null) ? 0 : area_category_id.hashCode());
+		result = prime * result
+				+ ((category_id == null) ? 0 : category_id.hashCode());
+		result = prime * result
+				+ ((comment_count == null) ? 0 : comment_count.hashCode());
+		result = prime * result
+				+ ((constructor == null) ? 0 : constructor.hashCode());
+		result = prime
+				* result
+				+ ((constructor_contact == null) ? 0 : constructor_contact
+						.hashCode());
+		result = prime * result
+				+ ((cover_media == null) ? 0 : cover_media.hashCode());
+		result = prime * result
+				+ ((description == null) ? 0 : description.hashCode());
+		result = prime * result
+				+ ((designer == null) ? 0 : designer.hashCode());
+		result = prime
+				* result
+				+ ((designer_contact == null) ? 0 : designer_contact.hashCode());
+		result = prime * result
+				+ ((gmt_created == null) ? 0 : gmt_created.hashCode());
+		result = prime * result
+				+ ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((like_count == null) ? 0 : like_count.hashCode());
-		result = prime * result + ((media_count == null) ? 0 : media_count.hashCode());
-		result = prime * result + ((praise_count == null) ? 0 : praise_count.hashCode());
+		result = prime * result
+				+ ((like_count == null) ? 0 : like_count.hashCode());
+		result = prime * result
+				+ ((media_count == null) ? 0 : media_count.hashCode());
+		result = prime * result
+				+ ((praise_count == null) ? 0 : praise_count.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		result = prime * result + ((style_id == null) ? 0 : style_id.hashCode());
+		result = prime * result
+				+ ((style_id == null) ? 0 : style_id.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((user_id == null) ? 0 : user_id.hashCode());
@@ -228,282 +407,4 @@ public class ItemDO implements Serializable {
 		return true;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Date getGmt_created() {
-		return gmt_created;
-	}
-
-	public void setGmt_created(Date gmt_created) {
-		this.gmt_created = gmt_created;
-	}
-
-	public Date getGmt_modified() {
-		return gmt_modified;
-	}
-
-	public void setGmt_modified(Date gmt_modified) {
-		this.gmt_modified = gmt_modified;
-	}
-
-	/**
-	 * @return the title
-	 */
-	public String getTitle() {
-		return title;
-	}
-
-	/**
-	 * @param title
-	 *            the title to set
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	/**
-	 * @return the type
-	 */
-	public Byte getType() {
-		return type;
-	}
-
-	/**
-	 * @param type
-	 *            the type to set
-	 */
-	public void setType(Byte type) {
-		this.type = type;
-	}
-
-	/**
-	 * @return the category_id
-	 */
-	public Long getCategory_id() {
-		return category_id;
-	}
-
-	/**
-	 * @param category_id
-	 *            the category_id to set
-	 */
-	public void setCategory_id(Long category_id) {
-		this.category_id = category_id;
-	}
-
-	/**
-	 * @return the area_category_id
-	 */
-	public Long getArea_category_id() {
-		return area_category_id;
-	}
-
-	/**
-	 * @param area_category_id
-	 *            the area_category_id to set
-	 */
-	public void setArea_category_id(Long area_category_id) {
-		this.area_category_id = area_category_id;
-	}
-
-	/**
-	 * @return the style_id
-	 */
-	public Long getStyle_id() {
-		return style_id;
-	}
-
-	/**
-	 * @param style_id
-	 *            the style_id to set
-	 */
-	public void setStyle_id(Long style_id) {
-		this.style_id = style_id;
-	}
-
-	/**
-	 * @return the status
-	 */
-	public Byte getStatus() {
-		return status;
-	}
-
-	/**
-	 * @param status
-	 *            the status to set
-	 */
-	public void setStatus(Byte status) {
-		this.status = status;
-	}
-
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * @param description
-	 *            the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	/**
-	 * @return the designer
-	 */
-	public String getDesigner() {
-		return designer;
-	}
-
-	/**
-	 * @param designer
-	 *            the designer to set
-	 */
-	public void setDesigner(String designer) {
-		this.designer = designer;
-	}
-
-	/**
-	 * @return the designer_contact
-	 */
-	public String getDesigner_contact() {
-		return designer_contact;
-	}
-
-	/**
-	 * @param designer_contact
-	 *            the designer_contact to set
-	 */
-	public void setDesigner_contact(String designer_contact) {
-		this.designer_contact = designer_contact;
-	}
-
-	/**
-	 * @return the constructor
-	 */
-	public String getConstructor() {
-		return constructor;
-	}
-
-	/**
-	 * @param constructor
-	 *            the constructor to set
-	 */
-	public void setConstructor(String constructor) {
-		this.constructor = constructor;
-	}
-
-	/**
-	 * @return the constructor_contact
-	 */
-	public String getConstructor_contact() {
-		return constructor_contact;
-	}
-
-	/**
-	 * @param constructor_contact
-	 *            the constructor_contact to set
-	 */
-	public void setConstructor_contact(String constructor_contact) {
-		this.constructor_contact = constructor_contact;
-	}
-
-	/**
-	 * @return the cover_media
-	 */
-	public String getCover_media() {
-		return cover_media;
-	}
-
-	/**
-	 * @param cover_media
-	 *            the cover_media to set
-	 */
-	public void setCover_media(String cover_media) {
-		this.cover_media = cover_media;
-	}
-
-	/**
-	 * @return the media_count
-	 */
-	public Integer getMedia_count() {
-		return media_count;
-	}
-
-	/**
-	 * @param media_count
-	 *            the media_count to set
-	 */
-	public void setMedia_count(Integer media_count) {
-		this.media_count = media_count;
-	}
-
-	/**
-	 * @return the comment_count
-	 */
-	public Integer getComment_count() {
-		return comment_count;
-	}
-
-	/**
-	 * @param comment_count
-	 *            the comment_count to set
-	 */
-	public void setComment_count(Integer comment_count) {
-		this.comment_count = comment_count;
-	}
-
-	/**
-	 * @return the praise_count
-	 */
-	public Integer getPraise_count() {
-		return praise_count;
-	}
-
-	/**
-	 * @param praise_count
-	 *            the praise_count to set
-	 */
-	public void setPraise_count(Integer praise_count) {
-		this.praise_count = praise_count;
-	}
-
-	/**
-	 * @return the like_count
-	 */
-	public Integer getLike_count() {
-		return like_count;
-	}
-
-	/**
-	 * @param like_count
-	 *            the like_count to set
-	 */
-	public void setLike_count(Integer like_count) {
-		this.like_count = like_count;
-	}
-
-	/**
-	 * @return the user_id
-	 */
-	public Long getUser_id() {
-		return user_id;
-	}
-
-	/**
-	 * @param user_id
-	 *            the user_id to set
-	 */
-	public void setUser_id(Long user_id) {
-		this.user_id = user_id;
-	}
 }

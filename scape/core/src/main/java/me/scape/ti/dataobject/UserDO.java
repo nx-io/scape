@@ -23,17 +23,20 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "user", catalog = "scape")
-@NamedQueries({
-    @NamedQuery(name = "User.getUserByName", query = "FROM UserDO u WHERE u.name = ?"),
-    })
+@NamedQueries({ @NamedQuery(name = "User.getUserByName", query = "FROM UserDO u WHERE u.name = ?"), })
 public class UserDO implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 829998693975891020L;
 
 	public static final byte Available = 1;
 	public static final byte Unavailable = 0;
 	public static final byte Strike_out = -1;
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", unique = true, nullable = false)
+	private Long id;
+
 	@Column(name = "name", nullable = false, length = 64)
 	private String name;// 设计师/企业名称
 
@@ -43,7 +46,7 @@ public class UserDO implements Serializable {
 	@Column(name = "status", nullable = false)
 	private Byte status;// 状态，1:可用，0:不可用，-1:删除
 
-	@Column(name = "avatar", length = 256)
+	@Column(name = "avatar", length = 255)
 	private String avatar;// 头像
 
 	@Column(name = "password", nullable = false, length = 64)
@@ -63,8 +66,8 @@ public class UserDO implements Serializable {
 
 	@Column(name = "category_id")
 	private Long category_id;// 特长
-	
-	@Column(name = "profile", length = 2048)
+
+	@Column(name = "profile", length = 255)
 	private String profile;// 简介
 
 	@Column(name = "is_email_verified", nullable = false)
@@ -78,40 +81,191 @@ public class UserDO implements Serializable {
 	private Date last_login;// 最后一次登录的时间
 
 	@Column(name = "last_ip")
-	private long last_ip;// 最后一次登录的IP
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true, nullable = false)
-	private Long id;
+	private Long last_ip;// 最后一次登录的IP
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "gmt_created", nullable = false)
 	private Date gmt_created;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "gmt_modified", nullable = false)
+	@Column(name = "gmt_modified")
 	private Date gmt_modified;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+	public Byte getStatus() {
+		return status;
+	}
+
+	public void setStatus(Byte status) {
+		this.status = status;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	public Long getCategory_id() {
+		return category_id;
+	}
+
+	public void setCategory_id(Long category_id) {
+		this.category_id = category_id;
+	}
+
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+
+	public Boolean getIs_email_verified() {
+		return is_email_verified;
+	}
+
+	public void setIs_email_verified(Boolean is_email_verified) {
+		this.is_email_verified = is_email_verified;
+	}
+
+	public Boolean getIs_mobile_verified() {
+		return is_mobile_verified;
+	}
+
+	public void setIs_mobile_verified(Boolean is_mobile_verified) {
+		this.is_mobile_verified = is_mobile_verified;
+	}
+
+	public Date getLast_login() {
+		return last_login;
+	}
+
+	public void setLast_login(Date last_login) {
+		this.last_login = last_login;
+	}
+
+	public Long getLast_ip() {
+		return last_ip;
+	}
+
+	public void setLast_ip(Long last_ip) {
+		this.last_ip = last_ip;
+	}
+
+	public Date getGmt_created() {
+		return gmt_created;
+	}
+
+	public void setGmt_created(Date gmt_created) {
+		this.gmt_created = gmt_created;
+	}
+
+	public Date getGmt_modified() {
+		return gmt_modified;
+	}
+
+	public void setGmt_modified(Date gmt_modified) {
+		this.gmt_modified = gmt_modified;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
-		result = prime * result + ((category_id == null) ? 0 : category_id.hashCode());
+		result = prime * result
+				+ ((category_id == null) ? 0 : category_id.hashCode());
 		result = prime * result + ((contact == null) ? 0 : contact.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((fullname == null) ? 0 : fullname.hashCode());
-		result = prime * result + ((gmt_created == null) ? 0 : gmt_created.hashCode());
-		result = prime * result + ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
+		result = prime * result
+				+ ((fullname == null) ? 0 : fullname.hashCode());
+		result = prime * result
+				+ ((gmt_created == null) ? 0 : gmt_created.hashCode());
+		result = prime * result
+				+ ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((is_email_verified == null) ? 0 : is_email_verified.hashCode());
-		result = prime * result + ((is_mobile_verified == null) ? 0 : is_mobile_verified.hashCode());
-		result = prime * result + (int) (last_ip ^ (last_ip >>> 32));
-		result = prime * result + ((last_login == null) ? 0 : last_login.hashCode());
+		result = prime
+				* result
+				+ ((is_email_verified == null) ? 0 : is_email_verified
+						.hashCode());
+		result = prime
+				* result
+				+ ((is_mobile_verified == null) ? 0 : is_mobile_verified
+						.hashCode());
+		result = prime * result + ((last_ip == null) ? 0 : last_ip.hashCode());
+		result = prime * result
+				+ ((last_login == null) ? 0 : last_login.hashCode());
 		result = prime * result + ((mobile == null) ? 0 : mobile.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result
+				+ ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((profile == null) ? 0 : profile.hashCode());
 		result = prime * result + ((salt == null) ? 0 : salt.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
@@ -177,7 +331,10 @@ public class UserDO implements Serializable {
 				return false;
 		} else if (!is_mobile_verified.equals(other.is_mobile_verified))
 			return false;
-		if (last_ip != other.last_ip)
+		if (last_ip == null) {
+			if (other.last_ip != null)
+				return false;
+		} else if (!last_ip.equals(other.last_ip))
 			return false;
 		if (last_login == null) {
 			if (other.last_login != null)
@@ -217,252 +374,4 @@ public class UserDO implements Serializable {
 		return true;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Date getGmt_created() {
-		return gmt_created;
-	}
-
-	public void setGmt_created(Date gmt_created) {
-		this.gmt_created = gmt_created;
-	}
-
-	public Date getGmt_modified() {
-		return gmt_modified;
-	}
-
-	public void setGmt_modified(Date gmt_modified) {
-		this.gmt_modified = gmt_modified;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the fullname
-	 */
-	public String getFullname() {
-		return fullname;
-	}
-
-	/**
-	 * @param fullname
-	 *            the fullname to set
-	 */
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
-	}
-
-	/**
-	 * @return the status
-	 */
-	public Byte getStatus() {
-		return status;
-	}
-
-	/**
-	 * @param status
-	 *            the status to set
-	 */
-	public void setStatus(Byte status) {
-		this.status = status;
-	}
-
-	/**
-	 * @return the avatar
-	 */
-	public String getAvatar() {
-		return avatar;
-	}
-
-	/**
-	 * @param avatar
-	 *            the avatar to set
-	 */
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
-
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * @param password
-	 *            the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	/**
-	 * @return the salt
-	 */
-	public String getSalt() {
-		return salt;
-	}
-
-	/**
-	 * @param salt
-	 *            the salt to set
-	 */
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
-
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * @param email
-	 *            the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	/**
-	 * @return the mobile
-	 */
-	public String getMobile() {
-		return mobile;
-	}
-
-	/**
-	 * @param mobile
-	 *            the mobile to set
-	 */
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-
-	/**
-	 * @return the contact
-	 */
-	public String getContact() {
-		return contact;
-	}
-
-	/**
-	 * @param contact
-	 *            the contact to set
-	 */
-	public void setContact(String contact) {
-		this.contact = contact;
-	}
-
-	/**
-	 * @return the category_id
-	 */
-	public Long getCategory_id() {
-		return category_id;
-	}
-
-	/**
-	 * @param category_id
-	 *            the category_id to set
-	 */
-	public void setCategory_id(Long category_id) {
-		this.category_id = category_id;
-	}
-
-	/**
-	 * @return the profile
-	 */
-	public String getProfile() {
-		return profile;
-	}
-
-	/**
-	 * @param profile
-	 *            the profile to set
-	 */
-	public void setProfile(String profile) {
-		this.profile = profile;
-	}
-
-	/**
-	 * @return the is_email_verified
-	 */
-	public Boolean getIs_email_verified() {
-		return is_email_verified;
-	}
-
-	/**
-	 * @param is_email_verified
-	 *            the is_email_verified to set
-	 */
-	public void setIs_email_verified(Boolean is_email_verified) {
-		this.is_email_verified = is_email_verified;
-	}
-
-	/**
-	 * @return the is_mobile_verified
-	 */
-	public Boolean getIs_mobile_verified() {
-		return is_mobile_verified;
-	}
-
-	/**
-	 * @param is_mobile_verified
-	 *            the is_mobile_verified to set
-	 */
-	public void setIs_mobile_verified(Boolean is_mobile_verified) {
-		this.is_mobile_verified = is_mobile_verified;
-	}
-
-	/**
-	 * @return the last_login
-	 */
-	public Date getLast_login() {
-		return last_login;
-	}
-
-	/**
-	 * @param last_login
-	 *            the last_login to set
-	 */
-	public void setLast_login(Date last_login) {
-		this.last_login = last_login;
-	}
-
-	/**
-	 * @return the last_ip
-	 */
-	public long getLast_ip() {
-		return last_ip;
-	}
-
-	/**
-	 * @param last_ip
-	 *            the last_ip to set
-	 */
-	public void setLast_ip(long last_ip) {
-		this.last_ip = last_ip;
-	}
 }

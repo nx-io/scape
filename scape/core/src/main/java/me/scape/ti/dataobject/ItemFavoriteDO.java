@@ -23,7 +23,12 @@ import javax.persistence.TemporalType;
 @Table(name = "item_favorite", catalog = "scape")
 public class ItemFavoriteDO implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -620705104374307024L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", unique = true, nullable = false)
+	private Long id;
 
 	@Column(name = "user_id", nullable = false)
 	private Long user_id;// 用户ID
@@ -34,25 +39,56 @@ public class ItemFavoriteDO implements Serializable {
 	@Column(name = "type", nullable = false)
 	private Byte type;// 1:赞，2:收藏
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true, nullable = false)
-	private Long id;
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "gmt_created", nullable = false)
 	private Date gmt_created;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "gmt_modified", nullable = false)
-	private Date gmt_modified;
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(Long user_id) {
+		this.user_id = user_id;
+	}
+
+	public Long getItem_id() {
+		return item_id;
+	}
+
+	public void setItem_id(Long item_id) {
+		this.item_id = item_id;
+	}
+
+	public Byte getType() {
+		return type;
+	}
+
+	public void setType(Byte type) {
+		this.type = type;
+	}
+
+	public Date getGmt_created() {
+		return gmt_created;
+	}
+
+	public void setGmt_created(Date gmt_created) {
+		this.gmt_created = gmt_created;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((gmt_created == null) ? 0 : gmt_created.hashCode());
-		result = prime * result + ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
+		result = prime * result
+				+ ((gmt_created == null) ? 0 : gmt_created.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((item_id == null) ? 0 : item_id.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
@@ -73,11 +109,6 @@ public class ItemFavoriteDO implements Serializable {
 			if (other.gmt_created != null)
 				return false;
 		} else if (!gmt_created.equals(other.gmt_created))
-			return false;
-		if (gmt_modified == null) {
-			if (other.gmt_modified != null)
-				return false;
-		} else if (!gmt_modified.equals(other.gmt_modified))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -102,72 +133,4 @@ public class ItemFavoriteDO implements Serializable {
 		return true;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Date getGmt_created() {
-		return gmt_created;
-	}
-
-	public void setGmt_created(Date gmt_created) {
-		this.gmt_created = gmt_created;
-	}
-
-	public Date getGmt_modified() {
-		return gmt_modified;
-	}
-
-	public void setGmt_modified(Date gmt_modified) {
-		this.gmt_modified = gmt_modified;
-	}
-
-	/**
-	 * @return the user_id
-	 */
-	public Long getUser_id() {
-		return user_id;
-	}
-
-	/**
-	 * @param user_id
-	 *            the user_id to set
-	 */
-	public void setUser_id(Long user_id) {
-		this.user_id = user_id;
-	}
-
-	/**
-	 * @return the item_id
-	 */
-	public Long getItem_id() {
-		return item_id;
-	}
-
-	/**
-	 * @param item_id
-	 *            the item_id to set
-	 */
-	public void setItem_id(Long item_id) {
-		this.item_id = item_id;
-	}
-
-	/**
-	 * @return the type
-	 */
-	public Byte getType() {
-		return type;
-	}
-
-	/**
-	 * @param type
-	 *            the type to set
-	 */
-	public void setType(Byte type) {
-		this.type = type;
-	}
 }

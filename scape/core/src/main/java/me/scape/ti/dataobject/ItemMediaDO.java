@@ -23,23 +23,26 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "item_media", catalog = "scape")
-@NamedQueries({
-    @NamedQuery(name = "ItemMedia.getItemMediaByItemId", query = "FROM ItemMediaDO im WHERE im.status = 1 AND im.item_id = ?"),
-    })
+@NamedQueries({ @NamedQuery(name = "ItemMedia.getItemMediaByItemId", query = "FROM ItemMediaDO im WHERE im.status = 1 AND im.item_id = ?"), })
 public class ItemMediaDO implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2388942529712623527L;
 
 	public static final byte Available = 1;
 	public static final byte Strike_out = -1;
-	
+
 	public static final byte IMG = 1;
 	public static final byte VIDEO = 2;
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", unique = true, nullable = false)
+	private Long id;
+
 	@Column(name = "item_id", nullable = false)
 	private Long item_id;// 案例ID
 
-	@Column(name = "url", nullable = false, length = 256)
+	@Column(name = "url", nullable = false, length = 255)
 	private String url;// 图片, 视频地址
 
 	@Column(name = "status", nullable = false)
@@ -48,25 +51,78 @@ public class ItemMediaDO implements Serializable {
 	@Column(name = "type", nullable = false)
 	private Byte type;// 类型 1:图片, 2:视频
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true, nullable = false)
-	private Long id;
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "gmt_created", nullable = false)
 	private Date gmt_created;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "gmt_modified", nullable = false)
+	@Column(name = "gmt_modified")
 	private Date gmt_modified;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getItem_id() {
+		return item_id;
+	}
+
+	public void setItem_id(Long item_id) {
+		this.item_id = item_id;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public Byte getStatus() {
+		return status;
+	}
+
+	public void setStatus(Byte status) {
+		this.status = status;
+	}
+
+	public Byte getType() {
+		return type;
+	}
+
+	public void setType(Byte type) {
+		this.type = type;
+	}
+
+	public Date getGmt_created() {
+		return gmt_created;
+	}
+
+	public void setGmt_created(Date gmt_created) {
+		this.gmt_created = gmt_created;
+	}
+
+	public Date getGmt_modified() {
+		return gmt_modified;
+	}
+
+	public void setGmt_modified(Date gmt_modified) {
+		this.gmt_modified = gmt_modified;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((gmt_created == null) ? 0 : gmt_created.hashCode());
-		result = prime * result + ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
+		result = prime * result
+				+ ((gmt_created == null) ? 0 : gmt_created.hashCode());
+		result = prime * result
+				+ ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((item_id == null) ? 0 : item_id.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
@@ -122,87 +178,4 @@ public class ItemMediaDO implements Serializable {
 		return true;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Date getGmt_created() {
-		return gmt_created;
-	}
-
-	public void setGmt_created(Date gmt_created) {
-		this.gmt_created = gmt_created;
-	}
-
-	public Date getGmt_modified() {
-		return gmt_modified;
-	}
-
-	public void setGmt_modified(Date gmt_modified) {
-		this.gmt_modified = gmt_modified;
-	}
-
-	/**
-	 * @return the item_id
-	 */
-	public Long getItem_id() {
-		return item_id;
-	}
-
-	/**
-	 * @param item_id
-	 *            the item_id to set
-	 */
-	public void setItem_id(Long item_id) {
-		this.item_id = item_id;
-	}
-
-	/**
-	 * @return the url
-	 */
-	public String getUrl() {
-		return url;
-	}
-
-	/**
-	 * @param url
-	 *            the url to set
-	 */
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	/**
-	 * @return the status
-	 */
-	public Byte getStatus() {
-		return status;
-	}
-
-	/**
-	 * @param status
-	 *            the status to set
-	 */
-	public void setStatus(Byte status) {
-		this.status = status;
-	}
-
-	/**
-	 * @return the type
-	 */
-	public Byte getType() {
-		return type;
-	}
-
-	/**
-	 * @param type
-	 *            the type to set
-	 */
-	public void setType(Byte type) {
-		this.type = type;
-	}
 }

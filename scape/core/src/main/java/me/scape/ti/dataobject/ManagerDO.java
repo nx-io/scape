@@ -23,15 +23,26 @@ import javax.persistence.TemporalType;
 @Table(name = "manager", catalog = "scape")
 public class ManagerDO implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5660189006433341336L;
 
-	@Column(name = "name", nullable = false)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", unique = true, nullable = false)
+	private Long id;
+
+	@Column(name = "name", nullable = false, length = 64)
 	private String name;// 用户名
 
-	@Column(name = "email", unique = true, nullable = false)
+	@Column(name = "email", unique = true, nullable = false, length = 64)
 	private String email;// 邮箱/账号
 
-	@Column(name = "avatar")
+	@Column(name = "password", nullable = false, length = 64)
+	private String password;// 密码
+
+	@Column(name = "salt", nullable = false, length = 64)
+	private String salt;// 密码salt
+
+	@Column(name = "avatar", length = 255)
 	private String avatar;// 头像
 
 	@Column(name = "status", nullable = false)
@@ -42,20 +53,103 @@ public class ManagerDO implements Serializable {
 	private Date last_login;// 最后一次登录的时间
 
 	@Column(name = "last_ip", nullable = false)
-	private long last_ip;// 最后一次登录的IP
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true, nullable = false)
-	private Long id;
+	private Long last_ip;// 最后一次登录的IP
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "gmt_created", nullable = false)
 	private Date gmt_created;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "gmt_modified", nullable = false)
+	@Column(name = "gmt_modified")
 	private Date gmt_modified;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public Byte getStatus() {
+		return status;
+	}
+
+	public void setStatus(Byte status) {
+		this.status = status;
+	}
+
+	public Date getLast_login() {
+		return last_login;
+	}
+
+	public void setLast_login(Date last_login) {
+		this.last_login = last_login;
+	}
+
+	public Long getLast_ip() {
+		return last_ip;
+	}
+
+	public void setLast_ip(Long last_ip) {
+		this.last_ip = last_ip;
+	}
+
+	public Date getGmt_created() {
+		return gmt_created;
+	}
+
+	public void setGmt_created(Date gmt_created) {
+		this.gmt_created = gmt_created;
+	}
+
+	public Date getGmt_modified() {
+		return gmt_modified;
+	}
+
+	public void setGmt_modified(Date gmt_modified) {
+		this.gmt_modified = gmt_modified;
+	}
 
 	@Override
 	public int hashCode() {
@@ -63,12 +157,18 @@ public class ManagerDO implements Serializable {
 		int result = 1;
 		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((gmt_created == null) ? 0 : gmt_created.hashCode());
-		result = prime * result + ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
+		result = prime * result
+				+ ((gmt_created == null) ? 0 : gmt_created.hashCode());
+		result = prime * result
+				+ ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + (int) (last_ip ^ (last_ip >>> 32));
-		result = prime * result + ((last_login == null) ? 0 : last_login.hashCode());
+		result = prime * result + ((last_ip == null) ? 0 : last_ip.hashCode());
+		result = prime * result
+				+ ((last_login == null) ? 0 : last_login.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((salt == null) ? 0 : salt.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
@@ -107,7 +207,10 @@ public class ManagerDO implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (last_ip != other.last_ip)
+		if (last_ip == null) {
+			if (other.last_ip != null)
+				return false;
+		} else if (!last_ip.equals(other.last_ip))
 			return false;
 		if (last_login == null) {
 			if (other.last_login != null)
@@ -119,6 +222,16 @@ public class ManagerDO implements Serializable {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (salt == null) {
+			if (other.salt != null)
+				return false;
+		} else if (!salt.equals(other.salt))
+			return false;
 		if (status == null) {
 			if (other.status != null)
 				return false;
@@ -127,117 +240,4 @@ public class ManagerDO implements Serializable {
 		return true;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Date getGmt_created() {
-		return gmt_created;
-	}
-
-	public void setGmt_created(Date gmt_created) {
-		this.gmt_created = gmt_created;
-	}
-
-	public Date getGmt_modified() {
-		return gmt_modified;
-	}
-
-	public void setGmt_modified(Date gmt_modified) {
-		this.gmt_modified = gmt_modified;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * @param email
-	 *            the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	/**
-	 * @return the avatar
-	 */
-	public String getAvatar() {
-		return avatar;
-	}
-
-	/**
-	 * @param avatar
-	 *            the avatar to set
-	 */
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
-
-	/**
-	 * @return the status
-	 */
-	public Byte getStatus() {
-		return status;
-	}
-
-	/**
-	 * @param status
-	 *            the status to set
-	 */
-	public void setStatus(Byte status) {
-		this.status = status;
-	}
-
-	/**
-	 * @return the last_login
-	 */
-	public Date getLast_login() {
-		return last_login;
-	}
-
-	/**
-	 * @param last_login
-	 *            the last_login to set
-	 */
-	public void setLast_login(Date last_login) {
-		this.last_login = last_login;
-	}
-
-	/**
-	 * @return the last_ip
-	 */
-	public long getLast_ip() {
-		return last_ip;
-	}
-
-	/**
-	 * @param last_ip
-	 *            the last_ip to set
-	 */
-	public void setLast_ip(long last_ip) {
-		this.last_ip = last_ip;
-	}
 }
