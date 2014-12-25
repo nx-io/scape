@@ -1,9 +1,17 @@
 package me.scape.ti.dataobject;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 景观案例信息。
@@ -14,7 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "item", catalog = "scape")
-public class ItemDO extends BaseDO {
+public class ItemDO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -70,10 +78,23 @@ public class ItemDO extends BaseDO {
 	@Column(name = "user_id", nullable = false)
 	private Long user_id;// 发布者
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", unique = true, nullable = false)
+	private Long id;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "gmt_created", nullable = false)
+	private Date gmt_created;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "gmt_modified")
+	private Date gmt_modified;
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
 		result = prime * result + ((area_category_id == null) ? 0 : area_category_id.hashCode());
 		result = prime * result + ((category_id == null) ? 0 : category_id.hashCode());
 		result = prime * result + ((comment_count == null) ? 0 : comment_count.hashCode());
@@ -83,6 +104,9 @@ public class ItemDO extends BaseDO {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((designer == null) ? 0 : designer.hashCode());
 		result = prime * result + ((designer_contact == null) ? 0 : designer_contact.hashCode());
+		result = prime * result + ((gmt_created == null) ? 0 : gmt_created.hashCode());
+		result = prime * result + ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((like_count == null) ? 0 : like_count.hashCode());
 		result = prime * result + ((media_count == null) ? 0 : media_count.hashCode());
 		result = prime * result + ((praise_count == null) ? 0 : praise_count.hashCode());
@@ -98,7 +122,7 @@ public class ItemDO extends BaseDO {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -148,6 +172,21 @@ public class ItemDO extends BaseDO {
 				return false;
 		} else if (!designer_contact.equals(other.designer_contact))
 			return false;
+		if (gmt_created == null) {
+			if (other.gmt_created != null)
+				return false;
+		} else if (!gmt_created.equals(other.gmt_created))
+			return false;
+		if (gmt_modified == null) {
+			if (other.gmt_modified != null)
+				return false;
+		} else if (!gmt_modified.equals(other.gmt_modified))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		if (like_count == null) {
 			if (other.like_count != null)
 				return false;
@@ -189,6 +228,30 @@ public class ItemDO extends BaseDO {
 		} else if (!user_id.equals(other.user_id))
 			return false;
 		return true;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getGmt_created() {
+		return gmt_created;
+	}
+
+	public void setGmt_created(Date gmt_created) {
+		this.gmt_created = gmt_created;
+	}
+
+	public Date getGmt_modified() {
+		return gmt_modified;
+	}
+
+	public void setGmt_modified(Date gmt_modified) {
+		this.gmt_modified = gmt_modified;
 	}
 
 	/**

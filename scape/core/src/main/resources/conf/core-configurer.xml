@@ -35,6 +35,7 @@
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<context:annotation-config />
 	<mvc:annotation-driven />
+    <context:component-scan base-package="me.scape.ti.dataobject" />
 	<context:component-scan base-package="me.scape.ti.dao.impl"/>
 	
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
@@ -44,5 +45,9 @@
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
+    
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
     
 </beans>

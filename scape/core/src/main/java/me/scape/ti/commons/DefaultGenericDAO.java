@@ -8,12 +8,15 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  * 
@@ -29,10 +32,17 @@ public class DefaultGenericDAO<T, PK extends Serializable> implements GenericDAO
 	@PersistenceContext(unitName = "scape")
 	protected EntityManager entityManager;
 
+	@Autowired
+	@Qualifier(value = "entityManagerFactory")
+	protected EntityManagerFactory entityManagerFactory;
+
 	protected final Class<T> entityType;
 
 	public DefaultGenericDAO() {
 		entityType = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		System.out.println("entityManagerFactory : " + entityManagerFactory);
+		System.out.println("entityManager : " + entityManager);
+		entityManager = entityManagerFactory.createEntityManager();
 	}
 
 	protected List<T> findByQuery(Query query, Map<String, Object> args) {
@@ -136,11 +146,23 @@ public class DefaultGenericDAO<T, PK extends Serializable> implements GenericDAO
 		getEntityManager().remove(entity);
 	}
 
+	protected EntityManagerFactory getEntityManagerFactory() {
+		return entityManagerFactory;
+	}
+
 	protected EntityManager getEntityManager() {
 		return entityManager;
 	}
 
 	protected Class<T> getEntityType() {
 		return entityType;
+	}
+	
+	public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
+		this.entityManagerFactory = entityManagerFactory;
+	}
+	
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
 	}
 }
