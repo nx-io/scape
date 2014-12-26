@@ -38,17 +38,11 @@
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<context:annotation-config />
 	<mvc:annotation-driven />
-    <context:component-scan base-package="me.scape.ti.dataobject" />
 	<context:component-scan base-package="me.scape.ti.dao.impl"/>
 	
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="scape" />
         <property name="packagesToScan" value="me.scape.ti.dataobject"/>
-        <!-- 
-        <property name="jpaVendorAdapter">
-        	<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
-        </property>
-         -->
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
@@ -58,13 +52,5 @@
     <tx:annotation-driven transaction-manager="transactionManager"/>
     
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
-	
-	<!-- 
-	<jpa:repositories base-package="me.scape.ti.dao.impl"/>
-	
-	<bean class="me.scape.ti.commons.JpaApplication"/>
-	
-	
-	 -->
     
 </beans>

@@ -5,7 +5,7 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-            <property name="hibernate.show_sql" value="true" />
+            
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
             <property name="hibernate.connection.url"
                 value="jdbc:mysql://scape_mysql_master:3306/scape?useUnicode=yes&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;useServerPrepStmts=true&amp;useCursorFetch=true" />
@@ -19,6 +19,8 @@
             <property name="hibernate.c3p0.idle_test_period" value="3000" />
             <property name="hibernate.c3p0.max_statements" value="0" />
             <property name="hibernate.c3p0.3600" value="3600" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.show_sql" value="true" />
         </properties>
     </persistence-unit>
 </persistence>

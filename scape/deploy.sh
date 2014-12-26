@@ -6,6 +6,8 @@ echo "copy war..."
 #cp web/target/scape-web.war $JBOSS_HOME/standalone/deployments/
 #cp manager/target/scape-manager.war $JBOSS_HOME/standalone/deployments/
 
+cp -r api/target/scape-api/* D://software/apache-tomcat-6.0.41/webapps/ROOT
+
 #sh $TOMCAT_HOME/bin/shutdown.sh
 #cp -r api/target/scape-api/* $TOMCAT_HOME/webapps/ROOT/
 #cp -r web/target/scape-web/* $TOMCAT_HOME/webapps/ROOT/

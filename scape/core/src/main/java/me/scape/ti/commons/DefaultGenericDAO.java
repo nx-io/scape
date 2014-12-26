@@ -14,6 +14,7 @@ import javax.persistence.TemporalType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 
 /**
  * 
@@ -22,18 +23,17 @@ import org.slf4j.LoggerFactory;
  * @since 2014年12月17日 下午11:11:22
  */
 @SuppressWarnings("unchecked")
-public abstract class DefaultGenericDAO<T, PK extends Serializable> extends EntityManagerSupport implements GenericDAO<T, PK> {
+public class DefaultGenericDAO<T, PK extends Serializable> implements GenericDAO<T, PK>, InitializingBean {
 
 	protected Logger log = LoggerFactory.getLogger(getClass());
 
-	@PersistenceContext(unitName = "scape")
+	@PersistenceContext(name = "scape")
 	protected EntityManager entityManager;
 	
 	protected final Class<T> entityType;
 	
 	public DefaultGenericDAO() {
 		entityType = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-		entityManager = entityManagerFactory().createEntityManager();
 	}
 
 	protected List<T> findByQuery(Query query, Map<String, Object> args) {
@@ -135,6 +135,15 @@ public abstract class DefaultGenericDAO<T, PK extends Serializable> extends Enti
 	@Override
 	public void remove(T entity) {
 		getEntityManager().remove(entity);
+	}
+
+	@Override
+	public final void afterPropertiesSet() throws Exception {
+		init();
+	}
+	
+	protected void init() throws Exception {
+		
 	}
 
 	protected EntityManager getEntityManager() {
