@@ -6,14 +6,19 @@
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
             <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            
-            <property name="hibernate.connection.provider_class" value="org.hibernate.connection.ProxoolConnectionProvider"/>
-            
-            <property name="hibernate.proxool.pool_alias" value="scape_proxool"/>
-            <property name="hibernate.proxool.xml" value="META-INF/proxool.xml"/>
-            
+            <property name="hibernate.connection.url"
+                value="jdbc:mysql://scape_mysql_master:3306/scape?useUnicode=yes&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;useServerPrepStmts=true&amp;useCursorFetch=true" />
+            <property name="hibernate.connection.username" value="root" />
+            <property name="hibernate.connection.password" value="lF0130lf" />
+            <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false" />
+            <property name="hibernate.connection.provider_class" value="org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider" />
+            <property name="hibernate.c3p0.min_size" value="5" />
+            <property name="hibernate.c3p0.max_size" value="50" />
+            <property name="hibernate.c3p0.acquire_increment" value="5" />
+            <property name="hibernate.c3p0.idle_test_period" value="3000" />
+            <property name="hibernate.c3p0.max_statements" value="0" />
+            <property name="hibernate.c3p0.3600" value="3600" />
         </properties>
     </persistence-unit>
 </persistence>

@@ -1,10 +1,10 @@
 package me.scape.ti.dao.impl;
 
-import org.springframework.stereotype.Repository;
-
 import me.scape.ti.commons.DefaultGenericDAO;
 import me.scape.ti.dao.UserFavoriteDAO;
 import me.scape.ti.dataobject.UserFavoriteDO;
+
+import org.springframework.stereotype.Repository;
 
 /**
  * 

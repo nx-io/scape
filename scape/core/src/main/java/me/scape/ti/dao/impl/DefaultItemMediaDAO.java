@@ -1,10 +1,10 @@
 package me.scape.ti.dao.impl;
 
-import org.springframework.stereotype.Repository;
-
 import me.scape.ti.commons.DefaultGenericDAO;
 import me.scape.ti.dao.ItemMediaDAO;
 import me.scape.ti.dataobject.ItemMediaDO;
+
+import org.springframework.stereotype.Repository;
 
 /**
  * 
