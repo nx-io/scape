@@ -1,5 +1,8 @@
 package me.scape.ti.controller;
 
+import me.scape.ti.dataobject.UserDO;
+import me.scape.ti.http.JSONResponse;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,10 @@ public class Test {
 	@RequestMapping(value = "/test/home", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> test(@RequestParam(value = "name", required = false) final String name) {
-		return new ResponseEntity<String>("hello " + name, HttpStatus.OK);
+		UserDO user = new UserDO();
+		user.setAvatar("asas");
+		user.setId(123L);
+		user.setName(name);
+		return new JSONResponse(new me.scape.ti.http.ResponseBody().code(200).message("ok").add("user", user), HttpStatus.OK);
 	}
 }
