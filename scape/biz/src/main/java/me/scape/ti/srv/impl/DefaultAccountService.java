@@ -28,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class DefaultAccountService extends BaseService implements AccountService {
 
 	@Override
+	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result login(String name, String password) {
 		if (StringUtils.isBlank(name)) {
 			return Result.newError().with(ResultCode.Error_Permission);
@@ -43,8 +44,10 @@ public class DefaultAccountService extends BaseService implements AccountService
 			return Result.newError().with(ResultCode.Error_Permission);
 		}
 		Date now = new Date();
-		userDAO.updateByNativeQuery("UPDATE user SET last_login = ?, last_ip = ?, gmt_modified = ? WHERE id = ?", 
-				new Object[]{ now, getIp(), now, user.getId() });
+		user.setGmt_modified(now);
+		user.setLast_ip(getIp());
+		user.setLast_login(now);
+		userDAO.merge(user);
 		return Result.newSuccess().with(ResultCode.Success).with("user", UserVO.newInstance(user));
 	}
 

@@ -60,4 +60,6 @@ public interface GenericDAO<T, PK extends Serializable> {
 	void clear();
 
 	void remove(T entity);
+
+	T merge(T entity);
 }

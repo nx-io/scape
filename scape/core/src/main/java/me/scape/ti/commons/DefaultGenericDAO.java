@@ -97,6 +97,12 @@ public class DefaultGenericDAO<T, PK extends Serializable> implements GenericDAO
 		getEntityManager().persist(entity);
 		return entity;
 	}
+	
+	@Override
+	public T merge(T entity) {
+		getEntityManager().merge(entity);
+		return entity;
+	}
 
 	@Override
 	public void flush() {
