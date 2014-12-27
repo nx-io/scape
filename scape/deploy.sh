@@ -20,4 +20,4 @@ echo "deploy success!"
 
 #sh $TOMCAT_HOME/bin/startup.sh
 
-
+tail -f D://Users/yp/scape/log/* 

@@ -1,5 +1,7 @@
 package me.scape.ti.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -11,6 +13,7 @@ import me.scape.ti.ro.RegisterRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,7 +34,12 @@ public class AccountController extends BaseController {
 			BindingResult validResult,
 			HttpServletRequest request, HttpServletResponse response) {
 		if(validResult.hasErrors()) {
-			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
+			StringBuffer sb = new StringBuffer();
+			List<ObjectError> errors = validResult.getAllErrors();
+			for (ObjectError objectError : errors) {
+				sb.append(objectError).append("\n");
+			}
+			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request).message(sb.toString()));
 		}
 		Result result = accountService.register(registerRequest);
 		return toResponse(result);
