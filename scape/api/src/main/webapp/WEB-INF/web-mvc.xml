@@ -38,17 +38,40 @@
 	
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <property name="messageConverters">
-            <list>
-                <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                    <property name="supportedMediaTypes">
-                        <list>
-                            <value>application/json;charset=UTF-8</value>
-                        </list>
-                    </property>
-                </bean>
-            </list>
+            <util:list id="beanList">
+	            <ref bean="stringHttpMessageConverter"/>
+	            <ref bean="marshallingHttpMessageConverter"/>
+	        </util:list>
         </property>
     </bean>
+    
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+	    <property name="messageConverters">
+	        <util:list id="beanList">
+	            <ref bean="stringHttpMessageConverter"/>
+	            <ref bean="marshallingHttpMessageConverter"/>
+	        </util:list>
+	    </property>
+	</bean>
+	
+	<bean id="stringHttpMessageConverter"
+	      class="org.springframework.http.converter.StringHttpMessageConverter">
+	      <property name="supportedMediaTypes">
+              <list>
+                  <value>text/html;charset=UTF-8</value>
+                  <value>application/json;charset=UTF-8</value>
+              </list>
+          </property>
+          <property name="writeAcceptCharset" value="true"/>
+	</bean>
+	
+	<bean id="marshallingHttpMessageConverter" 
+		  class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+	    <property name="marshaller" ref="castorMarshaller" />
+	    <property name="unmarshaller" ref="castorMarshaller" />
+	</bean>
+	
+	<bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller"/>
 	
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="104857600" />

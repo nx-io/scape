@@ -3,6 +3,8 @@ package me.scape.ti.http;
 import java.util.HashMap;
 import java.util.Map;
 
+import me.scape.ti.utils.CalendarUtil;
+
 import org.springframework.http.HttpStatus;
 
 import com.google.gson.Gson;
@@ -16,7 +18,7 @@ import com.google.gson.GsonBuilder;
  */
 public class JSONResponseBody {
 	
-	private final static Gson GSON = new GsonBuilder().disableHtmlEscaping().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+	private final static Gson GSON = new GsonBuilder().disableHtmlEscaping().setDateFormat(CalendarUtil.S_YYYY_MM_DD_HH_MM_SS).create();
 	
 	private long code;
 	private String message;
