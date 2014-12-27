@@ -1,9 +1,12 @@
 package me.scape.ti.srv.impl;
 
-import org.springframework.stereotype.Service;
-
+import me.scape.ti.dataobject.ItemDO;
+import me.scape.ti.result.Result;
+import me.scape.ti.result.ResultCode;
 import me.scape.ti.srv.BaseService;
 import me.scape.ti.srv.ItemService;
+
+import org.springframework.stereotype.Service;
 
 /**
  * 
@@ -14,4 +17,15 @@ import me.scape.ti.srv.ItemService;
 @Service(value = "itemService")
 public class DefaultItemService extends BaseService implements ItemService {
 
+	@Override
+	public Result getItem(Long itemId) {
+		if(itemId == null || itemId <= 0L) {
+			return Result.newError().with(ResultCode.Error_Item_Detail);
+		}
+		ItemDO item = itemDAO.findById(itemId);
+		if(item == null) {
+			return Result.newError().with(ResultCode.Error_Item_Detail);
+		}
+		return Result.newSuccess().with(ResultCode.Success).with("item", 000);
+	}
 }

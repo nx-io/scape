@@ -23,6 +23,8 @@ public enum ResultCode {
 	
 	Error_Valid_Request					(-4000L, 	"数据验证失败"),
 	
+	Error_Item_Detail					(-5000L, 	"案例不存在"),
+	
 	;
 	public final long code;
 	public final String description;

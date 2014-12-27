@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -44,8 +43,7 @@ public class ItemDO implements Serializable {
 	@Column(name = "status", nullable = false)
 	private Byte status;// 状态，1:可用，0:不可用，-1:删除
 
-	@Lob
-	@Column(name = "description")
+	@Column(name = "description", length = 2048)
 	private String description;// 案例描述, 过长的话考虑以后放入redis缓存
 
 	@Column(name = "designer", length = 64)
