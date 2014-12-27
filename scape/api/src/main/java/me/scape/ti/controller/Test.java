@@ -2,7 +2,7 @@ package me.scape.ti.controller;
 
 import me.scape.ti.dataobject.UserDO;
 import me.scape.ti.http.JSONResponseBody;
-import me.scape.ti.http.ResponseCode;
+import me.scape.ti.result.ResultCode;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ public class Test extends BaseController {
 		user.setAvatar("asas");
 		user.setId(123L);
 		user.setName(name);
-		return JSONResponseBody.newInstance(ResponseCode.Succeed).with("user", user).toResponse();
+		return JSONResponseBody.newInstance().code(ResultCode.Success.code).message(ResultCode.Success.description).with("user", user).toResponse();
 	}
 	
 	@RequestMapping(value = "/test/error", method = RequestMethod.GET, produces="application/json")

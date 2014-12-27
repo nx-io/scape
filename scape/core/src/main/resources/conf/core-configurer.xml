@@ -37,7 +37,6 @@
 	
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<context:annotation-config />
-	<mvc:annotation-driven />
 	<context:component-scan base-package="me.scape.ti.dao.impl"/>
 	
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">

@@ -6,6 +6,7 @@ import java.util.Map;
 import me.scape.ti.utils.CalendarUtil;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.util.CollectionUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,20 +29,8 @@ public class JSONResponseBody {
 		return new JSONResponseBody();
 	}
 	
-	public static JSONResponseBody newInstance(ResponseCode responseCode) {
-		return new JSONResponseBody(responseCode);
-	}
-	
 	public JSONResponseBody() {
 		super();
-	}
-	
-	public JSONResponseBody(ResponseCode responseCode) {
-		code(responseCode.code).message(responseCode.message);
-	}
-	
-	public JSONResponseBody with(ResponseCode responseCode) {
-		return code(responseCode.code).message(responseCode.message);
 	}
 	
 	public JSONResponse toResponse() {
@@ -85,11 +74,28 @@ public class JSONResponseBody {
 		this.data = data;
 	}
 	
+	public JSONResponseBody with(Map<String, Object> data) {
+		if(CollectionUtils.isEmpty(data)) {
+			return this;
+		}
+		if(this.data == null) {
+			this.data = new HashMap<String, Object>();
+		}
+		this.data.putAll(data);
+		return this;
+	}
+	
 	public JSONResponseBody with(String key, Object value) {
 		if(data == null) {
 			data = new HashMap<String, Object>();
 		}
 		data.put(key, value);
+		return this;
+	}
+	
+	public JSONResponseBody with(long code, String message) {
+		setCode(code);
+		setMessage(message);
 		return this;
 	}
 	

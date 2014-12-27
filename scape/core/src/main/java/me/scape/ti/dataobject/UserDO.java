@@ -26,6 +26,10 @@ public class UserDO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final byte Available = 1;
+	public static final byte Unavailable = 0;
+	public static final byte Strike_out = -1;
+	
 	@Column(name = "name", nullable = false, length = 64)
 	private String name;// 设计师/企业名称
 
@@ -56,7 +60,7 @@ public class UserDO implements Serializable {
 	@Column(name = "category_id")
 	private Long category_id;// 特长
 	@Lob
-	@Column(name = "profile", nullable = false)
+	@Column(name = "profile")
 	private String profile;// 简介
 
 	@Column(name = "is_email_verified", nullable = false)
@@ -69,7 +73,7 @@ public class UserDO implements Serializable {
 	@Column(name = "last_login")
 	private Date last_login;// 最后一次登录的时间
 
-	@Column(name = "last_ip", nullable = false)
+	@Column(name = "last_ip")
 	private long last_ip;// 最后一次登录的IP
 
 	@Id
@@ -82,7 +86,7 @@ public class UserDO implements Serializable {
 	private Date gmt_created;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "gmt_modified")
+	@Column(name = "gmt_modified", nullable = false)
 	private Date gmt_modified;
 
 	@Override

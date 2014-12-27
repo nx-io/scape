@@ -6,7 +6,10 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:conf/core-configurer.xml</param-value>
+		<param-value>
+		classpath:conf/core-configurer.xml
+		classpath:conf/biz-configurer.xml
+		</param-value>
 	</context-param>
 
 	<context-param>
