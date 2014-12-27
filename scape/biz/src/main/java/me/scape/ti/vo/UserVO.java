@@ -43,8 +43,6 @@ public class UserVO {
 
 	private Date gmt_created;
 
-	private Date gmt_modified;
-
 	public static UserVO newInstance(UserDO _do) {
 		return new UserVO().transform(_do);
 	}
@@ -186,13 +184,5 @@ public class UserVO {
 
 	public void setGmt_created(Date gmt_created) {
 		this.gmt_created = gmt_created;
-	}
-
-	public Date getGmt_modified() {
-		return gmt_modified;
-	}
-
-	public void setGmt_modified(Date gmt_modified) {
-		this.gmt_modified = gmt_modified;
 	}
 }

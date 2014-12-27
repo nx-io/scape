@@ -11,6 +11,7 @@ import java.util.Map;
  * @since 2014年12月17日 下午11:01:41
  */
 public interface GenericDAO<T, PK extends Serializable> {
+	
 	List<T> findByQuery(String query, Map<String, Object> args);
 
 	List<T> findByQuery(String query, Object[] args);
@@ -18,6 +19,10 @@ public interface GenericDAO<T, PK extends Serializable> {
 	T findOneByQuery(String query, Object[] args);
 	
 	T findOneByQuery(String query, Map<String, Object> args);
+
+	List<T> findByQuery(String query);
+	
+	
 
 	List<T> findByNamedQuery(String queryName, Map<String, Object> args);
 
@@ -27,10 +32,25 @@ public interface GenericDAO<T, PK extends Serializable> {
 
 	T findOneByNamedQuery(String queryName, Object[] args);
 
-	List<T> findByQuery(String query);
-
 	List<T> findByNamedQuery(String queryName);
+	
+	
 
+	int updateByQuery(String query, Map<String, Object> args);
+
+	int updateByQuery(String query, Object[] args);
+	
+
+	int updateByNamedQuery(String queryName, Map<String, Object> args);
+	
+	int updateByNamedQuery(String queryName, Object[] args);
+	
+
+	int updateByNativeQuery(String query, Object[] args);
+
+	int updateByNativeQuery(String query, Map<String, Object> args);
+	
+	
 	T findById(PK id);
 
 	T persist(T entity);

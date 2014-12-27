@@ -1,8 +1,6 @@
 package me.scape.ti.srv.impl;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import me.scape.ti.dataobject.UserDO;
 import me.scape.ti.result.Result;
@@ -37,15 +35,16 @@ public class DefaultAccountService extends BaseService implements AccountService
 		if (StringUtils.isBlank(password)) {
 			return Result.newError().with(ResultCode.Error_Permission);
 		}
-		Map<String, Object> args = new HashMap<String, Object>();
-		args.put("name", name);
-		UserDO user = userDAO.findOneByNamedQuery("User.getUserByName", args);
+		UserDO user = userDAO.findOneByNamedQuery("User.getUserByName", new Object[]{ name });
 		if(user == null) {
 			return Result.newError().with(ResultCode.Error_Permission);
 		}
 		if(!StringUtils.equals(PasswdUtils.signPwsswd(password, user.getSalt()), user.getPassword())) {
 			return Result.newError().with(ResultCode.Error_Permission);
 		}
+		Date now = new Date();
+		userDAO.updateByNativeQuery("UPDATE user SET last_login = ?, last_ip = ?, gmt_modified = ? WHERE id = ?", 
+				new Object[]{ now, getIp(), now, user.getId() });
 		return Result.newSuccess().with(ResultCode.Success).with("user", UserVO.newInstance(user));
 	}
 

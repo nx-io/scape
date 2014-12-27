@@ -24,7 +24,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "user", catalog = "scape")
 @NamedQueries({
-    @NamedQuery(name = "User.getUserByName", query = "FROM UserDO u WHERE u.name = :name"),
+    @NamedQuery(name = "User.getUserByName", query = "FROM UserDO u WHERE u.name = ?"),
     })
 public class UserDO implements Serializable {
 
