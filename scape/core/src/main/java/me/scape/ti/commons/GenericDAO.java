@@ -14,10 +14,18 @@ public interface GenericDAO<T, PK extends Serializable> {
 	List<T> findByQuery(String query, Map<String, Object> args);
 
 	List<T> findByQuery(String query, Object[] args);
+	
+	T findOneByQuery(String query, Object[] args);
+	
+	T findOneByQuery(String query, Map<String, Object> args);
 
 	List<T> findByNamedQuery(String queryName, Map<String, Object> args);
 
 	List<T> findByNamedQuery(String queryName, Object[] args);
+	
+	T findOneByNamedQuery(String queryName, Map<String, Object> args);
+
+	T findOneByNamedQuery(String queryName, Object[] args);
 
 	List<T> findByQuery(String query);
 

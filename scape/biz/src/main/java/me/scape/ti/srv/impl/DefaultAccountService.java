@@ -1,6 +1,8 @@
 package me.scape.ti.srv.impl;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import me.scape.ti.dataobject.UserDO;
 import me.scape.ti.result.Result;
@@ -29,44 +31,59 @@ public class DefaultAccountService extends BaseService implements AccountService
 
 	@Override
 	public Result login(String name, String password) {
-		return null;
+		if (StringUtils.isBlank(name)) {
+			return Result.newError().with(ResultCode.Error_Permission);
+		}
+		if (StringUtils.isBlank(password)) {
+			return Result.newError().with(ResultCode.Error_Permission);
+		}
+		Map<String, Object> args = new HashMap<String, Object>();
+		args.put("name", name);
+		UserDO user = userDAO.findOneByNamedQuery("User.getUserByName", args);
+		if(user == null) {
+			return Result.newError().with(ResultCode.Error_Permission);
+		}
+		if(!StringUtils.equals(PasswdUtils.signPwsswd(password, user.getSalt()), user.getPassword())) {
+			return Result.newError().with(ResultCode.Error_Permission);
+		}
+		return Result.newSuccess().with(ResultCode.Success).with("user", UserVO.newInstance(user));
 	}
 
 	@Override
-    @Transactional(value = "transactionManager", rollbackFor = Throwable.class)
+	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result register(RegisterRequest request) {
 		String name = request.getName();
 		String password = request.getPassword();
-    	String mobile = request.getMobile();
-    	String avatar = request.getAvatar();
-		if(StringUtils.isBlank(name)) {
+		String mobile = request.getMobile();
+		String avatar = request.getAvatar();
+		if (StringUtils.isBlank(name)) {
 			return Result.newError().with(ResultCode.Error_Register_Name);
 		}
-		if(StringUtils.isBlank(password)) {
+		if (StringUtils.isBlank(password)) {
 			return Result.newError().with(ResultCode.Error_Register_Passwd);
 		}
-		if(!ValidationUtils.isMobilePhoneNumber(mobile)) {
-    		return Result.newError().with(ResultCode.Error_Register_Mobile);
-    	}
-    	UserDO user = new UserDO();
+		if (!ValidationUtils.isMobilePhoneNumber(mobile)) {
+			return Result.newError().with(ResultCode.Error_Register_Mobile);
+		}
+		UserDO user = new UserDO();
 		user.setAvatar(avatar);
-    	user.setName(name);
-    	user.setMobile(mobile);
-    	String token = TokenUtils.generate();
-    	user.setSalt(token);
-    	user.setPassword(PasswdUtils.signPwsswd(password, token));
-    	user.setStatus(UserDO.Available);
-    	user.setLast_ip(getIp());
-    	Date now = new Date();
-    	user.setGmt_created(now);
-    	user.setGmt_modified(now);
-    	user.setLast_login(now);
-    	try {
+		user.setName(name);
+		user.setMobile(mobile);
+		String token = TokenUtils.generate();
+		user.setSalt(token);
+		user.setPassword(PasswdUtils.signPwsswd(password, token));
+		user.setStatus(UserDO.Available);
+		user.setLast_ip(getIp());
+		Date now = new Date();
+		user.setGmt_created(now);
+		user.setGmt_modified(now);
+		user.setLast_login(now);
+		try {
 			userDAO.persist(user);
-	    	return Result.newSuccess().with(ResultCode.Success).with("user", UserVO.newInstance(user));
+			return Result.newSuccess().with(ResultCode.Success).with("user", UserVO.newInstance(user));
 		} catch (Exception e) {
 			log.error("Account Register Error.", e);
 		}
-    	return Result.newError().with(ResultCode.Error_Register);
+		return Result.newError().with(ResultCode.Error_Register);
 	}
 }

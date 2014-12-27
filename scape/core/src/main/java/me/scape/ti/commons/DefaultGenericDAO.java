@@ -57,6 +57,28 @@ public class DefaultGenericDAO<T, PK extends Serializable> implements GenericDAO
 		}
 		return query.getResultList();
 	}
+	
+	protected T findOneByQuery(Query query, Map<String, Object> args) {
+		if (args == null || args.isEmpty()) {
+			return (T) query.getSingleResult();
+		}
+		for (Map.Entry<String, Object> entry : args.entrySet()) {
+			if (entry.getValue() instanceof Date) {
+				query.setParameter(entry.getKey(), (Date) entry.getValue(), TemporalType.TIMESTAMP);
+				continue;
+			}
+			if (entry.getValue() instanceof java.sql.Date) {
+				query.setParameter(entry.getKey(), (java.sql.Date) entry.getValue(), TemporalType.TIMESTAMP);
+				continue;
+			}
+			if (entry.getValue() instanceof Calendar) {
+				query.setParameter(entry.getKey(), (Calendar) entry.getValue(), TemporalType.TIMESTAMP);
+				continue;
+			}
+			query.setParameter(entry.getKey(), entry.getValue());
+		}
+		return (T) query.getSingleResult();
+	}
 
 	protected List<T> findByQuery(Query query, Object[] args) {
 		if (args == null || args.length <= 0) {
@@ -79,6 +101,29 @@ public class DefaultGenericDAO<T, PK extends Serializable> implements GenericDAO
 			query.setParameter(position++, value);
 		}
 		return query.getResultList();
+	}
+	
+	protected T findOneByQuery(Query query, Object[] args) {
+		if (args == null || args.length <= 0) {
+			return (T) query.getSingleResult();
+		}
+		int position = 1;
+		for (Object value : args) {
+			if (value instanceof Date) {
+				query.setParameter(position++, (Date) value, TemporalType.TIMESTAMP);
+				continue;
+			}
+			if (value instanceof java.sql.Date) {
+				query.setParameter(position++, (java.sql.Date) value, TemporalType.TIMESTAMP);
+				continue;
+			}
+			if (value instanceof Calendar) {
+				query.setParameter(position++, (Calendar) value, TemporalType.TIMESTAMP);
+				continue;
+			}
+			query.setParameter(position++, value);
+		}
+		return (T) query.getSingleResult();
 	}
 
 	@Override
@@ -109,6 +154,26 @@ public class DefaultGenericDAO<T, PK extends Serializable> implements GenericDAO
 	@Override
 	public List<T> findByNamedQuery(String queryName) {
 		return findByQuery(getEntityManager().createNamedQuery(queryName), new Object[]{});
+	}
+
+	@Override
+	public T findOneByQuery(String query, Object[] args) {
+		return findOneByQuery(getEntityManager().createQuery(query), args);
+	}
+
+	@Override
+	public T findOneByQuery(String query, Map<String, Object> args) {
+		return findOneByQuery(getEntityManager().createQuery(query), args);
+	}
+
+	@Override
+	public T findOneByNamedQuery(String queryName, Map<String, Object> args) {
+		return findOneByQuery(getEntityManager().createNamedQuery(queryName), args);
+	}
+
+	@Override
+	public T findOneByNamedQuery(String queryName, Object[] args) {
+		return findOneByQuery(getEntityManager().createNamedQuery(queryName), args);
 	}
 
 	@Override
