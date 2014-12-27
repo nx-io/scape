@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -59,8 +58,8 @@ public class UserDO implements Serializable {
 
 	@Column(name = "category_id")
 	private Long category_id;// 特长
-	@Lob
-	@Column(name = "profile")
+	
+	@Column(name = "profile", length = 2048)
 	private String profile;// 简介
 
 	@Column(name = "is_email_verified", nullable = false)

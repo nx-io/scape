@@ -1,6 +1,7 @@
 package me.scape.ti.srv;
 
 import me.scape.ti.result.Result;
+import me.scape.ti.ro.RegisterRequest;
 
 /**
  * 
@@ -10,6 +11,8 @@ import me.scape.ti.result.Result;
  */
 public interface AccountService {
 
-	Result register(String name, String password, String mobile, String avatar);
+	Result register(RegisterRequest request);
+
+	Result login(String name, String password);
 
 }

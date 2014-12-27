@@ -21,6 +21,8 @@ public enum ResultCode {
 	
 	Error_Exception						(-3000L,	"业务处理失败"),
 	
+	Error_Valid_Request					(-4000L, 	"数据验证失败"),
+	
 	;
 	public final long code;
 	public final String description;

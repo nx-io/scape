@@ -5,11 +5,13 @@ import java.util.Date;
 import me.scape.ti.dataobject.UserDO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
+import me.scape.ti.ro.RegisterRequest;
 import me.scape.ti.srv.AccountService;
 import me.scape.ti.srv.BaseService;
 import me.scape.ti.utils.PasswdUtils;
 import me.scape.ti.utils.TokenUtils;
 import me.scape.ti.utils.ValidationUtils;
+import me.scape.ti.vo.UserVO;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -26,19 +28,28 @@ import org.springframework.transaction.annotation.Transactional;
 public class DefaultAccountService extends BaseService implements AccountService {
 
 	@Override
+	public Result login(String name, String password) {
+		return null;
+	}
+
+	@Override
     @Transactional(value = "transactionManager", rollbackFor = Throwable.class)
-	public Result register(String name, String password, String mobile, String avatar) {
+	public Result register(RegisterRequest request) {
+		String name = request.getName();
+		String password = request.getPassword();
+    	String mobile = request.getMobile();
+    	String avatar = request.getAvatar();
 		if(StringUtils.isBlank(name)) {
 			return Result.newError().with(ResultCode.Error_Register_Name);
 		}
 		if(StringUtils.isBlank(password)) {
 			return Result.newError().with(ResultCode.Error_Register_Passwd);
 		}
-    	if(!ValidationUtils.isMobilePhoneNumber(mobile)) {
+		if(!ValidationUtils.isMobilePhoneNumber(mobile)) {
     		return Result.newError().with(ResultCode.Error_Register_Mobile);
     	}
     	UserDO user = new UserDO();
-    	user.setAvatar(avatar);
+		user.setAvatar(avatar);
     	user.setName(name);
     	user.setMobile(mobile);
     	String token = TokenUtils.generate();
@@ -52,7 +63,7 @@ public class DefaultAccountService extends BaseService implements AccountService
     	user.setLast_login(now);
     	try {
 			userDAO.persist(user);
-	    	return Result.newSuccess().with(ResultCode.Success).with("user", user);
+	    	return Result.newSuccess().with(ResultCode.Success).with("user", UserVO.newInstance(user));
 		} catch (Exception e) {
 			log.error("Account Register Error.", e);
 		}
