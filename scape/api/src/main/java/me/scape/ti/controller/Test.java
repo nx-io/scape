@@ -1,9 +1,9 @@
 package me.scape.ti.controller;
 
 import me.scape.ti.dataobject.UserDO;
-import me.scape.ti.http.JSONResponse;
+import me.scape.ti.http.JSONResponseBody;
+import me.scape.ti.http.ResponseCode;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +27,6 @@ public class Test {
 		user.setAvatar("asas");
 		user.setId(123L);
 		user.setName(name);
-		return new JSONResponse(new me.scape.ti.http.ResponseBody().code(200).message("ok").add("user", user), HttpStatus.OK);
+		return JSONResponseBody.newInstance(ResponseCode.Succeed).with("user", user).toResponse();
 	}
 }
