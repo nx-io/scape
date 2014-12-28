@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>scape-manager</artifactId>
 	<packaging>war</packaging>
-	
+
 	<name>Landscape Assistant Manager</name>
 	<description>Landscape Assistant Manager</description>
 
@@ -12,17 +12,19 @@
 		<artifactId>scape</artifactId>
 		<version>1.0.0-RELEASE</version>
 	</parent>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>me.scape.ti</groupId>
 			<artifactId>scape-core</artifactId>
 			<version>1.0.0-RELEASE</version>
 		</dependency>
+
+		<!-- Sitemesh -->
 		<dependency>
-			<groupId>me.scape.ti</groupId>
-			<artifactId>scape-biz</artifactId>
-			<version>1.0.0-RELEASE</version>
+			<groupId>opensymphony</groupId>
+			<artifactId>sitemesh</artifactId>
+			<version>2.4.2</version>
 		</dependency>
 	</dependencies>
 
@@ -82,7 +84,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<!--<webappDirectory>target/exploded/scape-manager.war</webappDirectory> -->
 					<webResources>
 						<resource>
 							<filtering>true</filtering>

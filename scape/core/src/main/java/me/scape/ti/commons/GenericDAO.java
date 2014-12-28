@@ -11,67 +11,64 @@ import java.util.Map;
  * @since 2014年12月17日 下午11:01:41
  */
 public interface GenericDAO<T, PK extends Serializable> {
-	
-	List<T> findByNativeQuery(String query, Map<String, Object> args);
 
-	List<T> findByNativeQuery(String query, Object[] args);
-	
-	T findOneByNativeQuery(String query, Object[] args);
-	
-	T findOneByNativeQuery(String query, Map<String, Object> args);
+    List<T> findByNativeQuery(String query, Map<String, Object> args);
 
-	List<T> findByNativeQuery(String query);
-	
-	
-	
-	List<T> findByQuery(String query, Map<String, Object> args);
+    List<T> findByNativeQuery(String query, Object[] args);
 
-	List<T> findByQuery(String query, Object[] args);
-	
-	T findOneByQuery(String query, Object[] args);
-	
-	T findOneByQuery(String query, Map<String, Object> args);
+    T findOneByNativeQuery(String query, Object[] args);
 
-	List<T> findByQuery(String query);
-	
-	
+    T findOneByNativeQuery(String query, Map<String, Object> args);
 
-	List<T> findByNamedQuery(String queryName, Map<String, Object> args);
+    List<T> findByNativeQuery(String query);
 
-	List<T> findByNamedQuery(String queryName, Object[] args);
-	
-	T findOneByNamedQuery(String queryName, Map<String, Object> args);
 
-	T findOneByNamedQuery(String queryName, Object[] args);
+    List<T> findByQuery(String query, Map<String, Object> args);
 
-	List<T> findByNamedQuery(String queryName);
-	
-	
+    List<T> findByQuery(String query, Object[] args);
 
-	int updateByQuery(String query, Map<String, Object> args);
+    T findOneByQuery(String query, Object[] args);
 
-	int updateByQuery(String query, Object[] args);
-	
+    T findOneByQuery(String query, Map<String, Object> args);
 
-	int updateByNamedQuery(String queryName, Map<String, Object> args);
-	
-	int updateByNamedQuery(String queryName, Object[] args);
-	
+    List<T> findByQuery(String query);
 
-	int updateByNativeQuery(String query, Object[] args);
 
-	int updateByNativeQuery(String query, Map<String, Object> args);
-	
-	
-	T findById(PK id);
+    List<T> findByNamedQuery(String queryName, Map<String, Object> args);
 
-	T persist(T entity);
+    List<T> findByNamedQuery(String queryName, Object[] args);
 
-	void flush();
+    T findOneByNamedQuery(String queryName, Map<String, Object> args);
 
-	void clear();
+    T findOneByNamedQuery(String queryName, Object[] args);
 
-	void remove(T entity);
+    List<T> findByNamedQuery(String queryName);
 
-	T merge(T entity);
+
+    int updateByQuery(String query, Map<String, Object> args);
+
+    int updateByQuery(String query, Object[] args);
+
+    int updateByNamedQuery(String queryName, Map<String, Object> args);
+
+    int updateByNamedQuery(String queryName, Object[] args);
+
+    int updateByNativeQuery(String query, Object[] args);
+
+    int updateByNativeQuery(String query, Map<String, Object> args);
+
+
+    T findById(PK id);
+
+    List<T> findAll();
+
+    T persist(T entity);
+
+    void flush();
+
+    void clear();
+
+    void remove(T entity);
+
+    T merge(T entity);
 }

@@ -1,6 +1,8 @@
 package me.scape.ti.dao;
 
 import me.scape.ti.commons.GenericDAO;
+import me.scape.ti.commons.Pagination;
+import me.scape.ti.criteria.UserQueryCriteria;
 import me.scape.ti.dataobject.UserDO;
 
 /**
@@ -11,4 +13,5 @@ import me.scape.ti.dataobject.UserDO;
  */
 public interface UserDAO extends GenericDAO<UserDO, Long> {
 
+    Pagination<UserDO> ListUsers(UserQueryCriteria criteria);
 }
