@@ -25,6 +25,8 @@ public enum ResultCode {
 	
 	Error_Item_Detail					(-5000L, 	"案例不存在"),
 	
+	Error_Item_Empty					(-6000L, 	"查询不到案例"),
+	
 	;
 	public final long code;
 	public final String description;

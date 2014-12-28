@@ -2,6 +2,7 @@ package me.scape.ti.srv;
 
 import me.scape.ti.result.Result;
 import me.scape.ti.ro.ItemPublishRequest;
+import me.scape.ti.ro.ItemSearchRequest;
 
 /**
  * 
@@ -14,5 +15,7 @@ public interface ItemService {
 	Result getItem(Long itemId);
 
 	Result publish(ItemPublishRequest request);
+
+	Result search(ItemSearchRequest request);
 
 }

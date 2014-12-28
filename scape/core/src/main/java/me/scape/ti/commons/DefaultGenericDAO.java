@@ -38,6 +38,31 @@ public class DefaultGenericDAO<T, PK extends Serializable> implements GenericDAO
 	}
 	
 	@Override
+	public List<T> findByNativeQuery(String query, Map<String, Object> args) {
+		return createNativeQuery(query, args).getResultList();
+	}
+
+	@Override
+	public List<T> findByNativeQuery(String query, Object[] args) {
+		return createNativeQuery(query, args).getResultList();
+	}
+
+	@Override
+	public T findOneByNativeQuery(String query, Object[] args) {
+		return (T) createNativeQuery(query, args).getSingleResult();
+	}
+
+	@Override
+	public T findOneByNativeQuery(String query, Map<String, Object> args) {
+		return (T) createNativeQuery(query, args).getSingleResult();
+	}
+
+	@Override
+	public List<T> findByNativeQuery(String query) {
+		return createNativeQuery(query).getResultList();
+	}
+
+	@Override
 	public List<T> findByQuery(String query, Map<String, Object> args) {
 		return createQuery(query, args).getResultList();
 	}

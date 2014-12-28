@@ -12,6 +12,18 @@ import java.util.Map;
  */
 public interface GenericDAO<T, PK extends Serializable> {
 	
+	List<T> findByNativeQuery(String query, Map<String, Object> args);
+
+	List<T> findByNativeQuery(String query, Object[] args);
+	
+	T findOneByNativeQuery(String query, Object[] args);
+	
+	T findOneByNativeQuery(String query, Map<String, Object> args);
+
+	List<T> findByNativeQuery(String query);
+	
+	
+	
 	List<T> findByQuery(String query, Map<String, Object> args);
 
 	List<T> findByQuery(String query, Object[] args);

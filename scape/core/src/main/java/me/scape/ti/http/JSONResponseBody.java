@@ -1,6 +1,8 @@
 package me.scape.ti.http;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import me.scape.ti.utils.CalendarUtil;
@@ -27,6 +29,13 @@ public class JSONResponseBody {
 
 	public static JSONResponseBody newInstance() {
 		return new JSONResponseBody();
+	}
+	
+	public static void main(String[] args) {
+		List<String> a = new ArrayList<String>();
+		a.add("1");
+		a.add("2");
+		System.out.println(GSON.toJson(a));
 	}
 	
 	public JSONResponseBody() {

@@ -2,7 +2,9 @@ package me.scape.ti.srv.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import me.scape.ti.dataobject.AreaCategoryDO;
 import me.scape.ti.dataobject.CategoryDO;
@@ -12,8 +14,10 @@ import me.scape.ti.dataobject.StyleDO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
 import me.scape.ti.ro.ItemPublishRequest;
+import me.scape.ti.ro.ItemSearchRequest;
 import me.scape.ti.srv.BaseService;
 import me.scape.ti.srv.ItemService;
+import me.scape.ti.srv.PageQuery;
 import me.scape.ti.vo.AreaCategoryVO;
 import me.scape.ti.vo.CategoryVO;
 import me.scape.ti.vo.ItemMediaVO;
@@ -33,6 +37,74 @@ import org.springframework.util.CollectionUtils;
 @Service(value = "itemService")
 public class DefaultItemService extends BaseService implements ItemService {
 
+	@Override
+	public Result search(ItemSearchRequest request) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT * FROM item i WHERE 1 = 1 ");
+		Map<String, Object> args = new HashMap<String, Object>();
+		Long cid = request.getCid();
+		if(cid != null && cid > 0L) {
+			sb.append(" AND i.category_id = :cid ");
+			args.put("cid", cid);
+		}
+		Long acid = request.getAcid();
+		if(acid != null && acid > 0L) {
+			sb.append(" AND i.area_category_id = :acid ");
+			args.put("acid", acid);
+		}
+		Long sid = request.getSid();
+		if(sid != null && sid > 0L) {
+			sb.append(" AND i.style_id = :sid ");
+			args.put("sid", sid);
+		}
+		String title = request.getTitle();
+		if(StringUtils.isNotBlank(title)) {
+			sb.append(" AND i.title LIKE :title ");
+			args.put("title", "%" + title + "%");
+		}
+		Long uid = request.getUid();
+		if(uid != null && uid > 0L) {
+			sb.append(" AND i.user_id = :uid ");
+			args.put("uid", uid);
+		}
+		Long id = request.getId();
+		if(id != null && id > 0L) {
+			sb.append(" AND i.id = :id ");
+			args.put("id", id);
+		}
+		String sort = request.getSort();
+		if(StringUtils.isNotBlank(sort)) {
+			if(StringUtils.equals("mc", sort)) {
+				sb.append(" ORDER BY i.media_count DESC, i.gmt_created DESC ");
+			} else if(StringUtils.equals("cc", sort)) {
+				sb.append(" ORDER BY i.comment_count DESC, i.gmt_created DESC ");
+			} else if(StringUtils.equals("pc", sort)) {
+				sb.append(" ORDER BY i.praise_count DESC, i.gmt_created DESC ");
+			} else if(StringUtils.equals("lc", sort)) {
+				sb.append(" ORDER BY i.like_count DESC, i.gmt_created DESC ");
+			} else {
+				sb.append(" ORDER BY i.gmt_created DESC ");
+			}
+		}
+		sb.append(" LIMIT :start, :size;");
+		Integer page = request.getPage();
+		page = (page != null && page > 0) ? page : 1;
+		PageQuery pageQuery = new PageQuery(page);
+		args.put("start", pageQuery.getIndex());
+		args.put("size", pageQuery.getSize());
+		
+		List<ItemDO> itemList = itemDAO.findByNativeQuery(sb.toString(), args);
+		if(CollectionUtils.isEmpty(itemList)) {
+			return Result.newError().with(ResultCode.Error_Item_Empty);
+		}
+		List<ItemVO> voList = new ArrayList<ItemVO>();
+		for (ItemDO itemDO : itemList) {
+			ItemVO vo = ItemVO.newInstance(itemDO);
+			voList.add(vo);
+		}
+		return Result.newSuccess().with(ResultCode.Success).with("itemList", voList);
+	}
+	
 	@Override
 	public Result publish(ItemPublishRequest request) {
 		if(StringUtils.isBlank(request.getTitle())) {

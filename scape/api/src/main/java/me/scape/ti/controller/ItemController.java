@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
 import me.scape.ti.ro.ItemPublishRequest;
+import me.scape.ti.ro.ItemSearchRequest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,13 @@ public class ItemController extends BaseController {
 	@ResponseBody
 	public ResponseEntity<String> item(@PathVariable Long itemId) {
 		Result result = itemService.getItem(itemId);
+		return toResponse(result);
+	}
+	
+	@RequestMapping(value = "/item/search", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> search(ItemSearchRequest request) {
+		Result result = itemService.search(request);
 		return toResponse(result);
 	}
 }
