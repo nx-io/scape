@@ -9,6 +9,7 @@ import me.scape.ti.dataobject.ManagerDO;
  * @version 1.0.0
  * @since 2014年12月21日 下午2:48:48
  */
-public interface ManagerDAO extends GenericDAO<ManagerDO, Long> {
+public interface ManagerDAO extends GenericDAO<ManagerDO, Integer> {
 
+    ManagerDO getByEmail(String email);
 }

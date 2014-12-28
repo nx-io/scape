@@ -10,7 +10,6 @@ import me.scape.ti.dao.ItemFavoriteDAO;
 import me.scape.ti.dao.ItemMediaDAO;
 import me.scape.ti.dao.LabelDAO;
 import me.scape.ti.dao.ManagerDAO;
-import me.scape.ti.dao.ManagerRolesDAO;
 import me.scape.ti.dao.RoleDAO;
 import me.scape.ti.dao.StyleDAO;
 import me.scape.ti.dao.UserDAO;
@@ -67,10 +66,6 @@ public class BaseService implements InitializingBean {
 	@Autowired
 	@Qualifier(value = "managerDAO")
 	protected ManagerDAO managerDAO;
-
-	@Autowired
-	@Qualifier(value = "managerRolesDAO")
-	protected ManagerRolesDAO managerRolesDAO;
 
 	@Autowired
 	@Qualifier(value = "roleDAO")
