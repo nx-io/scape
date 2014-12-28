@@ -62,7 +62,7 @@ public class ManagerDO implements Serializable {
     @Column(name = "last_login")
     private Date last_login;// 最后一次登录的时间
 
-    @Column(name = "last_ip", nullable = false)
+    @Column(name = "last_ip")
     private Long last_ip;// 最后一次登录的IP
 
     @Temporal(TemporalType.TIMESTAMP)

@@ -173,13 +173,16 @@ CREATE TABLE `item_labels` (
 DROP TABLE IF EXISTS `manager`;
 
 CREATE TABLE `manager` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(64) NOT NULL,
   `name` varchar(64) NOT NULL,
   `avatar` varchar(255) DEFAULT NULL,
-  `email` varchar(64) NOT NULL,
-  `last_ip` bigint(20) DEFAULT NULL,
-  `last_login` datetime DEFAULT NULL,
+  `role_id` int(11) NOT NULL,
+  `password` varchar(64) NOT NULL,
+  `salt` varchar(64) NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT 1,
+  `last_ip` bigint(20) NOT NULL,
+  `last_login` datetime DEFAULT NULL,
   `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `gmt_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -188,17 +191,18 @@ CREATE TABLE `manager` (
 
 
 --
--- Table structure for table `manager_roles`
+-- Table structure for table `resource`
 --
 
-DROP TABLE IF EXISTS `manager_roles`;
+DROP TABLE IF EXISTS `resource`;
 
-CREATE TABLE `manager_roles` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `manager_id` bigint(20) NOT NULL,
-  `role_id` bigint(20) NOT NULL,
-  `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+CREATE TABLE `resource` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `url` (`url`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -218,6 +222,21 @@ CREATE TABLE `role` (
   `gmt_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+--
+-- Table structure for table `role_resource`
+--
+
+DROP TABLE IF EXISTS `role_resource`;
+
+CREATE TABLE `role_resource` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) NOT NULL,
+  `resource_id` int(11) NOT NULL,
+  `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
