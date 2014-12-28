@@ -26,6 +26,7 @@ import me.scape.ti.vo.StyleVO;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -86,7 +87,7 @@ public class DefaultItemService extends BaseService implements ItemService {
 				sb.append(" ORDER BY i.gmt_created DESC ");
 			}
 		}
-		sb.append(" LIMIT :start, :size;");
+		sb.append(" LIMIT :start, :size ");
 		Integer page = request.getPage();
 		page = (page != null && page > 0) ? page : 1;
 		PageQuery pageQuery = new PageQuery(page);
@@ -106,10 +107,12 @@ public class DefaultItemService extends BaseService implements ItemService {
 	}
 	
 	@Override
+	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result publish(ItemPublishRequest request) {
 		if(StringUtils.isBlank(request.getTitle())) {
 			return Result.newError().with(ResultCode.Error_Valid_Request);
 		}
+		Date now = new Date();
 		ItemDO item = new ItemDO();
 		item.setTitle(request.getTitle());
 		Byte type = request.getType();
@@ -123,27 +126,41 @@ public class DefaultItemService extends BaseService implements ItemService {
 		item.setConstructor(request.getConstructor());
 		item.setConstructor_contact(request.getConstructor_contact());
 		item.setUser_id(request.getUser_id());
-		itemDAO.persist(item);
-		ItemVO itemVO = ItemVO.newInstance(item);
+		item.setComment_count(0);
+		item.setGmt_created(now);
+		item.setGmt_modified(now);
+		item.setLike_count(0);
+		item.setMedia_count(0);
+		item.setPraise_count(0);
+		item.setStatus(ItemDO.Available);
+		List<ItemMediaDO> itemMediaList = new ArrayList<ItemMediaDO>();
 		if(StringUtils.isNotBlank(request.getItemMedias())) {
 			String[] medias = StringUtils.split(request.getItemMedias(), ",");
 			if(medias != null && medias.length > 0) {
-				List<ItemMediaDO> itemMediaList = new ArrayList<ItemMediaDO>();
-				Date now = new Date();
 				for (String media : medias) {
 					ItemMediaDO itemMedia = new ItemMediaDO();
 					itemMedia.setGmt_created(now);
 					itemMedia.setGmt_modified(now);
-					itemMedia.setItem_id(item.getId());
 					itemMedia.setStatus(ItemMediaDO.Available);
 					itemMedia.setType(ItemMediaDO.IMG);
 					itemMedia.setUrl(media);
-					itemMediaDAO.persist(itemMedia);
 					itemMediaList.add(itemMedia);
 				}
-				itemVO.setItemMediaList(ItemMediaVO.newInstanceList(itemMediaList));
 			}
 		}
+		if(CollectionUtils.isEmpty(itemMediaList)) {
+			item.setCover_media("");
+		} else {
+			item.setCover_media(itemMediaList.get(0).getUrl());
+			item.setMedia_count(itemMediaList.size());
+		}
+		itemDAO.persist(item);
+		for (ItemMediaDO itemMedia : itemMediaList) {
+			itemMedia.setItem_id(item.getId());
+			itemMediaDAO.persist(itemMedia);
+		}
+		ItemVO itemVO = ItemVO.newInstance(item);
+		itemVO.setItemMediaList(ItemMediaVO.newInstanceList(itemMediaList));
 		AreaCategoryDO areaCategoryDO = areaCategoryDAO.findById(item.getArea_category_id());
 		itemVO.setAreaCategory(AreaCategoryVO.newInstance(areaCategoryDO));
 		CategoryDO categoryDO = categoryDAO.findById(item.getCategory_id());

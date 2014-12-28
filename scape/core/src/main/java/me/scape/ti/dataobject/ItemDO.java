@@ -30,6 +30,10 @@ public class ItemDO implements Serializable {
 
 	private static final long serialVersionUID = -2996946613320703028L;
 
+	public static final byte Available = 1;
+	public static final byte Unavailable = 0;
+	public static final byte Strike_out = -1;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
