@@ -1,9 +1,14 @@
 package me.scape.ti.controller;
 
+import javax.validation.Valid;
+
 import me.scape.ti.result.Result;
+import me.scape.ti.result.ResultCode;
+import me.scape.ti.ro.ItemPublishRequest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,10 +22,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class ItemController extends BaseController {
 
+	@RequestMapping(value = "/item/publish", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> publish(@Valid ItemPublishRequest request, BindingResult validResult) {
+		if(validResult.hasErrors()) {
+			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
+		}
+		Result result = itemService.publish(request);
+		return toResponse(result);
+	}
+	
 	@RequestMapping(value = "/item/{itemId}", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> item(@PathVariable Long itemId) {
-		Result result = accountService.register(null);
+		Result result = itemService.getItem(itemId);
 		return toResponse(result);
 	}
 }

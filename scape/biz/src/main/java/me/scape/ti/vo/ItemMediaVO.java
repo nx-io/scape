@@ -1,6 +1,12 @@
 package me.scape.ti.vo;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import me.scape.ti.dataobject.ItemMediaDO;
+
+import org.springframework.util.CollectionUtils;
 
 /**
  * 
@@ -20,7 +26,32 @@ public class ItemMediaVO {
 
 	private Long id;
 
-	private Date gmt_created;
+	public static ItemMediaVO newInstance(ItemMediaDO _do) {
+		return new ItemMediaVO().toItemMedia(_do);
+	}
+	
+	public static List<ItemMediaVO> newInstanceList(List<ItemMediaDO> doList) {
+		if(CollectionUtils.isEmpty(doList)) {
+			return Collections.emptyList();
+		}
+		List<ItemMediaVO> voList = new ArrayList<ItemMediaVO>();
+		for (ItemMediaDO itemMediaDO : doList) {
+			voList.add(newInstance(itemMediaDO));
+		}
+		return voList;
+	}
+	
+	public ItemMediaVO toItemMedia(ItemMediaDO _do) {
+		if(_do == null) {
+			return this;
+		}
+		setId(_do.getId());
+		setItem_id(_do.getItem_id());
+		setStatus(_do.getStatus());
+		setType(_do.getType());
+		setUrl(_do.getUrl());
+		return this;
+	}
 
 	public Long getItem_id() {
 		return item_id;
@@ -60,13 +91,5 @@ public class ItemMediaVO {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Date getGmt_created() {
-		return gmt_created;
-	}
-
-	public void setGmt_created(Date gmt_created) {
-		this.gmt_created = gmt_created;
 	}
 }

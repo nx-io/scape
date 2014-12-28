@@ -3,6 +3,8 @@ package me.scape.ti.vo;
 import java.util.Date;
 import java.util.List;
 
+import me.scape.ti.dataobject.ItemDO;
+
 /**
  * 
  * @author 刘飞 E-mail:liufei_it@126.com
@@ -50,6 +52,64 @@ public class ItemVO {
 	private Date gmt_created;
 
 	private List<ItemMediaVO> itemMediaList;
+	
+	private AreaCategoryVO areaCategory;
+	private CategoryVO category;
+	private StyleVO style;
+	
+	public static ItemVO newInstance(ItemDO _do) {
+		return new ItemVO().toItem(_do);
+	}
+	
+	public ItemVO toItem(ItemDO _do) {
+		if(_do == null) {
+			return this;
+		}
+		setId(_do.getId());
+		setTitle(_do.getTitle());
+		setType(_do.getType());
+		setCategory_id(_do.getCategory_id());
+		setArea_category_id(_do.getArea_category_id());
+		setStyle_id(_do.getStyle_id());
+		setStatus(_do.getStatus());
+		setDescription(_do.getDescription());
+		setDesigner(_do.getDesigner());
+		setDesigner_contact(_do.getDesigner_contact());
+		setConstructor(_do.getConstructor());
+		setConstructor_contact(_do.getConstructor_contact());
+		setCover_media(_do.getCover_media());
+		setMedia_count(_do.getMedia_count());
+		setComment_count(_do.getComment_count());
+		setPraise_count(_do.getPraise_count());
+		setLike_count(_do.getLike_count());
+		setUser_id(_do.getUser_id());
+		setGmt_created(_do.getGmt_created());
+		return this;
+	}
+	
+	public StyleVO getStyle() {
+		return style;
+	}
+
+	public void setStyle(StyleVO style) {
+		this.style = style;
+	}
+
+	public AreaCategoryVO getAreaCategory() {
+		return areaCategory;
+	}
+
+	public void setAreaCategory(AreaCategoryVO areaCategory) {
+		this.areaCategory = areaCategory;
+	}
+
+	public CategoryVO getCategory() {
+		return category;
+	}
+
+	public void setCategory(CategoryVO category) {
+		this.category = category;
+	}
 
 	public Long getId() {
 		return id;

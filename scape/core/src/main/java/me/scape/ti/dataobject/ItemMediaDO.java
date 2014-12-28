@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,10 +23,19 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "item_media", catalog = "scape")
+@NamedQueries({
+    @NamedQuery(name = "ItemMedia.getItemMediaByItemId", query = "FROM ItemMediaDO im WHERE im.status = 1 AND im.item_id = ?"),
+    })
 public class ItemMediaDO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final byte Available = 1;
+	public static final byte Strike_out = -1;
+	
+	public static final byte IMG = 1;
+	public static final byte VIDEO = 2;
+	
 	@Column(name = "item_id", nullable = false)
 	private Long item_id;// 案例ID
 

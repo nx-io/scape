@@ -48,6 +48,9 @@ public class UserVO {
 	}
 	
 	public UserVO transform(UserDO _do) {
+		if(_do == null) {
+			return this;
+		}
 		setAvatar(_do.getAvatar());
 		setCategory_id(_do.getCategory_id());
 		setContact(_do.getContact());
