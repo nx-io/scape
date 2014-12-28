@@ -1,28 +1,34 @@
 use `scape`;
 
-INSERT INTO `scape`.`area_category`(`id`, `name`, `display`, `gmt_created`, `gmt_modified`) VALUES 
-(1,'Èë¿Ú¾°¹Û', 1, now(), now()),
-(2,'³¡µØ½Úµã', 1, now(), now()),
-(3,'Ô°Â·Õ»ÇÅ', 1, now(), now()),
-(4,'Ë®¾°Ó¾³Ø', 1, now(), now()),
-(5,'Õ¬¼äÈë»§', 1, now(), now()),
-(6,'Í¥ÔºÂ¶Ì¨', 1, now(), now()),
-(7,'¼Ü¿Õ²ã', 1, now(), now()),
-(8,'¾°¹Û½¨Öş', 1, now(), now())
-;
+TRUNCATE `area_category`;
+INSERT INTO `area_category`(`id`, `name`) VALUES (1,'å…¥å£æ™¯è§‚'),(2,'åœºåœ°èŠ‚ç‚¹'),(3,'å›­è·¯æ ˆæ¡¥'),(4,'æ°´æ™¯æ³³æ± '),(5,'å®…é—´å…¥æˆ·'),(6,'åº­é™¢éœ²å°'),(7,'æ¶ç©ºå±‚'),(8,'æ™¯è§‚å»ºç­‘');
 
-INSERT INTO `scape`.`category`(`id`, `name`, `display`, `gmt_created`, `gmt_modified`) VALUES 
-(1,'¾Ó×¡¾°¹Û', 1, now(), now()),
-(2,'ÉÌÒµ°ì¹«', 1, now(), now()),
-(3,'³ÇÊĞÂÌµØ', 1, now(), now()),
-(4,'Ğ£Ô°¹æ»®', 1, now(), now()),
-(5,'ĞİÏĞ¶È¼Ù', 1, now(), now()),
-(6,'±õË®ÉúÌ¬', 1, now(), now());
+TRUNCATE `category`;
+INSERT INTO `category`(`id`, `name`) VALUES (1,'å±…ä½æ™¯è§‚'),(2,'å•†ä¸šåŠå…¬'),(3,'åŸå¸‚ç»¿åœ°'),(4,'æ ¡å›­è§„åˆ’'),(5,'ä¼‘é—²åº¦å‡'),(6,'æ»¨æ°´ç”Ÿæ€');
 
-INSERT INTO `scape`.`style`(`id`, `name`, `display`, `gmt_created`, `gmt_modified`) VALUES 
-(1,'Å·Ê½', 1, now(), now()),
-(2,'¶«ÄÏÑÇ', 1, now(), now()),
-(3,'ÖĞÊ½', 1, now(), now()),
-(4,'µØÖĞº£', 1, now(), now()),
-(5,'ÏÖ´ú¼òÔ¼', 1, now(), now())
-;
+TRUNCATE `style`;
+INSERT INTO `style`(`id`, `name`) VALUES (1,'æ¬§å¼'),(2,'ä¸œå—äºš'),(3,'ä¸­å¼'),(4,'åœ°ä¸­æµ·'),(5,'ç°ä»£ç®€çº¦');
+
+TRUNCATE `role`;
+INSERT INTO `role` (`id`,`code`,`name`,`description`,`is_active`) VALUES (1,'ROLE_SUPER_ADMIN','è¶…çº§ç®¡ç†å‘˜','è¶…çº§ç®¡ç†å‘˜',1);
+
+TRUNCATE `manager`;
+INSERT INTO `manager` (`id`, `email`, `role_id`, `name`,`password`,`salt`,`status`) VALUES (1, 'admin@test.com', 1, 'admin','78794202cea9c66e26e85a395ac7e9e7','yEL0JM',1);
+
+TRUNCATE `resource`;
+INSERT INTO  `resource` (`id`, `name`, `url`) VALUES 
+('1', 'list user', '/user/list'),
+('2', 'edit user', '/user/edit**'),
+('3', 'list item', '/item/list'),
+('4', 'edit item', '/item/edit**'),
+('5', 'add item', '/item/add**');
+
+TRUNCATE `role_resource`;
+INSERT INTO `role_resource` (`id`, `role_id`, `resource_id`) VALUES 
+('1', '1', '1'),
+('2', '1', '2'),
+('3', '1', '3'),
+('4', '1', '4'),
+('5', '1', '5');
+
+
