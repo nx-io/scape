@@ -28,7 +28,7 @@ public class DefaultRoleDAO extends DefaultGenericDAO<RoleDO, Integer> implement
     @Override
     public List<RoleDO> getRolesByResourceId(Integer resourceId) {
         String sql = "SELECT r.* FROM role r JOIN role_resource rr ON (r.id = rr.role_id AND rr.resource_id = ?)";
-        Query query = createNativeQuery(sql, RoleDO.class, new Object[] { resourceId });
+        Query query = createNativeQuery(sql, new Object[] { resourceId });
 
         return query.getResultList();
     }

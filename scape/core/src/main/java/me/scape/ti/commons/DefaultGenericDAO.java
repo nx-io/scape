@@ -119,7 +119,7 @@ public class DefaultGenericDAO<T, PK extends Serializable> implements GenericDAO
 
     @Override
     public final List<T> findAll() {
-        return getEntityManager().createQuery("from " + entityType.getName()).getResultList();
+        return getEntityManager().createQuery("FROM " + entityType.getName()).getResultList();
     }
 
     @Override
