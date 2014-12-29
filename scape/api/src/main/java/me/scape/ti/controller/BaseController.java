@@ -7,6 +7,7 @@ import me.scape.ti.http.JSONResponseBody;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
 import me.scape.ti.srv.AccountService;
+import me.scape.ti.srv.CatService;
 import me.scape.ti.srv.ItemService;
 import me.scape.ti.utils.CalendarUtil;
 
@@ -39,6 +40,10 @@ public class BaseController {
 	@Autowired
 	@Qualifier(value = "itemService")
 	protected ItemService itemService;
+
+	@Autowired
+	@Qualifier(value = "catService")
+	protected CatService catService;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

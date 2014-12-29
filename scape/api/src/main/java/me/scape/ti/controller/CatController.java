@@ -1,33 +1,33 @@
 package me.scape.ti.controller;
 
-import me.scape.ti.result.Result;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * 
- * @author john.liu E-mail:fei.liu@yeepay.com
+ * @author 刘飞 E-mail:liufei_it@126.com
  * @version 1.0.0
- * @since 2014年12月29日 下午8:56:23
+ * @since 2014年12月29日 下午11:27:45
  */
 @Controller
 public class CatController extends BaseController {
 	
-	@RequestMapping(value = "/cat/{catId}", produces = "application/json")
+	@RequestMapping(value = "/item/cat", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> cat(@PathVariable Long catId) {
-		Result result = itemService.getItem(catId);
-		return toResponse(result);
+	public ResponseEntity<String> cat() {
+		return toResponse(catService.getAllCat());
 	}
 	
-	@RequestMapping(value = "/acat/{catId}", produces = "application/json")
+	@RequestMapping(value = "/item/area", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> item(@PathVariable Long catId) {
-		Result result = itemService.getItem(catId);
-		return toResponse(result);
+	public ResponseEntity<String> area() {
+		return toResponse(catService.getAllAreaCat());
+	}
+	
+	@RequestMapping(value = "/item/style", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> style() {
+		return toResponse(catService.getAllStyle());
 	}
 }
