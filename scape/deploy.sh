@@ -1,6 +1,6 @@
 #!/bin/sh
 
-mvn clean && mvn install  -Dtest.skip=true
+mvn clean && mvn install  -Dmaven.test.skip=true
 echo "copy war..."
 #cp api/target/scape-api.war $JBOSS_HOME/standalone/deployments/
 #cp web/target/scape-web.war $JBOSS_HOME/standalone/deployments/
