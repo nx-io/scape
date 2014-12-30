@@ -52,6 +52,8 @@ public class ItemVO {
 	private Date gmt_created;
 
 	private List<ItemMediaVO> itemMediaList;
+
+	private List<LabelVO> labelList;
 	
 	private AreaCategoryVO areaCategory;
 	private CategoryVO category;
@@ -87,6 +89,14 @@ public class ItemVO {
 		return this;
 	}
 	
+	public List<LabelVO> getLabelList() {
+		return labelList;
+	}
+
+	public void setLabelList(List<LabelVO> labelList) {
+		this.labelList = labelList;
+	}
+
 	public StyleVO getStyle() {
 		return style;
 	}

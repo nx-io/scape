@@ -6,11 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.scape.ti.dataobject.AreaCategoryDO;
-import me.scape.ti.dataobject.CategoryDO;
 import me.scape.ti.dataobject.ItemDO;
 import me.scape.ti.dataobject.ItemMediaDO;
-import me.scape.ti.dataobject.StyleDO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
 import me.scape.ti.ro.ItemPublishRequest;
@@ -22,6 +19,7 @@ import me.scape.ti.vo.AreaCategoryVO;
 import me.scape.ti.vo.CategoryVO;
 import me.scape.ti.vo.ItemMediaVO;
 import me.scape.ti.vo.ItemVO;
+import me.scape.ti.vo.LabelVO;
 import me.scape.ti.vo.StyleVO;
 
 import org.apache.commons.lang3.StringUtils;
@@ -148,25 +146,28 @@ public class DefaultItemService extends BaseService implements ItemService {
 				}
 			}
 		}
-		if(CollectionUtils.isEmpty(itemMediaList)) {
+		boolean isMediaEmpty = CollectionUtils.isEmpty(itemMediaList);
+		if(isMediaEmpty) {
 			item.setCover_media("");
 		} else {
 			item.setCover_media(itemMediaList.get(0).getUrl());
 			item.setMedia_count(itemMediaList.size());
 		}
 		itemDAO.persist(item);
-		for (ItemMediaDO itemMedia : itemMediaList) {
-			itemMedia.setItem_id(item.getId());
-			itemMediaDAO.persist(itemMedia);
+		if(!isMediaEmpty) {
+			for (ItemMediaDO itemMedia : itemMediaList) {
+				itemMedia.setItem_id(item.getId());
+				itemMediaDAO.persist(itemMedia);
+			}
 		}
 		ItemVO itemVO = ItemVO.newInstance(item);
-		itemVO.setItemMediaList(ItemMediaVO.newInstanceList(itemMediaList));
-		AreaCategoryDO areaCategoryDO = areaCategoryDAO.findById(item.getArea_category_id());
-		itemVO.setAreaCategory(AreaCategoryVO.newInstance(areaCategoryDO));
-		CategoryDO categoryDO = categoryDAO.findById(item.getCategory_id());
-		itemVO.setCategory(CategoryVO.newInstance(categoryDO));
-		StyleDO styleDO = styleDAO.findById(item.getStyle_id());
-		itemVO.setStyle(StyleVO.newInstance(styleDO));
+		if(!isMediaEmpty) {
+			itemVO.setItemMediaList(ItemMediaVO.newInstance(itemMediaList));
+		}
+		itemVO.setAreaCategory(AreaCategoryVO.newInstance(areaCategoryDAO.findById(item.getArea_category_id())));
+		itemVO.setCategory(CategoryVO.newInstance(categoryDAO.findById(item.getCategory_id())));
+		itemVO.setStyle(StyleVO.newInstance(styleDAO.findById(item.getStyle_id())));
+		
 		return Result.newSuccess().with(ResultCode.Success).with("item", itemVO);
 	}
 	
@@ -183,14 +184,14 @@ public class DefaultItemService extends BaseService implements ItemService {
 		List<ItemMediaDO> itemMediaList = itemMediaDAO.findByNamedQuery("ItemMedia.getItemMediaByItemId",
 				new Object[] { item.getId() });
 		if(!CollectionUtils.isEmpty(itemMediaList)) {
-			itemVO.setItemMediaList(ItemMediaVO.newInstanceList(itemMediaList));
+			itemVO.setItemMediaList(ItemMediaVO.newInstance(itemMediaList));
 		}
-		AreaCategoryDO areaCategoryDO = areaCategoryDAO.findById(item.getArea_category_id());
-		itemVO.setAreaCategory(AreaCategoryVO.newInstance(areaCategoryDO));
-		CategoryDO categoryDO = categoryDAO.findById(item.getCategory_id());
-		itemVO.setCategory(CategoryVO.newInstance(categoryDO));
-		StyleDO styleDO = styleDAO.findById(item.getStyle_id());
-		itemVO.setStyle(StyleVO.newInstance(styleDO));
+		itemVO.setAreaCategory(AreaCategoryVO.newInstance(areaCategoryDAO.findById(item.getArea_category_id())));
+		itemVO.setCategory(CategoryVO.newInstance(categoryDAO.findById(item.getCategory_id())));
+		itemVO.setStyle(StyleVO.newInstance(styleDAO.findById(item.getStyle_id())));
+		
+		itemVO.setLabelList(LabelVO.newInstance(labelDAO.findByNamedQuery("Label.getLabelByItemId", new Object[]{ item.getId() })));
+		
 		return Result.newSuccess().with(ResultCode.Success).with("item", itemVO);
 	}
 }

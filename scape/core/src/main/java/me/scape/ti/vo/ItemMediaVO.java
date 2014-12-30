@@ -30,7 +30,7 @@ public class ItemMediaVO {
 		return new ItemMediaVO().toItemMedia(_do);
 	}
 	
-	public static List<ItemMediaVO> newInstanceList(List<ItemMediaDO> doList) {
+	public static List<ItemMediaVO> newInstance(List<ItemMediaDO> doList) {
 		if(CollectionUtils.isEmpty(doList)) {
 			return Collections.emptyList();
 		}

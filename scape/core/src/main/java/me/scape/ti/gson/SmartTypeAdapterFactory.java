@@ -7,6 +7,7 @@ import me.scape.ti.vo.AreaCategoryVO;
 import me.scape.ti.vo.CategoryVO;
 import me.scape.ti.vo.ItemMediaVO;
 import me.scape.ti.vo.ItemVO;
+import me.scape.ti.vo.LabelVO;
 import me.scape.ti.vo.StyleVO;
 import me.scape.ti.vo.UserVO;
 
@@ -62,6 +63,9 @@ public class SmartTypeAdapterFactory implements TypeAdapterFactory {
 		}
 		if(UserVO.class == rawType) {
 			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<UserVO>) gson.getDelegateAdapter(this, type), UserVO.class);
+		}
+		if(LabelVO.class == rawType) {
+			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<LabelVO>) gson.getDelegateAdapter(this, type), LabelVO.class);
 		}
 		return null;
 	}
