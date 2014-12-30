@@ -1,15 +1,15 @@
 package me.scape.ti.http;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import me.scape.ti.gson.SmartTypeAdapterFactory;
 import me.scape.ti.utils.CalendarUtil;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -21,21 +21,26 @@ import com.google.gson.GsonBuilder;
  */
 public class JSONResponseBody {
 	
-	private final static Gson GSON = new GsonBuilder().disableHtmlEscaping().setDateFormat(CalendarUtil.S_YYYY_MM_DD_HH_MM_SS).create();
+	private final static Gson GSON = new GsonBuilder()
+//									.setPrettyPrinting()//格式化
+									.enableComplexMapKeySerialization()
+//									.serializeNulls()
+									.disableHtmlEscaping()
+									.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
+									.setDateFormat(CalendarUtil.S_YYYY_MM_DD_HH_MM_SS)
+									.registerTypeAdapterFactory(new SmartTypeAdapterFactory())
+									.create();
 	
 	private long code;
 	private String message;
 	private Map<String, Object> data;
-
+	
 	public static JSONResponseBody newInstance() {
 		return new JSONResponseBody();
 	}
 	
 	public static void main(String[] args) {
-		List<String> a = new ArrayList<String>();
-		a.add("1");
-		a.add("2");
-		System.out.println(GSON.toJson(a));
+		System.out.println(GSON.toJson(new JSONResponseBody()));
 	}
 	
 	public JSONResponseBody() {

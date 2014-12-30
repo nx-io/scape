@@ -30,6 +30,9 @@ public class CommentsDO implements Serializable {
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 
+	@Column(name = "ref_id", nullable = false)
+	private Long ref_id;// 引用的父评论ID
+
 	@Column(name = "item_id", nullable = false)
 	private Long item_id;// 案例ID
 
@@ -59,6 +62,14 @@ public class CommentsDO implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getRef_id() {
+		return ref_id;
+	}
+
+	public void setRef_id(Long ref_id) {
+		this.ref_id = ref_id;
 	}
 
 	public Long getItem_id() {
@@ -122,16 +133,14 @@ public class CommentsDO implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
-		result = prime * result
-				+ ((gmt_created == null) ? 0 : gmt_created.hashCode());
-		result = prime * result
-				+ ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
+		result = prime * result + ((gmt_created == null) ? 0 : gmt_created.hashCode());
+		result = prime * result + ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((item_id == null) ? 0 : item_id.hashCode());
+		result = prime * result + ((ref_id == null) ? 0 : ref_id.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((user_id == null) ? 0 : user_id.hashCode());
-		result = prime * result
-				+ ((user_name == null) ? 0 : user_name.hashCode());
+		result = prime * result + ((user_name == null) ? 0 : user_name.hashCode());
 		return result;
 	}
 
@@ -169,6 +178,11 @@ public class CommentsDO implements Serializable {
 				return false;
 		} else if (!item_id.equals(other.item_id))
 			return false;
+		if (ref_id == null) {
+			if (other.ref_id != null)
+				return false;
+		} else if (!ref_id.equals(other.ref_id))
+			return false;
 		if (status == null) {
 			if (other.status != null)
 				return false;
@@ -186,5 +200,4 @@ public class CommentsDO implements Serializable {
 			return false;
 		return true;
 	}
-
 }
