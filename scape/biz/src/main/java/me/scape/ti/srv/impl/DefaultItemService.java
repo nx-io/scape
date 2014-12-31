@@ -99,6 +99,9 @@ public class DefaultItemService extends BaseService implements ItemService {
 		List<ItemVO> voList = new ArrayList<ItemVO>();
 		for (ItemDO itemDO : itemList) {
 			ItemVO vo = ItemVO.newInstance(itemDO);
+			if(vo == null) {
+				continue;
+			}
 			voList.add(vo);
 		}
 		return Result.newSuccess().with(ResultCode.Success).with("itemList", voList);

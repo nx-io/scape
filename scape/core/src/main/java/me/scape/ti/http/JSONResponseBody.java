@@ -3,15 +3,10 @@ package me.scape.ti.http;
 import java.util.HashMap;
 import java.util.Map;
 
-import me.scape.ti.gson.SmartTypeAdapterFactory;
-import me.scape.ti.utils.CalendarUtil;
+import me.scape.ti.gson.GsonUtils;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
-
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * 
@@ -21,26 +16,12 @@ import com.google.gson.GsonBuilder;
  */
 public class JSONResponseBody {
 	
-	private final static Gson GSON = new GsonBuilder()
-//									.setPrettyPrinting()//格式化
-									.enableComplexMapKeySerialization()
-//									.serializeNulls()
-									.disableHtmlEscaping()
-									.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
-									.setDateFormat(CalendarUtil.S_YYYY_MM_DD_HH_MM_SS)
-									.registerTypeAdapterFactory(new SmartTypeAdapterFactory())
-									.create();
-	
 	private long code;
 	private String message;
 	private Map<String, Object> data;
 	
 	public static JSONResponseBody newInstance() {
 		return new JSONResponseBody();
-	}
-	
-	public static void main(String[] args) {
-		System.out.println(GSON.toJson(new JSONResponseBody()));
 	}
 	
 	public JSONResponseBody() {
@@ -56,7 +37,7 @@ public class JSONResponseBody {
 	}
 
 	public String toJson() {
-		return GSON.toJson(this, JSONResponseBody.class);
+		return GsonUtils.GSON.toJson(this, JSONResponseBody.class);
 	}
 	
 	@Override

@@ -25,6 +25,9 @@ public class ItemFavoriteDO implements Serializable {
 
 	private static final long serialVersionUID = -620705104374307024L;
 
+	public static final byte Praise = 1;
+	public static final byte Collection = 2;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)

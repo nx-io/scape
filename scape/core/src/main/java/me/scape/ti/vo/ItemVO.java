@@ -60,13 +60,13 @@ public class ItemVO {
 	private StyleVO style;
 	
 	public static ItemVO newInstance(ItemDO _do) {
+		if(_do == null) {
+			return null;
+		}
 		return new ItemVO().toItem(_do);
 	}
 	
-	public ItemVO toItem(ItemDO _do) {
-		if(_do == null) {
-			return this;
-		}
+	private final ItemVO toItem(ItemDO _do) {
 		setId(_do.getId());
 		setTitle(_do.getTitle());
 		setType(_do.getType());

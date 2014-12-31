@@ -20,13 +20,13 @@ public class StyleVO {
 	private Long id;
 	
 	public static StyleVO newInstance(StyleDO _do) {
+		if(_do == null) {
+			return null;
+		}
 		return new StyleVO().toStyle(_do);
 	}
 	
-	public StyleVO toStyle(StyleDO _do) {
-		if(_do == null) {
-			return this;
-		}
+	private final StyleVO toStyle(StyleDO _do) {
 		setDescription(_do.getDescription());
 		setDisplay(_do.getDisplay());
 		setIcon(_do.getIcon());

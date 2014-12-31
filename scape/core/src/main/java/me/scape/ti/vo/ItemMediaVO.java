@@ -27,6 +27,9 @@ public class ItemMediaVO {
 	private Long id;
 
 	public static ItemMediaVO newInstance(ItemMediaDO _do) {
+		if(_do == null) {
+			return null;
+		}
 		return new ItemMediaVO().toItemMedia(_do);
 	}
 	
@@ -36,15 +39,16 @@ public class ItemMediaVO {
 		}
 		List<ItemMediaVO> voList = new ArrayList<ItemMediaVO>();
 		for (ItemMediaDO itemMediaDO : doList) {
-			voList.add(newInstance(itemMediaDO));
+			ItemMediaVO vo = newInstance(itemMediaDO);
+			if(vo == null) {
+				continue;
+			}
+			voList.add(vo);
 		}
 		return voList;
 	}
 	
-	public ItemMediaVO toItemMedia(ItemMediaDO _do) {
-		if(_do == null) {
-			return this;
-		}
+	private final ItemMediaVO toItemMedia(ItemMediaDO _do) {
 		setId(_do.getId());
 		setItem_id(_do.getItem_id());
 		setStatus(_do.getStatus());

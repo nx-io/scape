@@ -25,6 +25,10 @@ public class CommentsDO implements Serializable {
 
 	private static final long serialVersionUID = 973425091883987786L;
 
+	public static final byte Available = 1;
+	public static final byte Unavailable = 0;
+	public static final byte Strike_out = -1;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)

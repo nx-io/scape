@@ -44,13 +44,13 @@ public class UserVO {
 	private Date gmt_created;
 
 	public static UserVO newInstance(UserDO _do) {
-		return new UserVO().transform(_do);
+		if(_do == null) {
+			return null;
+		}
+		return new UserVO().toUser(_do);
 	}
 	
-	public UserVO transform(UserDO _do) {
-		if(_do == null) {
-			return this;
-		}
+	private final UserVO toUser(UserDO _do) {
 		setAvatar(_do.getAvatar());
 		setCategory_id(_do.getCategory_id());
 		setContact(_do.getContact());

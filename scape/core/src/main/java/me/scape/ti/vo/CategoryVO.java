@@ -20,13 +20,13 @@ public class CategoryVO {
 	private Long id;
 	
 	public static CategoryVO newInstance(CategoryDO _do) {
+		if(_do == null) {
+			return null;
+		}
 		return new CategoryVO().toCategory(_do);
 	}
 	
-	public CategoryVO toCategory(CategoryDO _do) {
-		if(_do == null) {
-			return this;
-		}
+	private final CategoryVO toCategory(CategoryDO _do) {
 		setDescription(_do.getDescription());
 		setDisplay(_do.getDisplay());
 		setIcon(_do.getIcon());

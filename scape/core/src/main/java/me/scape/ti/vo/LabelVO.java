@@ -27,6 +27,9 @@ public class LabelVO {
 	private Date gmt_created;
 	
 	public static LabelVO newInstance(LabelDO _do) {
+		if(_do == null) {
+			return null;
+		}
 		return new LabelVO().toLabel(_do);
 	}
 	
@@ -36,12 +39,16 @@ public class LabelVO {
 		}
 		List<LabelVO> voList = new ArrayList<LabelVO>();
 		for (LabelDO label : doList) {
-			voList.add(new LabelVO().toLabel(label));
+			LabelVO vo = newInstance(label);
+			if(vo == null) {
+				continue;
+			}
+			voList.add(vo);
 		}
 		return voList;
 	}
 	
-	public LabelVO toLabel(LabelDO _do) {
+	private final LabelVO toLabel(LabelDO _do) {
 		setDescription(_do.getDescription());
 		setGmt_created(_do.getGmt_created());
 		setIcon(_do.getIcon());

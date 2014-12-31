@@ -9,6 +9,7 @@ import me.scape.ti.result.ResultCode;
 import me.scape.ti.srv.AccountService;
 import me.scape.ti.srv.CatService;
 import me.scape.ti.srv.ItemService;
+import me.scape.ti.srv.RelationService;
 import me.scape.ti.utils.CalendarUtil;
 
 import org.slf4j.Logger;
@@ -44,6 +45,10 @@ public class BaseController {
 	@Autowired
 	@Qualifier(value = "catService")
 	protected CatService catService;
+
+	@Autowired
+	@Qualifier(value = "relationService")
+	protected RelationService relationService;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

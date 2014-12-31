@@ -20,13 +20,13 @@ public class AreaCategoryVO {
 	private Long id;
 	
 	public static AreaCategoryVO newInstance(AreaCategoryDO _do) {
+		if(_do == null) {
+			return null;
+		}
 		return new AreaCategoryVO().toAreaCategory(_do);
 	}
 	
-	public AreaCategoryVO toAreaCategory(AreaCategoryDO _do) {
-		if(_do == null) {
-			return this;
-		}
+	private final AreaCategoryVO toAreaCategory(AreaCategoryDO _do) {
 		setDescription(_do.getDescription());
 		setDisplay(_do.getDisplay());
 		setIcon(_do.getIcon());
