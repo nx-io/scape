@@ -2,6 +2,7 @@ package me.scape.ti.srv;
 
 import me.scape.ti.result.Result;
 import me.scape.ti.ro.CommentsRequest;
+import me.scape.ti.ro.ItemFavoriteRequest;
 
 /**
  * 
@@ -12,5 +13,7 @@ import me.scape.ti.ro.CommentsRequest;
 public interface RelationService {
 
 	Result comments(CommentsRequest request);
+
+	Result favorite(ItemFavoriteRequest request);
 
 }

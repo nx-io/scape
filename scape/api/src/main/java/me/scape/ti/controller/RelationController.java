@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
 import me.scape.ti.ro.CommentsRequest;
+import me.scape.ti.ro.ItemFavoriteRequest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,11 +25,21 @@ public class RelationController extends BaseController {
 	
 	@RequestMapping(value = "/comments", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> register(@Valid CommentsRequest request, BindingResult validResult) {
+	public ResponseEntity<String> comments(@Valid CommentsRequest request, BindingResult validResult) {
 		if(validResult.hasErrors()) {
 			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
 		}
 		Result result = relationService.comments(request);
+		return toResponse(result);
+	}
+	
+	@RequestMapping(value = "/favorite", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> favorite(@Valid ItemFavoriteRequest request, BindingResult validResult) {
+		if(validResult.hasErrors()) {
+			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
+		}
+		Result result = relationService.favorite(request);
 		return toResponse(result);
 	}
 }
