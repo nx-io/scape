@@ -27,6 +27,10 @@ public enum ResultCode {
 	
 	Error_Item_Empty					(-6000L, 	"查询不到案例"),
 	
+	Error_Favorite_Item_Empty			(-7000L, 	"无收藏案例"),
+	
+	Error_Favorite_User_Empty			(-8000L, 	"无收藏用户"),
+	
 	;
 	public final long code;
 	public final String description;

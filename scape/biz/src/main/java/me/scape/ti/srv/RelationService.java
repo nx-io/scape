@@ -3,6 +3,7 @@ package me.scape.ti.srv;
 import me.scape.ti.result.Result;
 import me.scape.ti.ro.CommentsRequest;
 import me.scape.ti.ro.ItemFavoriteRequest;
+import me.scape.ti.ro.UserFavoriteRequest;
 
 /**
  * 
@@ -14,6 +15,12 @@ public interface RelationService {
 
 	Result comments(CommentsRequest request);
 
-	Result favorite(ItemFavoriteRequest request);
+	Result favorite_item(ItemFavoriteRequest request);
+
+	Result favorite_user(UserFavoriteRequest request);
+
+	Result getFavoriteItems(Long userId, int page);
+
+	Result getFavoriteUsers(Long userId, int page);
 
 }

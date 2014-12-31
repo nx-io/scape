@@ -23,7 +23,13 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "user", catalog = "scape")
-@NamedQueries({ @NamedQuery(name = "User.getUserByName", query = "FROM UserDO u WHERE u.name = ?"), })
+@NamedQueries({ 
+	@NamedQuery(name = "User.getUserByName", 
+				query = "FROM UserDO u WHERE u.name = ?"), 
+				
+	@NamedQuery(name = "User.getFavoriteUsers", 
+				query = "FROM UserDO u WHERE u.id in (SELECT ufav.favorite_id FROM UserFavoriteDO ufav WHERE ufav.user_id = ?) LIMIT ?, 10"), 
+			})
 public class UserDO implements Serializable {
 
 	private static final long serialVersionUID = 829998693975891020L;

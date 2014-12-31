@@ -24,7 +24,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "item", catalog = "scape")
 @NamedQueries({
-    @NamedQuery(name = "Item.SearchTitle", query = "FROM ItemDO i WHERE i.title like ?"),
+    @NamedQuery(name = "Item.getFavoriteItems", 
+    			query = "FROM ItemDO i WHERE i.id IN (SELECT ifav.item_id FROM ItemFavoriteDO ifav WHERE ifav.type = 2 AND ifav.user_id = ?) LIMIT ?, 10"),
     })
 public class ItemDO implements Serializable {
 
