@@ -43,7 +43,7 @@ public class UserDO implements Serializable {
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 
-	@Column(name = "name", nullable = false, length = 64)
+	@Column(name = "name", nullable = false, length = 64, unique = true)
 	private String name;// 设计师/企业名称
 
 	@Column(name = "fullname", length = 64)
@@ -61,10 +61,10 @@ public class UserDO implements Serializable {
 	@Column(name = "salt", nullable = false, length = 64)
 	private String salt;// 密码salt
 
-	@Column(name = "email", length = 64)
+	@Column(name = "email", length = 64, unique = true)
 	private String email;// 邮箱
 
-	@Column(name = "mobile", length = 64)
+	@Column(name = "mobile", length = 64, unique = true)
 	private String mobile;// 手机
 
 	@Column(name = "contact", length = 64)
