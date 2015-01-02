@@ -1,7 +1,5 @@
 package me.scape.ti.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import me.scape.ti.result.Result;
@@ -12,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -36,10 +35,20 @@ public class AccountController extends BaseController {
 	
 	@RequestMapping(value = "/login", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> login(HttpServletRequest request, HttpServletResponse response) {
-		String name = request.getParameter("name");
-		String password = request.getParameter("password");
+	public ResponseEntity<String> login(
+			@RequestParam(value = "name", required = true) String name, 
+			@RequestParam(value = "password", required = true) String password) {
 		Result result = accountService.login(name, password);
+		return toResponse(result);
+	}
+	
+	@RequestMapping(value = "/reset_passwd", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> reset_passwd(
+			@RequestParam(value = "user_id", required = true) Long user_id, 
+			@RequestParam(value = "old_passwd", required = true) String old_passwd, 
+			@RequestParam(value = "new_passwd", required = true) String new_passwd) {
+		Result result = accountService.login("", "");
 		return toResponse(result);
 	}
 }

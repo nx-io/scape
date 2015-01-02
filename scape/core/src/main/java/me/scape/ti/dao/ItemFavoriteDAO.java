@@ -1,7 +1,7 @@
 package me.scape.ti.dao;
 
-import me.scape.ti.commons.GenericDAO;
 import me.scape.ti.dataobject.ItemFavoriteDO;
+import me.scape.ti.jpa.GenericDAO;
 
 /**
  * 

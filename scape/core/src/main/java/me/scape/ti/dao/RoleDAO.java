@@ -2,8 +2,8 @@ package me.scape.ti.dao;
 
 import java.util.List;
 
-import me.scape.ti.commons.GenericDAO;
 import me.scape.ti.dataobject.RoleDO;
+import me.scape.ti.jpa.GenericDAO;
 
 /**
  * 

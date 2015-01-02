@@ -4,11 +4,11 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.scape.ti.commons.DefaultGenericDAO;
 import me.scape.ti.commons.Pagination;
 import me.scape.ti.criteria.UserQueryCriteria;
 import me.scape.ti.dao.UserDAO;
 import me.scape.ti.dataobject.UserDO;
+import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
@@ -55,7 +55,7 @@ public class DefaultUserDAO extends DefaultGenericDAO<UserDO, Long> implements U
             args.add(criteria.getOffset());
             args.add(criteria.getLimit());
         }
-        List<UserDO> list = findByNativeQuery(sqlFetchRows.append(condition).toString(), args.toArray());
+        List<UserDO> list = queryNative(sqlFetchRows.append(condition).toString(), args.toArray());
 
         return new Pagination(count.intValue(), list);
     }

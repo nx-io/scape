@@ -1,9 +1,9 @@
 package me.scape.ti.dao;
 
-import me.scape.ti.commons.GenericDAO;
 import me.scape.ti.commons.Pagination;
 import me.scape.ti.criteria.UserQueryCriteria;
 import me.scape.ti.dataobject.UserDO;
+import me.scape.ti.jpa.GenericDAO;
 
 /**
  * 

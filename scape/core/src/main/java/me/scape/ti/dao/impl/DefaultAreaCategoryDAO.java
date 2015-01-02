@@ -1,8 +1,8 @@
 package me.scape.ti.dao.impl;
 
-import me.scape.ti.commons.DefaultGenericDAO;
 import me.scape.ti.dao.AreaCategoryDAO;
 import me.scape.ti.dataobject.AreaCategoryDO;
+import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.springframework.stereotype.Repository;
 

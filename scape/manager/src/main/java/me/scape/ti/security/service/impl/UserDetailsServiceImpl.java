@@ -37,7 +37,7 @@ public final class UserDetailsServiceImpl implements UserDetailsService {
         details.setEmail(user.getEmail());
         details.setSalt(user.getSalt());
 
-        RoleDO role = roleDAO.findById(roleId);
+        RoleDO role = roleDAO.get(roleId);
         details.setRoleId(roleId);
         details.setRoleName(role.getName());
 
@@ -47,7 +47,7 @@ public final class UserDetailsServiceImpl implements UserDetailsService {
     public Collection<GrantedAuthority> getAuthorities(final Integer userRoleId) {
         List<GrantedAuthority> result = new ArrayList<GrantedAuthority>();
 
-        RoleDO role = roleDAO.findById(userRoleId);
+        RoleDO role = roleDAO.get(userRoleId);
         result.add(new SimpleGrantedAuthority(role.getCode()));
 
         return result;

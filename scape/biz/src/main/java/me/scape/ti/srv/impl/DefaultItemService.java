@@ -92,7 +92,7 @@ public class DefaultItemService extends BaseService implements ItemService {
 		args.put("start", pageQuery.getIndex());
 		args.put("size", pageQuery.getSize());
 		
-		List<ItemDO> itemList = itemDAO.findByNativeQuery(sb.toString(), args);
+		List<ItemDO> itemList = itemDAO.queryNative(sb.toString(), args);
 		if(CollectionUtils.isEmpty(itemList)) {
 			return Result.newError().with(ResultCode.Error_Item_Empty);
 		}
@@ -167,9 +167,9 @@ public class DefaultItemService extends BaseService implements ItemService {
 		if(!isMediaEmpty) {
 			itemVO.setItemMediaList(ItemMediaVO.newInstance(itemMediaList));
 		}
-		itemVO.setAreaCategory(AreaCategoryVO.newInstance(areaCategoryDAO.findById(item.getArea_category_id())));
-		itemVO.setCategory(CategoryVO.newInstance(categoryDAO.findById(item.getCategory_id())));
-		itemVO.setStyle(StyleVO.newInstance(styleDAO.findById(item.getStyle_id())));
+		itemVO.setAreaCategory(AreaCategoryVO.newInstance(areaCategoryDAO.get(item.getArea_category_id())));
+		itemVO.setCategory(CategoryVO.newInstance(categoryDAO.get(item.getCategory_id())));
+		itemVO.setStyle(StyleVO.newInstance(styleDAO.get(item.getStyle_id())));
 		
 		return Result.newSuccess().with(ResultCode.Success).with("item", itemVO);
 	}
@@ -179,21 +179,21 @@ public class DefaultItemService extends BaseService implements ItemService {
 		if (itemId == null || itemId <= 0L) {
 			return Result.newError().with(ResultCode.Error_Item_Detail);
 		}
-		ItemDO item = itemDAO.findById(itemId);
+		ItemDO item = itemDAO.get(itemId);
 		if (item == null) {
 			return Result.newError().with(ResultCode.Error_Item_Detail);
 		}
 		ItemVO itemVO = ItemVO.newInstance(item);
-		List<ItemMediaDO> itemMediaList = itemMediaDAO.findByNamedQuery("ItemMedia.getItemMediaByItemId",
+		List<ItemMediaDO> itemMediaList = itemMediaDAO.queryNamed("ItemMedia.getItemMediaByItemId",
 				new Object[] { item.getId() });
 		if(!CollectionUtils.isEmpty(itemMediaList)) {
 			itemVO.setItemMediaList(ItemMediaVO.newInstance(itemMediaList));
 		}
-		itemVO.setAreaCategory(AreaCategoryVO.newInstance(areaCategoryDAO.findById(item.getArea_category_id())));
-		itemVO.setCategory(CategoryVO.newInstance(categoryDAO.findById(item.getCategory_id())));
-		itemVO.setStyle(StyleVO.newInstance(styleDAO.findById(item.getStyle_id())));
+		itemVO.setAreaCategory(AreaCategoryVO.newInstance(areaCategoryDAO.get(item.getArea_category_id())));
+		itemVO.setCategory(CategoryVO.newInstance(categoryDAO.get(item.getCategory_id())));
+		itemVO.setStyle(StyleVO.newInstance(styleDAO.get(item.getStyle_id())));
 		
-		itemVO.setLabelList(LabelVO.newInstance(labelDAO.findByNamedQuery("Label.getLabelByItemId", new Object[]{ item.getId() })));
+		itemVO.setLabelList(LabelVO.newInstance(labelDAO.queryNamed("Label.getLabelByItemId", new Object[]{ item.getId() })));
 		
 		return Result.newSuccess().with(ResultCode.Success).with("item", itemVO);
 	}

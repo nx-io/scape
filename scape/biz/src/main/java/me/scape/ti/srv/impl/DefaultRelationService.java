@@ -73,7 +73,7 @@ public class DefaultRelationService extends BaseService implements RelationServi
 	 */
 	@Override
 	public Result getFavoriteItems(Long userId, int page) {
-		List<ItemDO> itemList = itemDAO.findByNamedQuery("Item.getFavoriteItems", 
+		List<ItemDO> itemList = itemDAO.queryNamed("Item.getFavoriteItems", 
 				new Object[]{ userId, page });
 		if(CollectionUtils.isEmpty(itemList)) {
 			return Result.newError().with(ResultCode.Error_Favorite_Item_Empty);
@@ -107,7 +107,7 @@ public class DefaultRelationService extends BaseService implements RelationServi
 	 */
 	@Override
 	public Result getFavoriteUsers(Long userId, int page) {
-		List<UserDO> userList = userDAO.findByNamedQuery("User.getFavoriteUsers", 
+		List<UserDO> userList = userDAO.queryNamed("User.getFavoriteUsers", 
 				new Object[]{ userId, page });
 		if(CollectionUtils.isEmpty(userList)) {
 			return Result.newError().with(ResultCode.Error_Favorite_User_Empty);

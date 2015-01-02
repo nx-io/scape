@@ -36,7 +36,7 @@ public class DefaultAccountService extends BaseService implements AccountService
 		if (StringUtils.isBlank(password)) {
 			return Result.newError().with(ResultCode.Error_Permission);
 		}
-		UserDO user = userDAO.findOneByNamedQuery("User.getUserByName", new Object[]{ name });
+		UserDO user = userDAO.queryNamedForObject("User.getUserByName", new Object[]{ name });
 		if(user == null) {
 			return Result.newError().with(ResultCode.Error_Permission);
 		}
@@ -66,6 +66,10 @@ public class DefaultAccountService extends BaseService implements AccountService
 		}
 		if (!ValidationUtils.isMobilePhoneNumber(mobile)) {
 			return Result.newError().with(ResultCode.Error_Register_Mobile);
+		}
+		Long uc = userDAO.findOneByNamedQuery("User.existUserByName", Long.class, new Object[]{ name });
+		if(user != null) {
+			return Result.newError().with(ResultCode.Error_Permission);
 		}
 		UserDO user = new UserDO();
 		user.setAvatar(avatar);

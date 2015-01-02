@@ -2,11 +2,9 @@ package me.scape.ti.dao.impl;
 
 import java.util.List;
 
-import javax.persistence.Query;
-
-import me.scape.ti.commons.DefaultGenericDAO;
 import me.scape.ti.dao.RoleDAO;
 import me.scape.ti.dataobject.RoleDO;
+import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.springframework.stereotype.Repository;
 
@@ -21,15 +19,12 @@ public class DefaultRoleDAO extends DefaultGenericDAO<RoleDO, Integer> implement
 
     @Override
     public List<RoleDO> getAllRoles() {
-        return findByNamedQuery("RoleDO.getAllRoles");
+        return queryNamed("RoleDO.getAllRoles");
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public List<RoleDO> getRolesByResourceId(Integer resourceId) {
         String sql = "SELECT r.* FROM role r JOIN role_resource rr ON (r.id = rr.role_id AND rr.resource_id = ?)";
-        Query query = createNativeQuery(sql, new Object[] { resourceId });
-
-        return query.getResultList();
+        return queryNative(sql, new Object[] { resourceId });
     }
 }

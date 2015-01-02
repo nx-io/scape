@@ -24,7 +24,7 @@ public final class AuthenticationSuccessHandler implements
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response,
             final Authentication authentication) throws IOException, ServletException {
-        ManagerDO manager = managerDAO.findById(ContextUtil.getUserId());
+        ManagerDO manager = managerDAO.get(ContextUtil.getUserId());
 
         Date now = new Date();
         manager.setLast_ip(WebUtils.ipToLng0(WebUtils.getIpAddr(request)));

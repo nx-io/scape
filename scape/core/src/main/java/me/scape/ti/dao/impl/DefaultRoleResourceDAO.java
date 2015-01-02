@@ -1,8 +1,8 @@
 package me.scape.ti.dao.impl;
 
-import me.scape.ti.commons.DefaultGenericDAO;
 import me.scape.ti.dao.RoleResourceDAO;
 import me.scape.ti.dataobject.RoleResourceDO;
+import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.springframework.stereotype.Repository;
 

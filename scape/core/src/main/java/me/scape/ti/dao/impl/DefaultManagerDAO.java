@@ -1,8 +1,8 @@
 package me.scape.ti.dao.impl;
 
-import me.scape.ti.commons.DefaultGenericDAO;
 import me.scape.ti.dao.ManagerDAO;
 import me.scape.ti.dataobject.ManagerDO;
+import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +17,7 @@ public class DefaultManagerDAO extends DefaultGenericDAO<ManagerDO, Integer> imp
 
     @Override
     public ManagerDO getByEmail(String email) {
-        return findOneByNamedQuery("ManagerDO.getByEmail", new Object[] { email });
+        return queryNamedForObject("ManagerDO.getByEmail", new Object[] { email });
     }
 
 }
