@@ -3,6 +3,7 @@ package me.scape.ti.jpa;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
@@ -21,35 +22,81 @@ import org.springframework.beans.factory.InitializingBean;
 public abstract class EntityManagerAccessor implements EntityManagerOperations, InitializingBean {
 
 	protected Logger log = LoggerFactory.getLogger(getClass());
+
+
+	@Override
+	public Query createQuery(String ql) {
+		return getEntityManager().createQuery(ql);
+	}
+
+	@Override
+	public Query createQuery(String ql, Map<String, Object> args) {
+		return queryMerger(getEntityManager().createQuery(ql), args);
+	}
+
+	@Override
+	public Query createQuery(String ql, Object[] args) {
+		return queryMerger(getEntityManager().createQuery(ql), args);
+	}
 	
 	@Override
-	public <Q> TypedQuery<Q> createQuery(String query, Class<Q> clazz) {
+	public <T> TypedQuery<T> createQuery(String query, Class<T> clazz) {
 		return getEntityManager().createQuery(query, clazz);
 	}
 
 	@Override
-	public <Q> TypedQuery<Q> createQuery(String query, Class<Q> clazz, Map<String, Object> args) {
+	public <T> TypedQuery<T> createQuery(String query, Class<T> clazz, Map<String, Object> args) {
 		return queryMerger(getEntityManager().createQuery(query, clazz), args);
 	}
 
 	@Override
-	public <Q> TypedQuery<Q> createQuery(String query, Class<Q> clazz, Object[] args) {
+	public <T> TypedQuery<T> createQuery(String query, Class<T> clazz, Object[] args) {
 		return queryMerger(getEntityManager().createQuery(query, clazz), args);
 	}
 
 	@Override
-	public <Q> TypedQuery<Q> createNamedQuery(String queryName, Class<Q> clazz) {
+	public Query createNamedQuery(String name) {
+		return getEntityManager().createNamedQuery(name);
+	}
+
+	@Override
+	public Query createNamedQuery(String name, Map<String, Object> args) {
+		return queryMerger(getEntityManager().createNamedQuery(name), args);
+	}
+
+	@Override
+	public Query createNamedQuery(String name, Object[] args) {
+		return queryMerger(getEntityManager().createNamedQuery(name), args);
+	}
+
+	@Override
+	public <T> TypedQuery<T> createNamedQuery(String queryName, Class<T> clazz) {
 		return getEntityManager().createNamedQuery(queryName, clazz);
 	}
 
 	@Override
-	public <Q> TypedQuery<Q> createNamedQuery(String queryName, Class<Q> clazz, Map<String, Object> args) {
+	public <T> TypedQuery<T> createNamedQuery(String queryName, Class<T> clazz, Map<String, Object> args) {
 		return queryMerger(getEntityManager().createNamedQuery(queryName, clazz), args);
 	}
 
 	@Override
-	public <Q> TypedQuery<Q> createNamedQuery(String queryName, Class<Q> clazz, Object[] args) {
+	public <T> TypedQuery<T> createNamedQuery(String queryName, Class<T> clazz, Object[] args) {
 		return queryMerger(getEntityManager().createNamedQuery(queryName, clazz), args);
+	}
+
+	@Override
+	public Query createNativeQuery(String sql) {
+		return getEntityManager().createNativeQuery(sql);
+	}
+
+	@Override
+	public Query createNativeQuery(String sql, Map<String, Object> args) {
+		return queryMerger(getEntityManager().createNativeQuery(sql), args);
+	}
+
+	@Override
+	public Query createNativeQuery(String sql, Object[] args) {
+		return queryMerger(getEntityManager().createNativeQuery(sql), args);
 	}
 
 	@Override
@@ -65,6 +112,59 @@ public abstract class EntityManagerAccessor implements EntityManagerOperations, 
 	@Override
 	public Query createNativeQuery(String query, Class<?> clazz, Object[] args) {
 		return queryMerger(getEntityManager().createNativeQuery(query, clazz), args);
+	}
+
+	@Override
+	public <T> T persist(T entity) {
+		getEntityManager().persist(entity);
+		return entity;
+	}
+
+	@Override
+	public <T> void remove(T entity) {
+		getEntityManager().remove(entity);
+	}
+
+	@Override
+	public <T> T merge(T entity) {
+		return getEntityManager().merge(entity);
+	}
+
+	@Override
+	public <T, PK> T get(Class<T> clazz, PK primaryKey) {
+		return getEntityManager().find(clazz, primaryKey);
+	}
+
+	@Override
+	public <T, PK> T get(Class<T> clazz, PK primaryKey, LockModeType lockMode) {
+		return getEntityManager().find(clazz, primaryKey, lockMode);
+	}
+
+	@Override
+	public <T, PK> T load(Class<T> clazz, PK primaryKey) {
+		return getEntityManager().getReference(clazz, primaryKey);
+	}
+
+	@Override
+	public <T> T refresh(T entity) {
+		getEntityManager().refresh(entity);
+		return entity;
+	}
+
+	@Override
+	public <T> T refresh(T entity, LockModeType lockMode) {
+		getEntityManager().refresh(entity, lockMode);
+		return entity;
+	}
+
+	@Override
+	public void flush() {
+		getEntityManager().flush();
+	}
+
+	@Override
+	public void clear() {
+		getEntityManager().clear();
 	}
 
 	@Override

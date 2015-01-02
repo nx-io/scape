@@ -107,35 +107,13 @@ public class DefaultGenericDAO<T, PK extends Serializable> extends EntityManager
 	}
 
 	@Override
+	public T load(PK id) {
+		return getEntityManager().getReference(getEntityType(), id);
+	}
+
+	@Override
 	public List<T> findAll() {
 		return query("FROM " + entityType.getName());
-	}
-
-	@Override
-	public T persist(T entity) {
-		getEntityManager().persist(entity);
-		return entity;
-	}
-
-	@Override
-	public T merge(T entity) {
-		getEntityManager().merge(entity);
-		return entity;
-	}
-
-	@Override
-	public void flush() {
-		getEntityManager().flush();
-	}
-
-	@Override
-	public void clear() {
-		getEntityManager().clear();
-	}
-
-	@Override
-	public void remove(T entity) {
-		getEntityManager().remove(entity);
 	}
 
 	@Override

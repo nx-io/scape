@@ -55,16 +55,8 @@ public interface GenericDAO<T, PK extends Serializable> extends EntityManagerOpe
 	int queryNativeUpdate(String query, Map<String, Object> args);
 
 	T get(PK id);
+	
+	T load(PK id);
 
 	List<T> findAll();
-
-	T persist(T entity);
-
-	void flush();
-
-	void clear();
-
-	void remove(T entity);
-
-	T merge(T entity);
 }
