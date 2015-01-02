@@ -17,7 +17,13 @@ public enum ResultCode {
 	
 	Error_Register_Passwd				(-1003L, 	"请输入密码"),
 	
+	Error_Register_User_Exist			(-1004L, 	"用户名已注册"),
+	
 	Error_Permission					(-2000L, 	"非法权限"),
+	
+	Error_User_Not_Exist				(-2001L, 	"用户不存在"),
+	
+	Error_User_Passwd					(-2002L, 	"密码错误"),
 	
 	Error_Exception						(-3000L,	"业务处理失败"),
 	

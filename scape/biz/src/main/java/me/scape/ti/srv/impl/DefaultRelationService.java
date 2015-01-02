@@ -73,8 +73,8 @@ public class DefaultRelationService extends BaseService implements RelationServi
 	 */
 	@Override
 	public Result getFavoriteItems(Long userId, int page) {
-		List<ItemDO> itemList = itemDAO.queryNamed("Item.getFavoriteItems", 
-				new Object[]{ userId, page });
+		String sql = "SELECT * FROM item i WHERE i.id IN (SELECT ifav.item_id FROM item_favorite ifav WHERE ifav.type = 2 AND ifav.user_id = ?) LIMIT ?, 10";
+		List<ItemDO> itemList = itemDAO.queryNative(sql, new Object[]{ userId, page });
 		if(CollectionUtils.isEmpty(itemList)) {
 			return Result.newError().with(ResultCode.Error_Favorite_Item_Empty);
 		}
@@ -107,8 +107,8 @@ public class DefaultRelationService extends BaseService implements RelationServi
 	 */
 	@Override
 	public Result getFavoriteUsers(Long userId, int page) {
-		List<UserDO> userList = userDAO.queryNamed("User.getFavoriteUsers", 
-				new Object[]{ userId, page });
+		String sql = "SELECT * FROM user u WHERE u.id in (SELECT ufav.favorite_id FROM user_favorite ufav WHERE ufav.user_id = ?) LIMIT ?, 10";
+		List<UserDO> userList = userDAO.queryNative(sql, new Object[]{ userId, page });
 		if(CollectionUtils.isEmpty(userList)) {
 			return Result.newError().with(ResultCode.Error_Favorite_User_Empty);
 		}

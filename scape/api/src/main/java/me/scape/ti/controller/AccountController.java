@@ -48,7 +48,7 @@ public class AccountController extends BaseController {
 			@RequestParam(value = "user_id", required = true) Long user_id, 
 			@RequestParam(value = "old_passwd", required = true) String old_passwd, 
 			@RequestParam(value = "new_passwd", required = true) String new_passwd) {
-		Result result = accountService.login("", "");
+		Result result = accountService.reset_passwd(user_id, old_passwd, new_passwd);
 		return toResponse(result);
 	}
 }

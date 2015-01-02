@@ -15,4 +15,6 @@ public interface AccountService {
 
 	Result login(String name, String password);
 
+	Result reset_passwd(Long user_id, String old_passwd, String new_passwd);
+
 }

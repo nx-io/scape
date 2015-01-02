@@ -29,6 +29,23 @@ public class DefaultAccountService extends BaseService implements AccountService
 
 	@Override
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
+	public Result reset_passwd(Long user_id, String old_passwd, String new_passwd) {
+		UserDO user = userDAO.get(user_id);
+		if(user == null) {
+			return Result.newError().with(ResultCode.Error_User_Not_Exist);
+		}
+		if(!StringUtils.equals(PasswdUtils.signPwsswd(old_passwd, user.getSalt()), user.getPassword())) {
+			return Result.newError().with(ResultCode.Error_User_Passwd);
+		}
+		String token = TokenUtils.generate();
+		user.setSalt(token);
+		user.setPassword(PasswdUtils.signPwsswd(new_passwd, token));
+		userDAO.merge(user);
+		return Result.newSuccess().with(ResultCode.Success).with("user", UserVO.newInstance(user));
+	}
+	
+	@Override
+	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result login(String name, String password) {
 		if (StringUtils.isBlank(name)) {
 			return Result.newError().with(ResultCode.Error_Permission);
@@ -67,9 +84,9 @@ public class DefaultAccountService extends BaseService implements AccountService
 		if (!ValidationUtils.isMobilePhoneNumber(mobile)) {
 			return Result.newError().with(ResultCode.Error_Register_Mobile);
 		}
-		Long uc = userDAO.findOneByNamedQuery("User.existUserByName", Long.class, new Object[]{ name });
-		if(user != null) {
-			return Result.newError().with(ResultCode.Error_Permission);
+		Long uc = userDAO.createNamedQuery("User.existUserByName", Long.class, new Object[]{ name }).getSingleResult();
+		if(uc != null && uc > 0L) {
+			return Result.newError().with(ResultCode.Error_Register_User_Exist);
 		}
 		UserDO user = new UserDO();
 		user.setAvatar(avatar);

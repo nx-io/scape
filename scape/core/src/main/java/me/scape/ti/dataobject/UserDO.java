@@ -30,8 +30,6 @@ import javax.persistence.TemporalType;
 	@NamedQuery(name = "User.existUserByName", 
 				query = "SELECT COUNT(u.id) FROM UserDO u WHERE u.name = ?"), 
 				
-	@NamedQuery(name = "User.getFavoriteUsers", 
-				query = "FROM UserDO u WHERE u.id in (SELECT ufav.favorite_id FROM UserFavoriteDO ufav WHERE ufav.user_id = ?) LIMIT ?, 10"), 
 			})
 public class UserDO implements Serializable {
 
