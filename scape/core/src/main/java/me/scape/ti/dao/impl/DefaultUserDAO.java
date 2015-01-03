@@ -59,8 +59,8 @@ public class DefaultUserDAO extends DefaultGenericDAO<UserDO, Long> implements U
             args.add("%" + criteria.getName() + "%");
         }
 
-        BigInteger count = (BigInteger) (createNativeQuery(sqlCountRows.append(condition).toString(), null,
-                args.toArray()).getSingleResult());
+        BigInteger count = (BigInteger) (createNativeQuery(sqlCountRows.append(condition).toString(), args.toArray())
+                .getSingleResult());
 
         condition.append(" ORDER BY u.gmt_created DESC");
         if (0 != criteria.getLimit()) {
