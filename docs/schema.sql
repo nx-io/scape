@@ -213,11 +213,11 @@ CREATE TABLE `resource` (
 DROP TABLE IF EXISTS `role`;
 
 CREATE TABLE `role` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `code` varchar(32) NOT NULL,
   `name` varchar(64) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `is_active` tinyint(4) NOT NULL DEFAULT 1,
   `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `gmt_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),

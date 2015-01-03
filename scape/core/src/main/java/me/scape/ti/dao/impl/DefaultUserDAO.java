@@ -22,6 +22,15 @@ import org.springframework.stereotype.Repository;
 @Repository(value = "userDAO")
 public class DefaultUserDAO extends DefaultGenericDAO<UserDO, Long> implements UserDAO {
 
+    @Override
+    public List<UserDO> getUsersByIds(List<Long> ids) {
+        if (null == ids || ids.size() <= 0) {
+            return new ArrayList<UserDO>();
+        }
+
+        return queryNamed("User.getUsersByIds", ids.toArray());
+    }
+
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public Pagination<UserDO> ListUsers(UserQueryCriteria criteria) {
@@ -59,4 +68,5 @@ public class DefaultUserDAO extends DefaultGenericDAO<UserDO, Long> implements U
 
         return new Pagination(count.intValue(), list);
     }
+
 }

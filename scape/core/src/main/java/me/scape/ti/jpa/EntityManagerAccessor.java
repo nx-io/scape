@@ -23,7 +23,6 @@ public abstract class EntityManagerAccessor implements EntityManagerOperations, 
 
 	protected Logger log = LoggerFactory.getLogger(getClass());
 
-
 	@Override
 	public Query createQuery(String ql) {
 		return getEntityManager().createQuery(ql);
@@ -38,7 +37,7 @@ public abstract class EntityManagerAccessor implements EntityManagerOperations, 
 	public Query createQuery(String ql, Object[] args) {
 		return queryMerger(getEntityManager().createQuery(ql), args);
 	}
-	
+
 	@Override
 	public <T> TypedQuery<T> createQuery(String query, Class<T> clazz) {
 		return getEntityManager().createQuery(query, clazz);
@@ -99,20 +98,32 @@ public abstract class EntityManagerAccessor implements EntityManagerOperations, 
 		return queryMerger(getEntityManager().createNativeQuery(sql), args);
 	}
 
-	@Override
-	public Query createNativeQuery(String query, Class<?> clazz) {
-		return getEntityManager().createNativeQuery(query, clazz);
-	}
+    @Override
+    public Query createNativeQuery(String query, Class<?> clazz) {
+        if (null == clazz) {
+            return getEntityManager().createNativeQuery(query);
+        }
+
+        return getEntityManager().createNativeQuery(query, clazz);
+    }
 
 	@Override
-	public Query createNativeQuery(String query, Class<?> clazz, Map<String, Object> args) {
-		return queryMerger(getEntityManager().createNativeQuery(query, clazz), args);
-	}
+    public Query createNativeQuery(String query, Class<?> clazz, Map<String, Object> args) {
+        if (null == clazz) {
+            return queryMerger(getEntityManager().createNativeQuery(query), args);
+        }
+
+        return queryMerger(getEntityManager().createNativeQuery(query, clazz), args);
+    }
 
 	@Override
-	public Query createNativeQuery(String query, Class<?> clazz, Object[] args) {
-		return queryMerger(getEntityManager().createNativeQuery(query, clazz), args);
-	}
+    public Query createNativeQuery(String query, Class<?> clazz, Object[] args) {
+        if (null == clazz) {
+            return queryMerger(getEntityManager().createNativeQuery(query), args);
+        }
+
+        return queryMerger(getEntityManager().createNativeQuery(query, clazz), args);
+    }
 
 	@Override
 	public <T> T persist(T entity) {

@@ -1,5 +1,7 @@
 package me.scape.ti.dao;
 
+import me.scape.ti.commons.Pagination;
+import me.scape.ti.criteria.ItemQueryCriteria;
 import me.scape.ti.dataobject.ItemDO;
 import me.scape.ti.jpa.GenericDAO;
 
@@ -10,5 +12,5 @@ import me.scape.ti.jpa.GenericDAO;
  * @since 2014年12月21日 下午2:41:43
  */
 public interface ItemDAO extends GenericDAO<ItemDO, Long> {
-
+    Pagination<ItemDO> ListItems(ItemQueryCriteria criteria);
 }
