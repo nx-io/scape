@@ -1,5 +1,7 @@
 package me.scape.ti.dao;
 
+import java.util.List;
+
 import me.scape.ti.dataobject.ItemMediaDO;
 import me.scape.ti.jpa.GenericDAO;
 
@@ -10,5 +12,5 @@ import me.scape.ti.jpa.GenericDAO;
  * @since 2014年12月21日 下午2:45:48
  */
 public interface ItemMediaDAO extends GenericDAO<ItemMediaDO, Long> {
-
+    List<ItemMediaDO> getItemMediasByItemId(Long itemId);
 }

@@ -24,11 +24,14 @@ import me.scape.ti.dataobject.StyleDO;
 import me.scape.ti.dataobject.UserDO;
 import me.scape.ti.service.ItemService;
 import me.scape.ti.vo.CurrentPage;
+import me.scape.ti.vo.ItemDetailVO;
 import me.scape.ti.vo.ItemListVO;
 import me.scape.ti.vo.request.ItemListRequest;
 import me.scape.ti.vo.request.ItemRequest;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 @Service
 public class ItemServiceImpl extends BaseServiceImpl implements ItemService {
@@ -86,14 +89,14 @@ public class ItemServiceImpl extends BaseServiceImpl implements ItemService {
         List<Long> styleIds = new ArrayList<Long>();
         List<Long> userIds = new ArrayList<Long>();
         for (ItemDO item : items) {
-            Long areaCategoryId = item.getArea_category_id();
-            if (!categoryIds.contains(areaCategoryId)) {
-                categoryIds.add(areaCategoryId);
+            Long categoryId = item.getCategory_id();
+            if (!categoryIds.contains(categoryId)) {
+                categoryIds.add(categoryId);
             }
 
-            Long categoryId = item.getCategory_id();
-            if (!areaCategoryIds.contains(categoryId)) {
-                areaCategoryIds.add(categoryId);
+            Long areaCategoryId = item.getArea_category_id();
+            if (!areaCategoryIds.contains(areaCategoryId)) {
+                areaCategoryIds.add(areaCategoryId);
             }
 
             Long styleId = item.getStyle_id();
@@ -164,11 +167,14 @@ public class ItemServiceImpl extends BaseServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional(value = "transactionManager", rollbackFor = Throwable.class)
     public long createItem(ItemRequest itemRequest) {
         Date now = new Date();
+
         ItemDO item = new ItemDO();
         item.setTitle(itemRequest.getTitle());
         item.setType(itemRequest.getType());
+        item.setStatus(itemRequest.getStatus());
         item.setCategory_id(itemRequest.getCategory_id());
         item.setArea_category_id(itemRequest.getArea_category_id());
         item.setStyle_id(itemRequest.getStyle_id());
@@ -177,6 +183,11 @@ public class ItemServiceImpl extends BaseServiceImpl implements ItemService {
         item.setDesigner_contact(itemRequest.getDesigner_contact());
         item.setConstructor(itemRequest.getConstructor());
         item.setConstructor_contact(itemRequest.getConstructor_contact());
+
+        item.setUser_id(0L);
+        item.setComment_count(0);
+        item.setLike_count(0);
+        item.setPraise_count(0);
 
         item.setGmt_created(now);
         item.setGmt_modified(now);
@@ -209,5 +220,149 @@ public class ItemServiceImpl extends BaseServiceImpl implements ItemService {
         }
 
         return itemId;
+    }
+
+    @Override
+    public ItemDetailVO getItemDetail(long itemId) {
+        ItemDetailVO itemDetailVO = new ItemDetailVO();
+
+        ItemDO item = itemDAO.get(itemId);
+        if (null == item) {
+            return itemDetailVO;
+        }
+
+        itemDetailVO.setId(item.getId());
+        itemDetailVO.setTitle(item.getTitle());
+        itemDetailVO.setType(item.getType());
+
+        Long areaCategoryId = item.getArea_category_id();
+        itemDetailVO.setArea_category_id(areaCategoryId);
+        AreaCategoryDO areaCategory = areaCategoryDAO.get(areaCategoryId);
+        if (null != areaCategory) {
+            itemDetailVO.setArea_category_name(areaCategory.getName());
+        }
+
+        Long categoryId = item.getCategory_id();
+        itemDetailVO.setCategory_id(categoryId);
+        CategoryDO category = categoryDAO.get(categoryId);
+        if (null != category) {
+            itemDetailVO.setCategory_name(category.getName());
+        }
+
+        Long styleId = item.getStyle_id();
+        itemDetailVO.setStyle_id(styleId);
+        StyleDO style = styleDAO.get(styleId);
+        if (null != style) {
+            itemDetailVO.setStyle_name(style.getName());
+        }
+
+        itemDetailVO.setStatus(item.getStatus());
+        itemDetailVO.setDesigner(item.getDesigner());
+        itemDetailVO.setDesigner_contact(item.getDesigner_contact());
+        itemDetailVO.setConstructor(item.getConstructor());
+        itemDetailVO.setConstructor_contact(item.getConstructor_contact());
+        itemDetailVO.setDescription(item.getDescription());
+
+        Long userId = item.getUser_id();
+        if (null != userId && 0 != userId) {
+            UserDO userDO = userDAO.get(userId);
+            itemDetailVO.setUser_id(userId);
+            itemDetailVO.setUser_name(userDO.getName());
+        }
+
+        itemDetailVO.setComment_count(item.getComment_count());
+        itemDetailVO.setLike_count(item.getLike_count());
+        itemDetailVO.setPraise_count(item.getPraise_count());
+        itemDetailVO.setMedia_count(item.getMedia_count());
+        itemDetailVO.setGmt_created(item.getGmt_created());
+
+        List<ItemMediaDO> itemMediaList = itemMediaDAO.getItemMediasByItemId(itemId);
+        if (!CollectionUtils.isEmpty(itemMediaList)) {
+            List<String> medias = new ArrayList<String>();
+            for (ItemMediaDO itemMediaDO : itemMediaList) {
+                medias.add(itemMediaDO.getUrl());
+            }
+
+            itemDetailVO.setMedias(medias);
+        }
+
+        return itemDetailVO;
+    }
+
+    @Override
+    @Transactional(value = "transactionManager", rollbackFor = Throwable.class)
+    public void editItem(long itemId, ItemRequest itemRequest) {
+        ItemDO item = itemDAO.get(itemId);
+        if (null == item) {
+            return;
+        }
+
+        Date now = new Date();
+
+        item.setTitle(itemRequest.getTitle());
+        item.setType(itemRequest.getType());
+        item.setStatus(itemRequest.getStatus());
+        item.setCategory_id(itemRequest.getCategory_id());
+        item.setArea_category_id(itemRequest.getArea_category_id());
+        item.setStyle_id(itemRequest.getStyle_id());
+        item.setDescription(itemRequest.getDescription());
+        item.setDesigner(itemRequest.getDesigner());
+        item.setDesigner_contact(itemRequest.getDesigner_contact());
+        item.setConstructor(itemRequest.getConstructor());
+        item.setConstructor_contact(itemRequest.getConstructor_contact());
+
+        item.setUser_id(item.getUser_id());
+        item.setComment_count(item.getComment_count());
+        item.setLike_count(item.getLike_count());
+        item.setPraise_count(item.getPraise_count());
+
+        item.setGmt_modified(now);
+
+        List<ItemMediaDO> itemMediaList = itemMediaDAO.getItemMediasByItemId(itemId);
+        List<String> itemMedias = new ArrayList<String>();
+        for (ItemMediaDO itemMediaDO : itemMediaList) {
+            itemMedias.add(itemMediaDO.getUrl());
+        }
+
+        int itemMediaSize = 1;
+        List<String> medias = itemRequest.getMedias();
+        if (null != medias) {
+            for (String media : medias) {
+                if (!itemMedias.contains(media)) {
+                    ItemMediaDO itemMedia = new ItemMediaDO();
+                    itemMedia.setItem_id(itemId);
+                    itemMedia.setUrl(media);
+                    itemMedia.setStatus(ItemMediaDO.Available);
+                    itemMedia.setType(ItemMediaDO.IMG);
+                    itemMedia.setGmt_created(now);
+                    itemMedia.setGmt_modified(now);
+
+                    itemMediaDAO.persist(itemMedia);
+                }
+
+                itemMediaSize++;
+            }
+
+            for (ItemMediaDO itemMediaDO : itemMediaList) {
+                if (!medias.contains(itemMediaDO.getUrl())) {
+                    itemMediaDO.setStatus(ItemMediaDO.Strike_out);
+                    itemMediaDO.setGmt_modified(now);
+                }
+            }
+        } else {
+            for (ItemMediaDO itemMediaDO : itemMediaList) {
+                itemMediaDO.setStatus(ItemMediaDO.Strike_out);
+                itemMediaDO.setGmt_modified(now);
+            }
+        }
+
+        item.setCover_media(itemRequest.getCover_media());
+        item.setMedia_count(itemMediaSize);
+
+    }
+
+    @Override
+    public void deleteItem(long itemId) {
+        // TODO Auto-generated method stub
     }
 }

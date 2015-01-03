@@ -16,9 +16,15 @@ public class ItemDetailVO implements Serializable {
 
     private Long category_id;
 
+    private String category_name;
+
     private Long area_category_id;
 
+    private String area_category_name;
+
     private Long style_id;
+
+    private String style_name;
 
     private Byte status;
 
@@ -46,7 +52,9 @@ public class ItemDetailVO implements Serializable {
 
     private Long user_id;
 
-    private Date gmt_modified;
+    private String user_name;
+
+    private Date gmt_created;
 
     public Long getId() {
         return id;
@@ -80,6 +88,14 @@ public class ItemDetailVO implements Serializable {
         this.category_id = category_id;
     }
 
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+
     public Long getArea_category_id() {
         return area_category_id;
     }
@@ -88,12 +104,28 @@ public class ItemDetailVO implements Serializable {
         this.area_category_id = area_category_id;
     }
 
+    public String getArea_category_name() {
+        return area_category_name;
+    }
+
+    public void setArea_category_name(String area_category_name) {
+        this.area_category_name = area_category_name;
+    }
+
     public Long getStyle_id() {
         return style_id;
     }
 
     public void setStyle_id(Long style_id) {
         this.style_id = style_id;
+    }
+
+    public String getStyle_name() {
+        return style_name;
+    }
+
+    public void setStyle_name(String style_name) {
+        this.style_name = style_name;
     }
 
     public Byte getStatus() {
@@ -200,12 +232,20 @@ public class ItemDetailVO implements Serializable {
         this.user_id = user_id;
     }
 
-    public Date getGmt_modified() {
-        return gmt_modified;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setGmt_modified(Date gmt_modified) {
-        this.gmt_modified = gmt_modified;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public Date getGmt_created() {
+        return gmt_created;
+    }
+
+    public void setGmt_created(Date gmt_created) {
+        this.gmt_created = gmt_created;
     }
 
 }

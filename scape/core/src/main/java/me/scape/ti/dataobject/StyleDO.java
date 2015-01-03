@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "style", catalog = "scape")
-@NamedQueries({ @NamedQuery(name = "StyleDO.getStylesByIds", query = "FROM StyleDO WHERE id IN ?"),
+@NamedQueries({ @NamedQuery(name = "StyleDO.getStylesByIds", query = "FROM StyleDO WHERE id IN :ids"),
         @NamedQuery(name = "StyleDO.getAllStyles", query = "FROM StyleDO WHERE display != -1") })
 public class StyleDO implements Serializable {
 

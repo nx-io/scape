@@ -1,5 +1,7 @@
 package me.scape.ti.dao.impl;
 
+import java.util.List;
+
 import me.scape.ti.dao.ItemMediaDAO;
 import me.scape.ti.dataobject.ItemMediaDO;
 import me.scape.ti.jpa.DefaultGenericDAO;
@@ -14,5 +16,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository(value = "itemMediaDAO")
 public class DefaultItemMediaDAO extends DefaultGenericDAO<ItemMediaDO, Long> implements ItemMediaDAO {
-	
+
+    @Override
+    public List<ItemMediaDO> getItemMediasByItemId(Long itemId) {
+        return queryNamed("ItemMedia.getItemMediaByItemId", new Object[] { itemId });
+    }
+
 }

@@ -1,7 +1,9 @@
 package me.scape.ti.dao.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import me.scape.ti.dao.StyleDAO;
 import me.scape.ti.dataobject.StyleDO;
@@ -24,7 +26,9 @@ public class DefaultStyleDAO extends DefaultGenericDAO<StyleDO, Long> implements
             return new ArrayList<StyleDO>();
         }
 
-        return queryNamed("StyleDO.getStylesByIds", ids.toArray());
+        Map<String, Object> args = new HashMap<String, Object>();
+        args.put("ids", ids);
+        return queryNamed("StyleDO.getStylesByIds", args);
     }
 
     @Override

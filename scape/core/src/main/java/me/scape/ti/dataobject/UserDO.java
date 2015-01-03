@@ -25,7 +25,7 @@ import javax.persistence.TemporalType;
 @Table(name = "user", catalog = "scape")
 @NamedQueries({ @NamedQuery(name = "User.getUserByName", query = "FROM UserDO u WHERE u.name = ?"),
         @NamedQuery(name = "User.existUserByName", query = "SELECT COUNT(u.id) FROM UserDO u WHERE u.name = ?"),
-        @NamedQuery(name = "User.getUsersByIds", query = "FROM UserDO WHERE id IN ?") })
+        @NamedQuery(name = "User.getUsersByIds", query = "FROM UserDO WHERE id IN :ids") })
 public class UserDO implements Serializable {
 
     private static final long serialVersionUID = 829998693975891020L;
