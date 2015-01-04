@@ -48,8 +48,8 @@
                             </div>
                             <select name="status" class="form-control">
                                 <optgroup label="请选择状态">
-                                    <option value="active" ${ 1 == item.status ? 'selected' : ''}>活动的</option>
-                                    <option value="banned" ${ 0 == item.status ? 'selected' : ''}>冻结的</option>
+                                    <option value="1" ${ 1 == item.status ? 'selected' : ''}>活动的</option>
+                                    <option value="0" ${ 0 == item.status ? 'selected' : ''}>冻结的</option>
                                 </optgroup>
                             </select>
                         </div>
@@ -139,7 +139,7 @@
                         <label>封皮<span class="required-flag">*</span></label>
                         <div class="input-group">
                             <div id="cover-img" style="padding-bottom: 10px">
-                                <input type="hidden" name="cover_media" value="${item.cover_media_path}">
+                                <input type="hidden" name="cover_media" value="1.jpg">
                                 <c:if test="${!empty item.cover_media}">
                                     <img style="height: 230px" src="${item.cover_media}" class="img-rounded"/>
                                 </c:if>

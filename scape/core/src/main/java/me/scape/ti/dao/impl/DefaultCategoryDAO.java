@@ -1,7 +1,9 @@
 package me.scape.ti.dao.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import me.scape.ti.dao.CategoryDAO;
 import me.scape.ti.dataobject.CategoryDO;
@@ -24,7 +26,9 @@ public class DefaultCategoryDAO extends DefaultGenericDAO<CategoryDO, Long> impl
             return new ArrayList<CategoryDO>();
         }
 
-        return queryNamed("CategoryDO.getCategoriesByIds", ids.toArray());
+        Map<String, Object> args = new HashMap<String, Object>();
+        args.put("ids", ids);
+        return queryNamed("CategoryDO.getCategoriesByIds", args);
     }
 
     @Override

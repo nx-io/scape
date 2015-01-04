@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class ItemController extends BaseController {
@@ -77,11 +78,29 @@ public class ItemController extends BaseController {
         return "item/form";
     }
 
-    @RequestMapping("/item/add")
+    @RequestMapping(value = "/item/add", method = RequestMethod.POST)
     public String addItem(@ModelAttribute ItemRequest itemRequest, Model model) {
         long itemId = itemService.createItem(itemRequest);
 
         // return "redirect:/item/detail?id=" + itemId;
-        return "item/list";
+        return "redirect:/item/list";
+    }
+
+    @RequestMapping("/item/editPage")
+    public String getEditContentPage(long itemId, Model model) {
+        model.addAttribute("item", itemService.getItemDetail(itemId));
+        model.addAttribute("categories", categoryService.getAllActiveCategories());
+        model.addAttribute("areaCategories", areaCategoryService.getAllActiveAreaCategories());
+        model.addAttribute("styles", styleService.getAllActiveStyles());
+
+        return "item/form";
+    }
+
+    @RequestMapping(value = "/item/edit", method = RequestMethod.POST)
+    public String getEditContentPage(long id, @ModelAttribute ItemRequest itemRequest) {
+        itemService.editItem(id, itemRequest);
+
+        // return "redirect:/item/detail?id=" + itemId;
+        return "redirect:/item/list";
     }
 }

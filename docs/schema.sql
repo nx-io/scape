@@ -24,8 +24,8 @@ CREATE TABLE `area_category` (
   `icon` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `display` tinyint(4) NOT NULL DEFAULT 1,
-  `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `gmt_modified` datetime DEFAULT NULL,
+  `gmt_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -42,8 +42,8 @@ CREATE TABLE `category` (
   `icon` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `display` tinyint(4) NOT NULL DEFAULT 1,
-  `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `gmt_modified` datetime DEFAULT NULL,
+  `gmt_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -61,8 +61,8 @@ CREATE TABLE `comments` (
   `user_name` varchar(64) NOT NULL,
   `content` varchar(255) NOT NULL,
   `status` tinyint(4) NOT NULL,
-  `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `gmt_modified` datetime DEFAULT NULL,
+  `gmt_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -92,8 +92,8 @@ CREATE TABLE `item` (
   `comment_count` int(11) NOT NULL DEFAULT 0,
   `like_count` int(11) NOT NULL DEFAULT 0,
   `praise_count` int(11) NOT NULL DEFAULT 0,
-  `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `gmt_modified` datetime DEFAULT NULL,
+  `gmt_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -109,7 +109,7 @@ CREATE TABLE `item_favorite` (
   `item_id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `type` tinyint(4) NOT NULL,
-  `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -126,8 +126,8 @@ CREATE TABLE `item_media` (
   `type` tinyint(4) NOT NULL,
   `url` varchar(255) NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT 1,
-  `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `gmt_modified` datetime DEFAULT NULL,
+  `gmt_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -143,8 +143,8 @@ CREATE TABLE `label` (
   `name` varchar(64) NOT NULL,
   `icon` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `gmt_modified` datetime DEFAULT NULL,
+  `gmt_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -160,8 +160,8 @@ CREATE TABLE `item_labels` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `item_id` bigint(20) NOT NULL,
   `label_id` bigint(20) NOT NULL,
-  `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `gmt_modified` datetime DEFAULT NULL,
+  `gmt_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -182,9 +182,9 @@ CREATE TABLE `manager` (
   `salt` varchar(64) NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT 1,
   `last_ip` bigint(20) NOT NULL,
-  `last_login` datetime DEFAULT NULL,
-  `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `gmt_modified` datetime DEFAULT NULL,
+  `last_login` timestamp NULL DEFAULT NULL,
+  `gmt_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -218,8 +218,8 @@ CREATE TABLE `role` (
   `name` varchar(64) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `is_active` tinyint(4) NOT NULL DEFAULT 1,
-  `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `gmt_modified` datetime DEFAULT NULL,
+  `gmt_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -235,7 +235,7 @@ CREATE TABLE `role_resource` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` int(11) NOT NULL,
   `resource_id` int(11) NOT NULL,
-  `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -252,8 +252,8 @@ CREATE TABLE `style` (
   `description` varchar(255) DEFAULT NULL,
   `display` tinyint(4) NOT NULL DEFAULT 1,
   `icon` varchar(255) DEFAULT NULL,
-  `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `gmt_modified` datetime DEFAULT NULL,
+  `gmt_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -281,9 +281,9 @@ CREATE TABLE `user` (
   `is_email_verified` tinyint(1) NOT NULL,
   `is_mobile_verified` tinyint(1) NOT NULL,
   `last_ip` bigint(20) DEFAULT NULL,
-  `last_login` datetime DEFAULT NULL,
-  `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `gmt_modified` datetime DEFAULT NULL,
+  `last_login` timestamp NULL DEFAULT NULL,
+  `gmt_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -298,7 +298,7 @@ CREATE TABLE `user_favorite` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL,
   `favorite_id` bigint(20) NOT NULL,
-  `gmt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -312,3 +312,4 @@ CREATE TABLE `user_favorite` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+

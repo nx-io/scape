@@ -61,8 +61,8 @@ public class DefaultItemDAO extends DefaultGenericDAO<ItemDO, Long> implements I
             args.add(criteria.getStyle_id());
         }
 
-        BigInteger count = (BigInteger) (createNativeQuery(sqlCountRows.append(condition).toString(), null,
-                args.toArray()).getSingleResult());
+        BigInteger count = (BigInteger) (createNativeQuery(sqlCountRows.append(condition).toString(), args.toArray())
+                .getSingleResult());
 
         condition.append(" ORDER BY i.gmt_created DESC");
         if (0 != criteria.getLimit()) {

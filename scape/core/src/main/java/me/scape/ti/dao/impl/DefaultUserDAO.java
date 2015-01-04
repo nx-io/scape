@@ -2,7 +2,9 @@ package me.scape.ti.dao.impl;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import me.scape.ti.commons.Pagination;
 import me.scape.ti.criteria.UserQueryCriteria;
@@ -28,7 +30,9 @@ public class DefaultUserDAO extends DefaultGenericDAO<UserDO, Long> implements U
             return new ArrayList<UserDO>();
         }
 
-        return queryNamed("User.getUsersByIds", ids.toArray());
+        Map<String, Object> args = new HashMap<String, Object>();
+        args.put("ids", ids);
+        return queryNamed("User.getUsersByIds", args);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -55,8 +59,8 @@ public class DefaultUserDAO extends DefaultGenericDAO<UserDO, Long> implements U
             args.add("%" + criteria.getName() + "%");
         }
 
-        BigInteger count = (BigInteger) (createNativeQuery(sqlCountRows.append(condition).toString(), null,
-                args.toArray()).getSingleResult());
+        BigInteger count = (BigInteger) (createNativeQuery(sqlCountRows.append(condition).toString(), args.toArray())
+                .getSingleResult());
 
         condition.append(" ORDER BY u.gmt_created DESC");
         if (0 != criteria.getLimit()) {

@@ -55,6 +55,7 @@
                             <th>收藏数</th>
                             <th>发布者</th>
                             <th>状态</th>
+                            <th class="center">操作</th>
                         </tr>
                     <c:forEach items="${items}" var="item" varStatus="itemStatus">
                         <tr>
@@ -70,6 +71,11 @@
                             <td>${item.like_count}</td>
                             <td>${item.user_name}</td>
                             <td><span class="label ${item.status == 1 ? 'label-success' : 'label-danger'}">${item.status == 1 ? '活动的' : '冻结的'}</span></td>
+                            <td class="operation-part center">
+                                <a title="详情" href="javascript:void(0)"><span class="glyphicon glyphicon-list"></span></a>
+                                <a title="编辑" href="item/editPage?itemId=${item.id}"><span class="glyphicon glyphicon-pencil"></span></a>
+                                <a title="删除" class="delete-item" data-content="${item.id}" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span></a>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>
