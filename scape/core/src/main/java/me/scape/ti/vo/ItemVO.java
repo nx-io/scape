@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import me.scape.ti.dataobject.ItemDO;
+import me.scape.ti.utils.ImageUtils;
 
 /**
  * 
@@ -79,7 +80,7 @@ public class ItemVO {
 		setDesigner_contact(_do.getDesigner_contact());
 		setConstructor(_do.getConstructor());
 		setConstructor_contact(_do.getConstructor_contact());
-		setCover_media(_do.getCover_media());
+		setCover_media(ImageUtils.urlWrapper(_do.getCover_media()));
 		setMedia_count(_do.getMedia_count());
 		setComment_count(_do.getComment_count());
 		setPraise_count(_do.getPraise_count());

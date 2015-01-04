@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import me.scape.ti.dataobject.ItemMediaDO;
+import me.scape.ti.utils.ImageUtils;
 
 import org.springframework.util.CollectionUtils;
 
@@ -53,7 +54,7 @@ public class ItemMediaVO {
 		setItem_id(_do.getItem_id());
 		setStatus(_do.getStatus());
 		setType(_do.getType());
-		setUrl(_do.getUrl());
+		setUrl(ImageUtils.urlWrapper(_do.getUrl()));
 		return this;
 	}
 
