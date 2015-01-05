@@ -154,7 +154,7 @@ public class DefaultItemService extends BaseService implements ItemService {
 			item.setCover_media("");
 		} else {
 			item.setCover_media(itemMediaList.get(0).getUrl());
-			item.setMedia_count(itemMediaList.size());
+			item.setMedia_count(itemMediaList.size() + 1);
 		}
 		itemDAO.persist(item);
 		if(!isMediaEmpty) {
