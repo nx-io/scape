@@ -38,9 +38,9 @@ public class ItemDetailVO implements Serializable {
 
     private String constructor_contact;
 
-    private String cover_media;
+    private MediaVO cover_media;
 
-    private List<String> medias;
+    private List<MediaVO> medias;
 
     private Integer media_count;
 
@@ -176,19 +176,19 @@ public class ItemDetailVO implements Serializable {
         this.constructor_contact = constructor_contact;
     }
 
-    public String getCover_media() {
+    public MediaVO getCover_media() {
         return cover_media;
     }
 
-    public void setCover_media(String cover_media) {
+    public void setCover_media(MediaVO cover_media) {
         this.cover_media = cover_media;
     }
 
-    public List<String> getMedias() {
+    public List<MediaVO> getMedias() {
         return medias;
     }
 
-    public void setMedias(List<String> medias) {
+    public void setMedias(List<MediaVO> medias) {
         this.medias = medias;
     }
 

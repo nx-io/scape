@@ -1,5 +1,9 @@
 package me.scape.ti.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import me.scape.ti.constant.ResponseStatus;
 import me.scape.ti.service.AreaCategoryService;
 import me.scape.ti.service.CategoryService;
 import me.scape.ti.service.ItemService;
@@ -17,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ItemController extends BaseController {
@@ -102,5 +107,16 @@ public class ItemController extends BaseController {
 
         // return "redirect:/item/detail?id=" + itemId;
         return "redirect:/item/list";
+    }
+
+    @RequestMapping("/item/delete")
+    @ResponseBody
+    public Map<String, Object> deleteItem(int itemId) {
+        itemService.deleteItem(itemId);
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("status", ResponseStatus.SUCCEED.getValue());
+
+        return map;
     }
 }

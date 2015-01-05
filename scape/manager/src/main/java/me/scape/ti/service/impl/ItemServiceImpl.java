@@ -23,9 +23,11 @@ import me.scape.ti.dataobject.ItemMediaDO;
 import me.scape.ti.dataobject.StyleDO;
 import me.scape.ti.dataobject.UserDO;
 import me.scape.ti.service.ItemService;
+import me.scape.ti.utils.CDNUtil;
 import me.scape.ti.vo.CurrentPage;
 import me.scape.ti.vo.ItemDetailVO;
 import me.scape.ti.vo.ItemListVO;
+import me.scape.ti.vo.MediaVO;
 import me.scape.ti.vo.request.ItemListRequest;
 import me.scape.ti.vo.request.ItemRequest;
 
@@ -208,7 +210,7 @@ public class ItemServiceImpl extends BaseServiceImpl implements ItemService {
         }
 
         item.setCover_media(itemRequest.getCover_media());
-        item.setMedia_count(itemMediaList.size() + 1);
+        item.setMedia_count(itemMediaList.size());
         itemDAO.persist(item);
 
         Long itemId = item.getId();
@@ -276,11 +278,22 @@ public class ItemServiceImpl extends BaseServiceImpl implements ItemService {
         itemDetailVO.setMedia_count(item.getMedia_count());
         itemDetailVO.setGmt_created(item.getGmt_created());
 
+        MediaVO coverMedia = new MediaVO();
+        String coverMediaPath = item.getCover_media();
+        coverMedia.setPath(coverMediaPath);
+        coverMedia.setUrl(CDNUtil.getFullPath(coverMediaPath));
+        itemDetailVO.setCover_media(coverMedia);
+
         List<ItemMediaDO> itemMediaList = itemMediaDAO.getItemMediasByItemId(itemId);
         if (!CollectionUtils.isEmpty(itemMediaList)) {
-            List<String> medias = new ArrayList<String>();
+            List<MediaVO> medias = new ArrayList<MediaVO>();
             for (ItemMediaDO itemMediaDO : itemMediaList) {
-                medias.add(itemMediaDO.getUrl());
+                MediaVO media = new MediaVO();
+                String path = itemMediaDO.getUrl();
+                media.setPath(path);
+                media.setUrl(CDNUtil.getFullPath(path));
+
+                medias.add(media);
             }
 
             itemDetailVO.setMedias(medias);
@@ -324,7 +337,7 @@ public class ItemServiceImpl extends BaseServiceImpl implements ItemService {
             itemMedias.add(itemMediaDO.getUrl());
         }
 
-        int itemMediaSize = 1;
+        int itemMediaSize = 0;
         List<String> medias = itemRequest.getMedias();
         if (null != medias) {
             for (String media : medias) {
@@ -358,11 +371,25 @@ public class ItemServiceImpl extends BaseServiceImpl implements ItemService {
 
         item.setCover_media(itemRequest.getCover_media());
         item.setMedia_count(itemMediaSize);
-
     }
 
     @Override
+    @Transactional(value = "transactionManager", rollbackFor = Throwable.class)
     public void deleteItem(long itemId) {
-        // TODO Auto-generated method stub
+        ItemDO item = itemDAO.get(itemId);
+        if (null == item) {
+            return;
+        }
+
+        Date now = new Date();
+
+        item.setStatus(ItemDO.Strike_out);
+        item.setGmt_modified(now);
+
+        List<ItemMediaDO> itemMediaList = itemMediaDAO.getItemMediasByItemId(itemId);
+        for (ItemMediaDO itemMediaDO : itemMediaList) {
+            itemMediaDO.setStatus(ItemMediaDO.Strike_out);
+            itemMediaDO.setGmt_modified(now);
+        }
     }
 }

@@ -4,6 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <head>
     <title>景观案例列表 - 景观云图后台管理系统</title>
+
+    <script src="resources/item/list.js"></script>
 </head>
 
 <!-- Bread line. -->
@@ -72,9 +74,8 @@
                             <td>${item.user_name}</td>
                             <td><span class="label ${item.status == 1 ? 'label-success' : 'label-danger'}">${item.status == 1 ? '活动的' : '冻结的'}</span></td>
                             <td class="operation-part center">
-                                <a title="详情" href="javascript:void(0)"><span class="glyphicon glyphicon-list"></span></a>
                                 <a title="编辑" href="item/editPage?itemId=${item.id}"><span class="glyphicon glyphicon-pencil"></span></a>
-                                <a title="删除" class="delete-item" data-content="${item.id}" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a title="删除" class="delete-item" data-item="${item.id}" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
                     </c:forEach>
