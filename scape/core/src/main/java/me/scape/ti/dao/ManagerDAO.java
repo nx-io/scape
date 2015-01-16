@@ -11,5 +11,6 @@ import me.scape.ti.jpa.GenericDAO;
  */
 public interface ManagerDAO extends GenericDAO<ManagerDO, Integer> {
 
-    ManagerDO getByEmail(String email);
+	ManagerDO getByEmail(String email);
+
 }

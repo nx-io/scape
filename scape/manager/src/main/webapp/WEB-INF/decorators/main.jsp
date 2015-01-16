@@ -61,7 +61,7 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="javascript:void(0);" class="btn btn-default">账号信息</a>
+                                        <a href="account/info" class="btn btn-default">账号信息</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="logout" class="btn btn-default">退出</a>

@@ -13,11 +13,13 @@ import org.springframework.stereotype.Repository;
  * @since 2014年12月21日 下午2:49:36
  */
 @Repository(value = "managerDAO")
-public class DefaultManagerDAO extends DefaultGenericDAO<ManagerDO, Integer> implements ManagerDAO {
+public class DefaultManagerDAO extends DefaultGenericDAO<ManagerDO, Integer>
+		implements ManagerDAO {
 
-    @Override
-    public ManagerDO getByEmail(String email) {
-        return queryNamedForObject("ManagerDO.getByEmail", new Object[] { email });
-    }
+	@Override
+	public ManagerDO getByEmail(String email) {
+		return queryNamedForObject("ManagerDO.getByEmail",
+				new Object[] { email });
+	}
 
 }

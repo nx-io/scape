@@ -67,8 +67,8 @@ require(["../require-config"], function() {
                         if ('succeed' == imageInfo.status) {
                              var imageGroup = row.find('.image-group');
 
-                             imageGroup.find('.preview-image').attr('src', imageInfo.body.image_path);
-                             $('#media-url-' + index).val(imageInfo.body.image_url);
+                             imageGroup.find('.preview-image').attr('src', imageInfo.body.image_url);
+                             $('#media-url-' + index).val(imageInfo.body.image_path);
                              imageGroup.removeClass('default-preview');
                         } else {
                             if ('11000' == imageInfo.error_code) {
@@ -142,8 +142,8 @@ require(["../require-config"], function() {
                         if ('succeed' == imageInfo.status) {
                              var imageGroup = imageCol.find('.image-group');
 
-                             imageGroup.find('.preview-image').attr('src', imageInfo.body.image_path);
-                             $('#media-url-' + index).val(imageInfo.body.image_url);
+                             imageGroup.find('.preview-image').attr('src', imageInfo.body.image_url);
+                             $('#media-url-' + index).val(imageInfo.body.image_path);
                              imageGroup.removeClass('default-preview');
                         } else {
                             if ('11000' == imageInfo.error_code) {

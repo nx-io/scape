@@ -31,6 +31,7 @@ import me.scape.ti.vo.MediaVO;
 import me.scape.ti.vo.request.ItemListRequest;
 import me.scape.ti.vo.request.ItemRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -197,16 +198,18 @@ public class ItemServiceImpl extends BaseServiceImpl implements ItemService {
         List<ItemMediaDO> itemMediaList = new ArrayList<ItemMediaDO>();
         List<String> medias = itemRequest.getMedias();
         if (null != medias) {
-            for (String media : medias) {
-                ItemMediaDO itemMedia = new ItemMediaDO();
-                itemMedia.setUrl(media);
-                itemMedia.setStatus(ItemMediaDO.Available);
-                itemMedia.setType(ItemMediaDO.IMG);
-                itemMedia.setGmt_created(now);
-                itemMedia.setGmt_modified(now);
+			for (String media : medias) {
+				if (StringUtils.isNotBlank(media)) {
+					ItemMediaDO itemMedia = new ItemMediaDO();
+					itemMedia.setUrl(media);
+					itemMedia.setStatus(ItemMediaDO.Available);
+					itemMedia.setType(ItemMediaDO.IMG);
+					itemMedia.setGmt_created(now);
+					itemMedia.setGmt_modified(now);
 
-                itemMediaList.add(itemMedia);
-            }
+					itemMediaList.add(itemMedia);
+				}
+			}
         }
 
         item.setCover_media(itemRequest.getCover_media());
@@ -341,19 +344,21 @@ public class ItemServiceImpl extends BaseServiceImpl implements ItemService {
         List<String> medias = itemRequest.getMedias();
         if (null != medias) {
             for (String media : medias) {
-                if (!itemMedias.contains(media)) {
-                    ItemMediaDO itemMedia = new ItemMediaDO();
-                    itemMedia.setItem_id(itemId);
-                    itemMedia.setUrl(media);
-                    itemMedia.setStatus(ItemMediaDO.Available);
-                    itemMedia.setType(ItemMediaDO.IMG);
-                    itemMedia.setGmt_created(now);
-                    itemMedia.setGmt_modified(now);
+				if (StringUtils.isNotBlank(media)) {
+					if (!itemMedias.contains(media)) {
+						ItemMediaDO itemMedia = new ItemMediaDO();
+						itemMedia.setItem_id(itemId);
+						itemMedia.setUrl(media);
+						itemMedia.setStatus(ItemMediaDO.Available);
+						itemMedia.setType(ItemMediaDO.IMG);
+						itemMedia.setGmt_created(now);
+						itemMedia.setGmt_modified(now);
 
-                    itemMediaDAO.persist(itemMedia);
-                }
+						itemMediaDAO.persist(itemMedia);
+					}
 
-                itemMediaSize++;
+					itemMediaSize++;
+				}
             }
 
             for (ItemMediaDO itemMediaDO : itemMediaList) {
