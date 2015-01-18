@@ -1,7 +1,10 @@
 package me.scape.ti.srv.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import me.scape.ti.dataobject.ItemDO;
 import me.scape.ti.dataobject.UserDO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
@@ -11,11 +14,13 @@ import me.scape.ti.srv.BaseService;
 import me.scape.ti.utils.PasswdUtils;
 import me.scape.ti.utils.TokenUtils;
 import me.scape.ti.utils.ValidationUtils;
+import me.scape.ti.vo.ItemVO;
 import me.scape.ti.vo.UserVO;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 /**
  * 账户相关的业务。
@@ -26,6 +31,23 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service(value = "accountService")
 public class DefaultAccountService extends BaseService implements AccountService {
+	
+	@Override
+	public Result queryPubOrFavItem(Long user_id, Byte type) {
+		List<ItemDO> itemList = itemDAO.queryNamed("Item.queryAccountFav", new Object[]{user_id, type});
+		if(CollectionUtils.isEmpty(itemList)) {
+			return Result.newError().with(ResultCode.Error_Item_Empty);
+		}
+		List<ItemVO> voList = new ArrayList<ItemVO>();
+		for (ItemDO itemDO : itemList) {
+			ItemVO vo = ItemVO.newInstance(itemDO);
+			if(vo == null) {
+				continue;
+			}
+			voList.add(vo);
+		}
+		return Result.newSuccess().with(ResultCode.Success).with("itemList", voList);
+	}
 
 	@Override
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)

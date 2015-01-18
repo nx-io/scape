@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,6 +23,11 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "item", catalog = "scape")
+@NamedQueries({ 
+	@NamedQuery(
+			name = "Item.queryAccountFav", 
+			query = "FROM ItemDO i WHERE i.user_id = ? AND i.type = ?"),
+	})
 public class ItemDO implements Serializable {
 
     private static final long serialVersionUID = -2996946613320703028L;

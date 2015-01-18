@@ -51,4 +51,13 @@ public class AccountController extends BaseController {
 		Result result = accountService.reset_passwd(user_id, old_passwd, new_passwd);
 		return toResponse(result);
 	}
+	
+	@RequestMapping(value = "/pubfav", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> publish(
+			@RequestParam(value = "user_id", required = true) Long user_id,
+			@RequestParam(value = "type", required = true) Byte type) {
+		Result result = accountService.queryPubOrFavItem(user_id, type);
+		return toResponse(result);
+	}
 }

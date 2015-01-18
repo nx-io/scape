@@ -1,6 +1,5 @@
 package me.scape.ti.utils;
 
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * 
@@ -10,15 +9,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class ImageUtils {
 
-	private static final String QINIU_CDN = "http://agile.qiniudn.com/";
-
 	public static String urlWrapper(String image) {
-		if(StringUtils.isBlank(image)) {
-			return null;
-		}
-		if(StringUtils.startsWith(image, "http://")) {
-			return image;
-		}
-		return QINIU_CDN + image;
+		return CDNUtil.getFullPath(image);
 	}
 }
