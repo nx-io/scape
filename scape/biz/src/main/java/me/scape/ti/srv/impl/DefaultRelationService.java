@@ -65,7 +65,8 @@ public class DefaultRelationService extends BaseService implements RelationServi
 		favoriteDO.setItem_id(request.getItem_id());
 		favoriteDO.setType(request.getType());
 		favoriteDO.setUser_id(request.getUser_id());
-		return Result.newSuccess().with(ResultCode.Success);
+		itemFavoriteDAO.persist(favoriteDO);
+		return Result.newSuccess().with(ResultCode.Success).with("favorite", favoriteDO);
 	}
 	
 	/**
@@ -99,7 +100,8 @@ public class DefaultRelationService extends BaseService implements RelationServi
 		favoriteDO.setGmt_created(new Date());
 		favoriteDO.setFavorite_id(request.getFavorite_id());
 		favoriteDO.setUser_id(request.getUser_id());
-		return Result.newSuccess().with(ResultCode.Success);
+		userFavoriteDAO.persist(favoriteDO);
+		return Result.newSuccess().with(ResultCode.Success).with("favorite", favoriteDO);
 	}
 	
 	/**
