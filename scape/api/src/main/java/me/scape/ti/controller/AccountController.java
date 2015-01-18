@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
+import me.scape.ti.ro.PubfavRequest;
 import me.scape.ti.ro.RegisterRequest;
 
 import org.springframework.http.ResponseEntity;
@@ -54,10 +55,8 @@ public class AccountController extends BaseController {
 	
 	@RequestMapping(value = "/pubfav", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> publish(
-			@RequestParam(value = "user_id", required = true) Long user_id,
-			@RequestParam(value = "type", required = true) Byte type) {
-		Result result = accountService.queryPubOrFavItem(user_id, type);
+	public ResponseEntity<String> publish(PubfavRequest request) {
+		Result result = accountService.queryPubOrFavItem(request);
 		return toResponse(result);
 	}
 }

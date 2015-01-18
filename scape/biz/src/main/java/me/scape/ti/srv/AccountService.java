@@ -1,6 +1,7 @@
 package me.scape.ti.srv;
 
 import me.scape.ti.result.Result;
+import me.scape.ti.ro.PubfavRequest;
 import me.scape.ti.ro.RegisterRequest;
 
 /**
@@ -17,5 +18,5 @@ public interface AccountService {
 
 	Result reset_passwd(Long user_id, String old_passwd, String new_passwd);
 	
-	Result queryPubOrFavItem(Long user_id, Byte type);
+	Result queryPubOrFavItem(PubfavRequest request);
 }

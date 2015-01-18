@@ -2,15 +2,19 @@ package me.scape.ti.srv.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import me.scape.ti.dataobject.ItemDO;
 import me.scape.ti.dataobject.UserDO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
+import me.scape.ti.ro.PubfavRequest;
 import me.scape.ti.ro.RegisterRequest;
 import me.scape.ti.srv.AccountService;
 import me.scape.ti.srv.BaseService;
+import me.scape.ti.srv.PageQuery;
 import me.scape.ti.utils.PasswdUtils;
 import me.scape.ti.utils.TokenUtils;
 import me.scape.ti.utils.ValidationUtils;
@@ -33,8 +37,17 @@ import org.springframework.util.CollectionUtils;
 public class DefaultAccountService extends BaseService implements AccountService {
 	
 	@Override
-	public Result queryPubOrFavItem(Long user_id, Byte type) {
-		List<ItemDO> itemList = itemDAO.queryNamed("Item.queryAccountFav", new Object[]{user_id, type});
+	public Result queryPubOrFavItem(PubfavRequest request) {
+		Map<String, Object> args = new HashMap<String, Object>();
+		Integer page = request.getPage();
+		page = (page != null && page > 0) ? page : 1;
+		PageQuery pageQuery = new PageQuery(page);
+		args.put("start", pageQuery.getIndex());
+		args.put("size", pageQuery.getSize());
+		args.put("user_id", request.getUser_id());
+		args.put("type", request.getType());
+		String sql = "SELECT * FROM item i WHERE i.user_id = :user_id AND i.type = :type ORDER BY i.gmt_created DESC LIMIT :start, :size";
+		List<ItemDO> itemList = itemDAO.queryNative(sql, args);
 		if(CollectionUtils.isEmpty(itemList)) {
 			return Result.newError().with(ResultCode.Error_Item_Empty);
 		}
