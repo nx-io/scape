@@ -10,6 +10,7 @@ import me.scape.ti.srv.AccountService;
 import me.scape.ti.srv.CatService;
 import me.scape.ti.srv.CommonService;
 import me.scape.ti.srv.ItemService;
+import me.scape.ti.srv.PlantService;
 import me.scape.ti.srv.RelationService;
 import me.scape.ti.utils.CalendarUtil;
 
@@ -55,6 +56,10 @@ public class BaseController {
 	@Qualifier(value = "commonService")
 	protected CommonService commonService;
 
+	@Autowired
+	@Qualifier(value = "plantService")
+	protected PlantService plantService;
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(CalendarUtil.S_YYYY_MM_DD_HH_MM_SS);
@@ -65,7 +70,7 @@ public class BaseController {
 	@ExceptionHandler(Throwable.class)
 	@ResponseBody
 	public final ResponseEntity<String> handleException(final Throwable ex) {
-		log.error("Api Error.", ex);
+		log.error("Api Request Error.", ex);
 		return toResponse(Result.newError().with(ResultCode.Error_Exception), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 

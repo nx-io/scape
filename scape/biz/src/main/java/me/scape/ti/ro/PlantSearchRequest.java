@@ -21,6 +21,26 @@ public class PlantSearchRequest {
 
 	private Long periodId;// 观赏期
 
+	private String sort;// 排序字段
+
+	private Integer page;
+
+	public String getSort() {
+		return sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
+
+	public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+
 	public Long getId() {
 		return id;
 	}

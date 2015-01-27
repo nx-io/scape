@@ -37,6 +37,8 @@ public enum ResultCode {
 	
 	Error_Favorite_User_Empty			(-8000L, 	"无收藏用户"),
 	
+	Error_Plants_Empty					(-9000L, 	"查询不到植物"),
+	
 	;
 	public final long code;
 	public final String description;
