@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,29 +12,28 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * 植物观赏期.
+ * 植物-观赏期关联.
  * 
  * @author fei.liu E-mail:fei.liu@andpay.me
  * 
  * @version 1.0.0
- * @since 2015年1月27日 上午10:18:45
+ * @since 2015年1月27日 下午4:24:00
  */
-@Entity
-@Table(name = "plant_ornamental_period", catalog = "scape")
-public class PlantsOrnamentalPeriodDO implements Serializable {
+@Table(name = "plant_period_rel", catalog = "scape")
+public class PlantsPeriodRelDO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
-
-	@Column(name = "period", unique = true, nullable = false, length = 64)
-	private String period;// 植物观赏期
-
-	@Column(name = "display", nullable = false)
-	private Byte display = 1;// 是否展示 1展示 0不展示 -1删除
-
+	
+	@Column(name = "plant_id", nullable = false)
+	private Long plantId;
+	
+	@Column(name = "period_id", nullable = false)
+	private Long periodId;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "gmt_created", nullable = false)
 	private Date gmt_created;
@@ -52,20 +50,20 @@ public class PlantsOrnamentalPeriodDO implements Serializable {
 		this.id = id;
 	}
 
-	public String getPeriod() {
-		return period;
+	public Long getPlantId() {
+		return plantId;
 	}
 
-	public void setPeriod(String period) {
-		this.period = period;
+	public void setPlantId(Long plantId) {
+		this.plantId = plantId;
 	}
 
-	public Byte getDisplay() {
-		return display;
+	public Long getPeriodId() {
+		return periodId;
 	}
 
-	public void setDisplay(Byte display) {
-		this.display = display;
+	public void setPeriodId(Long periodId) {
+		this.periodId = periodId;
 	}
 
 	public Date getGmt_created() {
@@ -88,11 +86,11 @@ public class PlantsOrnamentalPeriodDO implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((display == null) ? 0 : display.hashCode());
 		result = prime * result + ((gmt_created == null) ? 0 : gmt_created.hashCode());
 		result = prime * result + ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((period == null) ? 0 : period.hashCode());
+		result = prime * result + ((periodId == null) ? 0 : periodId.hashCode());
+		result = prime * result + ((plantId == null) ? 0 : plantId.hashCode());
 		return result;
 	}
 
@@ -104,12 +102,7 @@ public class PlantsOrnamentalPeriodDO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PlantsOrnamentalPeriodDO other = (PlantsOrnamentalPeriodDO) obj;
-		if (display == null) {
-			if (other.display != null)
-				return false;
-		} else if (!display.equals(other.display))
-			return false;
+		PlantsPeriodRelDO other = (PlantsPeriodRelDO) obj;
 		if (gmt_created == null) {
 			if (other.gmt_created != null)
 				return false;
@@ -125,10 +118,15 @@ public class PlantsOrnamentalPeriodDO implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (period == null) {
-			if (other.period != null)
+		if (periodId == null) {
+			if (other.periodId != null)
 				return false;
-		} else if (!period.equals(other.period))
+		} else if (!periodId.equals(other.periodId))
+			return false;
+		if (plantId == null) {
+			if (other.plantId != null)
+				return false;
+		} else if (!plantId.equals(other.plantId))
 			return false;
 		return true;
 	}
