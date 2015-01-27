@@ -1,6 +1,7 @@
 package me.scape.ti.dataobject;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 植物.
@@ -57,6 +60,14 @@ public class PlantsDO implements Serializable {
 
 	@Column(name = "area_applicable", nullable = true, length = 1024)
 	private String areaApplicable;// 适用地区
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "gmt_created", nullable = false)
+	private Date gmt_created;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "gmt_modified")
+	private Date gmt_modified;
 
 	public Long getId() {
 		return id;
@@ -146,6 +157,22 @@ public class PlantsDO implements Serializable {
 		this.areaApplicable = areaApplicable;
 	}
 
+	public Date getGmt_created() {
+		return gmt_created;
+	}
+
+	public void setGmt_created(Date gmt_created) {
+		this.gmt_created = gmt_created;
+	}
+
+	public Date getGmt_modified() {
+		return gmt_modified;
+	}
+
+	public void setGmt_modified(Date gmt_modified) {
+		this.gmt_modified = gmt_modified;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -155,6 +182,8 @@ public class PlantsDO implements Serializable {
 		result = prime * result + ((catId == null) ? 0 : catId.hashCode());
 		result = prime * result + ((gardenUtilization == null) ? 0 : gardenUtilization.hashCode());
 		result = prime * result + ((genus == null) ? 0 : genus.hashCode());
+		result = prime * result + ((gmt_created == null) ? 0 : gmt_created.hashCode());
+		result = prime * result + ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
 		result = prime * result + ((habits == null) ? 0 : habits.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nameCn == null) ? 0 : nameCn.hashCode());
@@ -197,6 +226,16 @@ public class PlantsDO implements Serializable {
 			if (other.genus != null)
 				return false;
 		} else if (!genus.equals(other.genus))
+			return false;
+		if (gmt_created == null) {
+			if (other.gmt_created != null)
+				return false;
+		} else if (!gmt_created.equals(other.gmt_created))
+			return false;
+		if (gmt_modified == null) {
+			if (other.gmt_modified != null)
+				return false;
+		} else if (!gmt_modified.equals(other.gmt_modified))
 			return false;
 		if (habits == null) {
 			if (other.habits != null)

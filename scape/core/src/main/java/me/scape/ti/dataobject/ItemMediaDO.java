@@ -40,7 +40,7 @@ public class ItemMediaDO implements Serializable {
 	private Long id;
 
 	@Column(name = "item_id", nullable = false)
-	private Long item_id;// 案例ID
+	private Long item_id;// 案例ID或者植物ID
 
 	@Column(name = "url", nullable = false, length = 255)
 	private String url;// 图片, 视频地址

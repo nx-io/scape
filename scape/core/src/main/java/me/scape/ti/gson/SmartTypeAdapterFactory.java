@@ -9,6 +9,9 @@ import me.scape.ti.vo.CommentsVO;
 import me.scape.ti.vo.ItemMediaVO;
 import me.scape.ti.vo.ItemVO;
 import me.scape.ti.vo.LabelVO;
+import me.scape.ti.vo.PlantCategoryVO;
+import me.scape.ti.vo.PlantsOrnamentalColorVO;
+import me.scape.ti.vo.PlantsVO;
 import me.scape.ti.vo.StyleVO;
 import me.scape.ti.vo.UserVO;
 
@@ -70,6 +73,15 @@ public class SmartTypeAdapterFactory implements TypeAdapterFactory {
 		}
 		if(CommentsVO.class == rawType) {
 			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<CommentsVO>) gson.getDelegateAdapter(this, type), CommentsVO.class);
+		}
+		if(PlantsVO.class == rawType) {
+			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<PlantsVO>) gson.getDelegateAdapter(this, type), PlantsVO.class);
+		}
+		if(PlantCategoryVO.class == rawType) {
+			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<PlantCategoryVO>) gson.getDelegateAdapter(this, type), PlantCategoryVO.class);
+		}
+		if(PlantsOrnamentalColorVO.class == rawType) {
+			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<PlantsOrnamentalColorVO>) gson.getDelegateAdapter(this, type), PlantsOrnamentalColorVO.class);
 		}
 		return null;
 	}
