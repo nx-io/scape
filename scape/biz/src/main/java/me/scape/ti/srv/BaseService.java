@@ -10,6 +10,12 @@ import me.scape.ti.dao.ItemFavoriteDAO;
 import me.scape.ti.dao.ItemMediaDAO;
 import me.scape.ti.dao.LabelDAO;
 import me.scape.ti.dao.ManagerDAO;
+import me.scape.ti.dao.PlantCategoryDAO;
+import me.scape.ti.dao.PlantsColorRelDAO;
+import me.scape.ti.dao.PlantsDAO;
+import me.scape.ti.dao.PlantsOrnamentalColorDAO;
+import me.scape.ti.dao.PlantsOrnamentalPeriodDAO;
+import me.scape.ti.dao.PlantsPeriodRelDAO;
 import me.scape.ti.dao.RoleDAO;
 import me.scape.ti.dao.StyleDAO;
 import me.scape.ti.dao.UserDAO;
@@ -82,6 +88,30 @@ public class BaseService implements InitializingBean {
 	@Autowired
 	@Qualifier(value = "userFavoriteDAO")
 	protected UserFavoriteDAO userFavoriteDAO;
+
+	@Autowired
+	@Qualifier(value = "plantCategoryDAO")
+	protected PlantCategoryDAO plantCategoryDAO;
+
+	@Autowired
+	@Qualifier(value = "plantsColorRelDAO")
+	protected PlantsColorRelDAO plantsColorRelDAO;
+
+	@Autowired
+	@Qualifier(value = "plantsDAO")
+	protected PlantsDAO plantsDAO;
+
+	@Autowired
+	@Qualifier(value = "plantsOrnamentalColorDAO")
+	protected PlantsOrnamentalColorDAO plantsOrnamentalColorDAO;
+
+	@Autowired
+	@Qualifier(value = "plantsOrnamentalPeriodDAO")
+	protected PlantsOrnamentalPeriodDAO plantsOrnamentalPeriodDAO;
+
+	@Autowired
+	@Qualifier(value = "plantsPeriodRelDAO")
+	protected PlantsPeriodRelDAO plantsPeriodRelDAO;
 	
 	protected final long getIp() {
         return WebUtils.ipToLng(WebUtils.getIpAddr(request));
