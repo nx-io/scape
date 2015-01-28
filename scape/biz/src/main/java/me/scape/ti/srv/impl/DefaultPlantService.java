@@ -15,8 +15,8 @@ import me.scape.ti.ro.PlantSearchRequest;
 import me.scape.ti.srv.BaseService;
 import me.scape.ti.srv.PageQuery;
 import me.scape.ti.srv.PlantService;
-import me.scape.ti.vo.ItemMediaVO;
 import me.scape.ti.vo.PlantCategoryVO;
+import me.scape.ti.vo.PlantMediaVO;
 import me.scape.ti.vo.PlantsOrnamentalColorVO;
 import me.scape.ti.vo.PlantsOrnamentalPeriodVO;
 import me.scape.ti.vo.PlantsVO;
@@ -106,7 +106,6 @@ public class DefaultPlantService extends BaseService implements PlantService {
 			return Result.newError().with(ResultCode.Error_Plants_Empty);
 		}
 		List<PlantsVO> voList = new ArrayList<PlantsVO>();
-		
 		for (PlantsDO plants : plantsList) {
 			PlantsVO vo = PlantsVO.newInstance(plants);
 			if (vo == null) {
@@ -119,7 +118,7 @@ public class DefaultPlantService extends BaseService implements PlantService {
 				log.error("Query Plants Cat Error.", e);
 			}
 			try {
-				vo.setPlantsMediaList(ItemMediaVO.newInstance(itemMediaDAO.queryNamed("ItemMedia.getItemMediaByItemId", idArgs)));
+				vo.setPlantsMediaList(PlantMediaVO.newInstance(plantMediaDAO.queryNamed("PlantMedia.getPlantMediaByPlantId", idArgs)));
 			} catch (Exception e) {
 				log.error("Query Plants Media Error.", e);
 			}

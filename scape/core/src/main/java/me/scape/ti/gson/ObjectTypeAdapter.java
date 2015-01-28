@@ -29,7 +29,9 @@ public class ObjectTypeAdapter<T> extends TypeAdapter<T> {
 	@Override
 	public void write(JsonWriter out, T value) throws IOException {
 		if(value == null) {
-			value = BeanUtils.instantiate(type);
+			try {
+				value = BeanUtils.instantiate(type);
+			} catch (Exception ignore) {}
 		}
 		defaultObjectTypeAdapter.write(out, value);
 	}

@@ -22,9 +22,9 @@ import javax.persistence.TemporalType;
  * @since 2014年12月18日 上午12:41:16
  */
 @Entity
-@Table(name = "item_media", catalog = "scape")
-@NamedQueries({ @NamedQuery(name = "ItemMedia.getItemMediaByItemId", query = "FROM ItemMediaDO im WHERE im.status = 1 AND im.item_id = ?"), })
-public class ItemMediaDO implements Serializable {
+@Table(name = "plant_media", catalog = "scape")
+@NamedQueries({ @NamedQuery(name = "PlantMedia.getPlantMediaByPlantId", query = "FROM PlantMediaDO pm WHERE pm.status = 1 AND pm.plant_id = ?"), })
+public class PlantMediaDO implements Serializable {
 
 	private static final long serialVersionUID = 2388942529712623527L;
 
@@ -39,8 +39,8 @@ public class ItemMediaDO implements Serializable {
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 
-	@Column(name = "item_id", nullable = false)
-	private Long item_id;// 案例ID
+	@Column(name = "plant_id", nullable = false)
+	private Long plant_id;// 植物ID
 
 	@Column(name = "url", nullable = false, length = 255)
 	private String url;// 图片, 视频地址
@@ -67,12 +67,12 @@ public class ItemMediaDO implements Serializable {
 		this.id = id;
 	}
 
-	public Long getItem_id() {
-		return item_id;
+	public Long getPlant_id() {
+		return plant_id;
 	}
 
-	public void setItem_id(Long item_id) {
-		this.item_id = item_id;
+	public void setPlant_id(Long plant_id) {
+		this.plant_id = plant_id;
 	}
 
 	public String getUrl() {
@@ -119,12 +119,10 @@ public class ItemMediaDO implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((gmt_created == null) ? 0 : gmt_created.hashCode());
-		result = prime * result
-				+ ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
+		result = prime * result + ((gmt_created == null) ? 0 : gmt_created.hashCode());
+		result = prime * result + ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((item_id == null) ? 0 : item_id.hashCode());
+		result = prime * result + ((plant_id == null) ? 0 : plant_id.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
@@ -139,7 +137,7 @@ public class ItemMediaDO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ItemMediaDO other = (ItemMediaDO) obj;
+		PlantMediaDO other = (PlantMediaDO) obj;
 		if (gmt_created == null) {
 			if (other.gmt_created != null)
 				return false;
@@ -155,10 +153,10 @@ public class ItemMediaDO implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (item_id == null) {
-			if (other.item_id != null)
+		if (plant_id == null) {
+			if (other.plant_id != null)
 				return false;
-		} else if (!item_id.equals(other.item_id))
+		} else if (!plant_id.equals(other.plant_id))
 			return false;
 		if (status == null) {
 			if (other.status != null)
@@ -177,5 +175,4 @@ public class ItemMediaDO implements Serializable {
 			return false;
 		return true;
 	}
-
 }

@@ -47,7 +47,7 @@ public class PlantsVO {
 	
 	private PlantCategoryVO plantCategory;
 	
-	private List<ItemMediaVO> plantsMediaList;
+	private List<PlantMediaVO> plantsMediaList;
 	
 	private List<PlantsOrnamentalColorVO> colorList;
 	
@@ -108,11 +108,11 @@ public class PlantsVO {
 		this.colorList = colorList;
 	}
 
-	public List<ItemMediaVO> getPlantsMediaList() {
+	public List<PlantMediaVO> getPlantsMediaList() {
 		return plantsMediaList;
 	}
 
-	public void setPlantsMediaList(List<ItemMediaVO> plantsMediaList) {
+	public void setPlantsMediaList(List<PlantMediaVO> plantsMediaList) {
 		this.plantsMediaList = plantsMediaList;
 	}
 
