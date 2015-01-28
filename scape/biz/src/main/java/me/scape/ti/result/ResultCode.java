@@ -25,7 +25,7 @@ public enum ResultCode {
 	
 	Error_User_Passwd					(-2002L, 	"密码错误"),
 	
-	Error_Exception						(-3000L,	"业务处理失败"),
+	Error_Exception						(-3000L,	"System Business Error."),
 	
 	Error_Valid_Request					(-4000L, 	"数据验证失败"),
 	
