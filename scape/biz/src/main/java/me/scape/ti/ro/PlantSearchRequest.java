@@ -11,7 +11,7 @@ public class PlantSearchRequest {
 
 	private Long id;// 植物ID
 
-	private Long catId;// 植物列别
+	private Long catId;// 植物类别
 
 	private String nameCn;// 中文名
 
