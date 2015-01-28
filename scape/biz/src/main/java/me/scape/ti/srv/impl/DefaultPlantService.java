@@ -12,6 +12,10 @@ import me.scape.ti.ro.PlantSearchRequest;
 import me.scape.ti.srv.BaseService;
 import me.scape.ti.srv.PageQuery;
 import me.scape.ti.srv.PlantService;
+import me.scape.ti.vo.ItemMediaVO;
+import me.scape.ti.vo.PlantCategoryVO;
+import me.scape.ti.vo.PlantsOrnamentalColorVO;
+import me.scape.ti.vo.PlantsOrnamentalPeriodVO;
 import me.scape.ti.vo.PlantsVO;
 
 import org.apache.commons.lang3.StringUtils;
@@ -26,34 +30,48 @@ import org.springframework.util.CollectionUtils;
  */
 @Service(value = "plantService")
 public class DefaultPlantService extends BaseService implements PlantService {
-
+	
+	private static final String QueryColorRelSQL = "SELECT * FROM plant_ornamental_color pc WHERE pc.id IN (SELECT pcr.color_id FROM plant_color_rel pcr WHERE pcr.plant_id = ?)";
+	
+	private static final String QueryPeriodRelSQL = "SELECT * FROM plant_ornamental_period pp WHERE pp.id IN (SELECT ppr.period_id FROM plant_period_rel ppr WHERE ppr.plant_id = ?)";
+	
 	@Override
 	public Result search(PlantSearchRequest request) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT * FROM plants p WHERE 1 = 1 ");
 		Map<String, Object> args = new HashMap<String, Object>();
 		Long id = request.getId();
-		if(id != null && id > 0L) {
+		if (id != null && id > 0L) {
 			sb.append(" AND p.id = :id ");
 			args.put("id", id);
 		}
 		Long catId = request.getCatId();
-		if(catId != null && catId > 0L) {
+		if (catId != null && catId > 0L) {
 			sb.append(" AND p.cat_id = :cat_id ");
 			args.put("cat_id", catId);
 		}
 		String nameCn = request.getNameCn();
-		if(StringUtils.isNotBlank(nameCn)) {
+		if (StringUtils.isNotBlank(nameCn)) {
 			sb.append(" AND p.name_cn LIKE :name_cn ");
 			args.put("name_cn", "%" + nameCn + "%");
 		}
 		String genus = request.getGenus();
-		if(StringUtils.isNotBlank(genus)) {
+		if (StringUtils.isNotBlank(genus)) {
 			sb.append(" AND p.genus LIKE :genus ");
 			args.put("genus", "%" + genus + "%");
 		}
+		Long colorId = request.getColorId();
+		if(colorId != null && colorId > 0L) {
+			sb.append(" AND p.id in (SELECT pcr.plant_id FROM plant_color_rel pcr WHERE pcr.color_id = :color_id) ");
+			args.put("color_id", colorId);
+		}
+		Long periodId = request.getPeriodId();
+		if(periodId != null && periodId > 0L) {
+			sb.append(" AND p.id in (SELECT ppr.plant_id FROM plant_period_rel ppr WHERE ppr.period_id = :period_id) ");
+			args.put("period_id", periodId);
+		}
 		String sort = request.getSort();
-		if(StringUtils.isNotBlank(sort)) {
+		if (StringUtils.isNotBlank(sort)) {
 			sb.append(" ORDER BY p.gmt_created DESC ");
 		}
 		sb.append(" LIMIT :start, :size ");
@@ -62,16 +80,37 @@ public class DefaultPlantService extends BaseService implements PlantService {
 		PageQuery pageQuery = new PageQuery(page);
 		args.put("start", pageQuery.getIndex());
 		args.put("size", pageQuery.getSize());
-		
 		List<PlantsDO> plantsList = plantsDAO.queryNative(sb.toString(), args);
-		if(CollectionUtils.isEmpty(plantsList)) {
+		if (CollectionUtils.isEmpty(plantsList)) {
 			return Result.newError().with(ResultCode.Error_Plants_Empty);
 		}
 		List<PlantsVO> voList = new ArrayList<PlantsVO>();
+		
 		for (PlantsDO plants : plantsList) {
 			PlantsVO vo = PlantsVO.newInstance(plants);
-			if(vo == null) {
+			if (vo == null) {
 				continue;
+			}
+			Object[] idArgs = new Object[] { plants.getId() };
+			try {
+				vo.setPlantCategory(PlantCategoryVO.newInstance(plantCategoryDAO.get(plants.getCatId())));
+			} catch (Exception e) {
+				log.error("Query Plants Cat Error.", e);
+			}
+			try {
+				vo.setPlantsMediaList(ItemMediaVO.newInstance(itemMediaDAO.queryNamed("ItemMedia.getItemMediaByItemId", idArgs)));
+			} catch (Exception e) {
+				log.error("Query Plants Media Error.", e);
+			}
+			try {
+				vo.setColorList(PlantsOrnamentalColorVO.newInstance(plantsOrnamentalColorDAO.queryNative(QueryColorRelSQL, idArgs)));
+			} catch (Exception e) {
+				log.error("Query Plants Color Error.", e);
+			}
+			try {
+				vo.setPeriodList(PlantsOrnamentalPeriodVO.newInstance(plantsOrnamentalPeriodDAO.queryNative(QueryPeriodRelSQL, idArgs)));
+			} catch (Exception e) {
+				log.error("Query Plants Period Error.", e);
 			}
 			voList.add(vo);
 		}

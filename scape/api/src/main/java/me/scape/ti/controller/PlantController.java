@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class PlantController extends BaseController {
 	
-	@RequestMapping(value = "/plant/publish", produces = "application/json")
+	@RequestMapping(value = "/plant/search", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> publish(@Valid PlantSearchRequest request, BindingResult validResult) {
+	public ResponseEntity<String> search(@Valid PlantSearchRequest request, BindingResult validResult) {
 		if(validResult.hasErrors()) {
 			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
 		}
