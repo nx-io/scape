@@ -5,7 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import me.scape.ti.dataobject.PlantCategoryDO;
 import me.scape.ti.dataobject.PlantsDO;
+import me.scape.ti.dataobject.PlantsOrnamentalColorDO;
+import me.scape.ti.dataobject.PlantsOrnamentalPeriodDO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
 import me.scape.ti.ro.PlantSearchRequest;
@@ -35,6 +38,24 @@ public class DefaultPlantService extends BaseService implements PlantService {
 	
 	private static final String QueryPeriodRelSQL = "SELECT * FROM plant_ornamental_period pp WHERE pp.id IN (SELECT ppr.period_id FROM plant_period_rel ppr WHERE ppr.plant_id = ?)";
 	
+	@Override
+	public Result getPeriods() {
+		List<PlantsOrnamentalPeriodDO> plantsOrnamentalPeriodList = plantsOrnamentalPeriodDAO.findAll();
+		return Result.newSuccess().with(ResultCode.Success).with("periodList", PlantsOrnamentalPeriodVO.newInstance(plantsOrnamentalPeriodList));
+	}
+
+	@Override
+	public Result getColors() {
+		List<PlantsOrnamentalColorDO> plantsOrnamentalColorList = plantsOrnamentalColorDAO.findAll();
+		return Result.newSuccess().with(ResultCode.Success).with("colorList", PlantsOrnamentalColorVO.newInstance(plantsOrnamentalColorList));
+	}
+
+	@Override
+	public Result getCats() {
+		List<PlantCategoryDO> plantCatList = plantCategoryDAO.findAll();
+		return Result.newSuccess().with(ResultCode.Success).with("plantCatList", PlantCategoryVO.newInstance(plantCatList));
+	}
+
 	@Override
 	public Result search(PlantSearchRequest request) {
 		StringBuilder sb = new StringBuilder();

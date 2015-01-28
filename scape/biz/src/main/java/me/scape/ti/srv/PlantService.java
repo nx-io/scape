@@ -13,4 +13,10 @@ import me.scape.ti.ro.PlantSearchRequest;
 public interface PlantService {
 
 	Result search(PlantSearchRequest request);
+	
+	Result getCats();
+	
+	Result getColors();
+	
+	Result getPeriods();
 }

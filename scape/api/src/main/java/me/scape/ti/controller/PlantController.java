@@ -30,4 +30,25 @@ public class PlantController extends BaseController {
 		Result result = plantService.search(request);
 		return toResponse(result);
 	}
+	
+	@RequestMapping(value = "/plant/cats", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> cats() {
+		Result result = plantService.getCats();
+		return toResponse(result);
+	}
+	
+	@RequestMapping(value = "/plant/colors", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> colors() {
+		Result result = plantService.getColors();
+		return toResponse(result);
+	}
+	
+	@RequestMapping(value = "/plant/periods", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> periods() {
+		Result result = plantService.getPeriods();
+		return toResponse(result);
+	}
 }
