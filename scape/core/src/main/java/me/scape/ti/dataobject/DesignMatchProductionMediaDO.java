@@ -22,24 +22,36 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "design_match_production", catalog = "scape")
-public class DesignMatchProductionDO implements Serializable {
+public class DesignMatchProductionMediaDO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final byte Available = 1;
+	public static final byte Strike_out = -1;
+
+	public static final byte IMG = 1;
+	public static final byte VIDEO = 2;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 	
-	@Column(name = "match_id", nullable = false)
-	private Long match_id;//赛事ID
+	@Column(name = "production_id", nullable = false)
+	private Long production_id;//作品ID
+	
+	@Column(name = "url", nullable = false, length = 255)
+	private String url;// 图片, 视频地址
+	
+	@Column(name = "description", nullable = false, length = 512)
+	private String description;// 参赛作品图片说明
 
-	@Column(name = "description", nullable = false, length = 1024)
-	private String description;// 参赛作品简述
-	
-	@Column(name = "title", nullable = false, length = 64)
-	private String title;// 参赛作品标题
-	
+	@Column(name = "status", nullable = false)
+	private Byte status;// 状态， 1:可用， -1:删除
+
+	@Column(name = "type", nullable = false)
+	private Byte type;// 类型 1:图片, 2:视频
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "gmt_created", nullable = false)
 	private Date gmt_created;
@@ -47,4 +59,5 @@ public class DesignMatchProductionDO implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "gmt_modified", nullable = false)
 	private Date gmt_modified;
+
 }
