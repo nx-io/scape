@@ -54,10 +54,10 @@ public class DesignMatchNotifyDO implements Serializable {
 	private Integer timeToLive;//消息保存时间
 
 	@Column(name = "passThrough", nullable = false)
-	private Boolean passThrough;// 动态状态 1表示透传消息，0表示通知栏消息。
+	private Boolean passThrough;// 透传方式 1表示透传消息，0表示通知栏消息。
 
 	@Column(name = "status", nullable = false)
-	private Boolean status;// 动态状态 0:删除 1:活跃
+	private Boolean status;// 通知状态 0:删除 1:活跃
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "gmt_created", nullable = false)
