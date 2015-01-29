@@ -44,7 +44,7 @@ public class PlantsOrnamentalColorDO implements Serializable {
 	private Date gmt_created;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "gmt_modified")
+	@Column(name = "gmt_modified", nullable = false)
 	private Date gmt_modified;
 
 	public Long getId() {
