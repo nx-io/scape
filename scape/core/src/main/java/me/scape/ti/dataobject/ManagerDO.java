@@ -175,17 +175,13 @@ public class ManagerDO implements Serializable {
 		int result = 1;
 		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result
-				+ ((gmt_created == null) ? 0 : gmt_created.hashCode());
-		result = prime * result
-				+ ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
+		result = prime * result + ((gmt_created == null) ? 0 : gmt_created.hashCode());
+		result = prime * result + ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((last_ip == null) ? 0 : last_ip.hashCode());
-		result = prime * result
-				+ ((last_login == null) ? 0 : last_login.hashCode());
+		result = prime * result + ((last_login == null) ? 0 : last_login.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result
-				+ ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((role_id == null) ? 0 : role_id.hashCode());
 		result = prime * result + ((salt == null) ? 0 : salt.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());

@@ -27,13 +27,13 @@ public class PlantsPeriodRelDO implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
-	
+
 	@Column(name = "plant_id", nullable = false)
 	private Long plantId;
-	
+
 	@Column(name = "period_id", nullable = false)
 	private Long periodId;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "gmt_created", nullable = false)
 	private Date gmt_created;

@@ -28,7 +28,7 @@ public class CommentsDO implements Serializable {
 	public static final byte Available = 1;
 	public static final byte Unavailable = 0;
 	public static final byte Strike_out = -1;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)

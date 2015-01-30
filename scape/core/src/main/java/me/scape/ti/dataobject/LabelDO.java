@@ -23,11 +23,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "label", catalog = "scape")
-@NamedQueries({ 
-	@NamedQuery(
-			name = "Label.getLabelByItemId", 
-			query = "FROM LabelDO l WHERE l.id in (SELECT itl.label_id FROM ItemLabelsDO itl WHERE itl.item_id = ?)"), 
-	})
+@NamedQueries({ @NamedQuery(name = "Label.getLabelByItemId", query = "FROM LabelDO l WHERE l.id in (SELECT itl.label_id FROM ItemLabelsDO itl WHERE itl.item_id = ?)"), })
 public class LabelDO implements Serializable {
 
 	private static final long serialVersionUID = -5646770762533930759L;
@@ -106,12 +102,9 @@ public class LabelDO implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((description == null) ? 0 : description.hashCode());
-		result = prime * result
-				+ ((gmt_created == null) ? 0 : gmt_created.hashCode());
-		result = prime * result
-				+ ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((gmt_created == null) ? 0 : gmt_created.hashCode());
+		result = prime * result + ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
 		result = prime * result + ((icon == null) ? 0 : icon.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());

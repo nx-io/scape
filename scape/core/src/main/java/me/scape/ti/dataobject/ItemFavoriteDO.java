@@ -27,7 +27,7 @@ public class ItemFavoriteDO implements Serializable {
 
 	public static final byte Praise = 1;
 	public static final byte Collection = 2;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
@@ -90,8 +90,7 @@ public class ItemFavoriteDO implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((gmt_created == null) ? 0 : gmt_created.hashCode());
+		result = prime * result + ((gmt_created == null) ? 0 : gmt_created.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((item_id == null) ? 0 : item_id.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());

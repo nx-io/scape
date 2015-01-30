@@ -30,16 +30,16 @@ public class DesignMatchResultDO implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
-	
+
 	@Column(name = "match_id", nullable = false)
-	private Long match_id;//赛事ID
-	
+	private Long match_id;// 赛事ID
+
 	@Column(name = "production_id", nullable = false)
-	private Long production_id;//作品ID
+	private Long production_id;// 作品ID
 
 	@Column(name = "ranking", nullable = false)
-	private Integer ranking;//参赛作品排名
-	
+	private Integer ranking;// 参赛作品排名
+
 	@Column(name = "comment", nullable = false, length = 512)
 	private String comment;// 参赛作品评语
 
