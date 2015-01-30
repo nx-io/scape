@@ -40,7 +40,7 @@ public class DesignMatchProductionDO implements Serializable {
 	@Column(name = "title", nullable = false, length = 64)
 	private String title;// 参赛作品标题
 
-	@Column(name = "title", nullable = false, length = 128)
+	@Column(name = "attachment", nullable = false, length = 128)
 	private String attachment;// 参赛作品附件
 
 	@Temporal(TemporalType.TIMESTAMP)
