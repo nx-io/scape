@@ -57,6 +57,40 @@ public class DefaultPlantService extends BaseService implements PlantService {
 	}
 
 	@Override
+	public Result detail(Long plantId) {
+		PlantsDO plant = plantsDAO.get(plantId);
+		if(plant == null) {
+			return Result.newError().with(ResultCode.Error_Plants_Empty);
+		}
+		PlantsVO vo = PlantsVO.newInstance(plant);
+		if (vo == null) {
+			return Result.newError().with(ResultCode.Error_Plants_Empty);
+		}
+		Object[] idArgs = new Object[] { plant.getId() };
+		try {
+			vo.setPlantCategory(PlantCategoryVO.newInstance(plantCategoryDAO.get(plant.getCatId())));
+		} catch (Exception e) {
+			log.error("Query Plants Cat Error.", e);
+		}
+		try {
+			vo.setPlantsMediaList(PlantMediaVO.newInstance(plantMediaDAO.queryNamed("PlantMedia.getPlantMediaByPlantId", idArgs)));
+		} catch (Exception e) {
+			log.error("Query Plants Media Error.", e);
+		}
+		try {
+			vo.setColorList(PlantsOrnamentalColorVO.newInstance(plantsOrnamentalColorDAO.queryNative(QueryColorRelSQL, idArgs)));
+		} catch (Exception e) {
+			log.error("Query Plants Color Error.", e);
+		}
+		try {
+			vo.setPeriodList(PlantsOrnamentalPeriodVO.newInstance(plantsOrnamentalPeriodDAO.queryNative(QueryPeriodRelSQL, idArgs)));
+		} catch (Exception e) {
+			log.error("Query Plants Period Error.", e);
+		}
+		return Result.newSuccess().with(ResultCode.Success).with("plant", vo);
+	}
+
+	@Override
 	public Result search(PlantSearchRequest request) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT * FROM plants p WHERE 1 = 1 ");

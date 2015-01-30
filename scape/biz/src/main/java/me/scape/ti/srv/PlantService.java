@@ -12,6 +12,8 @@ import me.scape.ti.ro.PlantSearchRequest;
  */
 public interface PlantService {
 
+	Result detail(Long plantId);
+
 	Result search(PlantSearchRequest request);
 	
 	Result getCats();
