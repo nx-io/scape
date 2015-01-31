@@ -10,6 +10,6 @@ import me.scape.ti.jpa.GenericDAO;
  * @version 1.0.0
  * @since 2015年1月27日 下午8:49:26
  */
-public interface PlantsOrnamentalColorDAO extends GenericDAO<PlantsOrnamentalColorDO, Long> {
+public interface PlantsOrnamentalColorDAO extends GenericDAO<PlantsOrnamentalColorDO, Integer> {
 
 }

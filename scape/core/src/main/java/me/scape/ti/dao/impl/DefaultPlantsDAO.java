@@ -14,6 +14,6 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  * @since 2015年1月27日 下午8:47:31
  */
 @Repository(value = "plantsDAO")
-public class DefaultPlantsDAO extends DefaultGenericDAO<PlantsDO, Long> implements PlantsDAO {
+public class DefaultPlantsDAO extends DefaultGenericDAO<PlantsDO, Integer> implements PlantsDAO {
 
 }

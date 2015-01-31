@@ -57,7 +57,7 @@ public class DefaultPlantService extends BaseService implements PlantService {
 	}
 
 	@Override
-	public Result detail(Long plantId) {
+	public Result detail(int plantId) {
 		PlantsDO plant = plantsDAO.get(plantId);
 		if(plant == null) {
 			return Result.newError().with(ResultCode.Error_Plants_Empty);
@@ -68,7 +68,7 @@ public class DefaultPlantService extends BaseService implements PlantService {
 		}
 		Object[] idArgs = new Object[] { plant.getId() };
 		try {
-			vo.setPlantCategory(PlantCategoryVO.newInstance(plantCategoryDAO.get(plant.getCatId())));
+			vo.setPlantCategory(PlantCategoryVO.newInstance(plantCategoryDAO.get(plant.getCat_id())));
 		} catch (Exception e) {
 			log.error("Query Plants Cat Error.", e);
 		}
@@ -147,7 +147,7 @@ public class DefaultPlantService extends BaseService implements PlantService {
 			}
 			Object[] idArgs = new Object[] { plants.getId() };
 			try {
-				vo.setPlantCategory(PlantCategoryVO.newInstance(plantCategoryDAO.get(plants.getCatId())));
+				vo.setPlantCategory(PlantCategoryVO.newInstance(plantCategoryDAO.get(plants.getCat_id())));
 			} catch (Exception e) {
 				log.error("Query Plants Cat Error.", e);
 			}

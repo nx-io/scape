@@ -24,74 +24,131 @@ import javax.persistence.TemporalType;
 @Table(name = "plant_ornamental_color", catalog = "scape")
 public class PlantsOrnamentalColorDO implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true, nullable = false)
-	private Long id;
+    private static final long serialVersionUID = -7461949492902616921L;
 
-	@Column(name = "color", unique = true, nullable = false, length = 64)
-	private String color;// 植物观赏色
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true, nullable = false)
+    private Integer id;
 
-	@Column(name = "icon", length = 255)
-	private String icon;// 植物观赏色图标
+    @Column(name = "color", unique = true, nullable = false, length = 64)
+    private String color;// 植物观赏色
 
-	@Column(name = "display", nullable = false)
-	private Byte display = 1;// 是否展示 1展示 0不展示 -1删除
+    @Column(name = "icon", length = 255)
+    private String icon;// 植物观赏色图标
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "gmt_created", nullable = false)
-	private Date gmt_created;
+    @Column(name = "display", nullable = false)
+    private Byte display = 1;// 是否展示 1展示 0不展示 -1删除
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "gmt_modified", nullable = false)
-	private Date gmt_modified;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "gmt_created", nullable = false)
+    private Date gmt_created;
 
-	public Long getId() {
-		return id;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "gmt_modified", nullable = true)
+    private Date gmt_modified;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getColor() {
-		return color;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setColor(String color) {
-		this.color = color;
-	}
+    public String getColor() {
+        return color;
+    }
 
-	public String getIcon() {
-		return icon;
-	}
+    public void setColor(String color) {
+        this.color = color;
+    }
 
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
+    public String getIcon() {
+        return icon;
+    }
 
-	public Byte getDisplay() {
-		return display;
-	}
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
-	public void setDisplay(Byte display) {
-		this.display = display;
-	}
+    public Byte getDisplay() {
+        return display;
+    }
 
-	public Date getGmt_created() {
-		return gmt_created;
-	}
+    public void setDisplay(Byte display) {
+        this.display = display;
+    }
 
-	public void setGmt_created(Date gmt_created) {
-		this.gmt_created = gmt_created;
-	}
+    public Date getGmt_created() {
+        return gmt_created;
+    }
 
-	public Date getGmt_modified() {
-		return gmt_modified;
-	}
+    public void setGmt_created(Date gmt_created) {
+        this.gmt_created = gmt_created;
+    }
 
-	public void setGmt_modified(Date gmt_modified) {
-		this.gmt_modified = gmt_modified;
-	}
+    public Date getGmt_modified() {
+        return gmt_modified;
+    }
+
+    public void setGmt_modified(Date gmt_modified) {
+        this.gmt_modified = gmt_modified;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((color == null) ? 0 : color.hashCode());
+        result = prime * result + ((display == null) ? 0 : display.hashCode());
+        result = prime * result + ((gmt_created == null) ? 0 : gmt_created.hashCode());
+        result = prime * result + ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
+        result = prime * result + ((icon == null) ? 0 : icon.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        PlantsOrnamentalColorDO other = (PlantsOrnamentalColorDO) obj;
+        if (color == null) {
+            if (other.color != null)
+                return false;
+        } else if (!color.equals(other.color))
+            return false;
+        if (display == null) {
+            if (other.display != null)
+                return false;
+        } else if (!display.equals(other.display))
+            return false;
+        if (gmt_created == null) {
+            if (other.gmt_created != null)
+                return false;
+        } else if (!gmt_created.equals(other.gmt_created))
+            return false;
+        if (gmt_modified == null) {
+            if (other.gmt_modified != null)
+                return false;
+        } else if (!gmt_modified.equals(other.gmt_modified))
+            return false;
+        if (icon == null) {
+            if (other.icon != null)
+                return false;
+        } else if (!icon.equals(other.icon))
+            return false;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
+    }
+
 }

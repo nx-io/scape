@@ -20,9 +20,9 @@ import org.apache.commons.collections.CollectionUtils;
  */
 public class PlantsVO {
 	
-	private Long id;
+	private Integer id;
 
-	private Long catId;
+	private Integer catId;
 
 	private String nameCn;// 中文名
 
@@ -79,20 +79,20 @@ public class PlantsVO {
 	}
 	
 	private final PlantsVO toPlants(PlantsDO _do) {
-		setAliasName(_do.getAliasName());
-		setAreaApplicable(_do.getAreaApplicable());
-		setCatId(_do.getCatId());
-		setGardenUtilization(_do.getGardenUtilization());
+		setAliasName(_do.getAlias_name());
+		setAreaApplicable(_do.getArea_applicable());
+		setCatId(_do.getCat_id());
+		setGardenUtilization(_do.getGarden_utilization());
 		setGenus(_do.getGenus());
 		setGmt_created(_do.getGmt_created());
 		setGmt_modified(_do.getGmt_modified());
 		setHabits(_do.getHabits());
 		setId(_do.getId());
-		setNameCn(_do.getNameCn());
-		setNameEn(_do.getNameEn());
+		setNameCn(_do.getName_cn());
+		setNameEn(_do.getName_en());
 		setCover_media(ImageUtils.urlWrapper(_do.getCover_media()));
-		setShortNameCn(_do.getShortNameCn());
-		setShortNameEn(_do.getShortNameEn());
+		setShortNameCn(_do.getShort_name_cn());
+		setShortNameEn(_do.getShort_name_en());
 		return this;
 	}
 
@@ -136,19 +136,19 @@ public class PlantsVO {
 		this.plantCategory = plantCategory;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Long getCatId() {
+	public Integer getCatId() {
 		return catId;
 	}
 
-	public void setCatId(Long catId) {
+	public void setCatId(Integer catId) {
 		this.catId = catId;
 	}
 

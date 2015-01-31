@@ -12,7 +12,7 @@ import me.scape.ti.ro.PlantSearchRequest;
  */
 public interface PlantService {
 
-	Result detail(Long plantId);
+	Result detail(int plantId);
 
 	Result search(PlantSearchRequest request);
 	

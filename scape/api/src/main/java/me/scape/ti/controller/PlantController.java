@@ -24,7 +24,7 @@ public class PlantController extends BaseController {
 	
 	@RequestMapping(value = "/plant/detail/{plantId}", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> detail(@PathVariable Long plantId) {
+	public ResponseEntity<String> detail(@PathVariable Integer plantId) {
 		Result result = plantService.detail(plantId);
 		return toResponse(result);
 	}
