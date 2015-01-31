@@ -156,10 +156,11 @@ require(["../require-config"], function() {
         });
 
         $('#input-color').on('click', function() {
+            $('#plantPeriods').hide();
             $('#plantColors').show();
         });
         $('#input-color').on('blur', function() {
-            setTimeout(function(){$('#plantColors').hide();}, 5000);
+            setTimeout(function(){$('#plantColors').hide();}, 3000);
         });
         $('#plantColors').on('click', 'li', function() {
             var itemValue = $(this).data("value"), itemLabel = $(this).data("label");
@@ -173,10 +174,11 @@ require(["../require-config"], function() {
         });
 
         $('#input-period').on('click', function() {
+            $('#plantColors').hide();
             $('#plantPeriods').show();
         });
         $('#input-period').on('blur', function() {
-            setTimeout(function(){$('#plantPeriods').hide();}, 5000);
+            setTimeout(function(){$('#plantPeriods').hide();}, 3000);
         });
         $('#plantPeriods').on('click', 'li', function() {
             var itemValue = $(this).data("value"), itemLabel = $(this).data("label");
