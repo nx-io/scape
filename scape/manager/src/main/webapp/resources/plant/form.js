@@ -155,6 +155,40 @@ require(["../require-config"], function() {
             });
         });
 
+        $('#input-color').on('click', function() {
+            $('#plantColors').show();
+        });
+        $('#input-color').on('blur', function() {
+            setTimeout(function(){$('#plantColors').hide();}, 5000);
+        });
+        $('#plantColors').on('click', 'li', function() {
+            var itemValue = $(this).data("value"), itemLabel = $(this).data("label");
+            $('#input-color').val('');
+            $('#plant-color' + itemValue).remove();
+            $('#plant-color').append('<div id="plant-color' + itemValue + '"><i class="fa fa-minus-circle"></i> ' + itemLabel + '<input type="hidden" name="colors" value="' + itemValue + '" /></div>');	
+            $('#plantColors').hide();
+        });
+        $('#plant-color').delegate('.fa-minus-circle', 'click', function() {
+            $(this).parent().remove();
+        });
+
+        $('#input-period').on('click', function() {
+            $('#plantPeriods').show();
+        });
+        $('#input-period').on('blur', function() {
+            setTimeout(function(){$('#plantPeriods').hide();}, 5000);
+        });
+        $('#plantPeriods').on('click', 'li', function() {
+            var itemValue = $(this).data("value"), itemLabel = $(this).data("label");
+            $('#input-period').val('');
+            $('#plant-period' + itemValue).remove();
+            $('#plant-period').append('<div id="plant-period' + itemValue + '"><i class="fa fa-minus-circle"></i> ' + itemLabel + '<input type="hidden" name="periods" value="' + itemValue + '" /></div>');	
+            $('#plantPeriods').hide();
+        });
+        $('#plant-period').delegate('.fa-minus-circle', 'click', function() {
+            $(this).parent().remove();
+        });
+
         $('form').validate({
             rules: {
             	name_cn: {

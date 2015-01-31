@@ -34,8 +34,9 @@
             <form role="form" autocomplete="off" action="${plant.id > 0 ? 'plant/edit' : 'plant/add'}" method="POST">
                 <input type="hidden" name="id" value="${plant.id}" />
                 <div class="box-body">
-	                <ul class="nav nav-tabs">
+                    <ul class="nav nav-tabs">
                         <li class="active"><a href="#item-general" data-toggle="tab">基本属性</a></li>
+                        <li><a href="#item-link" data-toggle="tab">关系</a></li>
                         <li><a href="#item-media" data-toggle="tab">图片</a></li>
                     </ul>
                     <div class="tab-content">
@@ -107,6 +108,40 @@
                                 <label>适用地区</label>
                                 <div class="textarea">
                                     <textarea class="form-control" id="area_applicable" name="area_applicable" rows="6">${plant.area_applicable}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="item-link" class="tab-pane">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-color">观赏色</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="input-color" placeholder="观赏色" class="form-control">
+                                    <ul id="plantColors" class="dropdown-menu" style="top: 35px; left: 15px; display: none;">
+                                      <c:forEach items="${plantColors}" var="plantColor">
+                                        <li data-value="${plantColor.id}" data-label="${plantColor.color}">${plantColor.color}</li>
+                                      </c:forEach>
+                                    </ul>
+                                    <div id="plant-color" class="well well-sm" style="height: 150px; overflow: auto;">
+                                      <c:forEach items="${plant.colors}" var="color">
+                                        <div id="plant-color${color.id}"><i class="fa fa-minus-circle"></i> ${color.color}<input type="hidden" name="colors" value="${color.id}"></div>
+                                      </c:forEach>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-period">观赏期</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="input-period" placeholder="观赏期" class="form-control">
+                                    <ul id="plantPeriods" class="dropdown-menu" style="top: 35px; left: 15px; display: none;">
+                                      <c:forEach items="${plantPeriods}" var="plantPeriod">
+                                        <li data-value="${plantPeriod.id}" data-label="${plantPeriod.period}">${plantPeriod.period}</li>
+                                      </c:forEach>
+                                    </ul>
+                                    <div id="plant-period" class="well well-sm" style="height: 150px; overflow: auto;">
+                                      <c:forEach items="${plant.periods}" var="period">
+                                        <div id="plant-period${period.id}"><i class="fa fa-minus-circle"></i> ${period.period}<input type="hidden" name="periods" value="${period.id}"></div>
+                                      </c:forEach>
+                                    </div>
                                 </div>
                             </div>
                         </div>
