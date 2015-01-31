@@ -24,6 +24,10 @@
 <!-- Content. -->
 <section class="content">
     <div class="row">
+        <div id="warning-box" class="alert alert-warning" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>Warning!</strong><span id="warning-content"></span>
+        </div>
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">${form_type}</h3>
@@ -80,7 +84,7 @@
                                 <label>区域分类</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-tag"></i>
+                                        <i class="fa fa-sitemap"></i>
                                     </div>
                                      <select name="area_category_id" class="form-control">
                                         <optgroup label="请选择区域分类">
@@ -95,7 +99,7 @@
                                 <label>风格</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-tag"></i>
+                                        <i class="fa fa-thumb-tack"></i>
                                     </div>
                                      <select name="style_id" class="form-control">
                                         <optgroup label="请选择风格">
@@ -110,7 +114,7 @@
                                 <label>设计师</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-edit"></i>
+                                        <i class="fa fa-user"></i>
                                     </div>
                                     <input name="designer" type="text" class="form-control" id="designer" value="${item.designer}" placeholder="设计师">
                                 </div>
@@ -119,7 +123,7 @@
                                 <label>设计师联系方式</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-edit"></i>
+                                        <i class="fa fa-mobile"></i>
                                     </div>
                                     <input name="designer_contact" type="text" class="form-control" id="designer_contact" value="${item.designer_contact}" placeholder="设计师联系方式">
                                 </div>
@@ -128,7 +132,7 @@
                                 <label>施工者</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-edit"></i>
+                                        <i class="fa fa-users"></i>
                                     </div>
                                     <input name="constructor" type="text" class="form-control" id="constructor" value="${item.constructor}" placeholder="施工者">
                                 </div>
@@ -137,7 +141,7 @@
                                 <label>施工者联系方式</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-edit"></i>
+                                        <i class="fa fa-mobile"></i>
                                     </div>
                                     <input name="constructor_contact" type="text" class="form-control" id="constructor_contact" value="${item.constructor_contact}" placeholder="施工者联系方式">
                                 </div>
@@ -145,7 +149,7 @@
                             <div class="form-group">
                                 <label>描述<span class="required-flag">*</span></label>
                                 <div class="textarea">
-                                    <textarea class="form-control" id="description" name="description" rows="4">${item.description}</textarea>
+                                    <textarea class="form-control" id="description" name="description" rows="6">${item.description}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -154,7 +158,7 @@
                                 <label>封皮<span class="required-flag">*</span></label>
                                 <div class="input-group">
                                     <div id="cover-img" style="padding-bottom: 10px">
-                                        <input type="hidden" name="cover_media" value="${item.cover_media.path}">
+                                        <input type="hidden" id="cover_media" name="cover_media" value="${item.cover_media.path}">
                                         <c:if test="${!empty item.cover_media}">
                                             <img style="height: 230px" src="${item.cover_media.url}" class="img-rounded"/>
                                         </c:if>

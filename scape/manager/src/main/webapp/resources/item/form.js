@@ -67,8 +67,8 @@ require(["../require-config"], function() {
                         if ('succeed' == imageInfo.status) {
                              var imageGroup = row.find('.image-group');
 
-                             imageGroup.find('.preview-image').attr('src', imageInfo.body.image_url);
-                             $('#media-url-' + index).val(imageInfo.body.image_path);
+                             imageGroup.find('.preview-image').attr('src', imageInfo.body.image_path);
+                             $('#media-url-' + index).val(imageInfo.body.image_url);
                              imageGroup.removeClass('default-preview');
                         } else {
                             if ('11000' == imageInfo.error_code) {
@@ -142,8 +142,8 @@ require(["../require-config"], function() {
                         if ('succeed' == imageInfo.status) {
                              var imageGroup = imageCol.find('.image-group');
 
-                             imageGroup.find('.preview-image').attr('src', imageInfo.body.image_url);
-                             $('#media-url-' + index).val(imageInfo.body.image_path);
+                             imageGroup.find('.preview-image').attr('src', imageInfo.body.image_path);
+                             $('#media-url-' + index).val(imageInfo.body.image_url);
                              imageGroup.removeClass('default-preview');
                         } else {
                             if ('11000' == imageInfo.error_code) {
@@ -161,7 +161,7 @@ require(["../require-config"], function() {
                     required: true,
                     minlength: 2,
                 },
-                article: {
+                description: {
                     required: true
                 }
             },
@@ -170,12 +170,28 @@ require(["../require-config"], function() {
                     required: '标题不能为空',
                     minlength: "字符长度不能小于2个字符"
                 },
-                article: {
-                    required: "内容不能为空"
+                description: {
+                    required: "描述不能为空"
                 }
             },
             submitHandler: function(form) {
-                form.submit();
+                var flag = true;
+                if (null == $('#cover_media').val() || "" == $('#cover_media').val()) {
+                    flag = false;
+                    $('#warning-content').html('封皮不能为空!');
+                    $('#warning-box').show();
+                }
+                if (flag) {
+                    var mediaCount= $('#media-list').find('tbody').find('tr').length;
+                    if (mediaCount <= 0) {
+                        flag = false;
+                        $('#warning-content').html('图片不能为空!');
+                        $('#warning-box').show();
+                    }
+                }
+                if (flag) {
+                    form.submit();
+                }
             }
         });
     });
