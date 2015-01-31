@@ -1,5 +1,7 @@
 package me.scape.ti.dao;
 
+import java.util.List;
+
 import me.scape.ti.dataobject.PlantsOrnamentalPeriodDO;
 import me.scape.ti.jpa.GenericDAO;
 
@@ -12,4 +14,7 @@ import me.scape.ti.jpa.GenericDAO;
  */
 public interface PlantsOrnamentalPeriodDAO extends GenericDAO<PlantsOrnamentalPeriodDO, Integer> {
 
+    List<PlantsOrnamentalPeriodDO> getAllPlantPeriods();
+
+    List<PlantsOrnamentalPeriodDO> getDisplayedPlantPeriods();
 }

@@ -40,19 +40,19 @@ public class DefaultPlantService extends BaseService implements PlantService {
 	
 	@Override
 	public Result getPeriods() {
-		List<PlantsOrnamentalPeriodDO> plantsOrnamentalPeriodList = plantsOrnamentalPeriodDAO.findAll();
+		List<PlantsOrnamentalPeriodDO> plantsOrnamentalPeriodList = plantsOrnamentalPeriodDAO.getDisplayedPlantPeriods();
 		return Result.newSuccess().with(ResultCode.Success).with("periodList", PlantsOrnamentalPeriodVO.newInstance(plantsOrnamentalPeriodList));
 	}
 
 	@Override
 	public Result getColors() {
-		List<PlantsOrnamentalColorDO> plantsOrnamentalColorList = plantsOrnamentalColorDAO.findAll();
+		List<PlantsOrnamentalColorDO> plantsOrnamentalColorList = plantsOrnamentalColorDAO.getDisplayedPlantColors();
 		return Result.newSuccess().with(ResultCode.Success).with("colorList", PlantsOrnamentalColorVO.newInstance(plantsOrnamentalColorList));
 	}
 
 	@Override
 	public Result getCats() {
-		List<PlantCategoryDO> plantCatList = plantCategoryDAO.findAll();
+		List<PlantCategoryDO> plantCatList = plantCategoryDAO.getDisplayedCategories();
 		return Result.newSuccess().with(ResultCode.Success).with("plantCatList", PlantCategoryVO.newInstance(plantCatList));
 	}
 

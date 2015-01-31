@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,6 +24,9 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "plant_ornamental_period", catalog = "scape")
+@NamedQueries({
+        @NamedQuery(name = "PlantsOrnamentalPeriodDO.getAllPlantPeriods", query = "FROM PlantsOrnamentalPeriodDO WHERE display != -1"),
+        @NamedQuery(name = "PlantsOrnamentalPeriodDO.getDisplayedPlantPeriods", query = "FROM PlantsOrnamentalPeriodDO WHERE display = 1") })
 public class PlantsOrnamentalPeriodDO implements Serializable {
 
     private static final long serialVersionUID = 7710854124400274602L;

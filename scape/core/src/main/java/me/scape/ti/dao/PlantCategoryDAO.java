@@ -1,5 +1,7 @@
 package me.scape.ti.dao;
 
+import java.util.List;
+
 import me.scape.ti.dataobject.PlantCategoryDO;
 import me.scape.ti.jpa.GenericDAO;
 
@@ -12,4 +14,9 @@ import me.scape.ti.jpa.GenericDAO;
  */
 public interface PlantCategoryDAO extends GenericDAO<PlantCategoryDO, Integer> {
 
+    List<PlantCategoryDO> getCategoriesByIds(List<Integer> ids);
+
+    List<PlantCategoryDO> getAllCategories();
+
+    List<PlantCategoryDO> getDisplayedCategories();
 }
