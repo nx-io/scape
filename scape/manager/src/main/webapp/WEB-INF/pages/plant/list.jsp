@@ -27,8 +27,8 @@
                     <div class="box-search container">
                         <div class="col-lg-8" style="margin-top:10px;margin-bottom:20px;">
                             <div class="input-group">
-                                <span class="input-group-addon">标题</span>
-                                <input class="form-control" type="text" name="name" value="${request.name}" placeholder="输入搜索的标题">
+                                <span class="input-group-addon">名称</span>
+                                <input class="form-control" type="text" name="name" value="${request.name}" placeholder="输入搜索的植物名称">
                             </div>
                         </div>
                         <div class="col-lg-3" style="margin-top:10px;margin-bottom:20px;">
@@ -67,7 +67,7 @@
                             <td>${plant.category}</td>
                             <td>${plant.genus}</td>
                             <td class="operation-part center">
-                                <a title="编辑" href="plant/editPage?itemId=${plant.id}"><span class="glyphicon glyphicon-pencil"></span></a>
+                                <a title="编辑" href="plant/editPage?id=${plant.id}"><span class="glyphicon glyphicon-pencil"></span></a>
                                 <a title="删除" class="delete-item" data-item="${plant.id}" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>

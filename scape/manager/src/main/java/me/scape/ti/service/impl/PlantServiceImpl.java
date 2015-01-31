@@ -219,7 +219,7 @@ public class PlantServiceImpl implements PlantService {
                     plantMedia.setGmt_created(now);
                     plantMedia.setGmt_modified(now);
 
-                    plantMediaDAO.persist(media);
+                    plantMediaDAO.persist(plantMedia);
                 }
             }
         }
@@ -366,7 +366,7 @@ public class PlantServiceImpl implements PlantService {
                     plantMedia.setGmt_created(now);
                     plantMedia.setGmt_modified(now);
 
-                    plantMediaDAO.persist(media);
+                    plantMediaDAO.persist(plantMedia);
                 }
             }
         }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,8 +22,9 @@ import javax.persistence.TemporalType;
  * @version 1.0.0
  * @since 2015年1月27日 下午4:24:00
  */
+@Entity
 @Table(name = "plant_period_rel", catalog = "scape")
-@NamedQueries({ @NamedQuery(name = "PlantsPeriodRelDO.deleteByPlantId", query = "DELETE FROM PlantsPeriodRelDO WHERE plant_id = ?") })
+@NamedQueries({ @NamedQuery(name = "PlantsPeriodRelDO.deleteByPlantId", query = "DELETE FROM PlantsPeriodRelDO WHERE plant_id = :plantId") })
 public class PlantsPeriodRelDO implements Serializable {
 
     private static final long serialVersionUID = -1276101210269230653L;

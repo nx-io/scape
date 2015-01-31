@@ -25,6 +25,6 @@ public class DefaultPlantMediaDAO extends DefaultGenericDAO<PlantMediaDO, Long> 
 
     @Override
     public void deleteByPlantId(Integer plantId) {
-        queryNativeUpdate("PlantMedia.deleteByPlantId", new Object[] { plantId });
+    	getEntityManager().createNamedQuery("PlantMediaDO.deleteByPlantId").setParameter("plantId", plantId).executeUpdate();
     }
 }

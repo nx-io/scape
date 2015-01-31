@@ -18,6 +18,6 @@ public class DefaultPlantsPeriodRelDAO extends DefaultGenericDAO<PlantsPeriodRel
 
     @Override
     public void deleteByPlantId(Integer plantId) {
-        queryNativeUpdate("PlantsPeriodRelDO.deleteByPlantId", new Object[] { plantId });
+    	getEntityManager().createNamedQuery("PlantsPeriodRelDO.deleteByPlantId").setParameter("plantId", plantId).executeUpdate();
     }
 }

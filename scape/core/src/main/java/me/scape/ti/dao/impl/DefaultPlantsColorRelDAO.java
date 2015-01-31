@@ -18,7 +18,7 @@ public class DefaultPlantsColorRelDAO extends DefaultGenericDAO<PlantsColorRelDO
 
     @Override
     public void deleteByPlantId(Integer plantId) {
-        queryNativeUpdate("PlantsColorRelDO.deleteByPlantId", new Object[] { plantId });
+    	getEntityManager().createNamedQuery("PlantsColorRelDO.deleteByPlantId").setParameter("plantId", plantId).executeUpdate();
     }
 	
 }
