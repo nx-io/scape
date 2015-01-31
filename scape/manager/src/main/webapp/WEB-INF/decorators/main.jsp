@@ -99,7 +99,7 @@
                         <li class="treeview active">
                             <a href="#">
                                 <i class="fa fa-user"></i>
-                                <span>设计师管理</span>
+                                <span>设计师</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
@@ -110,12 +110,24 @@
                       <sec:authorize url="/item/list">
                         <li class="treeview active">
                             <a href="#">
-                                <i class="fa fa-file-word-o"></i>
+                                <i class="fa fa-cube"></i>
                                 <span>景观案例</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="item/list"><i class="fa fa-angle-double-right"></i> 景观案例列表</a></li>
+                            </ul>
+                        </li>
+                      </sec:authorize>
+                      <sec:authorize url="/plant/list">
+                        <li class="treeview active">
+                            <a href="#">
+                                <i class="fa fa-tree"></i>
+                                <span>植物手册</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="plant/list"><i class="fa fa-angle-double-right"></i> 植物手册列表</a></li>
                             </ul>
                         </li>
                       </sec:authorize>
