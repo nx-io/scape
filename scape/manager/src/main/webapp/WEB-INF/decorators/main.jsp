@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ page import="me.scape.ti.security.utils.ContextUtil"%>
 <%@ page import="me.scape.ti.security.model.UserDetailsImpl"%>
 <%
@@ -94,6 +95,7 @@
                                 <i class="fa fa-dashboard"></i> <span>首页</span>
                             </a>
                         </li>
+                      <sec:authorize url="/user/list">
                         <li class="treeview active">
                             <a href="#">
                                 <i class="fa fa-user"></i>
@@ -104,6 +106,8 @@
                                 <li><a href="user/list"><i class="fa fa-angle-double-right"></i> 设计师列表</a></li>
                             </ul>
                         </li>
+                      </sec:authorize>
+                      <sec:authorize url="/item/list">
                         <li class="treeview active">
                             <a href="#">
                                 <i class="fa fa-file-word-o"></i>
@@ -114,6 +118,7 @@
                                 <li><a href="item/list"><i class="fa fa-angle-double-right"></i> 景观案例列表</a></li>
                             </ul>
                         </li>
+                      </sec:authorize>
                     </ul>
                 </section>
             </aside>

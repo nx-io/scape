@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <h1>景观云图后台管理系统</h1>
             </div>
             <form class="well login" role="form" autocomplete="off" action="j_spring_security_check" method="post">
-                <p class="error-message"></p>
+                <p class="error-message">${sessionScope['SPRING_SECURITY_LAST_EXCEPTION']}</p>
                 <div class="form-group">
                     <input id="account" name="account" type="text" class="form-control" placeholder="电子邮件">
                 </div>

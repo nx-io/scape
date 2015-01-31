@@ -9,6 +9,10 @@
     <http pattern="/resources/**" security="none" />
     <http pattern="/favicon.ico" security="none" />
 
+    <beans:bean id="webInvocationFilter" class="org.springframework.security.web.access.DefaultWebInvocationPrivilegeEvaluator">
+        <beans:constructor-arg ref="securityFilter" />
+    </beans:bean>
+
     <http auto-config="false" use-expressions="true" entry-point-ref="loginUrlAuthenticationEntryPoint">
         <intercept-url pattern="/loginPage" access="isAuthenticated() or isAnonymous()" />
         <intercept-url pattern="/loginHandle" access="isAuthenticated() or isAnonymous()" />
