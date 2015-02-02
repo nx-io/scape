@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import me.scape.ti.dataobject.PlantsDO;
+import me.scape.ti.utils.ImageUtils;
 
 import org.apache.commons.collections.CollectionUtils;
 
@@ -89,7 +90,7 @@ public class PlantsVO {
 		setId(_do.getId());
 		setNameCn(_do.getNameCn());
 		setNameEn(_do.getNameEn());
-		setCover_media(_do.getCover_media());
+		setCover_media(ImageUtils.urlWrapper(_do.getCover_media()));
 		setShortNameCn(_do.getShortNameCn());
 		setShortNameEn(_do.getShortNameEn());
 		return this;
