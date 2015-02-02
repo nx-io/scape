@@ -48,6 +48,9 @@ public class PlantsDO implements Serializable {
 
 	@Column(name = "alias_name", nullable = true, length = 255)
 	private String aliasName;// 别名
+	
+	@Column(name = "cover_media", nullable = false, length = 255)
+	private String cover_media;// 植物封皮
 
 	@Column(name = "genus", nullable = true, length = 45)
 	private String genus;// 科属
@@ -91,6 +94,14 @@ public class PlantsDO implements Serializable {
 
 	public void setNameCn(String nameCn) {
 		this.nameCn = nameCn;
+	}
+
+	public String getCover_media() {
+		return cover_media;
+	}
+
+	public void setCover_media(String cover_media) {
+		this.cover_media = cover_media;
 	}
 
 	public String getShortNameCn() {

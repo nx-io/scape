@@ -34,6 +34,8 @@ public class PlantsVO {
 	private String aliasName;// 别名
 
 	private String genus;// 科属
+	
+	private String cover_media;// 植物封皮
 
 	private String habits;// 习性
 
@@ -87,9 +89,18 @@ public class PlantsVO {
 		setId(_do.getId());
 		setNameCn(_do.getNameCn());
 		setNameEn(_do.getNameEn());
+		setCover_media(_do.getCover_media());
 		setShortNameCn(_do.getShortNameCn());
 		setShortNameEn(_do.getShortNameEn());
 		return this;
+	}
+
+	public String getCover_media() {
+		return cover_media;
+	}
+
+	public void setCover_media(String cover_media) {
+		this.cover_media = cover_media;
 	}
 
 	public List<PlantsOrnamentalPeriodVO> getPeriodList() {
