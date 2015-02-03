@@ -17,4 +17,6 @@ public interface PlantsOrnamentalPeriodDAO extends GenericDAO<PlantsOrnamentalPe
     List<PlantsOrnamentalPeriodDO> getAllPlantPeriods();
 
     List<PlantsOrnamentalPeriodDO> getDisplayedPlantPeriods();
+
+    List<PlantsOrnamentalPeriodDO> getPlantPeriodsByPlantId(Integer plantId);
 }

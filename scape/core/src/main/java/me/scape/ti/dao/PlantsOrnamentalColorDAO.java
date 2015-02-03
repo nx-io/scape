@@ -17,4 +17,6 @@ public interface PlantsOrnamentalColorDAO extends GenericDAO<PlantsOrnamentalCol
     List<PlantsOrnamentalColorDO> getAllPlantColors();
 
     List<PlantsOrnamentalColorDO> getDisplayedPlantColors();
+
+    List<PlantsOrnamentalColorDO> getPlantColorsByPlantId(Integer plantId);
 }

@@ -23,7 +23,9 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "plant_media", catalog = "scape")
-@NamedQueries({ @NamedQuery(name = "PlantMedia.getPlantMediaByPlantId", query = "FROM PlantMediaDO pm WHERE pm.status = 1 AND pm.plant_id = ?"), })
+@NamedQueries({
+        @NamedQuery(name = "PlantMedia.getPlantMediaByPlantId", query = "FROM PlantMediaDO pm WHERE pm.status = 1 AND pm.plant_id = ?"),
+        @NamedQuery(name = "PlantMedia.deleteByPlantId", query = "DELETE FROM PlantMedia WHERE plant_id = ?") })
 public class PlantMediaDO implements Serializable {
 
     private static final long serialVersionUID = 2388942529712623527L;

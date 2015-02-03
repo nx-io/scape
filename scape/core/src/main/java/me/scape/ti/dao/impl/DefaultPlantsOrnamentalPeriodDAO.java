@@ -2,11 +2,11 @@ package me.scape.ti.dao.impl;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import me.scape.ti.dao.PlantsOrnamentalPeriodDAO;
 import me.scape.ti.dataobject.PlantsOrnamentalPeriodDO;
 import me.scape.ti.jpa.DefaultGenericDAO;
+
+import org.springframework.stereotype.Repository;
 
 /**
  * 
@@ -27,6 +27,13 @@ public class DefaultPlantsOrnamentalPeriodDAO extends DefaultGenericDAO<PlantsOr
     @Override
     public List<PlantsOrnamentalPeriodDO> getDisplayedPlantPeriods() {
         return queryNamed("PlantsOrnamentalPeriodDO.getDisplayedPlantPeriods");
+    }
+
+    @Override
+    public List<PlantsOrnamentalPeriodDO> getPlantPeriodsByPlantId(Integer plantId) {
+        String sql = "SELECT * FROM plant_ornamental_period pop WHERE pop.id IN (SELECT ppr.period_id FROM plant_period_rel ppr WHERE ppr.plant_id = ?)";
+
+        return queryNative(sql, new Object[] { plantId });
     }
 
 }
