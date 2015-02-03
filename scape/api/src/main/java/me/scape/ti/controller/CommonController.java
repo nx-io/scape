@@ -1,5 +1,6 @@
 package me.scape.ti.controller;
 
+import me.scape.ti.constant.CommonConstant;
 import me.scape.ti.result.Result;
 
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,20 @@ public class CommonController extends BaseController {
 	@ResponseBody
 	public ResponseEntity<String> upload(@RequestParam(value = "file", required = true) MultipartFile file) {
 		Result result = commonService.upload(file);
+		return toResponse(result);
+	}
+	
+	@RequestMapping(value = "/version/android", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> version_android() {
+		Result result = commonService.getVersion(CommonConstant.VERSION_ANDROID);
+		return toResponse(result);
+	}
+	
+	@RequestMapping(value = "/version/ios", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> version_ios() {
+		Result result = commonService.getVersion(CommonConstant.VERSION_IOS);
 		return toResponse(result);
 	}
 }

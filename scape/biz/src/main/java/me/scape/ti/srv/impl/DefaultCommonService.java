@@ -3,6 +3,7 @@ package me.scape.ti.srv.impl;
 import java.util.UUID;
 
 import me.scape.ti.constant.CommonConstant;
+import me.scape.ti.dataobject.SystemSettingDO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
 import me.scape.ti.srv.BaseService;
@@ -34,5 +35,15 @@ public class DefaultCommonService extends BaseService implements CommonService {
         }
         return Result.newSuccess().with(ResultCode.Success).with(CommonConstant.IMAGE_PATH, path)
         		.with(CommonConstant.ORIGINAL_IMAGE_URL, CDNUtil.getFullPath(path));
+	}
+
+	@Override
+	public Result getVersion(String key) {
+		Object[] args = new Object[]{ key };
+		SystemSettingDO setting = systemSettingDAO.queryNativeForObject("SELECT * FROM system_setting WHERE group_id = 1 AND setting_key = ?", args);
+		if(setting != null) {
+			return Result.newSuccess().with(ResultCode.Success).with(setting.getSettingKey(), setting.getSettingValue());
+		}
+		return Result.newSuccess().with(ResultCode.Error_Empty_Setting);
 	}
 }
