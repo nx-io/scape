@@ -61,8 +61,8 @@ public class DefaultRelationService extends BaseService implements RelationServi
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result favorite_item(ItemFavoriteRequest request) {
 		Object[] args = new Object[]{ request.getUser_id(), request.getItem_id(), request.getType() };
-		Long c = (Long) itemFavoriteDAO.createNativeQuery("SELECT COUNT(id) FROM item_favorite WHERE user_id = ? AND item_id = ? AND type = ?", args).getSingleResult();
-		if(c != null && c > 0L) {
+		java.math.BigInteger c = (java.math.BigInteger) itemFavoriteDAO.createNativeQuery("SELECT COUNT(id) FROM item_favorite WHERE user_id = ? AND item_id = ? AND type = ?", args).getSingleResult();
+		if(c != null && c.longValue() > 0L) {
 			return Result.newSuccess().with(ResultCode.Error_Favorited);
 		}
 		ItemFavoriteDO favoriteDO = new ItemFavoriteDO();
@@ -102,8 +102,8 @@ public class DefaultRelationService extends BaseService implements RelationServi
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result favorite_user(UserFavoriteRequest request) {
 		Object[] args = new Object[]{ request.getUser_id(), request.getFavorite_id() };
-		Long c = (Long) userFavoriteDAO.createNativeQuery("SELECT COUNT(id) FROM user_favorite WHERE user_id = ? AND favorite_id = ?", args).getSingleResult();
-		if(c != null && c > 0L) {
+		java.math.BigInteger c = (java.math.BigInteger) userFavoriteDAO.createNativeQuery("SELECT COUNT(id) FROM user_favorite WHERE user_id = ? AND favorite_id = ?", args).getSingleResult();
+		if(c != null && c.longValue() > 0L) {
 			return Result.newSuccess().with(ResultCode.Error_User_Favorited);
 		}
 		UserFavoriteDO favoriteDO = new UserFavoriteDO();
