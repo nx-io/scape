@@ -39,6 +39,9 @@ public class SystemSettingDO implements Serializable {
     @Column(name = "setting_value", nullable = false, length = 255)
     private String settingValue;
     
+    @Column(name = "extend", nullable = false, length = 255)
+    private String extend;
+    
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "gmt_created", nullable = false)
     private Date gmt_created;
@@ -100,6 +103,14 @@ public class SystemSettingDO implements Serializable {
 		} else if (!settingValue.equals(other.settingValue))
 			return false;
 		return true;
+	}
+
+	public String getExtend() {
+		return extend;
+	}
+
+	public void setExtend(String extend) {
+		this.extend = extend;
 	}
 
 	public Long getId() {

@@ -42,7 +42,7 @@ public class DefaultCommonService extends BaseService implements CommonService {
 		Object[] args = new Object[]{ key };
 		SystemSettingDO setting = systemSettingDAO.queryNativeForObject("SELECT * FROM system_setting WHERE group_id = 1 AND setting_key = ?", args);
 		if(setting != null) {
-			return Result.newSuccess().with(ResultCode.Success).with(setting.getSettingKey(), setting.getSettingValue());
+			return Result.newSuccess().with(ResultCode.Success).with(setting.getExtend(), setting.getSettingValue());
 		}
 		return Result.newSuccess().with(ResultCode.Error_Empty_Setting);
 	}
