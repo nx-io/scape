@@ -35,6 +35,10 @@ public enum ResultCode {
 	
 	Error_Favorite_Item_Empty			(-7000L, 	"无收藏案例"),
 	
+	Error_Favorited						(-7001L, 	"不能重复收藏或者赞"),
+	
+	Error_User_Favorited				(-7002L, 	"对不起！您已经收藏改用户"),
+	
 	Error_Favorite_User_Empty			(-8000L, 	"无收藏用户"),
 	
 	Error_Plants_Empty					(-9000L, 	"查询不到植物"),
