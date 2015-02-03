@@ -19,6 +19,7 @@ import me.scape.ti.dao.PlantsOrnamentalPeriodDAO;
 import me.scape.ti.dao.PlantsPeriodRelDAO;
 import me.scape.ti.dao.RoleDAO;
 import me.scape.ti.dao.StyleDAO;
+import me.scape.ti.dao.SystemSettingDAO;
 import me.scape.ti.dao.UserDAO;
 import me.scape.ti.dao.UserFavoriteDAO;
 import me.scape.ti.utils.WebUtils;
@@ -117,6 +118,10 @@ public class BaseService implements InitializingBean {
 	@Autowired
 	@Qualifier(value = "plantMediaDAO")
 	protected PlantMediaDAO plantMediaDAO;
+
+	@Autowired
+	@Qualifier(value = "systemSettingDAO")
+	protected SystemSettingDAO systemSettingDAO;
 	
 	protected final long getIp() {
         return WebUtils.ipToLng(WebUtils.getIpAddr(request));

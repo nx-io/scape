@@ -39,6 +39,8 @@ public enum ResultCode {
 	
 	Error_Plants_Empty					(-9000L, 	"查询不到植物"),
 	
+	Error_Empty_Setting					(-10000L, 	"查询配置项"),
+	
 	;
 	public final long code;
 	public final String description;

@@ -14,4 +14,7 @@ public interface CommonConstant {
 
     String ORIGINAL_IMAGE_URL = "image_url";
 
+    String VERSION_IOS = "setting.version.ios";
+    
+    String VERSION_ANDROID = "setting.version.android";
 }
