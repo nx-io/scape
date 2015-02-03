@@ -35,7 +35,7 @@ public class DesignContestUserDO implements Serializable {
     private Integer contest_id;// 赛事ID
 
     @Column(name = "user_id", nullable = false)
-    private Integer user_id;// 参赛者
+    private Long user_id;// 参赛者
 
     @Column(name = "number", unique = true, nullable = false, length = 64)
     private String number;// 参赛编号
@@ -64,11 +64,11 @@ public class DesignContestUserDO implements Serializable {
         this.contest_id = contest_id;
     }
 
-    public Integer getUser_id() {
+    public Long getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(Integer user_id) {
+    public void setUser_id(Long user_id) {
         this.user_id = user_id;
     }
 
