@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,6 +22,7 @@ import javax.persistence.TemporalType;
  * @since 2015年1月27日 下午4:22:53
  */
 @Table(name = "plant_color_rel", catalog = "scape")
+@NamedQueries({ @NamedQuery(name = "PlantsColorRelDO.deleteByPlantId", query = "DELETE FROM PlantsColorRelDO WHERE plant_id = ?") })
 public class PlantsColorRelDO implements Serializable {
 
     private static final long serialVersionUID = 6763265172187847057L;
