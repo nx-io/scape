@@ -49,6 +49,7 @@
                     <tbody>
                         <tr>
                             <th>#</th>
+                            <th>封皮</th>
                             <th>标题</th>
                             <th>设计师</th>
                             <th>类型</th>
@@ -65,6 +66,7 @@
                     <c:forEach items="${items}" var="item" varStatus="itemStatus">
                         <tr>
                             <td>${itemStatus.count}</td>
+                            <td><img src="${item.cover_media}" style="width: 50px;height: 50px;"></td>
                             <td>${item.title}</td>
                             <td>${item.designer}</td>
                             <td>${item.type == 1 ? '原创' : '分享'}</td>

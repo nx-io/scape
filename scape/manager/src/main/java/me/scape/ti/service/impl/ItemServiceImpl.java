@@ -158,6 +158,8 @@ public class ItemServiceImpl extends BaseServiceImpl implements ItemService {
                 itemListVO.setUser_name(userMap.get(userId));
             }
 
+            itemListVO.setCover_media(CDNUtil.getFullPath(item.getCover_media()));
+
             itemListVO.setComment_count(item.getComment_count());
             itemListVO.setLike_count(item.getLike_count());
             itemListVO.setPraise_count(item.getPraise_count());
