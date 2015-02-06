@@ -15,10 +15,10 @@ public interface PlantService {
 	Result detail(int plantId);
 
 	Result search(PlantSearchRequest request);
-	
+
 	Result getCats();
-	
+
 	Result getColors();
-	
+
 	Result getPeriods();
 }

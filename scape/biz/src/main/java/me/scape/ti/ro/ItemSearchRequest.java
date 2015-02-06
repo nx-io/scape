@@ -19,9 +19,9 @@ public class ItemSearchRequest {
 	private Long uid;// 发布者
 
 	private Long id;// 案例ID
-	
-	private String sort;//排序字段
-	
+
+	private String sort;// 排序字段
+
 	private Integer page;
 
 	public Integer getPage() {

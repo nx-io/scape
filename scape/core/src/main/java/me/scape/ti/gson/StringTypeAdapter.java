@@ -17,7 +17,7 @@ import com.google.gson.stream.JsonWriter;
 public class StringTypeAdapter extends TypeAdapter<String> {
 
 	private final TypeAdapter<String> defaultStringTypeAdapter;
-	
+
 	public StringTypeAdapter(TypeAdapter<String> defaultStringTypeAdapter) {
 		super();
 		this.defaultStringTypeAdapter = defaultStringTypeAdapter;
@@ -25,7 +25,7 @@ public class StringTypeAdapter extends TypeAdapter<String> {
 
 	@Override
 	public void write(JsonWriter out, String value) throws IOException {
-		if(StringUtils.isBlank(value)) {
+		if (StringUtils.isBlank(value)) {
 			value = StringUtils.EMPTY;
 		}
 		defaultStringTypeAdapter.write(out, value);

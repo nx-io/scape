@@ -6,12 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import me.scape.ti.auth.AuthService;
+import me.scape.ti.auth.request.CheckRequest;
+import me.scape.ti.auth.request.LoginRequest;
+import me.scape.ti.auth.response.CheckResponse;
+import me.scape.ti.auth.response.LoginResponse;
 import me.scape.ti.dataobject.ItemDO;
 import me.scape.ti.dataobject.UserDO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
 import me.scape.ti.ro.PubfavRequest;
 import me.scape.ti.ro.RegisterRequest;
+import me.scape.ti.ro.ResetPasswdRequest;
 import me.scape.ti.srv.AccountService;
 import me.scape.ti.srv.BaseService;
 import me.scape.ti.srv.PageQuery;
@@ -21,6 +27,7 @@ import me.scape.ti.utils.ValidationUtils;
 import me.scape.ti.vo.ItemVO;
 import me.scape.ti.vo.UserVO;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,26 +42,38 @@ import org.springframework.util.CollectionUtils;
  */
 @Service(value = "accountService")
 public class DefaultAccountService extends BaseService implements AccountService {
-	
+
 	@Override
 	public Result queryPubOrFavItem(PubfavRequest request) {
+		CheckRequest checkRequest = new CheckRequest();
+		checkRequest.setApp_id(request.getApp_id());
+		checkRequest.setOpen_id(request.getOpen_id());
+		checkRequest.setAccess_token(request.getAccess_token());
+		CheckResponse checkResponse = AuthService.check(checkRequest);
+		if (StringUtils.isBlank(checkResponse.getSecret_id())) {
+			return Result.newError().with(ResultCode.Error_Token);
+		}
+		Long user_id = NumberUtils.toLong(checkResponse.getSecret_id(), 0L);
+		if (user_id <= 0L) {
+			return Result.newError().with(ResultCode.Error_Token);
+		}
 		Map<String, Object> args = new HashMap<String, Object>();
 		Integer page = request.getPage();
 		page = (page != null && page > 0) ? page : 1;
 		PageQuery pageQuery = new PageQuery(page);
 		args.put("start", pageQuery.getIndex());
 		args.put("size", pageQuery.getSize());
-		args.put("user_id", request.getUser_id());
+		args.put("user_id", user_id);
 		args.put("type", request.getType());
 		String sql = "SELECT * FROM item i WHERE i.user_id = :user_id AND i.type = :type ORDER BY i.gmt_created DESC LIMIT :start, :size";
 		List<ItemDO> itemList = itemDAO.queryNative(sql, args);
-		if(CollectionUtils.isEmpty(itemList)) {
+		if (CollectionUtils.isEmpty(itemList)) {
 			return Result.newError().with(ResultCode.Error_Item_Empty);
 		}
 		List<ItemVO> voList = new ArrayList<ItemVO>();
 		for (ItemDO itemDO : itemList) {
 			ItemVO vo = ItemVO.newInstance(itemDO);
-			if(vo == null) {
+			if (vo == null) {
 				continue;
 			}
 			voList.add(vo);
@@ -64,21 +83,33 @@ public class DefaultAccountService extends BaseService implements AccountService
 
 	@Override
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
-	public Result reset_passwd(Long user_id, String old_passwd, String new_passwd) {
+	public Result reset_passwd(ResetPasswdRequest request) {
+		CheckRequest checkRequest = new CheckRequest();
+		checkRequest.setApp_id(request.getApp_id());
+		checkRequest.setOpen_id(request.getOpen_id());
+		checkRequest.setAccess_token(request.getAccess_token());
+		CheckResponse checkResponse = AuthService.check(checkRequest);
+		if (StringUtils.isBlank(checkResponse.getSecret_id())) {
+			return Result.newError().with(ResultCode.Error_Token);
+		}
+		Long user_id = NumberUtils.toLong(checkResponse.getSecret_id(), 0L);
+		if (user_id <= 0L) {
+			return Result.newError().with(ResultCode.Error_Token);
+		}
 		UserDO user = userDAO.get(user_id);
-		if(user == null) {
+		if (user == null) {
 			return Result.newError().with(ResultCode.Error_User_Not_Exist);
 		}
-		if(!StringUtils.equals(PasswdUtils.signPwsswd(old_passwd, user.getSalt()), user.getPassword())) {
+		if (!StringUtils.equals(PasswdUtils.signPwsswd(request.getOld_passwd(), user.getSalt()), user.getPassword())) {
 			return Result.newError().with(ResultCode.Error_User_Passwd);
 		}
 		String token = TokenUtils.generate();
 		user.setSalt(token);
-		user.setPassword(PasswdUtils.signPwsswd(new_passwd, token));
+		user.setPassword(PasswdUtils.signPwsswd(request.getNew_passwd(), token));
 		userDAO.merge(user);
 		return Result.newSuccess().with(ResultCode.Success).with("user", UserVO.newInstance(user));
 	}
-	
+
 	@Override
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result login(String name, String password) {
@@ -88,11 +119,11 @@ public class DefaultAccountService extends BaseService implements AccountService
 		if (StringUtils.isBlank(password)) {
 			return Result.newError().with(ResultCode.Error_Permission);
 		}
-		UserDO user = userDAO.queryNamedForObject("User.getUserByName", new Object[]{ name });
-		if(user == null) {
+		UserDO user = userDAO.queryNamedForObject("User.getUserByName", new Object[] { name });
+		if (user == null) {
 			return Result.newError().with(ResultCode.Error_Permission);
 		}
-		if(!StringUtils.equals(PasswdUtils.signPwsswd(password, user.getSalt()), user.getPassword())) {
+		if (!StringUtils.equals(PasswdUtils.signPwsswd(password, user.getSalt()), user.getPassword())) {
 			return Result.newError().with(ResultCode.Error_Permission);
 		}
 		Date now = new Date();
@@ -100,7 +131,20 @@ public class DefaultAccountService extends BaseService implements AccountService
 		user.setLast_ip(getIp());
 		user.setLast_login(now);
 		userDAO.merge(user);
-		return Result.newSuccess().with(ResultCode.Success).with("user", UserVO.newInstance(user));
+		// 安全登录
+		LoginRequest loginRequest = new LoginRequest();
+		loginRequest.setApp_id(AuthService.App_Id);
+		loginRequest.setSecret_id(String.valueOf(user.getId()));
+		LoginResponse loginResponse = AuthService.login(loginRequest);
+		UserVO vo = UserVO.newInstance(user);
+		vo.setApp_id(loginResponse.getApp_id());
+		vo.setOpen_id(loginResponse.getOpen_id());
+		vo.setAccess_token(loginResponse.getAccess_token());
+		vo.setExpires_in(loginResponse.getExpires_in());
+		if (StringUtils.isEmpty(vo.getAccess_token())) {
+			return Result.newError().with(ResultCode.Error_Login);
+		}
+		return Result.newSuccess().with(ResultCode.Success).with("user", vo);
 	}
 
 	@Override
@@ -119,8 +163,8 @@ public class DefaultAccountService extends BaseService implements AccountService
 		if (!ValidationUtils.isMobilePhoneNumber(mobile)) {
 			return Result.newError().with(ResultCode.Error_Register_Mobile);
 		}
-		Long uc = userDAO.createNamedQuery("User.existUserByName", Long.class, new Object[]{ name }).getSingleResult();
-		if(uc != null && uc > 0L) {
+		Long uc = userDAO.createNamedQuery("User.existUserByName", Long.class, new Object[] { name }).getSingleResult();
+		if (uc != null && uc > 0L) {
 			return Result.newError().with(ResultCode.Error_Register_User_Exist);
 		}
 		UserDO user = new UserDO();
@@ -138,7 +182,18 @@ public class DefaultAccountService extends BaseService implements AccountService
 		user.setLast_login(now);
 		try {
 			userDAO.persist(user);
-			return Result.newSuccess().with(ResultCode.Success).with("user", UserVO.newInstance(user));
+			// 安全登录
+			LoginRequest loginRequest = new LoginRequest();
+			loginRequest.setApp_id(AuthService.App_Id);
+			loginRequest.setSecret_id(String.valueOf(user.getId()));
+			LoginResponse loginResponse = AuthService.login(loginRequest);
+			UserVO vo = UserVO.newInstance(user);
+			vo.setApp_id(loginResponse.getApp_id());
+			vo.setOpen_id(loginResponse.getOpen_id());
+			vo.setAccess_token(loginResponse.getAccess_token());
+			vo.setExpires_in(loginResponse.getExpires_in());
+
+			return Result.newSuccess().with(ResultCode.Success).with("user", vo);
 		} catch (Exception e) {
 			log.error("Account Register Error.", e);
 		}

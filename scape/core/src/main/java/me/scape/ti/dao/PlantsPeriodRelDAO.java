@@ -11,5 +11,5 @@ import me.scape.ti.jpa.GenericDAO;
  * @since 2015年1月27日 下午8:53:22
  */
 public interface PlantsPeriodRelDAO extends GenericDAO<PlantsPeriodRelDO, Long> {
-    void deleteByPlantId(Integer plantId);
+	void deleteByPlantId(Integer plantId);
 }

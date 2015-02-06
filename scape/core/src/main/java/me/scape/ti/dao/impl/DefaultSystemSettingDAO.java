@@ -15,5 +15,5 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  */
 @Repository(value = "systemSettingDAO")
 public class DefaultSystemSettingDAO extends DefaultGenericDAO<SystemSettingDO, Long> implements SystemSettingDAO {
-	
+
 }

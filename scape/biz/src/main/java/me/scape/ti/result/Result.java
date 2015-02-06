@@ -16,9 +16,9 @@ public class Result implements Serializable {
 	private boolean success;
 	private String message;
 	private long resultCode;
-	
+
 	private final Map<String, Object> data = new HashMap<String, Object>();
-	
+
 	public Result() {
 		this(false);
 	}
@@ -27,28 +27,28 @@ public class Result implements Serializable {
 		super();
 		this.success = success;
 	}
-	
+
 	public static Result newError() {
 		return new Result(false);
 	}
-	
+
 	public static Result newSuccess() {
 		return new Result(true);
 	}
-	
+
 	public Result with(String key, Object value) {
 		data.put(key, value);
 		return this;
 	}
-	
+
 	public Object get(String key) {
 		return data.get(key);
 	}
-	
+
 	public Map<String, Object> getData() {
 		return data;
 	}
-	
+
 	public Result with(ResultCode resultCode) {
 		resultCode(resultCode.code);
 		message(resultCode.description);

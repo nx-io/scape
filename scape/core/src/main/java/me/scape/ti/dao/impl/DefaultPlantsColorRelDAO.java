@@ -16,9 +16,9 @@ import me.scape.ti.jpa.DefaultGenericDAO;
 @Repository(value = "plantsColorRelDAO")
 public class DefaultPlantsColorRelDAO extends DefaultGenericDAO<PlantsColorRelDO, Long> implements PlantsColorRelDAO {
 
-    @Override
-    public void deleteByPlantId(Integer plantId) {
-    	getEntityManager().createNamedQuery("PlantsColorRelDO.deleteByPlantId").setParameter("plantId", plantId).executeUpdate();
-    }
-	
+	@Override
+	public void deleteByPlantId(Integer plantId) {
+		getEntityManager().createNamedQuery("PlantsColorRelDO.deleteByPlantId").setParameter("plantId", plantId).executeUpdate();
+	}
+
 }

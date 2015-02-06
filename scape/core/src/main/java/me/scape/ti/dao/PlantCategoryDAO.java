@@ -14,9 +14,9 @@ import me.scape.ti.jpa.GenericDAO;
  */
 public interface PlantCategoryDAO extends GenericDAO<PlantCategoryDO, Integer> {
 
-    List<PlantCategoryDO> getCategoriesByIds(List<Integer> ids);
+	List<PlantCategoryDO> getCategoriesByIds(List<Integer> ids);
 
-    List<PlantCategoryDO> getAllCategories();
+	List<PlantCategoryDO> getAllCategories();
 
-    List<PlantCategoryDO> getDisplayedCategories();
+	List<PlantCategoryDO> getDisplayedCategories();
 }

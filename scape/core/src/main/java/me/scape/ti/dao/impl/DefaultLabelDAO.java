@@ -14,5 +14,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository(value = "labelDAO")
 public class DefaultLabelDAO extends DefaultGenericDAO<LabelDO, Long> implements LabelDAO {
-	
+
 }

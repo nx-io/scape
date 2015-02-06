@@ -26,25 +26,22 @@ public class DefaultCommonService extends BaseService implements CommonService {
 	@Override
 	public Result upload(MultipartFile file) {
 		String fileType = FileUtil.getFileType(file.getOriginalFilename());
-        String fileName = new StringBuilder().append(UUID.randomUUID()).append(".").append(fileType).toString();
-        String path = null;
-        try {
-            path = CDNUtil.uploadFile(file.getInputStream(), fileName);
-        } catch (Exception e) {
-        	return Result.newError().with(ResultCode.Error_Exception);
-        }
-        return Result.newSuccess().with(ResultCode.Success).with(CommonConstant.IMAGE_PATH, path)
-        		.with(CommonConstant.ORIGINAL_IMAGE_URL, CDNUtil.getFullPath(path));
+		String fileName = new StringBuilder().append(UUID.randomUUID()).append(".").append(fileType).toString();
+		String path = null;
+		try {
+			path = CDNUtil.uploadFile(file.getInputStream(), fileName);
+		} catch (Exception e) {
+			return Result.newError().with(ResultCode.Error_Exception);
+		}
+		return Result.newSuccess().with(ResultCode.Success).with(CommonConstant.IMAGE_PATH, path).with(CommonConstant.ORIGINAL_IMAGE_URL, CDNUtil.getFullPath(path));
 	}
 
 	@Override
 	public Result getVersion(String key) {
-		Object[] args = new Object[]{ key };
+		Object[] args = new Object[] { key };
 		SystemSettingDO setting = systemSettingDAO.queryNativeForObject("SELECT * FROM system_setting WHERE group_id = 1 AND setting_key = ?", args);
-		if(setting != null) {
-			return Result.newSuccess().with(ResultCode.Success)
-					.with("url", setting.getSettingValue())
-					.with("version", setting.getExtend());
+		if (setting != null) {
+			return Result.newSuccess().with(ResultCode.Success).with("url", setting.getSettingValue()).with("version", setting.getExtend());
 		}
 		return Result.newSuccess().with(ResultCode.Error_Empty_Setting);
 	}

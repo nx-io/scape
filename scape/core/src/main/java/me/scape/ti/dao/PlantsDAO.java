@@ -13,5 +13,5 @@ import me.scape.ti.jpa.GenericDAO;
  * @since 2015年1月27日 下午8:47:02
  */
 public interface PlantsDAO extends GenericDAO<PlantsDO, Integer> {
-    Pagination<PlantsDO> listPlants(PlantQueryCriteria criteria);
+	Pagination<PlantsDO> listPlants(PlantQueryCriteria criteria);
 }

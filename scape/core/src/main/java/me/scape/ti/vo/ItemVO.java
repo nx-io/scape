@@ -48,25 +48,23 @@ public class ItemVO {
 
 	private Integer like_count;// 收藏数
 
-	private Long user_id;// 发布者
-
 	private Date gmt_created;
 
 	private List<ItemMediaVO> itemMediaList;
 
 	private List<LabelVO> labelList;
-	
+
 	private AreaCategoryVO areaCategory;
 	private CategoryVO category;
 	private StyleVO style;
-	
+
 	public static ItemVO newInstance(ItemDO _do) {
-		if(_do == null) {
+		if (_do == null) {
 			return null;
 		}
 		return new ItemVO().toItem(_do);
 	}
-	
+
 	private final ItemVO toItem(ItemDO _do) {
 		setId(_do.getId());
 		setTitle(_do.getTitle());
@@ -85,11 +83,10 @@ public class ItemVO {
 		setComment_count(_do.getComment_count());
 		setPraise_count(_do.getPraise_count());
 		setLike_count(_do.getLike_count());
-		setUser_id(_do.getUser_id());
 		setGmt_created(_do.getGmt_created());
 		return this;
 	}
-	
+
 	public List<LabelVO> getLabelList() {
 		return labelList;
 	}
@@ -256,14 +253,6 @@ public class ItemVO {
 
 	public void setLike_count(Integer like_count) {
 		this.like_count = like_count;
-	}
-
-	public Long getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(Long user_id) {
-		this.user_id = user_id;
 	}
 
 	public Date getGmt_created() {

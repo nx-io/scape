@@ -18,14 +18,14 @@ public class AreaCategoryVO {
 	private Byte display;// 是否展示 1展示 0不展示 -1删除
 
 	private Long id;
-	
+
 	public static AreaCategoryVO newInstance(AreaCategoryDO _do) {
-		if(_do == null) {
+		if (_do == null) {
 			return null;
 		}
 		return new AreaCategoryVO().toAreaCategory(_do);
 	}
-	
+
 	private final AreaCategoryVO toAreaCategory(AreaCategoryDO _do) {
 		setDescription(_do.getDescription());
 		setDisplay(_do.getDisplay());

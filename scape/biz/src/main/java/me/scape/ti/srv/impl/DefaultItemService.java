@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import me.scape.ti.auth.AuthService;
+import me.scape.ti.auth.request.CheckRequest;
+import me.scape.ti.auth.response.CheckResponse;
 import me.scape.ti.dataobject.ItemDO;
 import me.scape.ti.dataobject.ItemMediaDO;
 import me.scape.ti.result.Result;
@@ -22,6 +25,7 @@ import me.scape.ti.vo.ItemVO;
 import me.scape.ti.vo.LabelVO;
 import me.scape.ti.vo.StyleVO;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,44 +46,44 @@ public class DefaultItemService extends BaseService implements ItemService {
 		sb.append("SELECT * FROM item i WHERE 1 = 1 ");
 		Map<String, Object> args = new HashMap<String, Object>();
 		Long cid = request.getCid();
-		if(cid != null && cid > 0L) {
+		if (cid != null && cid > 0L) {
 			sb.append(" AND i.category_id = :cid ");
 			args.put("cid", cid);
 		}
 		Long acid = request.getAcid();
-		if(acid != null && acid > 0L) {
+		if (acid != null && acid > 0L) {
 			sb.append(" AND i.area_category_id = :acid ");
 			args.put("acid", acid);
 		}
 		Long sid = request.getSid();
-		if(sid != null && sid > 0L) {
+		if (sid != null && sid > 0L) {
 			sb.append(" AND i.style_id = :sid ");
 			args.put("sid", sid);
 		}
 		String title = request.getTitle();
-		if(StringUtils.isNotBlank(title)) {
+		if (StringUtils.isNotBlank(title)) {
 			sb.append(" AND i.title LIKE :title ");
 			args.put("title", "%" + title + "%");
 		}
 		Long uid = request.getUid();
-		if(uid != null && uid > 0L) {
+		if (uid != null && uid > 0L) {
 			sb.append(" AND i.user_id = :uid ");
 			args.put("uid", uid);
 		}
 		Long id = request.getId();
-		if(id != null && id > 0L) {
+		if (id != null && id > 0L) {
 			sb.append(" AND i.id = :id ");
 			args.put("id", id);
 		}
 		String sort = request.getSort();
-		if(StringUtils.isNotBlank(sort)) {
-			if(StringUtils.equals("mc", sort)) {
+		if (StringUtils.isNotBlank(sort)) {
+			if (StringUtils.equals("mc", sort)) {
 				sb.append(" ORDER BY i.media_count DESC, i.gmt_created DESC ");
-			} else if(StringUtils.equals("cc", sort)) {
+			} else if (StringUtils.equals("cc", sort)) {
 				sb.append(" ORDER BY i.comment_count DESC, i.gmt_created DESC ");
-			} else if(StringUtils.equals("pc", sort)) {
+			} else if (StringUtils.equals("pc", sort)) {
 				sb.append(" ORDER BY i.praise_count DESC, i.gmt_created DESC ");
-			} else if(StringUtils.equals("lc", sort)) {
+			} else if (StringUtils.equals("lc", sort)) {
 				sb.append(" ORDER BY i.like_count DESC, i.gmt_created DESC ");
 			} else {
 				sb.append(" ORDER BY i.gmt_created DESC ");
@@ -91,26 +95,38 @@ public class DefaultItemService extends BaseService implements ItemService {
 		PageQuery pageQuery = new PageQuery(page);
 		args.put("start", pageQuery.getIndex());
 		args.put("size", pageQuery.getSize());
-		
+
 		List<ItemDO> itemList = itemDAO.queryNative(sb.toString(), args);
-		if(CollectionUtils.isEmpty(itemList)) {
+		if (CollectionUtils.isEmpty(itemList)) {
 			return Result.newError().with(ResultCode.Error_Item_Empty);
 		}
 		List<ItemVO> voList = new ArrayList<ItemVO>();
 		for (ItemDO itemDO : itemList) {
 			ItemVO vo = ItemVO.newInstance(itemDO);
-			if(vo == null) {
+			if (vo == null) {
 				continue;
 			}
 			voList.add(vo);
 		}
 		return Result.newSuccess().with(ResultCode.Success).with("itemList", voList);
 	}
-	
+
 	@Override
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result publish(ItemPublishRequest request) {
-		if(StringUtils.isBlank(request.getTitle())) {
+		CheckRequest checkRequest = new CheckRequest();
+		checkRequest.setApp_id(request.getApp_id());
+		checkRequest.setOpen_id(request.getOpen_id());
+		checkRequest.setAccess_token(request.getAccess_token());
+		CheckResponse checkResponse = AuthService.check(checkRequest);
+		if (StringUtils.isBlank(checkResponse.getSecret_id())) {
+			return Result.newError().with(ResultCode.Error_Token);
+		}
+		Long user_id = NumberUtils.toLong(checkResponse.getSecret_id(), 0L);
+		if (user_id <= 0L) {
+			return Result.newError().with(ResultCode.Error_Token);
+		}
+		if (StringUtils.isBlank(request.getTitle())) {
 			return Result.newError().with(ResultCode.Error_Valid_Request);
 		}
 		Date now = new Date();
@@ -126,7 +142,7 @@ public class DefaultItemService extends BaseService implements ItemService {
 		item.setDesigner_contact(request.getDesigner_contact());
 		item.setConstructor(request.getConstructor());
 		item.setConstructor_contact(request.getConstructor_contact());
-		item.setUser_id(request.getUser_id());
+		item.setUser_id(user_id);
 		item.setComment_count(0);
 		item.setGmt_created(now);
 		item.setGmt_modified(now);
@@ -135,9 +151,9 @@ public class DefaultItemService extends BaseService implements ItemService {
 		item.setPraise_count(0);
 		item.setStatus(ItemDO.Available);
 		List<ItemMediaDO> itemMediaList = new ArrayList<ItemMediaDO>();
-		if(StringUtils.isNotBlank(request.getItemMedias())) {
+		if (StringUtils.isNotBlank(request.getItemMedias())) {
 			String[] medias = StringUtils.split(request.getItemMedias(), ",");
-			if(medias != null && medias.length > 0) {
+			if (medias != null && medias.length > 0) {
 				for (String media : medias) {
 					ItemMediaDO itemMedia = new ItemMediaDO();
 					itemMedia.setGmt_created(now);
@@ -150,30 +166,29 @@ public class DefaultItemService extends BaseService implements ItemService {
 			}
 		}
 		boolean isMediaEmpty = CollectionUtils.isEmpty(itemMediaList);
-		if(isMediaEmpty) {
+		if (isMediaEmpty) {
 			item.setCover_media("");
 		} else {
 			item.setCover_media(itemMediaList.get(0).getUrl());
 			item.setMedia_count(itemMediaList.size() + 1);
 		}
 		itemDAO.persist(item);
-		if(!isMediaEmpty) {
+		if (!isMediaEmpty) {
 			for (ItemMediaDO itemMedia : itemMediaList) {
 				itemMedia.setItem_id(item.getId());
 				itemMediaDAO.persist(itemMedia);
 			}
 		}
 		ItemVO itemVO = ItemVO.newInstance(item);
-		if(!isMediaEmpty) {
+		if (!isMediaEmpty) {
 			itemVO.setItemMediaList(ItemMediaVO.newInstance(itemMediaList));
 		}
 		itemVO.setAreaCategory(AreaCategoryVO.newInstance(areaCategoryDAO.get(item.getArea_category_id())));
 		itemVO.setCategory(CategoryVO.newInstance(categoryDAO.get(item.getCategory_id())));
 		itemVO.setStyle(StyleVO.newInstance(styleDAO.get(item.getStyle_id())));
-		
 		return Result.newSuccess().with(ResultCode.Success).with("item", itemVO);
 	}
-	
+
 	@Override
 	public Result getItem(Long itemId) {
 		if (itemId == null || itemId <= 0L) {
@@ -184,17 +199,16 @@ public class DefaultItemService extends BaseService implements ItemService {
 			return Result.newError().with(ResultCode.Error_Item_Detail);
 		}
 		ItemVO itemVO = ItemVO.newInstance(item);
-		List<ItemMediaDO> itemMediaList = itemMediaDAO.queryNamed("ItemMedia.getItemMediaByItemId",
-				new Object[] { item.getId() });
-		if(!CollectionUtils.isEmpty(itemMediaList)) {
+		List<ItemMediaDO> itemMediaList = itemMediaDAO.queryNamed("ItemMedia.getItemMediaByItemId", new Object[] { item.getId() });
+		if (!CollectionUtils.isEmpty(itemMediaList)) {
 			itemVO.setItemMediaList(ItemMediaVO.newInstance(itemMediaList));
 		}
 		itemVO.setAreaCategory(AreaCategoryVO.newInstance(areaCategoryDAO.get(item.getArea_category_id())));
 		itemVO.setCategory(CategoryVO.newInstance(categoryDAO.get(item.getCategory_id())));
 		itemVO.setStyle(StyleVO.newInstance(styleDAO.get(item.getStyle_id())));
-		
-		itemVO.setLabelList(LabelVO.newInstance(labelDAO.queryNamed("Label.getLabelByItemId", new Object[]{ item.getId() })));
-		
+
+		itemVO.setLabelList(LabelVO.newInstance(labelDAO.queryNamed("Label.getLabelByItemId", new Object[] { item.getId() })));
+
 		return Result.newSuccess().with(ResultCode.Success).with("item", itemVO);
 	}
 }

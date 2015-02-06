@@ -4,9 +4,9 @@ import java.io.InputStream;
 
 public interface CDN {
 
-    String uploadFile(InputStream in, String fileName) throws Exception;
+	String uploadFile(InputStream in, String fileName) throws Exception;
 
-    boolean deleteFile(String path);
+	boolean deleteFile(String path);
 
-    String getHttpPath(String path);
+	String getHttpPath(String path);
 }

@@ -7,5 +7,5 @@ import me.scape.ti.jpa.GenericDAO;
 
 public interface ResourceDAO extends GenericDAO<ResourceDO, Integer> {
 
-    List<ResourceDO> getAllResources();
+	List<ResourceDO> getAllResources();
 }

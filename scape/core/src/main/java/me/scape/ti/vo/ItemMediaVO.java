@@ -28,27 +28,27 @@ public class ItemMediaVO {
 	private Long id;
 
 	public static ItemMediaVO newInstance(ItemMediaDO _do) {
-		if(_do == null) {
+		if (_do == null) {
 			return null;
 		}
 		return new ItemMediaVO().toItemMedia(_do);
 	}
-	
+
 	public static List<ItemMediaVO> newInstance(List<ItemMediaDO> doList) {
-		if(CollectionUtils.isEmpty(doList)) {
+		if (CollectionUtils.isEmpty(doList)) {
 			return Collections.emptyList();
 		}
 		List<ItemMediaVO> voList = new ArrayList<ItemMediaVO>();
 		for (ItemMediaDO itemMediaDO : doList) {
 			ItemMediaVO vo = newInstance(itemMediaDO);
-			if(vo == null) {
+			if (vo == null) {
 				continue;
 			}
 			voList.add(vo);
 		}
 		return voList;
 	}
-	
+
 	private final ItemMediaVO toItemMedia(ItemMediaDO _do) {
 		setId(_do.getId());
 		setItem_id(_do.getItem_id());

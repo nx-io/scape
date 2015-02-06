@@ -18,21 +18,21 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Controller
 public class CommonController extends BaseController {
-	
+
 	@RequestMapping(value = "/file/upload", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> upload(@RequestParam(value = "file", required = true) MultipartFile file) {
 		Result result = commonService.upload(file);
 		return toResponse(result);
 	}
-	
+
 	@RequestMapping(value = "/version/android", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> version_android() {
 		Result result = commonService.getVersion(CommonConstant.VERSION_ANDROID);
 		return toResponse(result);
 	}
-	
+
 	@RequestMapping(value = "/version/ios", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> version_ios() {

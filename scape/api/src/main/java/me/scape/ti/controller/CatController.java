@@ -12,19 +12,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class CatController extends BaseController {
-	
+
 	@RequestMapping(value = "/item/cat", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> cat() {
 		return toResponse(catService.getAllCat());
 	}
-	
+
 	@RequestMapping(value = "/item/area", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> area() {
 		return toResponse(catService.getAllAreaCat());
 	}
-	
+
 	@RequestMapping(value = "/item/style", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> style() {

@@ -13,9 +13,9 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  */
 @XStreamAlias(ResponseAlias.Check)
 public class CheckResponse {
-	
+
 	public static final CheckResponse DEFAULT_RESPONSE = new CheckResponse(StringUtils.EMPTY);
-	
+
 	/**
 	 * 应用系统用户ID
 	 */

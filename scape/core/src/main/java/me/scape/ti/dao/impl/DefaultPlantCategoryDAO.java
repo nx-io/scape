@@ -21,24 +21,24 @@ import org.springframework.stereotype.Repository;
 @Repository(value = "plantCategoryDAO")
 public class DefaultPlantCategoryDAO extends DefaultGenericDAO<PlantCategoryDO, Integer> implements PlantCategoryDAO {
 
-    @Override
-    public List<PlantCategoryDO> getCategoriesByIds(List<Integer> ids) {
-        if (null == ids || ids.size() <= 0) {
-            return new ArrayList<PlantCategoryDO>();
-        }
+	@Override
+	public List<PlantCategoryDO> getCategoriesByIds(List<Integer> ids) {
+		if (null == ids || ids.size() <= 0) {
+			return new ArrayList<PlantCategoryDO>();
+		}
 
-        Map<String, Object> args = new HashMap<String, Object>();
-        args.put("ids", ids);
-        return queryNamed("PlantCategoryDO.getCategoriesByIds", args);
-    }
+		Map<String, Object> args = new HashMap<String, Object>();
+		args.put("ids", ids);
+		return queryNamed("PlantCategoryDO.getCategoriesByIds", args);
+	}
 
-    @Override
-    public List<PlantCategoryDO> getAllCategories() {
-        return queryNamed("PlantCategoryDO.getAllCategories");
-    }
+	@Override
+	public List<PlantCategoryDO> getAllCategories() {
+		return queryNamed("PlantCategoryDO.getAllCategories");
+	}
 
-    @Override
-    public List<PlantCategoryDO> getDisplayedCategories() {
-        return queryNamed("PlantCategoryDO.getDisplayedCategories");
-    }
+	@Override
+	public List<PlantCategoryDO> getDisplayedCategories() {
+		return queryNamed("PlantCategoryDO.getDisplayedCategories");
+	}
 }

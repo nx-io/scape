@@ -1,33 +1,30 @@
-package me.scape.ti.auth.request;
+package me.scape.ti.ro;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * 
- * @author 刘飞
- * 
+ * @author 刘飞 E-mail:liufei_it@126.com
  * @version 1.0.0
- * @since 2015年2月5日 下午3:01:07
+ * @since 2015年2月7日 上午12:35:55
  */
-@XStreamAlias(RequestAlias.Check)
-public class CheckRequest {
-
+public class BaseRequest {
 	/**
 	 * 应用ID
 	 */
-	@XStreamAlias("app_id")
+	@NotEmpty
 	private String app_id;
 
 	/**
 	 * 用于绑定应用系统用户开放ID
 	 */
-	@XStreamAlias("open_id")
+	@NotEmpty
 	private String open_id;
 
 	/**
 	 * 访问凭证令牌
 	 */
-	@XStreamAlias("access_token")
+	@NotEmpty
 	private String access_token;
 
 	public String getApp_id() {

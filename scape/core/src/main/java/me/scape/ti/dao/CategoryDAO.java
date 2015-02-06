@@ -12,7 +12,7 @@ import me.scape.ti.jpa.GenericDAO;
  * @since 2014年12月19日 上午12:17:23
  */
 public interface CategoryDAO extends GenericDAO<CategoryDO, Long> {
-    List<CategoryDO> getCategoriesByIds(List<Long> ids);
+	List<CategoryDO> getCategoriesByIds(List<Long> ids);
 
-    List<CategoryDO> getAllCategories();
+	List<CategoryDO> getAllCategories();
 }

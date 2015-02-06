@@ -26,20 +26,20 @@ public class ItemController extends BaseController {
 	@RequestMapping(value = "/item/publish", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> publish(@Valid ItemPublishRequest request, BindingResult validResult) {
-		if(validResult.hasErrors()) {
+		if (validResult.hasErrors()) {
 			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
 		}
 		Result result = itemService.publish(request);
 		return toResponse(result);
 	}
-	
+
 	@RequestMapping(value = "/item/{itemId}", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> item(@PathVariable Long itemId) {
 		Result result = itemService.getItem(itemId);
 		return toResponse(result);
 	}
-	
+
 	@RequestMapping(value = "/item/search", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> search(ItemSearchRequest request) {

@@ -18,7 +18,7 @@ import com.google.gson.stream.JsonWriter;
 public class MapTypeAdapter extends TypeAdapter<Map> {
 
 	private final TypeAdapter<Map> defaultMapTypeAdapter;
-	
+
 	public MapTypeAdapter(TypeAdapter<Map> defaultMapTypeAdapter) {
 		super();
 		this.defaultMapTypeAdapter = defaultMapTypeAdapter;
@@ -26,7 +26,7 @@ public class MapTypeAdapter extends TypeAdapter<Map> {
 
 	@Override
 	public void write(JsonWriter out, Map value) throws IOException {
-		if(value == null) {
+		if (value == null) {
 			value = new HashMap<Object, Object>();
 		}
 		defaultMapTypeAdapter.write(out, value);

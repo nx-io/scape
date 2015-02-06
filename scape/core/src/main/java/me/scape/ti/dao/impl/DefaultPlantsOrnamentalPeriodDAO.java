@@ -16,24 +16,23 @@ import org.springframework.stereotype.Repository;
  * @since 2015年1月27日 下午8:52:05
  */
 @Repository(value = "plantsOrnamentalPeriodDAO")
-public class DefaultPlantsOrnamentalPeriodDAO extends DefaultGenericDAO<PlantsOrnamentalPeriodDO, Integer> implements
-        PlantsOrnamentalPeriodDAO {
+public class DefaultPlantsOrnamentalPeriodDAO extends DefaultGenericDAO<PlantsOrnamentalPeriodDO, Integer> implements PlantsOrnamentalPeriodDAO {
 
-    @Override
-    public List<PlantsOrnamentalPeriodDO> getAllPlantPeriods() {
-        return queryNamed("PlantsOrnamentalPeriodDO.getAllPlantPeriods");
-    }
+	@Override
+	public List<PlantsOrnamentalPeriodDO> getAllPlantPeriods() {
+		return queryNamed("PlantsOrnamentalPeriodDO.getAllPlantPeriods");
+	}
 
-    @Override
-    public List<PlantsOrnamentalPeriodDO> getDisplayedPlantPeriods() {
-        return queryNamed("PlantsOrnamentalPeriodDO.getDisplayedPlantPeriods");
-    }
+	@Override
+	public List<PlantsOrnamentalPeriodDO> getDisplayedPlantPeriods() {
+		return queryNamed("PlantsOrnamentalPeriodDO.getDisplayedPlantPeriods");
+	}
 
-    @Override
-    public List<PlantsOrnamentalPeriodDO> getPlantPeriodsByPlantId(Integer plantId) {
-        String sql = "SELECT * FROM plant_ornamental_period pop WHERE pop.id IN (SELECT ppr.period_id FROM plant_period_rel ppr WHERE ppr.plant_id = ?)";
+	@Override
+	public List<PlantsOrnamentalPeriodDO> getPlantPeriodsByPlantId(Integer plantId) {
+		String sql = "SELECT * FROM plant_ornamental_period pop WHERE pop.id IN (SELECT ppr.period_id FROM plant_period_rel ppr WHERE ppr.plant_id = ?)";
 
-        return queryNative(sql, new Object[] { plantId });
-    }
+		return queryNative(sql, new Object[] { plantId });
+	}
 
 }

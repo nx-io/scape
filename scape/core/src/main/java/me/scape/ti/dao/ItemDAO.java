@@ -12,5 +12,5 @@ import me.scape.ti.jpa.GenericDAO;
  * @since 2014年12月21日 下午2:41:43
  */
 public interface ItemDAO extends GenericDAO<ItemDO, Long> {
-    Pagination<ItemDO> ListItems(ItemQueryCriteria criteria);
+	Pagination<ItemDO> ListItems(ItemQueryCriteria criteria);
 }

@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository;
 @Repository(value = "resourceDAO")
 public class DefaultResourceDAO extends DefaultGenericDAO<ResourceDO, Integer> implements ResourceDAO {
 
-    @Override
-    public List<ResourceDO> getAllResources() {
-        return queryNamed("ResourceDO.getAllResources");
-    }
+	@Override
+	public List<ResourceDO> getAllResources() {
+		return queryNamed("ResourceDO.getAllResources");
+	}
 
 }

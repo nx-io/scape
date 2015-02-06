@@ -33,11 +33,11 @@ import org.springframework.util.CollectionUtils;
  */
 @Service(value = "plantService")
 public class DefaultPlantService extends BaseService implements PlantService {
-	
+
 	private static final String QueryColorRelSQL = "SELECT * FROM plant_ornamental_color pc WHERE pc.id IN (SELECT pcr.color_id FROM plant_color_rel pcr WHERE pcr.plant_id = ?)";
-	
+
 	private static final String QueryPeriodRelSQL = "SELECT * FROM plant_ornamental_period pp WHERE pp.id IN (SELECT ppr.period_id FROM plant_period_rel ppr WHERE ppr.plant_id = ?)";
-	
+
 	@Override
 	public Result getPeriods() {
 		List<PlantsOrnamentalPeriodDO> plantsOrnamentalPeriodList = plantsOrnamentalPeriodDAO.getDisplayedPlantPeriods();
@@ -59,7 +59,7 @@ public class DefaultPlantService extends BaseService implements PlantService {
 	@Override
 	public Result detail(int plantId) {
 		PlantsDO plant = plantsDAO.get(plantId);
-		if(plant == null) {
+		if (plant == null) {
 			return Result.newError().with(ResultCode.Error_Plants_Empty);
 		}
 		PlantsVO vo = PlantsVO.newInstance(plant);
@@ -116,12 +116,12 @@ public class DefaultPlantService extends BaseService implements PlantService {
 			args.put("genus", "%" + genus + "%");
 		}
 		Long colorId = request.getColorId();
-		if(colorId != null && colorId > 0L) {
+		if (colorId != null && colorId > 0L) {
 			sb.append(" AND p.id in (SELECT pcr.plant_id FROM plant_color_rel pcr WHERE pcr.color_id = :color_id) ");
 			args.put("color_id", colorId);
 		}
 		Long periodId = request.getPeriodId();
-		if(periodId != null && periodId > 0L) {
+		if (periodId != null && periodId > 0L) {
 			sb.append(" AND p.id in (SELECT ppr.plant_id FROM plant_period_rel ppr WHERE ppr.period_id = :period_id) ");
 			args.put("period_id", periodId);
 		}

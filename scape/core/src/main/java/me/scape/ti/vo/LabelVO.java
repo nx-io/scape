@@ -25,29 +25,29 @@ public class LabelVO {
 	private String icon;// 标签图标
 
 	private Date gmt_created;
-	
+
 	public static LabelVO newInstance(LabelDO _do) {
-		if(_do == null) {
+		if (_do == null) {
 			return null;
 		}
 		return new LabelVO().toLabel(_do);
 	}
-	
+
 	public static List<LabelVO> newInstance(List<LabelDO> doList) {
-		if(CollectionUtils.isEmpty(doList)) {
+		if (CollectionUtils.isEmpty(doList)) {
 			return Collections.emptyList();
 		}
 		List<LabelVO> voList = new ArrayList<LabelVO>();
 		for (LabelDO label : doList) {
 			LabelVO vo = newInstance(label);
-			if(vo == null) {
+			if (vo == null) {
 				continue;
 			}
 			voList.add(vo);
 		}
 		return voList;
 	}
-	
+
 	private final LabelVO toLabel(LabelDO _do) {
 		setDescription(_do.getDescription());
 		setGmt_created(_do.getGmt_created());

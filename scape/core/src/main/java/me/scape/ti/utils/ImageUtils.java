@@ -1,6 +1,5 @@
 package me.scape.ti.utils;
 
-
 /**
  * 
  * @author 刘飞 E-mail:liufei_it@126.com

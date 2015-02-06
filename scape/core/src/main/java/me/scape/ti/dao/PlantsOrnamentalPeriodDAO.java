@@ -14,9 +14,9 @@ import me.scape.ti.jpa.GenericDAO;
  */
 public interface PlantsOrnamentalPeriodDAO extends GenericDAO<PlantsOrnamentalPeriodDO, Integer> {
 
-    List<PlantsOrnamentalPeriodDO> getAllPlantPeriods();
+	List<PlantsOrnamentalPeriodDO> getAllPlantPeriods();
 
-    List<PlantsOrnamentalPeriodDO> getDisplayedPlantPeriods();
+	List<PlantsOrnamentalPeriodDO> getDisplayedPlantPeriods();
 
-    List<PlantsOrnamentalPeriodDO> getPlantPeriodsByPlantId(Integer plantId);
+	List<PlantsOrnamentalPeriodDO> getPlantPeriodsByPlantId(Integer plantId);
 }

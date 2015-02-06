@@ -12,7 +12,7 @@ import me.scape.ti.jpa.GenericDAO;
  * @since 2014年12月21日 下午2:54:20
  */
 public interface StyleDAO extends GenericDAO<StyleDO, Long> {
-    List<StyleDO> getStylesByIds(List<Long> ids);
+	List<StyleDO> getStylesByIds(List<Long> ids);
 
-    List<StyleDO> getAllStyles();
+	List<StyleDO> getAllStyles();
 }

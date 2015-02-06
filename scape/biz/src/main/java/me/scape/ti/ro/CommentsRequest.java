@@ -9,14 +9,11 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @version 1.0.0
  * @since 2014年12月31日 下午3:33:06
  */
-public class CommentsRequest {
+public class CommentsRequest extends BaseRequest {
 	private Long ref_id;// 引用的父评论ID
 
 	@NotEmpty
 	private Long item_id;// 案例ID
-
-	@NotEmpty
-	private Long user_id;// 用户ID, 评论人ID
 
 	@NotEmpty
 	private String user_name;// 冗余的设计师/企业名称
@@ -38,14 +35,6 @@ public class CommentsRequest {
 
 	public void setItem_id(Long item_id) {
 		this.item_id = item_id;
-	}
-
-	public Long getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(Long user_id) {
-		this.user_id = user_id;
 	}
 
 	public String getUser_name() {

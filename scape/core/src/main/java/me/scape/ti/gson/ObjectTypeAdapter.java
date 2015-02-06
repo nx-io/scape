@@ -15,9 +15,9 @@ import com.google.gson.stream.JsonWriter;
  * @since 2014年12月30日 下午1:18:09
  */
 public class ObjectTypeAdapter<T> extends TypeAdapter<T> {
-	
+
 	private final TypeAdapter<T> defaultObjectTypeAdapter;
-	
+
 	private final Class<T> type;
 
 	public ObjectTypeAdapter(TypeAdapter<T> defaultObjectTypeAdapter, Class<T> type) {
@@ -28,10 +28,11 @@ public class ObjectTypeAdapter<T> extends TypeAdapter<T> {
 
 	@Override
 	public void write(JsonWriter out, T value) throws IOException {
-		if(value == null) {
+		if (value == null) {
 			try {
 				value = BeanUtils.instantiate(type);
-			} catch (Exception ignore) {}
+			} catch (Exception ignore) {
+			}
 		}
 		defaultObjectTypeAdapter.write(out, value);
 	}

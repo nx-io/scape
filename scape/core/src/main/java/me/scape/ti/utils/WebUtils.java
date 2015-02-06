@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2014年12月27日 下午5:42:47
  */
 public class WebUtils {
-	
+
 	public static String getIpAddr(final HttpServletRequest request) {
 		String ip = request.getHeader("X-Forwarded-For");
 		if ((ip == null) || (ip.length() == 0) || "unknown".equalsIgnoreCase(ip)) {

@@ -18,13 +18,13 @@ import me.scape.ti.jpa.DefaultGenericDAO;
 @Repository(value = "plantMediaDAO")
 public class DefaultPlantMediaDAO extends DefaultGenericDAO<PlantMediaDO, Long> implements PlantMediaDAO {
 
-    @Override
-    public List<PlantMediaDO> getMediasByPlantId(Integer plantId) {
-        return queryNamed("PlantMedia.getPlantMediaByPlantId", new Object[] { plantId });
-    }
+	@Override
+	public List<PlantMediaDO> getMediasByPlantId(Integer plantId) {
+		return queryNamed("PlantMedia.getPlantMediaByPlantId", new Object[] { plantId });
+	}
 
-    @Override
-    public void deleteByPlantId(Integer plantId) {
-    	getEntityManager().createNamedQuery("PlantMediaDO.deleteByPlantId").setParameter("plantId", plantId).executeUpdate();
-    }
+	@Override
+	public void deleteByPlantId(Integer plantId) {
+		getEntityManager().createNamedQuery("PlantMediaDO.deleteByPlantId").setParameter("plantId", plantId).executeUpdate();
+	}
 }

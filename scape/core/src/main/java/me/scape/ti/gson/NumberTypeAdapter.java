@@ -15,7 +15,7 @@ import com.google.gson.stream.JsonWriter;
 public class NumberTypeAdapter extends TypeAdapter<Number> {
 
 	private final TypeAdapter<Number> defaultNumbeTypeAdapter;
-	
+
 	public NumberTypeAdapter(TypeAdapter<Number> defaultNumbeTypeAdapter) {
 		super();
 		this.defaultNumbeTypeAdapter = defaultNumbeTypeAdapter;
@@ -23,7 +23,7 @@ public class NumberTypeAdapter extends TypeAdapter<Number> {
 
 	@Override
 	public void write(JsonWriter out, Number value) throws IOException {
-		if(value == null) {
+		if (value == null) {
 			value = 0;
 		}
 		defaultNumbeTypeAdapter.write(out, value);

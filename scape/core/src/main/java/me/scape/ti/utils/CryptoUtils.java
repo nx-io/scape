@@ -15,8 +15,7 @@ public class CryptoUtils {
 	/**
 	 * 加密密钥 20****03 x 2 + 30****02 x 2
 	 */
-	private static final byte[] SECURITY_KEY = new byte[] { 32, 18, 9, 3, 32, 18, 9, 3, 48, -112, 33, 2, 48, -112, 33,
-			2 };
+	private static final byte[] SECURITY_KEY = new byte[] { 32, 18, 9, 3, 32, 18, 9, 3, 48, -112, 33, 2, 48, -112, 33, 2 };
 
 	/**
 	 * 加密数据
@@ -28,7 +27,7 @@ public class CryptoUtils {
 		if (data == null) {
 			return null;
 		}
-		
+
 		byte[] encData = tdesEncrypt(data.getBytes(Charsets.UTF_8), SECURITY_KEY, true);
 		return HexUtils.encodeHex(encData);
 	}
@@ -43,11 +42,11 @@ public class CryptoUtils {
 		if (encData == null) {
 			return null;
 		}
-		
+
 		byte[] plainData = tdesDecrypt(HexUtils.decodeHex(encData), SECURITY_KEY, true);
 		return new String(plainData, Charsets.UTF_8);
 	}
-	
+
 	/**
 	 * 3DES加密
 	 * 
@@ -66,7 +65,7 @@ public class CryptoUtils {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	/**
 	 * 3DES解密(padding为false)
 	 * 
@@ -85,7 +84,7 @@ public class CryptoUtils {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	/**
 	 * 初始化3DES秘钥
 	 * 
@@ -109,7 +108,7 @@ public class CryptoUtils {
 
 		return cipher;
 	}
-	
+
 	/**
 	 * 格式化3DES秘钥
 	 * 

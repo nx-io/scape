@@ -19,7 +19,7 @@ import org.apache.commons.collections.CollectionUtils;
  * @since 2015年1月27日 下午6:19:22
  */
 public class PlantsVO {
-	
+
 	private Integer id;
 
 	private Integer catId;
@@ -35,7 +35,7 @@ public class PlantsVO {
 	private String aliasName;// 别名
 
 	private String genus;// 科属
-	
+
 	private String cover_media;// 植物封皮
 
 	private String habits;// 习性
@@ -43,41 +43,41 @@ public class PlantsVO {
 	private String gardenUtilization;// 园林用途
 
 	private String areaApplicable;// 适用地区
-	
+
 	private Date gmt_created;
-	
+
 	private Date gmt_modified;
-	
+
 	private PlantCategoryVO plantCategory;
-	
+
 	private List<PlantMediaVO> plantsMediaList;
-	
+
 	private List<PlantsOrnamentalColorVO> colorList;
-	
+
 	private List<PlantsOrnamentalPeriodVO> periodList;
-	
+
 	public static List<PlantsVO> newInstance(List<PlantsDO> doList) {
-		if(CollectionUtils.isEmpty(doList)) {
+		if (CollectionUtils.isEmpty(doList)) {
 			return Collections.emptyList();
 		}
 		List<PlantsVO> voList = new ArrayList<PlantsVO>();
 		for (PlantsDO _do : doList) {
 			PlantsVO vo = PlantsVO.newInstance(_do);
-			if(vo == null) {
+			if (vo == null) {
 				continue;
 			}
 			voList.add(vo);
 		}
 		return voList;
 	}
-	
+
 	public static PlantsVO newInstance(PlantsDO _do) {
-		if(_do == null) {
+		if (_do == null) {
 			return null;
 		}
 		return new PlantsVO().toPlants(_do);
 	}
-	
+
 	private final PlantsVO toPlants(PlantsDO _do) {
 		setAliasName(_do.getAlias_name());
 		setAreaApplicable(_do.getArea_applicable());

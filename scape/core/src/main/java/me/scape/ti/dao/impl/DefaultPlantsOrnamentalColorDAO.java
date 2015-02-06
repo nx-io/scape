@@ -16,23 +16,22 @@ import org.springframework.stereotype.Repository;
  * @since 2015年1月27日 下午8:49:54
  */
 @Repository(value = "plantsOrnamentalColorDAO")
-public class DefaultPlantsOrnamentalColorDAO extends DefaultGenericDAO<PlantsOrnamentalColorDO, Integer> implements
-        PlantsOrnamentalColorDAO {
+public class DefaultPlantsOrnamentalColorDAO extends DefaultGenericDAO<PlantsOrnamentalColorDO, Integer> implements PlantsOrnamentalColorDAO {
 
-    @Override
-    public List<PlantsOrnamentalColorDO> getAllPlantColors() {
-        return queryNamed("PlantsOrnamentalColorDO.getAllPlantColors");
-    }
+	@Override
+	public List<PlantsOrnamentalColorDO> getAllPlantColors() {
+		return queryNamed("PlantsOrnamentalColorDO.getAllPlantColors");
+	}
 
-    @Override
-    public List<PlantsOrnamentalColorDO> getDisplayedPlantColors() {
-        return queryNamed("PlantsOrnamentalColorDO.getDisplayedPlantColors");
-    }
+	@Override
+	public List<PlantsOrnamentalColorDO> getDisplayedPlantColors() {
+		return queryNamed("PlantsOrnamentalColorDO.getDisplayedPlantColors");
+	}
 
-    @Override
-    public List<PlantsOrnamentalColorDO> getPlantColorsByPlantId(Integer plantId) {
-        String sql = "SELECT * FROM plant_ornamental_color poc WHERE poc.id IN (SELECT pcr.color_id FROM plant_color_rel pcr WHERE pcr.plant_id = ?)";
+	@Override
+	public List<PlantsOrnamentalColorDO> getPlantColorsByPlantId(Integer plantId) {
+		String sql = "SELECT * FROM plant_ornamental_color poc WHERE poc.id IN (SELECT pcr.color_id FROM plant_color_rel pcr WHERE pcr.plant_id = ?)";
 
-        return queryNative(sql, new Object[] { plantId });
-    }
+		return queryNative(sql, new Object[] { plantId });
+	}
 }

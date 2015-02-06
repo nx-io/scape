@@ -17,9 +17,9 @@ import org.springframework.stereotype.Repository;
 @Repository(value = "itemMediaDAO")
 public class DefaultItemMediaDAO extends DefaultGenericDAO<ItemMediaDO, Long> implements ItemMediaDAO {
 
-    @Override
-    public List<ItemMediaDO> getItemMediasByItemId(Long itemId) {
-        return queryNamed("ItemMedia.getItemMediaByItemId", new Object[] { itemId });
-    }
+	@Override
+	public List<ItemMediaDO> getItemMediasByItemId(Long itemId) {
+		return queryNamed("ItemMedia.getItemMediaByItemId", new Object[] { itemId });
+	}
 
 }

@@ -15,7 +15,7 @@ import com.google.gson.stream.JsonWriter;
 public class ArrayTypeAdapter extends TypeAdapter<Object[]> {
 
 	private final TypeAdapter<Object[]> defaultArrayTypeAdapter;
-	
+
 	public ArrayTypeAdapter(TypeAdapter<Object[]> defaultArrayTypeAdapter) {
 		super();
 		this.defaultArrayTypeAdapter = defaultArrayTypeAdapter;
@@ -23,8 +23,8 @@ public class ArrayTypeAdapter extends TypeAdapter<Object[]> {
 
 	@Override
 	public void write(JsonWriter out, Object[] value) throws IOException {
-		if(value == null) {
-			value = new Object[]{};
+		if (value == null) {
+			value = new Object[] {};
 		}
 		defaultArrayTypeAdapter.write(out, value);
 	}

@@ -20,19 +20,19 @@ import org.springframework.stereotype.Repository;
 @Repository(value = "categoryDAO")
 public class DefaultCategoryDAO extends DefaultGenericDAO<CategoryDO, Long> implements CategoryDAO {
 
-    @Override
-    public List<CategoryDO> getCategoriesByIds(List<Long> ids) {
-        if (null == ids || ids.size() <= 0) {
-            return new ArrayList<CategoryDO>();
-        }
+	@Override
+	public List<CategoryDO> getCategoriesByIds(List<Long> ids) {
+		if (null == ids || ids.size() <= 0) {
+			return new ArrayList<CategoryDO>();
+		}
 
-        Map<String, Object> args = new HashMap<String, Object>();
-        args.put("ids", ids);
-        return queryNamed("CategoryDO.getCategoriesByIds", args);
-    }
+		Map<String, Object> args = new HashMap<String, Object>();
+		args.put("ids", ids);
+		return queryNamed("CategoryDO.getCategoriesByIds", args);
+	}
 
-    @Override
-    public List<CategoryDO> getAllCategories() {
-        return queryNamed("CategoryDO.getAllCategories");
-    }
+	@Override
+	public List<CategoryDO> getAllCategories() {
+		return queryNamed("CategoryDO.getAllCategories");
+	}
 }

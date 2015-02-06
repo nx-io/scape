@@ -15,7 +15,7 @@ import com.google.gson.stream.JsonWriter;
 public class BooleanTypeAdapter extends TypeAdapter<Boolean> {
 
 	private final TypeAdapter<Boolean> defaultBooleanTypeAdapter;
-	
+
 	public BooleanTypeAdapter(TypeAdapter<Boolean> defaultBooleanTypeAdapter) {
 		super();
 		this.defaultBooleanTypeAdapter = defaultBooleanTypeAdapter;
@@ -23,7 +23,7 @@ public class BooleanTypeAdapter extends TypeAdapter<Boolean> {
 
 	@Override
 	public void write(JsonWriter out, Boolean value) throws IOException {
-		if(value == null) {
+		if (value == null) {
 			value = Boolean.FALSE;
 		}
 		defaultBooleanTypeAdapter.write(out, value);

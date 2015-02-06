@@ -6,7 +6,7 @@ package me.scape.ti.srv;
  * @since 2014年12月28日 下午4:00:19
  */
 public class PageQuery {
-	
+
 	private final static int DEFAULT_PAGE_SIZE = 10;
 
 	private final int index;

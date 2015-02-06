@@ -13,7 +13,7 @@ import me.scape.ti.jpa.GenericDAO;
  * @since 2015年1月28日 下午2:48:23
  */
 public interface PlantMediaDAO extends GenericDAO<PlantMediaDO, Long> {
-    List<PlantMediaDO> getMediasByPlantId(Integer plantId);
+	List<PlantMediaDO> getMediasByPlantId(Integer plantId);
 
-    void deleteByPlantId(Integer plantId);
+	void deleteByPlantId(Integer plantId);
 }

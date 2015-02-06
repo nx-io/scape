@@ -15,7 +15,7 @@ import com.thoughtworks.xstream.XStream;
 public class XmlUtils {
 
 	protected static final Log log = LogFactory.getLog(XmlUtils.class);
-	
+
 	public static <T> String toXML(T object, String alias) {
 		try {
 			XStream xstream = new XStream();
@@ -27,7 +27,7 @@ public class XmlUtils {
 		}
 		return StringUtils.EMPTY;
 	}
-	
+
 	public static <T> T toObj(Class<T> clazz, String xml, String alias) {
 		try {
 			XStream xstream = new XStream();

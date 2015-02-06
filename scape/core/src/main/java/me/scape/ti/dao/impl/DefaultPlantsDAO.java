@@ -23,39 +23,38 @@ import org.springframework.stereotype.Repository;
 @Repository(value = "plantsDAO")
 public class DefaultPlantsDAO extends DefaultGenericDAO<PlantsDO, Integer> implements PlantsDAO {
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    @Override
-    public Pagination<PlantsDO> listPlants(PlantQueryCriteria criteria) {
-        List<Object> args = new ArrayList<Object>();
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public Pagination<PlantsDO> listPlants(PlantQueryCriteria criteria) {
+		List<Object> args = new ArrayList<Object>();
 
-        StringBuilder sqlCountRows = new StringBuilder();
-        sqlCountRows.append("SELECT count(*) FROM plants p where 1 = 1");
+		StringBuilder sqlCountRows = new StringBuilder();
+		sqlCountRows.append("SELECT count(*) FROM plants p where 1 = 1");
 
-        StringBuilder sqlFetchRows = new StringBuilder();
-        sqlFetchRows.append("SELECT p.* FROM plants p where 1 = 1");
+		StringBuilder sqlFetchRows = new StringBuilder();
+		sqlFetchRows.append("SELECT p.* FROM plants p where 1 = 1");
 
-        StringBuilder condition = new StringBuilder();
-        if (StringUtils.isNotEmpty(criteria.getName())) {
-            condition.append(" AND p.name LIKE ?");
-            args.add("%" + criteria.getName() + "%");
-        }
-        if (null != criteria.getCat_id()) {
-            condition.append(" AND p.cat_id = ?");
-            args.add(criteria.getCat_id());
-        }
+		StringBuilder condition = new StringBuilder();
+		if (StringUtils.isNotEmpty(criteria.getName())) {
+			condition.append(" AND p.name LIKE ?");
+			args.add("%" + criteria.getName() + "%");
+		}
+		if (null != criteria.getCat_id()) {
+			condition.append(" AND p.cat_id = ?");
+			args.add(criteria.getCat_id());
+		}
 
-        BigInteger count = (BigInteger) (createNativeQuery(sqlCountRows.append(condition).toString(), args.toArray())
-                .getSingleResult());
+		BigInteger count = (BigInteger) (createNativeQuery(sqlCountRows.append(condition).toString(), args.toArray()).getSingleResult());
 
-        condition.append(" ORDER BY p.gmt_created DESC");
-        if (0 != criteria.getLimit()) {
-            condition.append(" LIMIT ?, ?");
-            args.add(criteria.getOffset());
-            args.add(criteria.getLimit());
-        }
-        List<PlantsDO> list = queryNative(sqlFetchRows.append(condition).toString(), args.toArray());
+		condition.append(" ORDER BY p.gmt_created DESC");
+		if (0 != criteria.getLimit()) {
+			condition.append(" LIMIT ?, ?");
+			args.add(criteria.getOffset());
+			args.add(criteria.getLimit());
+		}
+		List<PlantsDO> list = queryNative(sqlFetchRows.append(condition).toString(), args.toArray());
 
-        return new Pagination(count.intValue(), list);
-    }
+		return new Pagination(count.intValue(), list);
+	}
 
 }

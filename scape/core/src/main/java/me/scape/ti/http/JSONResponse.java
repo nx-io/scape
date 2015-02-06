@@ -9,11 +9,11 @@ import org.springframework.http.HttpStatus;
  * @since 2014年12月27日 上午12:42:46
  */
 public class JSONResponse extends org.springframework.http.ResponseEntity<String> {
-	
+
 	public JSONResponse(JSONResponseBody body, HttpStatus statusCode) {
 		super(body.toJson(), HttpHeader.JSON.headers, statusCode);
 	}
-	
+
 	public JSONResponse(JSONResponseBody body) {
 		this(body, HttpStatus.OK);
 	}
@@ -21,7 +21,7 @@ public class JSONResponse extends org.springframework.http.ResponseEntity<String
 	public static JSONResponse newInstance(JSONResponseBody body) {
 		return new JSONResponse(body);
 	}
-	
+
 	public static JSONResponse newInstance(JSONResponseBody body, HttpStatus statusCode) {
 		return new JSONResponse(body, statusCode);
 	}

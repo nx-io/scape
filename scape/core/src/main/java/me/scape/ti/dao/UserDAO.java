@@ -15,7 +15,7 @@ import me.scape.ti.jpa.GenericDAO;
  */
 public interface UserDAO extends GenericDAO<UserDO, Long> {
 
-    List<UserDO> getUsersByIds(List<Long> ids);
+	List<UserDO> getUsersByIds(List<Long> ids);
 
-    Pagination<UserDO> ListUsers(UserQueryCriteria criteria);
+	Pagination<UserDO> ListUsers(UserQueryCriteria criteria);
 }

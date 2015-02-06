@@ -12,7 +12,7 @@ import me.scape.ti.jpa.GenericDAO;
  * @since 2014年12月21日 下午2:52:41
  */
 public interface RoleDAO extends GenericDAO<RoleDO, Integer> {
-    List<RoleDO> getAllRoles();
+	List<RoleDO> getAllRoles();
 
-    List<RoleDO> getRolesByResourceId(Integer resourceId);
+	List<RoleDO> getRolesByResourceId(Integer resourceId);
 }

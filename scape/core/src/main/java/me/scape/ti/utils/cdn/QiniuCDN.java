@@ -18,64 +18,62 @@ import com.qiniu.api.rs.RSClient;
 
 public final class QiniuCDN implements CDN {
 
-    private static Mac MAC;
+	private static Mac MAC;
 
-    static {
-        Config.ACCESS_KEY = GlobalProperties.CDN_ACCESS_KEY.trim();
-        Config.SECRET_KEY = GlobalProperties.CDN_SECRET_KEY.trim();
-        MAC = new Mac(Config.ACCESS_KEY, Config.SECRET_KEY);
-    }
+	static {
+		Config.ACCESS_KEY = GlobalProperties.CDN_ACCESS_KEY.trim();
+		Config.SECRET_KEY = GlobalProperties.CDN_SECRET_KEY.trim();
+		MAC = new Mac(Config.ACCESS_KEY, Config.SECRET_KEY);
+	}
 
-    @Override
-    public String uploadFile(InputStream in, String fileName) throws Exception {
-        PutExtra extra = new PutExtra();
-        PutRet putRet = null;
-        putRet = IoApi.Put(getUptoken(), fileName, in, extra);
-        if (!putRet.ok()) {
-            throw new Exception("File upload error");
-        }
+	@Override
+	public String uploadFile(InputStream in, String fileName) throws Exception {
+		PutExtra extra = new PutExtra();
+		PutRet putRet = null;
+		putRet = IoApi.Put(getUptoken(), fileName, in, extra);
+		if (!putRet.ok()) {
+			throw new Exception("File upload error");
+		}
 
-        return putRet.getKey();
-    }
+		return putRet.getKey();
+	}
 
-    @Override
-    public boolean deleteFile(String path) {
-        CallRet callRet = new RSClient(MAC).delete(GlobalProperties.CDN_BUCKET_NAME.trim(), path);
+	@Override
+	public boolean deleteFile(String path) {
+		CallRet callRet = new RSClient(MAC).delete(GlobalProperties.CDN_BUCKET_NAME.trim(), path);
 
-        return callRet.ok();
-    }
+		return callRet.ok();
+	}
 
-    @Override
-    public String getHttpPath(String path) {
-        String url = null;
-        if (isFullURL(path)) {
-            url = path;
-        } else if (StringUtils.isNotBlank(path)) {
-            url = GlobalProperties.CDN_DOMAIN.concat(
-                    GlobalProperties.CDN_DOMAIN.endsWith(CommonConstant.SEPARATOR) ? "" : CommonConstant.SEPARATOR)
-                    .concat(path);
-        }
+	@Override
+	public String getHttpPath(String path) {
+		String url = null;
+		if (isFullURL(path)) {
+			url = path;
+		} else if (StringUtils.isNotBlank(path)) {
+			url = GlobalProperties.CDN_DOMAIN.concat(GlobalProperties.CDN_DOMAIN.endsWith(CommonConstant.SEPARATOR) ? "" : CommonConstant.SEPARATOR).concat(path);
+		}
 
-        return url;
-    }
+		return url;
+	}
 
-    private String getUptoken() {
-        PutPolicy putPolicy = new PutPolicy(GlobalProperties.CDN_BUCKET_NAME.trim());
-        String uptoken = null;
-        try {
-            uptoken = putPolicy.token(MAC);
-        } catch (Exception e) {
-        }
+	private String getUptoken() {
+		PutPolicy putPolicy = new PutPolicy(GlobalProperties.CDN_BUCKET_NAME.trim());
+		String uptoken = null;
+		try {
+			uptoken = putPolicy.token(MAC);
+		} catch (Exception e) {
+		}
 
-        return uptoken;
-    }
+		return uptoken;
+	}
 
-    private boolean isFullURL(final String url) {
-        boolean flag = false;
-        if (StringUtils.isNotBlank(url)) {
-            flag = url.toLowerCase().startsWith("http");
-        }
-        return flag;
-    }
+	private boolean isFullURL(final String url) {
+		boolean flag = false;
+		if (StringUtils.isNotBlank(url)) {
+			flag = url.toLowerCase().startsWith("http");
+		}
+		return flag;
+	}
 
 }

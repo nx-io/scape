@@ -23,7 +23,7 @@ public class TokenUtils {
 	private static final String SECRET = "Landscape.Assistant";
 	private static final String TOKEN_SEP = ".";
 	private static final String HMAC_256 = "HmacSHA256";
-	
+
 	public static String generate() {
 		JSONObject claims = new JSONObject();
 		claims.put("uuid", UUID.randomUUID().toString());

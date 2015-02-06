@@ -13,8 +13,6 @@ import me.scape.ti.utils.WebUtils;
  */
 public class UserVO {
 
-	private Long id;
-
 	private String name;// 设计师/企业名称
 
 	private String fullname;// 真实姓名
@@ -43,13 +41,33 @@ public class UserVO {
 
 	private Date gmt_created;
 
+	/**
+	 * 应用ID
+	 */
+	private String app_id;
+
+	/**
+	 * 用于绑定应用系统用户开放ID
+	 */
+	private String open_id;
+
+	/**
+	 * 访问凭证令牌
+	 */
+	private String access_token;
+
+	/**
+	 * 凭证有效时间，单位：秒
+	 */
+	private Integer expires_in;
+
 	public static UserVO newInstance(UserDO _do) {
-		if(_do == null) {
+		if (_do == null) {
 			return null;
 		}
 		return new UserVO().toUser(_do);
 	}
-	
+
 	private final UserVO toUser(UserDO _do) {
 		setAvatar(_do.getAvatar());
 		setCategory_id(_do.getCategory_id());
@@ -57,7 +75,6 @@ public class UserVO {
 		setEmail(_do.getEmail());
 		setFullname(_do.getFullname());
 		setGmt_created(_do.getGmt_created());
-		setId(_do.getId());
 		setIs_email_verified(_do.getIs_email_verified());
 		setIs_mobile_verified(_do.getIs_mobile_verified());
 		setLast_ip(WebUtils.lngToIp(_do.getLast_ip()));
@@ -68,13 +85,37 @@ public class UserVO {
 		setStatus(_do.getStatus());
 		return this;
 	}
-	
-	public Long getId() {
-		return id;
+
+	public String getApp_id() {
+		return app_id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setApp_id(String app_id) {
+		this.app_id = app_id;
+	}
+
+	public String getOpen_id() {
+		return open_id;
+	}
+
+	public void setOpen_id(String open_id) {
+		this.open_id = open_id;
+	}
+
+	public String getAccess_token() {
+		return access_token;
+	}
+
+	public void setAccess_token(String access_token) {
+		this.access_token = access_token;
+	}
+
+	public Integer getExpires_in() {
+		return expires_in;
+	}
+
+	public void setExpires_in(Integer expires_in) {
+		this.expires_in = expires_in;
 	}
 
 	public String getName() {

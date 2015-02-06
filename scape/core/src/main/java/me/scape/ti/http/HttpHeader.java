@@ -29,8 +29,9 @@ public enum HttpHeader {
 			headers = new HttpHeaders();
 			headers.set("Content-Type", "text/html;charset=UTF-8");
 		}
-	}
-	;
+	};
 	public HttpHeaders headers;
-	protected void init() {}
+
+	protected void init() {
+	}
 }

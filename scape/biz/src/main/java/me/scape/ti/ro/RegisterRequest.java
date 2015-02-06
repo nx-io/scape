@@ -12,13 +12,13 @@ public class RegisterRequest {
 
 	@NotEmpty
 	private String name;
-	
+
 	@NotEmpty
 	private String password;
-	
+
 	@NotEmpty
 	private String mobile;
-	
+
 	private String avatar;
 
 	public String getName() {

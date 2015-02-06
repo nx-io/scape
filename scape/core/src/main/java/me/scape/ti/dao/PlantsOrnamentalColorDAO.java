@@ -14,9 +14,9 @@ import me.scape.ti.jpa.GenericDAO;
  */
 public interface PlantsOrnamentalColorDAO extends GenericDAO<PlantsOrnamentalColorDO, Integer> {
 
-    List<PlantsOrnamentalColorDO> getAllPlantColors();
+	List<PlantsOrnamentalColorDO> getAllPlantColors();
 
-    List<PlantsOrnamentalColorDO> getDisplayedPlantColors();
+	List<PlantsOrnamentalColorDO> getDisplayedPlantColors();
 
-    List<PlantsOrnamentalColorDO> getPlantColorsByPlantId(Integer plantId);
+	List<PlantsOrnamentalColorDO> getPlantColorsByPlantId(Integer plantId);
 }

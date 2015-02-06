@@ -21,38 +21,38 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class PlantController extends BaseController {
-	
+
 	@RequestMapping(value = "/plant/detail/{plantId}", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> detail(@PathVariable Integer plantId) {
 		Result result = plantService.detail(plantId);
 		return toResponse(result);
 	}
-	
+
 	@RequestMapping(value = "/plant/search", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> search(@Valid PlantSearchRequest request, BindingResult validResult) {
-		if(validResult.hasErrors()) {
+		if (validResult.hasErrors()) {
 			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
 		}
 		Result result = plantService.search(request);
 		return toResponse(result);
 	}
-	
+
 	@RequestMapping(value = "/plant/cats", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> cats() {
 		Result result = plantService.getCats();
 		return toResponse(result);
 	}
-	
+
 	@RequestMapping(value = "/plant/colors", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> colors() {
 		Result result = plantService.getColors();
 		return toResponse(result);
 	}
-	
+
 	@RequestMapping(value = "/plant/periods", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> periods() {

@@ -14,19 +14,16 @@ import com.google.gson.GsonBuilder;
  * @since 2014年12月31日 下午3:29:25
  */
 public class GsonUtils {
-	
+
 	public final static Gson GSON = new GsonBuilder()
-//									.setPrettyPrinting()//格式化
-									.enableComplexMapKeySerialization()
-//									.serializeNulls()
-									.disableHtmlEscaping()
-									.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
-									.setDateFormat(CalendarUtil.S_YYYY_MM_DD_HH_MM_SS)
-									.registerTypeAdapterFactory(new SmartTypeAdapterFactory())
-									.create();
-	
+			// .setPrettyPrinting()//格式化
+			.enableComplexMapKeySerialization()
+			// .serializeNulls()
+			.disableHtmlEscaping().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).setDateFormat(CalendarUtil.S_YYYY_MM_DD_HH_MM_SS).registerTypeAdapterFactory(new SmartTypeAdapterFactory())
+			.create();
+
 	public static void main(String[] args) {
 		System.out.println(GsonUtils.GSON.toJson(new JSONResponseBody()));
 	}
-	
+
 }

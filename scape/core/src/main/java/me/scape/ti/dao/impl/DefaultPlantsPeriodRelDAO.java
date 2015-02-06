@@ -16,8 +16,8 @@ import me.scape.ti.jpa.DefaultGenericDAO;
 @Repository(value = "plantsPeriodRelDAO")
 public class DefaultPlantsPeriodRelDAO extends DefaultGenericDAO<PlantsPeriodRelDO, Long> implements PlantsPeriodRelDAO {
 
-    @Override
-    public void deleteByPlantId(Integer plantId) {
-    	getEntityManager().createNamedQuery("PlantsPeriodRelDO.deleteByPlantId").setParameter("plantId", plantId).executeUpdate();
-    }
+	@Override
+	public void deleteByPlantId(Integer plantId) {
+		getEntityManager().createNamedQuery("PlantsPeriodRelDO.deleteByPlantId").setParameter("plantId", plantId).executeUpdate();
+	}
 }

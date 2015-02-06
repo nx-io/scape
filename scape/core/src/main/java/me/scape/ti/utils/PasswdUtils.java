@@ -18,8 +18,7 @@ import org.springframework.security.crypto.keygen.KeyGenerators;
  */
 public class PasswdUtils {
 
-	private static final Logger log = LoggerFactory
-			.getLogger(PasswdUtils.class);
+	private static final Logger log = LoggerFactory.getLogger(PasswdUtils.class);
 
 	private static int SALT_LENGTH = 6;
 
@@ -29,8 +28,7 @@ public class PasswdUtils {
 		String result = null;
 		try {
 			Mac sha256_HMAC = Mac.getInstance(HMAC_256);
-			SecretKeySpec secret_key = new SecretKeySpec(
-					token.getBytes(Charsets.UTF_8), HMAC_256);
+			SecretKeySpec secret_key = new SecretKeySpec(token.getBytes(Charsets.UTF_8), HMAC_256);
 			sha256_HMAC.init(secret_key);
 			byte sig[] = sha256_HMAC.doFinal(passwd.getBytes(Charsets.UTF_8));
 			result = Base64.encodeBase64URLSafeString(sig);

@@ -6,6 +6,7 @@ import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
 import me.scape.ti.ro.PubfavRequest;
 import me.scape.ti.ro.RegisterRequest;
+import me.scape.ti.ro.ResetPasswdRequest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,36 +27,37 @@ public class AccountController extends BaseController {
 
 	@RequestMapping(value = "/register", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> register(@Valid RegisterRequest registerRequest, BindingResult validResult) {
-		if(validResult.hasErrors()) {
+	public ResponseEntity<String> register(@Valid RegisterRequest request, BindingResult validResult) {
+		if (validResult.hasErrors()) {
 			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
 		}
-		Result result = accountService.register(registerRequest);
+		Result result = accountService.register(request);
 		return toResponse(result);
 	}
-	
+
 	@RequestMapping(value = "/login", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> login(
-			@RequestParam(value = "name", required = true) String name, 
-			@RequestParam(value = "password", required = true) String password) {
+	public ResponseEntity<String> login(@RequestParam(value = "name", required = true) String name, @RequestParam(value = "password", required = true) String password) {
 		Result result = accountService.login(name, password);
 		return toResponse(result);
 	}
-	
+
 	@RequestMapping(value = "/reset_passwd", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> reset_passwd(
-			@RequestParam(value = "user_id", required = true) Long user_id, 
-			@RequestParam(value = "old_passwd", required = true) String old_passwd, 
-			@RequestParam(value = "new_passwd", required = true) String new_passwd) {
-		Result result = accountService.reset_passwd(user_id, old_passwd, new_passwd);
+	public ResponseEntity<String> reset_passwd(@Valid ResetPasswdRequest request, BindingResult validResult) {
+		if (validResult.hasErrors()) {
+			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
+		}
+		Result result = accountService.reset_passwd(request);
 		return toResponse(result);
 	}
-	
+
 	@RequestMapping(value = "/pubfav", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> publish(PubfavRequest request) {
+	public ResponseEntity<String> publish(@Valid PubfavRequest request, BindingResult validResult) {
+		if (validResult.hasErrors()) {
+			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
+		}
 		Result result = accountService.queryPubOrFavItem(request);
 		return toResponse(result);
 	}

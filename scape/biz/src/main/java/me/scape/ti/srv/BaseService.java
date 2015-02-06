@@ -40,9 +40,9 @@ public class BaseService implements InitializingBean {
 
 	protected Logger log = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    protected HttpServletRequest request;
-    
+	@Autowired
+	protected HttpServletRequest request;
+
 	@Autowired
 	@Qualifier(value = "areaCategoryDAO")
 	protected AreaCategoryDAO areaCategoryDAO;
@@ -122,17 +122,17 @@ public class BaseService implements InitializingBean {
 	@Autowired
 	@Qualifier(value = "systemSettingDAO")
 	protected SystemSettingDAO systemSettingDAO;
-	
+
 	protected final long getIp() {
-        return WebUtils.ipToLng(WebUtils.getIpAddr(request));
-    }
-	
+		return WebUtils.ipToLng(WebUtils.getIpAddr(request));
+	}
+
 	@Override
 	public final void afterPropertiesSet() throws Exception {
 		init();
 	}
-	
+
 	protected void init() throws Exception {
-		
+
 	}
 }

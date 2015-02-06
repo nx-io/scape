@@ -14,5 +14,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository(value = "itemFavoriteDAO")
 public class DefaultItemFavoriteDAO extends DefaultGenericDAO<ItemFavoriteDO, Long> implements ItemFavoriteDAO {
-	
+
 }

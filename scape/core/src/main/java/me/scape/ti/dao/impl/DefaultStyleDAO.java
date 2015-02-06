@@ -20,20 +20,20 @@ import org.springframework.stereotype.Repository;
 @Repository(value = "styleDAO")
 public class DefaultStyleDAO extends DefaultGenericDAO<StyleDO, Long> implements StyleDAO {
 
-    @Override
-    public List<StyleDO> getStylesByIds(List<Long> ids) {
-        if (null == ids || ids.size() <= 0) {
-            return new ArrayList<StyleDO>();
-        }
+	@Override
+	public List<StyleDO> getStylesByIds(List<Long> ids) {
+		if (null == ids || ids.size() <= 0) {
+			return new ArrayList<StyleDO>();
+		}
 
-        Map<String, Object> args = new HashMap<String, Object>();
-        args.put("ids", ids);
-        return queryNamed("StyleDO.getStylesByIds", args);
-    }
+		Map<String, Object> args = new HashMap<String, Object>();
+		args.put("ids", ids);
+		return queryNamed("StyleDO.getStylesByIds", args);
+	}
 
-    @Override
-    public List<StyleDO> getAllStyles() {
-        return queryNamed("StyleDO.getAllStyles");
-    }
+	@Override
+	public List<StyleDO> getAllStyles() {
+		return queryNamed("StyleDO.getAllStyles");
+	}
 
 }

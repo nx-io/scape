@@ -24,31 +24,31 @@ import javax.persistence.TemporalType;
 public class SystemSettingDO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 
-    @Column(name = "group_id", nullable = false)
+	@Column(name = "group_id", nullable = false)
 	private Long groupId;
-    
-    @Column(name = "setting_key", nullable = false, length = 255)
-    private String settingKey;
-    
-    @Column(name = "setting_value", nullable = false, length = 255)
-    private String settingValue;
-    
-    @Column(name = "extend", nullable = false, length = 255)
-    private String extend;
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "gmt_created", nullable = false)
-    private Date gmt_created;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "gmt_modified", nullable = true)
-    private Date gmt_modified;
+	@Column(name = "setting_key", nullable = false, length = 255)
+	private String settingKey;
+
+	@Column(name = "setting_value", nullable = false, length = 255)
+	private String settingValue;
+
+	@Column(name = "extend", nullable = false, length = 255)
+	private String extend;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "gmt_created", nullable = false)
+	private Date gmt_created;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "gmt_modified", nullable = true)
+	private Date gmt_modified;
 
 	@Override
 	public int hashCode() {

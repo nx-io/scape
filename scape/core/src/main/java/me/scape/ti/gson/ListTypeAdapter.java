@@ -16,7 +16,7 @@ import com.google.gson.stream.JsonWriter;
  */
 @SuppressWarnings("rawtypes")
 public class ListTypeAdapter extends TypeAdapter<List> {
-	
+
 	private final TypeAdapter<List> defaultListTypeAdapter;
 
 	public ListTypeAdapter(TypeAdapter<List> defaultListTypeAdapter) {
@@ -26,7 +26,7 @@ public class ListTypeAdapter extends TypeAdapter<List> {
 
 	@Override
 	public void write(JsonWriter out, List value) throws IOException {
-		if(value == null) {
+		if (value == null) {
 			value = new ArrayList();
 		}
 		defaultListTypeAdapter.write(out, value);

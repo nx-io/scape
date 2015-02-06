@@ -9,6 +9,8 @@ import me.scape.ti.result.Result;
  */
 public interface CatService {
 	Result getAllCat();
+
 	Result getAllAreaCat();
+
 	Result getAllStyle();
 }

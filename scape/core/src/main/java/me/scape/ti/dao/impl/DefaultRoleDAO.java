@@ -17,14 +17,14 @@ import org.springframework.stereotype.Repository;
 @Repository(value = "roleDAO")
 public class DefaultRoleDAO extends DefaultGenericDAO<RoleDO, Integer> implements RoleDAO {
 
-    @Override
-    public List<RoleDO> getAllRoles() {
-        return queryNamed("RoleDO.getAllRoles");
-    }
+	@Override
+	public List<RoleDO> getAllRoles() {
+		return queryNamed("RoleDO.getAllRoles");
+	}
 
-    @Override
-    public List<RoleDO> getRolesByResourceId(Integer resourceId) {
-        String sql = "SELECT r.* FROM role r JOIN role_resource rr ON (r.id = rr.role_id AND rr.resource_id = ?)";
-        return queryNative(sql, new Object[] { resourceId });
-    }
+	@Override
+	public List<RoleDO> getRolesByResourceId(Integer resourceId) {
+		String sql = "SELECT r.* FROM role r JOIN role_resource rr ON (r.id = rr.role_id AND rr.resource_id = ?)";
+		return queryNative(sql, new Object[] { resourceId });
+	}
 }

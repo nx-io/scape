@@ -18,14 +18,14 @@ public class StyleVO {
 	private Byte display;// 是否展示
 
 	private Long id;
-	
+
 	public static StyleVO newInstance(StyleDO _do) {
-		if(_do == null) {
+		if (_do == null) {
 			return null;
 		}
 		return new StyleVO().toStyle(_do);
 	}
-	
+
 	private final StyleVO toStyle(StyleDO _do) {
 		setDescription(_do.getDescription());
 		setDisplay(_do.getDisplay());

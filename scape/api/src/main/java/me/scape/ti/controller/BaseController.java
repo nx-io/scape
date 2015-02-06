@@ -75,12 +75,10 @@ public class BaseController {
 	}
 
 	protected ResponseEntity<String> toResponse(Result result) {
-		return JSONResponseBody.newInstance().code(result.getResultCode()).message(result.getMessage())
-				.with(result.getData()).toResponse();
+		return JSONResponseBody.newInstance().code(result.getResultCode()).message(result.getMessage()).with(result.getData()).toResponse();
 	}
-	
+
 	protected ResponseEntity<String> toResponse(Result result, HttpStatus status) {
-		return JSONResponseBody.newInstance().code(result.getResultCode()).message(result.getMessage())
-				.with(result.getData()).toResponse(status);
+		return JSONResponseBody.newInstance().code(result.getResultCode()).message(result.getMessage()).with(result.getData()).toResponse(status);
 	}
 }

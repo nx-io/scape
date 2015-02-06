@@ -38,8 +38,10 @@ public class ConfigurableHttpMessageConverter extends AbstractHttpMessageConvert
 	}
 
 	/**
-	 * Indicates whether the {@code Accept-Charset} should be written to any outgoing request.
-	 * <p>Default is {@code true}.
+	 * Indicates whether the {@code Accept-Charset} should be written to any
+	 * outgoing request.
+	 * <p>
+	 * Default is {@code true}.
 	 */
 	public void setWriteAcceptCharset(boolean writeAcceptCharset) {
 		this.writeAcceptCharset = writeAcceptCharset;
@@ -61,8 +63,7 @@ public class ConfigurableHttpMessageConverter extends AbstractHttpMessageConvert
 		Charset charset = getContentTypeCharset(contentType);
 		try {
 			return (long) s.getBytes(charset.name()).length;
-		}
-		catch (UnsupportedEncodingException ex) {
+		} catch (UnsupportedEncodingException ex) {
 			// should not occur
 			throw new IllegalStateException(ex);
 		}
@@ -79,7 +80,10 @@ public class ConfigurableHttpMessageConverter extends AbstractHttpMessageConvert
 
 	/**
 	 * Return the list of supported {@link Charset}.
-	 * <p>By default, returns {@link Charset#availableCharsets()}. Can be overridden in subclasses.
+	 * <p>
+	 * By default, returns {@link Charset#availableCharsets()}. Can be
+	 * overridden in subclasses.
+	 * 
 	 * @return the list of accepted charsets
 	 */
 	protected List<Charset> getAcceptedCharsets() {
@@ -89,8 +93,7 @@ public class ConfigurableHttpMessageConverter extends AbstractHttpMessageConvert
 	private Charset getContentTypeCharset(MediaType contentType) {
 		if (contentType != null && contentType.getCharSet() != null) {
 			return contentType.getCharSet();
-		}
-		else {
+		} else {
 			return this.defaultCharset;
 		}
 	}

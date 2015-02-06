@@ -24,53 +24,52 @@ import org.springframework.stereotype.Repository;
 @Repository(value = "userDAO")
 public class DefaultUserDAO extends DefaultGenericDAO<UserDO, Long> implements UserDAO {
 
-    @Override
-    public List<UserDO> getUsersByIds(List<Long> ids) {
-        if (null == ids || ids.size() <= 0) {
-            return new ArrayList<UserDO>();
-        }
+	@Override
+	public List<UserDO> getUsersByIds(List<Long> ids) {
+		if (null == ids || ids.size() <= 0) {
+			return new ArrayList<UserDO>();
+		}
 
-        Map<String, Object> args = new HashMap<String, Object>();
-        args.put("ids", ids);
-        return queryNamed("User.getUsersByIds", args);
-    }
+		Map<String, Object> args = new HashMap<String, Object>();
+		args.put("ids", ids);
+		return queryNamed("User.getUsersByIds", args);
+	}
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    @Override
-    public Pagination<UserDO> ListUsers(UserQueryCriteria criteria) {
-        List<Object> args = new ArrayList<Object>();
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public Pagination<UserDO> ListUsers(UserQueryCriteria criteria) {
+		List<Object> args = new ArrayList<Object>();
 
-        StringBuilder sqlCountRows = new StringBuilder();
-        sqlCountRows.append("SELECT count(*) FROM user u where 1 = 1");
+		StringBuilder sqlCountRows = new StringBuilder();
+		sqlCountRows.append("SELECT count(*) FROM user u where 1 = 1");
 
-        StringBuilder sqlFetchRows = new StringBuilder();
-        sqlFetchRows.append("SELECT u.* FROM user u where 1 = 1");
+		StringBuilder sqlFetchRows = new StringBuilder();
+		sqlFetchRows.append("SELECT u.* FROM user u where 1 = 1");
 
-        StringBuilder condition = new StringBuilder();
-        if (null != criteria.getStatus()) {
-            condition.append(" AND u.status = ?");
-            args.add(criteria.getStatus());
-        } else {
-            condition.append(" AND u.status != -1");
-        }
+		StringBuilder condition = new StringBuilder();
+		if (null != criteria.getStatus()) {
+			condition.append(" AND u.status = ?");
+			args.add(criteria.getStatus());
+		} else {
+			condition.append(" AND u.status != -1");
+		}
 
-        if (StringUtils.isNotEmpty(criteria.getName())) {
-            condition.append(" AND u.name LIKE ?");
-            args.add("%" + criteria.getName() + "%");
-        }
+		if (StringUtils.isNotEmpty(criteria.getName())) {
+			condition.append(" AND u.name LIKE ?");
+			args.add("%" + criteria.getName() + "%");
+		}
 
-        BigInteger count = (BigInteger) (createNativeQuery(sqlCountRows.append(condition).toString(), args.toArray())
-                .getSingleResult());
+		BigInteger count = (BigInteger) (createNativeQuery(sqlCountRows.append(condition).toString(), args.toArray()).getSingleResult());
 
-        condition.append(" ORDER BY u.gmt_created DESC");
-        if (0 != criteria.getLimit()) {
-            condition.append(" LIMIT ?, ?");
-            args.add(criteria.getOffset());
-            args.add(criteria.getLimit());
-        }
-        List<UserDO> list = queryNative(sqlFetchRows.append(condition).toString(), args.toArray());
+		condition.append(" ORDER BY u.gmt_created DESC");
+		if (0 != criteria.getLimit()) {
+			condition.append(" LIMIT ?, ?");
+			args.add(criteria.getOffset());
+			args.add(criteria.getLimit());
+		}
+		List<UserDO> list = queryNative(sqlFetchRows.append(condition).toString(), args.toArray());
 
-        return new Pagination(count.intValue(), list);
-    }
+		return new Pagination(count.intValue(), list);
+	}
 
 }

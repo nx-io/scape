@@ -25,6 +25,8 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AuthService {
 
+	public static final String App_Id = "S0wLiaXE6fXUflFy8O9urhW7imsi";
+
 	private static final Log log = LogFactory.getLog(AuthService.class);
 
 	private static Class<?> AUTH_SERVICE_ADAPTER_CLASS;
@@ -95,7 +97,10 @@ public class AuthService {
 
 	public static LoginResponse login(LoginRequest request) {
 		try {
-			String responseXML = (String) LOGIN_METHOD.invoke(AUTH_SERVICE_ADAPTER, new Object[] { XmlUtils.toXML(request, RequestAlias.Login) });
+			String reqXml = XmlUtils.toXML(request, RequestAlias.Login);
+			System.err.println("Login Request : \n" + reqXml);
+			String responseXML = (String) LOGIN_METHOD.invoke(AUTH_SERVICE_ADAPTER, new Object[] { reqXml });
+			System.err.println("Login Response : \n" + responseXML);
 			if (StringUtils.isEmpty(responseXML)) {
 				return LoginResponse.DEFAULT_RESPONSE;
 			}

@@ -18,95 +18,95 @@ import org.apache.commons.collections.CollectionUtils;
  */
 public class PlantCategoryVO {
 
-    private Integer id;
+	private Integer id;
 
-    private String name;// 植物类别名称
+	private String name;// 植物类别名称
 
-    private String description;// 植物类别描述
+	private String description;// 植物类别描述
 
-    private String icon;// 植物类别图标
+	private String icon;// 植物类别图标
 
-    private Byte display = 1;// 是否展示 1展示 0不展示 -1删除
+	private Byte display = 1;// 是否展示 1展示 0不展示 -1删除
 
-    private Date gmt_created;
+	private Date gmt_created;
 
-    public static List<PlantCategoryVO> newInstance(List<PlantCategoryDO> doList) {
-        if (CollectionUtils.isEmpty(doList)) {
-            return Collections.emptyList();
-        }
-        List<PlantCategoryVO> voList = new ArrayList<PlantCategoryVO>();
-        for (PlantCategoryDO _do : doList) {
-            PlantCategoryVO vo = PlantCategoryVO.newInstance(_do);
-            if (vo == null) {
-                continue;
-            }
-            voList.add(vo);
-        }
-        return voList;
-    }
+	public static List<PlantCategoryVO> newInstance(List<PlantCategoryDO> doList) {
+		if (CollectionUtils.isEmpty(doList)) {
+			return Collections.emptyList();
+		}
+		List<PlantCategoryVO> voList = new ArrayList<PlantCategoryVO>();
+		for (PlantCategoryDO _do : doList) {
+			PlantCategoryVO vo = PlantCategoryVO.newInstance(_do);
+			if (vo == null) {
+				continue;
+			}
+			voList.add(vo);
+		}
+		return voList;
+	}
 
-    public static PlantCategoryVO newInstance(PlantCategoryDO _do) {
-        if (_do == null) {
-            return null;
-        }
-        return new PlantCategoryVO().toPlantCategory(_do);
-    }
+	public static PlantCategoryVO newInstance(PlantCategoryDO _do) {
+		if (_do == null) {
+			return null;
+		}
+		return new PlantCategoryVO().toPlantCategory(_do);
+	}
 
-    private final PlantCategoryVO toPlantCategory(PlantCategoryDO _do) {
-        setDescription(_do.getDescription());
-        setDisplay(_do.getDisplay());
-        setGmt_created(_do.getGmt_created());
-        setIcon(_do.getIcon());
-        setId(_do.getId());
-        setName(_do.getName());
-        return this;
-    }
+	private final PlantCategoryVO toPlantCategory(PlantCategoryDO _do) {
+		setDescription(_do.getDescription());
+		setDisplay(_do.getDisplay());
+		setGmt_created(_do.getGmt_created());
+		setIcon(_do.getIcon());
+		setId(_do.getId());
+		setName(_do.getName());
+		return this;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public String getIcon() {
-        return icon;
-    }
+	public String getIcon() {
+		return icon;
+	}
 
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 
-    public Byte getDisplay() {
-        return display;
-    }
+	public Byte getDisplay() {
+		return display;
+	}
 
-    public void setDisplay(Byte display) {
-        this.display = display;
-    }
+	public void setDisplay(Byte display) {
+		this.display = display;
+	}
 
-    public Date getGmt_created() {
-        return gmt_created;
-    }
+	public Date getGmt_created() {
+		return gmt_created;
+	}
 
-    public void setGmt_created(Date gmt_created) {
-        this.gmt_created = gmt_created;
-    }
+	public void setGmt_created(Date gmt_created) {
+		this.gmt_created = gmt_created;
+	}
 }

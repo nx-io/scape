@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @version 1.0.0
  * @since 2014年12月28日 上午11:55:04
  */
-public class ItemPublishRequest {
+public class ItemPublishRequest extends BaseRequest {
 
 	@NotEmpty
 	private String title;// 标题
@@ -34,9 +34,6 @@ public class ItemPublishRequest {
 	private String constructor;// 施工者
 
 	private String constructor_contact;// 施工者联系方式
-
-	@NotEmpty
-	private Long user_id;// 发布者
 
 	private String itemMedias;// 图片组，以,分割
 
@@ -118,14 +115,6 @@ public class ItemPublishRequest {
 
 	public void setConstructor_contact(String constructor_contact) {
 		this.constructor_contact = constructor_contact;
-	}
-
-	public Long getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(Long user_id) {
-		this.user_id = user_id;
 	}
 
 	public String getItemMedias() {

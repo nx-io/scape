@@ -14,5 +14,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository(value = "commentsDAO")
 public class DefaultCommentsDAO extends DefaultGenericDAO<CommentsDO, Long> implements CommentsDAO {
-	
+
 }

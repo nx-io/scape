@@ -29,20 +29,20 @@ public class SystemSettingGroupDO implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
-    
-    @Column(name = "group_name", nullable = false, length = 64)
-    private String groupName;
-    
-    @Column(name = "description", nullable = false, length = 255)
-    private String description;
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "gmt_created", nullable = false)
-    private Date gmt_created;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "gmt_modified", nullable = true)
-    private Date gmt_modified;
+	@Column(name = "group_name", nullable = false, length = 64)
+	private String groupName;
+
+	@Column(name = "description", nullable = false, length = 255)
+	private String description;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "gmt_created", nullable = false)
+	private Date gmt_created;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "gmt_modified", nullable = true)
+	private Date gmt_modified;
 
 	public Long getId() {
 		return id;
