@@ -45,7 +45,7 @@ public class RelationController extends BaseController {
 		return toResponse(result);
 	}
 
-	@RequestMapping(value = "/ifav/{userId}", produces = "application/json")
+	@RequestMapping(value = "/ifav/items", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> get_favorite_items(@Valid PageRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {
@@ -65,7 +65,7 @@ public class RelationController extends BaseController {
 		return toResponse(result);
 	}
 
-	@RequestMapping(value = "/ufav/{userId}", produces = "application/json")
+	@RequestMapping(value = "/ufav/users", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> get_favorite_user(@Valid PageRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {

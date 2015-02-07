@@ -65,11 +65,6 @@ public class DefaultItemService extends BaseService implements ItemService {
 			sb.append(" AND i.title LIKE :title ");
 			args.put("title", "%" + title + "%");
 		}
-		Long uid = request.getUid();
-		if (uid != null && uid > 0L) {
-			sb.append(" AND i.user_id = :uid ");
-			args.put("uid", uid);
-		}
 		Long id = request.getId();
 		if (id != null && id > 0L) {
 			sb.append(" AND i.id = :id ");

@@ -16,8 +16,6 @@ public class ItemSearchRequest {
 
 	private String title;// 标题
 
-	private Long uid;// 发布者
-
 	private Long id;// 案例ID
 
 	private String sort;// 排序字段
@@ -70,14 +68,6 @@ public class ItemSearchRequest {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public Long getUid() {
-		return uid;
-	}
-
-	public void setUid(Long uid) {
-		this.uid = uid;
 	}
 
 	public Long getId() {

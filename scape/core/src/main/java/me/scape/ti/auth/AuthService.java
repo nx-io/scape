@@ -98,9 +98,7 @@ public class AuthService {
 	public static LoginResponse login(LoginRequest request) {
 		try {
 			String reqXml = XmlUtils.toXML(request, RequestAlias.Login);
-			System.err.println("Login Request : \n" + reqXml);
 			String responseXML = (String) LOGIN_METHOD.invoke(AUTH_SERVICE_ADAPTER, new Object[] { reqXml });
-			System.err.println("Login Response : \n" + responseXML);
 			if (StringUtils.isEmpty(responseXML)) {
 				return LoginResponse.DEFAULT_RESPONSE;
 			}
