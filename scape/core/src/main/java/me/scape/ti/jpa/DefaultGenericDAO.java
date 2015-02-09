@@ -38,12 +38,18 @@ public class DefaultGenericDAO<T, PK extends Serializable> extends EntityManager
 
 	@Override
 	public T queryNativeForObject(String query, Object[] args) {
-		return (T) createNativeQuery(query, getEntityType(), args).getSingleResult();
+		try {
+			return (T) createNativeQuery(query, getEntityType(), args).getSingleResult();
+		} catch (javax.persistence.NoResultException ingore) {}
+		return null;
 	}
 
 	@Override
 	public T queryNativeForObject(String query, Map<String, Object> args) {
-		return (T) createNativeQuery(query, getEntityType(), args).getSingleResult();
+		try {
+			return (T) createNativeQuery(query, getEntityType(), args).getSingleResult();
+		} catch (javax.persistence.NoResultException ingore) {}
+		return null;
 	}
 
 	@Override
@@ -68,12 +74,18 @@ public class DefaultGenericDAO<T, PK extends Serializable> extends EntityManager
 
 	@Override
 	public T queryForObject(String query, Object[] args) {
-		return createQuery(query, getEntityType(), args).getSingleResult();
+		try {
+			return createQuery(query, getEntityType(), args).getSingleResult();
+		} catch (javax.persistence.NoResultException ingore) {}
+		return null;
 	}
 
 	@Override
 	public T queryForObject(String query, Map<String, Object> args) {
-		return createQuery(query, getEntityType(), args).getSingleResult();
+		try {
+			return createQuery(query, getEntityType(), args).getSingleResult();
+		} catch (javax.persistence.NoResultException ingore) {}
+		return null;
 	}
 
 	@Override
@@ -93,12 +105,18 @@ public class DefaultGenericDAO<T, PK extends Serializable> extends EntityManager
 
 	@Override
 	public T queryNamedForObject(String queryName, Map<String, Object> args) {
-		return createNamedQuery(queryName, getEntityType(), args).getSingleResult();
+		try {
+			return createNamedQuery(queryName, getEntityType(), args).getSingleResult();
+		} catch (javax.persistence.NoResultException ingore) {}
+		return null;
 	}
 
 	@Override
 	public T queryNamedForObject(String queryName, Object[] args) {
-		return createNamedQuery(queryName, getEntityType(), args).getSingleResult();
+		try {
+			return createNamedQuery(queryName, getEntityType(), args).getSingleResult();
+		} catch (javax.persistence.NoResultException ingore) {}
+		return null;
 	}
 
 	@Override
