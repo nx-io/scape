@@ -10,6 +10,13 @@ import me.scape.ti.auth.response.LoginResponse;
 import me.scape.ti.dao.AreaCategoryDAO;
 import me.scape.ti.dao.CategoryDAO;
 import me.scape.ti.dao.CommentsDAO;
+import me.scape.ti.dao.DesignContestDAO;
+import me.scape.ti.dao.DesignContestEntryDAO;
+import me.scape.ti.dao.DesignContestEntryMediaDAO;
+import me.scape.ti.dao.DesignContestEntryVoteDAO;
+import me.scape.ti.dao.DesignContestJudgesDAO;
+import me.scape.ti.dao.DesignContestResultDAO;
+import me.scape.ti.dao.DesignContestUserDAO;
 import me.scape.ti.dao.ItemDAO;
 import me.scape.ti.dao.ItemFavoriteDAO;
 import me.scape.ti.dao.ItemMediaDAO;
@@ -132,6 +139,34 @@ public class BaseService implements InitializingBean {
 	@Autowired
 	@Qualifier(value = "systemSettingDAO")
 	protected SystemSettingDAO systemSettingDAO;
+
+	@Autowired
+	@Qualifier(value = "designContestDAO")
+	protected DesignContestDAO designContestDAO;
+
+	@Autowired
+	@Qualifier(value = "designContestJudgesDAO")
+	protected DesignContestJudgesDAO designContestJudgesDAO;
+
+	@Autowired
+	@Qualifier(value = "designContestEntryDAO")
+	protected DesignContestEntryDAO designContestEntryDAO;
+
+	@Autowired
+	@Qualifier(value = "designContestEntryMediaDAO")
+	protected DesignContestEntryMediaDAO designContestEntryMediaDAO;
+
+	@Autowired
+	@Qualifier(value = "designContestEntryVoteDAO")
+	protected DesignContestEntryVoteDAO designContestEntryVoteDAO;
+
+	@Autowired
+	@Qualifier(value = "designContestUserDAO")
+	protected DesignContestUserDAO designContestUserDAO;
+
+	@Autowired
+	@Qualifier(value = "designContestResultDAO")
+	protected DesignContestResultDAO designContestResultDAO;
 	
 	protected Result doPrivileged(BaseRequest request) {
 		CheckRequest checkRequest = new CheckRequest();
