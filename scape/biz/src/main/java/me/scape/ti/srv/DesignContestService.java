@@ -23,7 +23,7 @@ public interface DesignContestService {
 	Result setDesignContestResult(DesignContestResultRequest request);
 	
 	/**
-	 * 获取别说结果
+	 * 获取比赛结果
 	 */
 	Result getDesignContestResult(Integer contestId);
 	
