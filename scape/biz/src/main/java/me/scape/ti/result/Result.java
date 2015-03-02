@@ -46,6 +46,10 @@ public class Result implements Serializable {
 	public <T> T getResponse(Class<T> type) {
 		return type.cast(response);
 	}
+	
+	public Object getResponse() {
+		return response;
+	}
 
 	public Result with(String key, Object value) {
 		data.put(key, value);
