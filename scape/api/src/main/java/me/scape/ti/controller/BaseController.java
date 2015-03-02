@@ -9,6 +9,7 @@ import me.scape.ti.result.ResultCode;
 import me.scape.ti.srv.AccountService;
 import me.scape.ti.srv.CatService;
 import me.scape.ti.srv.CommonService;
+import me.scape.ti.srv.DesignContestService;
 import me.scape.ti.srv.ItemService;
 import me.scape.ti.srv.PlantService;
 import me.scape.ti.srv.RelationService;
@@ -59,6 +60,10 @@ public class BaseController {
 	@Autowired
 	@Qualifier(value = "plantService")
 	protected PlantService plantService;
+
+	@Autowired
+	@Qualifier(value = "designContestService")
+	protected DesignContestService designContestService;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

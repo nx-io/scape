@@ -31,7 +31,7 @@ public class DesignContestJudgesDO implements Serializable {
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 
-	@Column(name = "match_id", nullable = false)
+	@Column(name = "contest_id", nullable = false)
 	private Integer contest_id;// 赛事ID
 
 	@Column(name = "name", nullable = false, length = 64)

@@ -49,6 +49,12 @@ public enum ResultCode {
 
 	Error_Token(-10006L, "用户登录token校验失败"),
 
+	Error_EntryVote(-11006L, "您已经投票"),
+
+	Error_Entry_Empty(-11006L, "暂时还没有人提交作品"),
+
+	Error_Contest_Result_Empty(-11007L, "比赛结果暂时还没有公布"),
+
 	;
 	public final long code;
 	public final String description;

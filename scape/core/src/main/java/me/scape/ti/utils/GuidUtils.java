@@ -15,4 +15,17 @@ public class GuidUtils {
 		String guid = System.currentTimeMillis() + uuid.substring(0, 8) + uuid.substring(9, 13) + uuid.substring(14, 18) + uuid.substring(19, 23) + uuid.substring(24);
 		return guid;
 	}
+	
+	public static long guidNum() {
+		return stringToLong(guid());
+	}
+	
+	private static long stringToLong(String string) {
+		long result = 0;
+		for (int i = 0; i < string.length(); i++) {
+			int cp = string.codePointAt(i);
+			result |= cp << (i * 8);
+		}
+		return result;
+	}
 }

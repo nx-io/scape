@@ -25,6 +25,18 @@ import javax.persistence.TemporalType;
 public class DesignContestDO implements Serializable {
 
 	private static final long serialVersionUID = -4286930921212697495L;
+	
+	/** 筹备中 */
+	public static final byte PREPARE = 0;
+
+	/** 即将开始 */
+	public static final byte BEGINING = 1;
+	
+	/** 预告中 进行中 (可以展示) */
+	public static final byte IN_PROGRESS = 2;
+	
+	/** 已经结束 */
+	public static final byte ENDED = 3;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

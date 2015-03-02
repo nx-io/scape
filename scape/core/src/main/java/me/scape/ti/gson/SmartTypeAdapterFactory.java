@@ -6,6 +6,10 @@ import java.util.Map;
 import me.scape.ti.vo.AreaCategoryVO;
 import me.scape.ti.vo.CategoryVO;
 import me.scape.ti.vo.CommentsVO;
+import me.scape.ti.vo.DesignContestEntryVO;
+import me.scape.ti.vo.DesignContestJudgesVO;
+import me.scape.ti.vo.DesignContestResultVO;
+import me.scape.ti.vo.DesignContestVO;
 import me.scape.ti.vo.ItemMediaVO;
 import me.scape.ti.vo.ItemVO;
 import me.scape.ti.vo.LabelVO;
@@ -90,6 +94,18 @@ public class SmartTypeAdapterFactory implements TypeAdapterFactory {
 		}
 		if (PlantMediaVO.class == rawType) {
 			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<PlantMediaVO>) gson.getDelegateAdapter(this, type), PlantMediaVO.class);
+		}
+		if (DesignContestVO.class == rawType) {
+			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<DesignContestVO>) gson.getDelegateAdapter(this, type), DesignContestVO.class);
+		}
+		if (DesignContestJudgesVO.class == rawType) {
+			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<DesignContestJudgesVO>) gson.getDelegateAdapter(this, type), DesignContestJudgesVO.class);
+		}
+		if (DesignContestEntryVO.class == rawType) {
+			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<DesignContestEntryVO>) gson.getDelegateAdapter(this, type), DesignContestEntryVO.class);
+		}
+		if (DesignContestResultVO.class == rawType) {
+			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<DesignContestResultVO>) gson.getDelegateAdapter(this, type), DesignContestResultVO.class);
 		}
 		return null;
 	}
