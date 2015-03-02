@@ -6,10 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.scape.ti.auth.AuthService;
-import me.scape.ti.auth.request.CheckRequest;
-import me.scape.ti.auth.request.LoginRequest;
-import me.scape.ti.auth.response.CheckResponse;
 import me.scape.ti.auth.response.LoginResponse;
 import me.scape.ti.dataobject.ItemDO;
 import me.scape.ti.dataobject.UserDO;
@@ -27,7 +23,6 @@ import me.scape.ti.utils.ValidationUtils;
 import me.scape.ti.vo.ItemVO;
 import me.scape.ti.vo.UserVO;
 
-import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,25 +40,18 @@ public class DefaultAccountService extends BaseService implements AccountService
 
 	@Override
 	public Result queryPubOrFavItem(PubfavRequest request) {
-		CheckRequest checkRequest = new CheckRequest();
-		checkRequest.setApp_id(request.getApp_id());
-		checkRequest.setOpen_id(request.getOpen_id());
-		checkRequest.setAccess_token(request.getAccess_token());
-		CheckResponse checkResponse = AuthService.check(checkRequest);
-		if (StringUtils.isBlank(checkResponse.getSecret_id())) {
-			return Result.newError().with(ResultCode.Error_Token);
+		Result privileged = doPrivileged(request);
+		if(!privileged.isSuccess()) {
+			return privileged;
 		}
-		Long user_id = NumberUtils.toLong(checkResponse.getSecret_id(), 0L);
-		if (user_id <= 0L) {
-			return Result.newError().with(ResultCode.Error_Token);
-		}
+		Long userId = privileged.getResponse(Long.class);
 		Map<String, Object> args = new HashMap<String, Object>();
 		Integer page = request.getPage();
 		page = (page != null && page > 0) ? page : 1;
 		PageQuery pageQuery = new PageQuery(page);
 		args.put("start", pageQuery.getIndex());
 		args.put("size", pageQuery.getSize());
-		args.put("user_id", user_id);
+		args.put("user_id", userId);
 		args.put("type", request.getType());
 		String sql = "SELECT * FROM item i WHERE i.user_id = :user_id AND i.type = :type ORDER BY i.gmt_created DESC LIMIT :start, :size";
 		List<ItemDO> itemList = itemDAO.queryNative(sql, args);
@@ -84,19 +72,12 @@ public class DefaultAccountService extends BaseService implements AccountService
 	@Override
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result reset_passwd(ResetPasswdRequest request) {
-		CheckRequest checkRequest = new CheckRequest();
-		checkRequest.setApp_id(request.getApp_id());
-		checkRequest.setOpen_id(request.getOpen_id());
-		checkRequest.setAccess_token(request.getAccess_token());
-		CheckResponse checkResponse = AuthService.check(checkRequest);
-		if (StringUtils.isBlank(checkResponse.getSecret_id())) {
-			return Result.newError().with(ResultCode.Error_Token);
+		Result privileged = doPrivileged(request);
+		if(!privileged.isSuccess()) {
+			return privileged;
 		}
-		Long user_id = NumberUtils.toLong(checkResponse.getSecret_id(), 0L);
-		if (user_id <= 0L) {
-			return Result.newError().with(ResultCode.Error_Token);
-		}
-		UserDO user = userDAO.get(user_id);
+		Long userId = privileged.getResponse(Long.class);
+		UserDO user = userDAO.get(userId);
 		if (user == null) {
 			return Result.newError().with(ResultCode.Error_User_Not_Exist);
 		}
@@ -132,18 +113,16 @@ public class DefaultAccountService extends BaseService implements AccountService
 		user.setLast_login(now);
 		userDAO.merge(user);
 		// 安全登录
-		LoginRequest loginRequest = new LoginRequest();
-		loginRequest.setApp_id(AuthService.App_Id);
-		loginRequest.setSecret_id(String.valueOf(user.getId()));
-		LoginResponse loginResponse = AuthService.login(loginRequest);
+		Result login = login(user.getId());
+		if(!login.isSuccess()) {
+			return login;
+		}
+		LoginResponse loginResponse = login.getResponse(LoginResponse.class);
 		UserVO vo = UserVO.newInstance(user);
 		vo.setApp_id(loginResponse.getApp_id());
 		vo.setOpen_id(loginResponse.getOpen_id());
 		vo.setAccess_token(loginResponse.getAccess_token());
 		vo.setExpires_in(loginResponse.getExpires_in());
-		if (StringUtils.isEmpty(vo.getAccess_token())) {
-			return Result.newError().with(ResultCode.Error_Login);
-		}
 		return Result.newSuccess().with(ResultCode.Success).with("user", vo);
 	}
 
@@ -183,16 +162,16 @@ public class DefaultAccountService extends BaseService implements AccountService
 		try {
 			userDAO.persist(user);
 			// 安全登录
-			LoginRequest loginRequest = new LoginRequest();
-			loginRequest.setApp_id(AuthService.App_Id);
-			loginRequest.setSecret_id(String.valueOf(user.getId()));
-			LoginResponse loginResponse = AuthService.login(loginRequest);
+			Result login = login(user.getId());
+			if(!login.isSuccess()) {
+				return login;
+			}
+			LoginResponse loginResponse = login.getResponse(LoginResponse.class);
 			UserVO vo = UserVO.newInstance(user);
 			vo.setApp_id(loginResponse.getApp_id());
 			vo.setOpen_id(loginResponse.getOpen_id());
 			vo.setAccess_token(loginResponse.getAccess_token());
 			vo.setExpires_in(loginResponse.getExpires_in());
-
 			return Result.newSuccess().with(ResultCode.Success).with("user", vo);
 		} catch (Exception e) {
 			log.error("Account Register Error.", e);

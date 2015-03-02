@@ -16,6 +16,8 @@ public class Result implements Serializable {
 	private boolean success;
 	private String message;
 	private long resultCode;
+	
+	private Object response;
 
 	private final Map<String, Object> data = new HashMap<String, Object>();
 
@@ -34,6 +36,15 @@ public class Result implements Serializable {
 
 	public static Result newSuccess() {
 		return new Result(true);
+	}
+	
+	public Result response(Object response) {
+		this.response = response;
+		return this;
+	}
+	
+	public <T> T getResponse(Class<T> type) {
+		return type.cast(response);
 	}
 
 	public Result with(String key, Object value) {

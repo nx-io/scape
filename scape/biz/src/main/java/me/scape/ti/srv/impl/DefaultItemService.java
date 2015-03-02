@@ -6,9 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.scape.ti.auth.AuthService;
-import me.scape.ti.auth.request.CheckRequest;
-import me.scape.ti.auth.response.CheckResponse;
 import me.scape.ti.dataobject.ItemDO;
 import me.scape.ti.dataobject.ItemMediaDO;
 import me.scape.ti.result.Result;
@@ -25,7 +22,6 @@ import me.scape.ti.vo.ItemVO;
 import me.scape.ti.vo.LabelVO;
 import me.scape.ti.vo.StyleVO;
 
-import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -109,18 +105,11 @@ public class DefaultItemService extends BaseService implements ItemService {
 	@Override
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result publish(ItemPublishRequest request) {
-		CheckRequest checkRequest = new CheckRequest();
-		checkRequest.setApp_id(request.getApp_id());
-		checkRequest.setOpen_id(request.getOpen_id());
-		checkRequest.setAccess_token(request.getAccess_token());
-		CheckResponse checkResponse = AuthService.check(checkRequest);
-		if (StringUtils.isBlank(checkResponse.getSecret_id())) {
-			return Result.newError().with(ResultCode.Error_Token);
+		Result privileged = doPrivileged(request);
+		if(!privileged.isSuccess()) {
+			return privileged;
 		}
-		Long user_id = NumberUtils.toLong(checkResponse.getSecret_id(), 0L);
-		if (user_id <= 0L) {
-			return Result.newError().with(ResultCode.Error_Token);
-		}
+		Long userId = privileged.getResponse(Long.class);
 		if (StringUtils.isBlank(request.getTitle())) {
 			return Result.newError().with(ResultCode.Error_Valid_Request);
 		}
@@ -137,7 +126,7 @@ public class DefaultItemService extends BaseService implements ItemService {
 		item.setDesigner_contact(request.getDesigner_contact());
 		item.setConstructor(request.getConstructor());
 		item.setConstructor_contact(request.getConstructor_contact());
-		item.setUser_id(user_id);
+		item.setUser_id(userId);
 		item.setComment_count(0);
 		item.setGmt_created(now);
 		item.setGmt_modified(now);

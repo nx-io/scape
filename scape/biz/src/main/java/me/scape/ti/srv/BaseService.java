@@ -2,6 +2,11 @@ package me.scape.ti.srv;
 
 import javax.servlet.http.HttpServletRequest;
 
+import me.scape.ti.auth.AuthService;
+import me.scape.ti.auth.request.CheckRequest;
+import me.scape.ti.auth.request.LoginRequest;
+import me.scape.ti.auth.response.CheckResponse;
+import me.scape.ti.auth.response.LoginResponse;
 import me.scape.ti.dao.AreaCategoryDAO;
 import me.scape.ti.dao.CategoryDAO;
 import me.scape.ti.dao.CommentsDAO;
@@ -22,8 +27,13 @@ import me.scape.ti.dao.StyleDAO;
 import me.scape.ti.dao.SystemSettingDAO;
 import me.scape.ti.dao.UserDAO;
 import me.scape.ti.dao.UserFavoriteDAO;
+import me.scape.ti.result.Result;
+import me.scape.ti.result.ResultCode;
+import me.scape.ti.ro.BaseRequest;
 import me.scape.ti.utils.WebUtils;
 
+import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -122,7 +132,37 @@ public class BaseService implements InitializingBean {
 	@Autowired
 	@Qualifier(value = "systemSettingDAO")
 	protected SystemSettingDAO systemSettingDAO;
-
+	
+	protected Result doPrivileged(BaseRequest request) {
+		CheckRequest checkRequest = new CheckRequest();
+		checkRequest.setApp_id(request.getApp_id());
+		checkRequest.setOpen_id(request.getOpen_id());
+		checkRequest.setAccess_token(request.getAccess_token());
+		CheckResponse checkResponse = AuthService.check(checkRequest);
+		if (StringUtils.isBlank(checkResponse.getSecret_id())) {
+			return Result.newError().with(ResultCode.Error_Token);
+		}
+		Long user_id = NumberUtils.toLong(checkResponse.getSecret_id(), 0L);
+		if (user_id <= 0L) {
+			return Result.newError().with(ResultCode.Error_Token);
+		}
+		return Result.newSuccess().with(ResultCode.Success).response(user_id);
+	}
+	
+	protected Result login(Long userId) {
+		if(userId == null || userId <= 0L) {
+			return Result.newError().with(ResultCode.Error_Login);
+		}
+		LoginRequest loginRequest = new LoginRequest();
+		loginRequest.setApp_id(AuthService.App_Id);
+		loginRequest.setSecret_id(String.valueOf(userId));
+		LoginResponse loginResponse = AuthService.login(loginRequest);
+		if (loginResponse == null || StringUtils.isEmpty(loginResponse.getAccess_token())) {
+			return Result.newError().with(ResultCode.Error_Login);
+		}
+		return Result.newSuccess().with(ResultCode.Success).response(loginResponse);
+	}
+	
 	protected final long getIp() {
 		return WebUtils.ipToLng(WebUtils.getIpAddr(request));
 	}
