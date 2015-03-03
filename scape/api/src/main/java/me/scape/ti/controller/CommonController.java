@@ -1,7 +1,8 @@
 package me.scape.ti.controller;
 
-import me.scape.ti.constant.CommonConstant;
 import me.scape.ti.result.Result;
+import me.scape.ti.utils.SystemSettingGroup;
+import me.scape.ti.utils.SystemSettingKey;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,14 +30,14 @@ public class CommonController extends BaseController {
 	@RequestMapping(value = "/version/android", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> version_android() {
-		Result result = commonService.getVersion(CommonConstant.VERSION_ANDROID);
+		Result result = commonService.getSystemSetting(SystemSettingGroup.APP_VERSION, SystemSettingKey.APP_VERSION_ANDROID);
 		return toResponse(result);
 	}
 
 	@RequestMapping(value = "/version/ios", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> version_ios() {
-		Result result = commonService.getVersion(CommonConstant.VERSION_IOS);
+		Result result = commonService.getSystemSetting(SystemSettingGroup.APP_VERSION, SystemSettingKey.APP_VERSION_IOS);
 		return toResponse(result);
 	}
 }

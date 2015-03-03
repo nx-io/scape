@@ -10,6 +10,8 @@ import me.scape.ti.srv.BaseService;
 import me.scape.ti.srv.CommonService;
 import me.scape.ti.utils.CDNUtil;
 import me.scape.ti.utils.FileUtil;
+import me.scape.ti.utils.SystemSettingGroup;
+import me.scape.ti.utils.SystemSettingKey;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,9 +39,8 @@ public class DefaultCommonService extends BaseService implements CommonService {
 	}
 
 	@Override
-	public Result getVersion(String key) {
-		Object[] args = new Object[] { key };
-		SystemSettingDO setting = systemSettingDAO.queryNativeForObject("SELECT * FROM system_setting WHERE group_id = 1 AND setting_key = ?", args);
+	public Result getSystemSetting(SystemSettingGroup group, SystemSettingKey key) {
+		SystemSettingDO setting = systemSettingDAO.getSystemSetting(group, key);
 		if (setting != null) {
 			return Result.newSuccess().with(ResultCode.Success).with("url", setting.getSettingValue()).with("version", setting.getExtend());
 		}

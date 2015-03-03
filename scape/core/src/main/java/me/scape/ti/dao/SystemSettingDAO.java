@@ -2,6 +2,8 @@ package me.scape.ti.dao;
 
 import me.scape.ti.dataobject.SystemSettingDO;
 import me.scape.ti.jpa.GenericDAO;
+import me.scape.ti.utils.SystemSettingGroup;
+import me.scape.ti.utils.SystemSettingKey;
 
 /**
  * 
@@ -12,4 +14,5 @@ import me.scape.ti.jpa.GenericDAO;
  */
 public interface SystemSettingDAO extends GenericDAO<SystemSettingDO, Long> {
 
+	SystemSettingDO getSystemSetting(SystemSettingGroup group, SystemSettingKey key);
 }

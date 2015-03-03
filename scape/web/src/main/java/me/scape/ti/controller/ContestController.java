@@ -1,7 +1,13 @@
 package me.scape.ti.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import me.scape.ti.result.Result;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 比赛.
@@ -14,4 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/contest")
 public class ContestController extends BaseController {
 
+	@RequestMapping(value = "/index")
+	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
+		Result result = designContestService.getActiveDesignContest();
+		return null;
+	}
+	
 }

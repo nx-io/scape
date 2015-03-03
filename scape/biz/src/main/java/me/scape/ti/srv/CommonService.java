@@ -1,6 +1,8 @@
 package me.scape.ti.srv;
 
 import me.scape.ti.result.Result;
+import me.scape.ti.utils.SystemSettingGroup;
+import me.scape.ti.utils.SystemSettingKey;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,5 +16,5 @@ public interface CommonService {
 
 	Result upload(MultipartFile file);
 
-	Result getVersion(String key);
+	Result getSystemSetting(SystemSettingGroup group, SystemSettingKey key);
 }

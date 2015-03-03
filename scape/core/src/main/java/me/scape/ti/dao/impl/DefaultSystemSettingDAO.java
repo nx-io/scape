@@ -1,10 +1,12 @@
 package me.scape.ti.dao.impl;
 
-import org.springframework.stereotype.Repository;
-
 import me.scape.ti.dao.SystemSettingDAO;
 import me.scape.ti.dataobject.SystemSettingDO;
 import me.scape.ti.jpa.DefaultGenericDAO;
+import me.scape.ti.utils.SystemSettingGroup;
+import me.scape.ti.utils.SystemSettingKey;
+
+import org.springframework.stereotype.Repository;
 
 /**
  * 
@@ -16,4 +18,8 @@ import me.scape.ti.jpa.DefaultGenericDAO;
 @Repository(value = "systemSettingDAO")
 public class DefaultSystemSettingDAO extends DefaultGenericDAO<SystemSettingDO, Long> implements SystemSettingDAO {
 
+	@Override
+	public SystemSettingDO getSystemSetting(SystemSettingGroup group, SystemSettingKey key) {
+		return queryNativeForObject("SELECT * FROM system_setting WHERE group_id = ? AND setting_key = ?", new Object[] { group.groupId, key.key });
+	}
 }
