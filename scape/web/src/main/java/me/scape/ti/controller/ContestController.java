@@ -22,8 +22,22 @@ public class ContestController extends BaseController {
 
 	@RequestMapping(value = "/index")
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
-		Result result = designContestService.getActiveDesignContest();
-		return null;
+//		Result result = designContestService.getActiveDesignContest();
+		return new ModelAndView("index");
 	}
 	
+	@RequestMapping(value = "/about")
+	public ModelAndView about(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("about");
+	}
+	
+	@RequestMapping(value = "/organization")
+	public ModelAndView organization(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("organization");
+	}
+	
+	@RequestMapping(value = "/works")
+	public ModelAndView works(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("works");
+	}
 }

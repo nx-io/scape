@@ -10,8 +10,8 @@
     <meta name="keywords" content="河南省景观规划设计大赛，设计比赛，设计大赛，设计竞赛，景观规划">
     <meta name="description" content="2015年第一届河南省景观规划设计大赛。">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-    <link href="/assets/css/bootstrap.v104.min.css" media="screen" rel="stylesheet" type="text/css">
-    <link href="/assets/css/main.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="../assets/css/bootstrap.v104.min.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="../assets/css/main.css" media="screen" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div class="sj-vcg">
@@ -24,10 +24,10 @@
             <div class="doj-nav">
                 <div class="w1200 font-size-18 wr">
                     <ul>
-                        <li class="current"><a href="./index.html">首页</a></li>
-                        <li class=""><a href="./about.html">大赛介绍</a></li>
-                        <li class=""><a href="./organization.html">大赛机构</a></li>
-                        <li class=""><a href="./works.html">参赛作品</a></li>
+                        <li class="current"><a href="../contest/index">首页</a></li>
+                        <li class=""><a href="../contest/about">大赛介绍</a></li>
+                        <li class=""><a href="../contest/organization">大赛机构</a></li>
+                        <li class=""><a href="../contest/works">参赛作品</a></li>
                     </ul>
                     <div class="clearfix"></div>
                     <a class="doj-cansai" href="#">我要参赛</a>
