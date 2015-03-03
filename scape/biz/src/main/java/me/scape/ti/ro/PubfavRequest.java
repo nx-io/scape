@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @version 1.0.0
  * @since 2015年1月18日 下午2:53:44
  */
-public class PubfavRequest extends BaseRequest {
+public class PubfavRequest extends PrivilegedRequest {
 
 	@NotEmpty
 	private Byte type;

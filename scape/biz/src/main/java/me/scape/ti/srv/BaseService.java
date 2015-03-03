@@ -36,7 +36,7 @@ import me.scape.ti.dao.UserDAO;
 import me.scape.ti.dao.UserFavoriteDAO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
-import me.scape.ti.ro.BaseRequest;
+import me.scape.ti.ro.PrivilegedRequest;
 import me.scape.ti.utils.WebUtils;
 
 import org.apache.commons.lang.math.NumberUtils;
@@ -168,7 +168,7 @@ public class BaseService implements InitializingBean {
 	@Qualifier(value = "designContestResultDAO")
 	protected DesignContestResultDAO designContestResultDAO;
 	
-	protected Result doPrivileged(BaseRequest request) {
+	protected Result doPrivileged(PrivilegedRequest request) {
 		CheckRequest checkRequest = new CheckRequest();
 		checkRequest.setApp_id(request.getApp_id());
 		checkRequest.setOpen_id(request.getOpen_id());

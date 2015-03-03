@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @version 1.0.0
  * @since 2015年3月2日 下午4:10:13
  */
-public class JoinDesignContestRequest extends BaseRequest {
+public class JoinDesignContestRequest extends PrivilegedRequest {
 
 	@NotEmpty
 	private Integer contestId;

@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @version 1.0.0
  * @since 2015年3月2日 下午3:07:29
  */
-public class ContestEntryVoteRequest extends BaseRequest {
+public class ContestEntryVoteRequest extends PrivilegedRequest {
 
 	@NotEmpty
 	private Integer entry_id;// 作品ID

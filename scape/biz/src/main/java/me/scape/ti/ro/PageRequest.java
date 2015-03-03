@@ -6,7 +6,7 @@ package me.scape.ti.ro;
  * @version 1.0.0
  * @since 2015年2月7日 上午12:39:15
  */
-public class PageRequest extends BaseRequest {
+public class PageRequest extends PrivilegedRequest {
 
 	private int page = 1;
 

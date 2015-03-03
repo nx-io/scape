@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @version 1.0.0
  * @since 2014年12月31日 下午5:59:29
  */
-public class ItemFavoriteRequest extends BaseRequest {
+public class ItemFavoriteRequest extends PrivilegedRequest {
 
 	@NotEmpty
 	private Long item_id;// 案例ID

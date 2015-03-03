@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @version 1.0.0
  * @since 2015年2月7日 上午12:35:55
  */
-public class BaseRequest {
+public class PrivilegedRequest {
 	/**
 	 * 应用ID
 	 */

@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @version 1.0.0
  * @since 2014年12月31日 下午3:33:06
  */
-public class ResetPasswdRequest extends BaseRequest {
+public class ResetPasswdRequest extends PrivilegedRequest {
 
 	@NotEmpty
 	private String old_passwd;

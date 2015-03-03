@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @version 1.0.0
  * @since 2014年12月28日 上午11:55:04
  */
-public class ItemPublishRequest extends BaseRequest {
+public class ItemPublishRequest extends PrivilegedRequest {
 
 	@NotEmpty
 	private String title;// 标题
