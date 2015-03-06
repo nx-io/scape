@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,16 +24,19 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "design_contest", catalog = "scape")
+@NamedQueries({
+        @NamedQuery(name = "DesignContestDO.getContestsByIds", query = "FROM DesignContestDO WHERE id IN :ids"),
+        @NamedQuery(name = "DesignContestDO.getAllEnabledContests", query = "FROM DesignContestDO WHERE id != 3") })
 public class DesignContestDO implements Serializable {
 
 	private static final long serialVersionUID = -4286930921212697495L;
 
 	/** 筹备中 */
 	public static final byte BEGINING = 1;
-	
+
 	/** 进行中 (可以展示) */
 	public static final byte IN_PROGRESS = 2;
-	
+
 	/** 已经结束 */
 	public static final byte ENDED = 3;
 

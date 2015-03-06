@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"
     contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="form_type" value="${item.id > 0 ? '编辑比赛' : '新建比赛'}"/>
+<c:set var="form_type" value="${contest.id > 0 ? '编辑比赛' : '新建比赛'}"/>
 <head>
     <title>${form_type} - 景观云图后台管理系统</title>
 

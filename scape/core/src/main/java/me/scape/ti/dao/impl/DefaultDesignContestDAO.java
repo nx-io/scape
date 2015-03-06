@@ -2,7 +2,9 @@ package me.scape.ti.dao.impl;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import me.scape.ti.commons.Pagination;
 import me.scape.ti.criteria.DesignContestQueryCriteria;
@@ -58,6 +60,22 @@ public class DefaultDesignContestDAO extends DefaultGenericDAO<DesignContestDO, 
         List<DesignContestDO> list = queryNative(sqlFetchRows.append(condition).toString(), args.toArray());
 
         return new Pagination(count.intValue(), list);
+    }
+
+    @Override
+    public List<DesignContestDO> getContestsByIds(List<Integer> ids) {
+        if (null == ids || ids.size() <= 0) {
+            return new ArrayList<DesignContestDO>();
+        }
+
+        Map<String, Object> args = new HashMap<String, Object>();
+        args.put("ids", ids);
+        return queryNamed("DesignContestDO.getContestsByIds", args);
+    }
+
+    @Override
+    public List<DesignContestDO> getAllEnabledContests() {
+        return queryNamed("DesignContestDO.getAllEnabledContests");
     }
 
 }

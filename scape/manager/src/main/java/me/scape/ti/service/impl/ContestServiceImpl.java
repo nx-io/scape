@@ -2,19 +2,28 @@ package me.scape.ti.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import me.scape.ti.commons.Pagination;
+import me.scape.ti.criteria.DesignContestNewsQueryCriteria;
 import me.scape.ti.criteria.DesignContestQueryCriteria;
 import me.scape.ti.dao.DesignContestDAO;
+import me.scape.ti.dao.DesignContestNewsDAO;
 import me.scape.ti.dataobject.DesignContestDO;
+import me.scape.ti.dataobject.DesignContestNewsDO;
 import me.scape.ti.service.ContestService;
+import me.scape.ti.vo.ContestDetailNewsVO;
 import me.scape.ti.vo.ContestDetailVO;
 import me.scape.ti.vo.ContestListVO;
+import me.scape.ti.vo.ContestNewsListVO;
 import me.scape.ti.vo.CurrentPage;
 import me.scape.ti.vo.request.ContestListRequest;
+import me.scape.ti.vo.request.ContestNewsListRequest;
+import me.scape.ti.vo.request.ContestNewsRequest;
 import me.scape.ti.vo.request.ContestRequest;
 
 import org.springframework.stereotype.Service;
@@ -25,6 +34,9 @@ public class ContestServiceImpl extends BaseServiceImpl implements ContestServic
 
     @Resource
     private DesignContestDAO designContestDAO;
+
+    @Resource
+    private DesignContestNewsDAO designContestNewsDAO;
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
@@ -44,6 +56,14 @@ public class ContestServiceImpl extends BaseServiceImpl implements ContestServic
         List<ContestListVO> contestVOs = formatContests(contests.getItems());
 
         return new CurrentPage(curn, contests.getCount(), pageSize, contestVOs);
+    }
+
+    @Override
+    public List<ContestListVO> listAllEnabledContests() {
+        List<DesignContestDO> contests = designContestDAO.getAllEnabledContests();
+        List<ContestListVO> contestVOs = formatContests(contests);
+
+        return contestVOs;
     }
 
     private List<ContestListVO> formatContests(List<DesignContestDO> contests) {
@@ -147,6 +167,97 @@ public class ContestServiceImpl extends BaseServiceImpl implements ContestServic
         contest.setEnd_time(contestRequest.getEnd_time());
 
         contest.setGmt_modified(now);
+    }
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Override
+    public CurrentPage<ContestNewsListVO> listContestNews(ContestNewsListRequest contestNewsListRequest) {
+        DesignContestNewsQueryCriteria criteria = new DesignContestNewsQueryCriteria();
+
+        int curn = contestNewsListRequest.getCurn() > 0 ? contestNewsListRequest.getCurn() : 1;
+        int pageSize = contestNewsListRequest.getPs();
+        criteria.setOffset((curn - 1) * pageSize);
+        criteria.setLimit(pageSize);
+
+        Pagination<DesignContestNewsDO> contestNewsPagination = designContestNewsDAO.listDesignContestNews(criteria);
+
+        List<ContestNewsListVO> contestNewsVOs = new ArrayList<ContestNewsListVO>();
+        List<DesignContestNewsDO> contestNewsList = contestNewsPagination.getItems();
+        if (null != contestNewsList && contestNewsList.size() > 0) {
+            List<Integer> contestIds = new ArrayList<Integer>();
+            for (DesignContestNewsDO contestNews : contestNewsList) {
+                contestIds.add(contestNews.getContest_id());
+            }
+            List<DesignContestDO> contestList = designContestDAO.getContestsByIds(contestIds);
+            Map<Integer, String> contestMap = new HashMap<Integer, String>();
+            for (DesignContestDO contest : contestList) {
+                contestMap.put(contest.getId(), contest.getTitle());
+            }
+
+            for (DesignContestNewsDO contestNews : contestNewsList) {
+                ContestNewsListVO contestNewsListVO = new ContestNewsListVO();
+                contestNewsListVO.setId(contestNews.getId());
+                contestNewsListVO.setTitle(contestNews.getTitle());
+                contestNewsListVO.setContest_id(contestNews.getContest_id());
+                contestNewsListVO.setContest_title(contestMap.get(contestNews.getContest_id()));
+                contestNewsListVO.setGmt_created(contestNews.getGmt_created());
+
+                contestNewsVOs.add(contestNewsListVO);
+            }
+        }
+
+        return new CurrentPage(curn, contestNewsPagination.getCount(), pageSize, contestNewsVOs);
+    }
+
+    @Override
+    @Transactional(value = "transactionManager", rollbackFor = Throwable.class)
+    public long createContestNews(ContestNewsRequest contestNewsRequest) {
+        Date now = new Date();
+
+        DesignContestNewsDO contestNews = new DesignContestNewsDO();
+
+        contestNews.setTitle(contestNewsRequest.getTitle());
+        contestNews.setContest_id(contestNewsRequest.getContest_id());
+        contestNews.setContent(contestNewsRequest.getContent());
+        contestNews.setGmt_created(now);
+        contestNews.setGmt_modified(now);
+
+        designContestDAO.persist(contestNews);
+
+        return contestNews.getId();
+    }
+
+    @Override
+    public ContestDetailNewsVO getContestNewsDetail(long contestNewsId) {
+        ContestDetailNewsVO contestDetailNewsVO = new ContestDetailNewsVO();
+
+        DesignContestNewsDO contestNews = designContestNewsDAO.get(contestNewsId);
+        if (null == contestNews) {
+            return contestDetailNewsVO;
+        }
+
+        contestDetailNewsVO.setId(contestNewsId);
+        contestDetailNewsVO.setTitle(contestNews.getTitle());
+        contestDetailNewsVO.setContest_id(contestNews.getContest_id());
+        contestDetailNewsVO.setContent(contestNews.getContent());
+
+        return contestDetailNewsVO;
+    }
+
+    @Override
+    @Transactional(value = "transactionManager", rollbackFor = Throwable.class)
+    public void editContestNews(long contestNewsId, ContestNewsRequest contestNewsRequest) {
+        DesignContestNewsDO contestNews = designContestNewsDAO.get(contestNewsId);
+        if (null == contestNews) {
+            return;
+        }
+
+        Date now = new Date();
+
+        contestNews.setTitle(contestNewsRequest.getTitle());
+        contestNews.setContest_id(contestNewsRequest.getContest_id());
+        contestNews.setContent(contestNewsRequest.getContent());
+        contestNews.setGmt_modified(now);
     }
 
 }

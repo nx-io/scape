@@ -1,5 +1,7 @@
 package me.scape.ti.dao;
 
+import java.util.List;
+
 import me.scape.ti.commons.Pagination;
 import me.scape.ti.criteria.DesignContestQueryCriteria;
 import me.scape.ti.dataobject.DesignContestDO;
@@ -15,4 +17,8 @@ import me.scape.ti.jpa.GenericDAO;
 public interface DesignContestDAO extends GenericDAO<DesignContestDO, Integer> {
 
     Pagination<DesignContestDO> ListDesignContests(DesignContestQueryCriteria criteria);
+
+    List<DesignContestDO> getContestsByIds(List<Integer> ids);
+
+    List<DesignContestDO> getAllEnabledContests();
 }
