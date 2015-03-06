@@ -7,7 +7,6 @@
 
     <script src="resources/contest/news_form.js"></script>
     <link rel="stylesheet" type="text/css" href="resources/libs/kindeditor/themes/default/default.css" />
-    <script src="<%=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/"%>resources/libs/My97DatePicker/WdatePicker.js"></script>
     <script src="resources/libs/kindeditor/kindeditor-min.js"></script>
     <script src="resources/libs/kindeditor/lang/zh_CN.js"></script>
     <script>

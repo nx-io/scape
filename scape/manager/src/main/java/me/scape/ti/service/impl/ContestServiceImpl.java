@@ -11,16 +11,24 @@ import javax.annotation.Resource;
 import me.scape.ti.commons.Pagination;
 import me.scape.ti.criteria.DesignContestNewsQueryCriteria;
 import me.scape.ti.criteria.DesignContestQueryCriteria;
+import me.scape.ti.criteria.DesignContestJudgeQueryCriteria;
 import me.scape.ti.dao.DesignContestDAO;
+import me.scape.ti.dao.DesignContestJudgesDAO;
 import me.scape.ti.dao.DesignContestNewsDAO;
 import me.scape.ti.dataobject.DesignContestDO;
+import me.scape.ti.dataobject.DesignContestJudgesDO;
 import me.scape.ti.dataobject.DesignContestNewsDO;
 import me.scape.ti.service.ContestService;
+import me.scape.ti.utils.CDNUtil;
 import me.scape.ti.vo.ContestDetailNewsVO;
 import me.scape.ti.vo.ContestDetailVO;
+import me.scape.ti.vo.ContestJudgeDetailVO;
+import me.scape.ti.vo.ContestJudgeListVO;
 import me.scape.ti.vo.ContestListVO;
 import me.scape.ti.vo.ContestNewsListVO;
 import me.scape.ti.vo.CurrentPage;
+import me.scape.ti.vo.request.ContestJudgeListRequest;
+import me.scape.ti.vo.request.ContestJudgeRequest;
 import me.scape.ti.vo.request.ContestListRequest;
 import me.scape.ti.vo.request.ContestNewsListRequest;
 import me.scape.ti.vo.request.ContestNewsRequest;
@@ -37,6 +45,9 @@ public class ContestServiceImpl extends BaseServiceImpl implements ContestServic
 
     @Resource
     private DesignContestNewsDAO designContestNewsDAO;
+
+    @Resource
+    private DesignContestJudgesDAO designContestJudgesDAO;
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
@@ -258,6 +269,109 @@ public class ContestServiceImpl extends BaseServiceImpl implements ContestServic
         contestNews.setContest_id(contestNewsRequest.getContest_id());
         contestNews.setContent(contestNewsRequest.getContent());
         contestNews.setGmt_modified(now);
+    }
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Override
+    public CurrentPage<ContestJudgeListVO> listContestJudge(ContestJudgeListRequest contestJudgeListRequest) {
+        DesignContestJudgeQueryCriteria criteria = new DesignContestJudgeQueryCriteria();
+
+        int curn = contestJudgeListRequest.getCurn() > 0 ? contestJudgeListRequest.getCurn() : 1;
+        int pageSize = contestJudgeListRequest.getPs();
+        criteria.setOffset((curn - 1) * pageSize);
+        criteria.setLimit(pageSize);
+
+        Pagination<DesignContestJudgesDO> contestJudgesPagination = designContestJudgesDAO
+                .listDesignContestJudge(criteria);
+
+        List<ContestJudgeListVO> contestJudgeVOs = new ArrayList<ContestJudgeListVO>();
+        List<DesignContestJudgesDO> contestJudgeList = contestJudgesPagination.getItems();
+        if (null != contestJudgeList && contestJudgeList.size() > 0) {
+            List<Integer> contestIds = new ArrayList<Integer>();
+            for (DesignContestJudgesDO contestJudge : contestJudgeList) {
+                contestIds.add(contestJudge.getContest_id());
+            }
+            List<DesignContestDO> contestList = designContestDAO.getContestsByIds(contestIds);
+            Map<Integer, String> contestMap = new HashMap<Integer, String>();
+            for (DesignContestDO contest : contestList) {
+                contestMap.put(contest.getId(), contest.getTitle());
+            }
+
+            for (DesignContestJudgesDO contestJudge : contestJudgeList) {
+                ContestJudgeListVO contestJudgeListVO = new ContestJudgeListVO();
+                contestJudgeListVO.setId(contestJudge.getId());
+                contestJudgeListVO.setName(contestJudge.getName());
+                contestJudgeListVO.setTitle(contestJudge.getTitle());
+                contestJudgeListVO.setAvatar(CDNUtil.getFullPath(contestJudge.getAvatar()));
+                contestJudgeListVO.setContest_id(contestJudge.getContest_id());
+                contestJudgeListVO.setContest_title(contestMap.get(contestJudge.getContest_id()));
+                contestJudgeListVO.setGmt_created(contestJudge.getGmt_created());
+
+                contestJudgeVOs.add(contestJudgeListVO);
+            }
+        }
+
+        return new CurrentPage(curn, contestJudgesPagination.getCount(), pageSize, contestJudgeVOs);
+    }
+
+    @Override
+    @Transactional(value = "transactionManager", rollbackFor = Throwable.class)
+    public long createContestJudge(ContestJudgeRequest contestJudgeRequest) {
+        Date now = new Date();
+
+        DesignContestJudgesDO contestJudge = new DesignContestJudgesDO();
+        contestJudge.setTitle(contestJudgeRequest.getTitle());
+        contestJudge.setContest_id(contestJudgeRequest.getContest_id());
+        contestJudge.setName(contestJudgeRequest.getName());
+        contestJudge.setTitle(contestJudgeRequest.getTitle());
+        contestJudge.setAvatar(contestJudgeRequest.getAvatar());
+        contestJudge.setProfile(contestJudgeRequest.getProfile());
+        contestJudge.setGmt_created(now);
+        contestJudge.setGmt_modified(now);
+
+        designContestJudgesDAO.persist(contestJudge);
+
+        return contestJudge.getId();
+    }
+
+    @Override
+    public ContestJudgeDetailVO getContestJudgeDetail(long contestJudgeId) {
+        ContestJudgeDetailVO contestJudgeDetailVO = new ContestJudgeDetailVO();
+
+        DesignContestJudgesDO contestJudge = designContestJudgesDAO.get(contestJudgeId);
+        if (null == contestJudge) {
+            return contestJudgeDetailVO;
+        }
+
+        contestJudgeDetailVO.setId(contestJudgeId);
+        contestJudgeDetailVO.setTitle(contestJudge.getTitle());
+        contestJudgeDetailVO.setContest_id(contestJudge.getContest_id());
+        contestJudgeDetailVO.setName(contestJudge.getName());
+        contestJudgeDetailVO.setTitle(contestJudge.getTitle());
+        contestJudgeDetailVO.setAvatar(contestJudge.getAvatar());
+        contestJudgeDetailVO.setAvatar_url(CDNUtil.getFullPath(contestJudge.getAvatar()));
+        contestJudgeDetailVO.setProfile(contestJudge.getProfile());
+
+        return contestJudgeDetailVO;
+    }
+
+    @Override
+    @Transactional(value = "transactionManager", rollbackFor = Throwable.class)
+    public void editContestJudge(long contestJudgeId, ContestJudgeRequest contestJudgeRequest) {
+        DesignContestJudgesDO contestJudge = designContestJudgesDAO.get(contestJudgeId);
+        if (null == contestJudge) {
+            return;
+        }
+
+        Date now = new Date();
+
+        contestJudge.setTitle(contestJudgeRequest.getTitle());
+        contestJudge.setContest_id(contestJudgeRequest.getContest_id());
+        contestJudge.setName(contestJudgeRequest.getName());
+        contestJudge.setTitle(contestJudgeRequest.getTitle());
+        contestJudge.setAvatar(contestJudgeRequest.getAvatar());
+        contestJudge.setProfile(contestJudgeRequest.getProfile());
+        contestJudge.setGmt_modified(now);
     }
 
 }

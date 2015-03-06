@@ -1,5 +1,7 @@
 package me.scape.ti.dao;
 
+import me.scape.ti.commons.Pagination;
+import me.scape.ti.criteria.DesignContestJudgeQueryCriteria;
 import me.scape.ti.dataobject.DesignContestJudgesDO;
 import me.scape.ti.jpa.GenericDAO;
 
@@ -12,4 +14,5 @@ import me.scape.ti.jpa.GenericDAO;
  */
 public interface DesignContestJudgesDAO extends GenericDAO<DesignContestJudgesDO, Long> {
 
+    Pagination<DesignContestJudgesDO> listDesignContestJudge(DesignContestJudgeQueryCriteria criteria);
 }

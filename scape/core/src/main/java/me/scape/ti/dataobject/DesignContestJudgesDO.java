@@ -40,10 +40,10 @@ public class DesignContestJudgesDO implements Serializable {
 	@Column(name = "title", nullable = false, length = 64)
 	private String title;// 职称
 
-	@Column(name = "avatar", nullable = false, length = 255)
+	@Column(name = "avatar", length = 255)
 	private String avatar;// 头像
 
-	@Column(name = "profile", nullable = false, length = 1024)
+	@Column(name = "profile", length = 1024)
 	private String profile;// 简介
 
 	@Temporal(TemporalType.TIMESTAMP)

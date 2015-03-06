@@ -3,9 +3,13 @@ package me.scape.ti.controller;
 import me.scape.ti.service.ContestService;
 import me.scape.ti.vo.ContestDetailNewsVO;
 import me.scape.ti.vo.ContestDetailVO;
+import me.scape.ti.vo.ContestJudgeDetailVO;
+import me.scape.ti.vo.ContestJudgeListVO;
 import me.scape.ti.vo.ContestListVO;
 import me.scape.ti.vo.ContestNewsListVO;
 import me.scape.ti.vo.CurrentPage;
+import me.scape.ti.vo.request.ContestJudgeListRequest;
+import me.scape.ti.vo.request.ContestJudgeRequest;
 import me.scape.ti.vo.request.ContestListRequest;
 import me.scape.ti.vo.request.ContestNewsListRequest;
 import me.scape.ti.vo.request.ContestNewsRequest;
@@ -41,7 +45,7 @@ public class ContestController extends BaseController {
             condition.append("&status=").append(contestListRequest.getStatus());
         }
         if (StringUtils.isNotEmpty(contestListRequest.getTitle())) {
-            condition.append("&name=").append(contestListRequest.getTitle());
+            condition.append("&title=").append(contestListRequest.getTitle());
         }
 
         model.addAttribute("condition", condition.toString());
@@ -122,5 +126,55 @@ public class ContestController extends BaseController {
         contestService.editContestNews(id, contestNewsRequest);
 
         return "redirect:/contest_news/list";
+    }
+
+    @RequestMapping("/contest_judge/list")
+    public String listContestJudge(@ModelAttribute ContestJudgeListRequest contestJudgeListRequest, Model model) {
+
+        CurrentPage<ContestJudgeListVO> result = contestService.listContestJudge(contestJudgeListRequest);
+        model.addAttribute("curn", result.getCurn());
+        model.addAttribute("totaln", result.getTotaln());
+        model.addAttribute("judges", result.getItems());
+        model.addAttribute("ps", contestJudgeListRequest.getPs());
+
+        model.addAttribute("request", contestJudgeListRequest);
+
+        StringBuilder condition = new StringBuilder();
+        if (StringUtils.isNotEmpty(contestJudgeListRequest.getName())) {
+            condition.append("&name=").append(contestJudgeListRequest.getName());
+        }
+        model.addAttribute("condition", condition.toString());
+
+        return "contest/judge_list";
+    }
+
+    @RequestMapping("/contest_judge/addPage")
+    public String getAddContestJudgePage(Model model) {
+        model.addAttribute("judge", new ContestJudgeDetailVO());
+        model.addAttribute("contests", contestService.listAllEnabledContests());
+
+        return "contest/judge_form";
+    }
+
+    @RequestMapping(value = "/contest_judge/add", method = RequestMethod.POST)
+    public String addContestJudge(@ModelAttribute ContestJudgeRequest contestJudgeRequest, Model model) {
+        contestService.createContestJudge(contestJudgeRequest);
+
+        return "redirect:/contest_judge/list";
+    }
+
+    @RequestMapping("/contest_judge/editPage")
+    public String getEditContestJudgePage(int id, Model model) {
+        model.addAttribute("judge", contestService.getContestJudgeDetail(id));
+        model.addAttribute("contests", contestService.listAllEnabledContests());
+
+        return "contest/judge_form";
+    }
+
+    @RequestMapping(value = "/contest_judge/edit", method = RequestMethod.POST)
+    public String editContestJudge(int id, @ModelAttribute ContestJudgeRequest contestJudgeRequest) {
+        contestService.editContestJudge(id, contestJudgeRequest);
+
+        return "redirect:/contest_judge/list";
     }
 }

@@ -141,6 +141,7 @@
                             <ul class="treeview-menu">
                                 <li><a href="contest/list"><i class="fa fa-angle-double-right"></i> 比赛列表</a></li>
                                 <li><a href="contest_news/list"><i class="fa fa-angle-double-right"></i> 新闻动态</a></li>
+                                <li><a href="contest_judge/list"><i class="fa fa-angle-double-right"></i> 专家评委</a></li>
                             </ul>
                         </li>
                       </sec:authorize>

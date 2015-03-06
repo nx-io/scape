@@ -4,9 +4,13 @@ import java.util.List;
 
 import me.scape.ti.vo.ContestDetailNewsVO;
 import me.scape.ti.vo.ContestDetailVO;
+import me.scape.ti.vo.ContestJudgeDetailVO;
+import me.scape.ti.vo.ContestJudgeListVO;
 import me.scape.ti.vo.ContestListVO;
 import me.scape.ti.vo.ContestNewsListVO;
 import me.scape.ti.vo.CurrentPage;
+import me.scape.ti.vo.request.ContestJudgeListRequest;
+import me.scape.ti.vo.request.ContestJudgeRequest;
 import me.scape.ti.vo.request.ContestListRequest;
 import me.scape.ti.vo.request.ContestNewsListRequest;
 import me.scape.ti.vo.request.ContestNewsRequest;
@@ -31,4 +35,12 @@ public interface ContestService {
     ContestDetailNewsVO getContestNewsDetail(long contestNewsId);
 
     void editContestNews(long contestNewsId, ContestNewsRequest contestNewsRequest);
+
+    CurrentPage<ContestJudgeListVO> listContestJudge(ContestJudgeListRequest contestJudgeListRequest);
+
+    long createContestJudge(ContestJudgeRequest contestJudgeRequest);
+
+    ContestJudgeDetailVO getContestJudgeDetail(long contestJudgeId);
+
+    void editContestJudge(long contestJudgeId, ContestJudgeRequest contestJudgeRequest);
 }
