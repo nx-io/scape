@@ -36,7 +36,8 @@ public class DefaultPlantsDAO extends DefaultGenericDAO<PlantsDO, Integer> imple
 
 		StringBuilder condition = new StringBuilder();
 		if (StringUtils.isNotEmpty(criteria.getName())) {
-			condition.append(" AND p.name LIKE ?");
+			condition.append(" AND p.name_cn LIKE ? OR p.name_en LIKE ?");
+			args.add("%" + criteria.getName() + "%");
 			args.add("%" + criteria.getName() + "%");
 		}
 		if (null != criteria.getCat_id()) {
