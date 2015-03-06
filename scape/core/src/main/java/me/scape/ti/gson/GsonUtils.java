@@ -16,10 +16,13 @@ import com.google.gson.GsonBuilder;
 public class GsonUtils {
 
 	public final static Gson GSON = new GsonBuilder()
-			// .setPrettyPrinting()//格式化
+//			.setPrettyPrinting()//格式化
 			.enableComplexMapKeySerialization()
-			// .serializeNulls()
-			.disableHtmlEscaping().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).setDateFormat(CalendarUtil.S_YYYY_MM_DD_HH_MM_SS).registerTypeAdapterFactory(new SmartTypeAdapterFactory())
+//			.serializeNulls()
+			.disableHtmlEscaping()
+			.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
+			.setDateFormat(CalendarUtil.S_YYYY_MM_DD_HH_MM_SS)
+			.registerTypeAdapterFactory(new SmartTypeAdapterFactory())
 			.create();
 
 	public static void main(String[] args) {

@@ -190,7 +190,7 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 		if(CollectionUtils.isEmpty(doList)) {
 			return Result.newError().with(ResultCode.Error_Active_Design_Contest_Empty);
 		}
-		return Result.newSuccess().with(ResultCode.Success).response(DesignContestVO.newInstance(doList.get(0)));
+		return Result.newSuccess().with(ResultCode.Success).with("contest", DesignContestVO.newInstance(doList.get(0)));
 	}
 
 	@Override
