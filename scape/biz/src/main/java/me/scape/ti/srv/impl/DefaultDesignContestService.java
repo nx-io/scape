@@ -13,7 +13,6 @@ import me.scape.ti.dataobject.DesignContestEntryVoteDO;
 import me.scape.ti.dataobject.DesignContestJudgesDO;
 import me.scape.ti.dataobject.DesignContestResultDO;
 import me.scape.ti.dataobject.DesignContestUserDO;
-import me.scape.ti.dataobject.SystemSettingDO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
 import me.scape.ti.ro.ContestEntryRequest;
@@ -26,8 +25,6 @@ import me.scape.ti.srv.DesignContestService;
 import me.scape.ti.srv.PageQuery;
 import me.scape.ti.utils.GuidUtils;
 import me.scape.ti.utils.ImageUtils;
-import me.scape.ti.utils.SystemSettingGroup;
-import me.scape.ti.utils.SystemSettingKey;
 import me.scape.ti.vo.DesignContestEntryVO;
 import me.scape.ti.vo.DesignContestJudgesVO;
 import me.scape.ti.vo.DesignContestResultVO;
@@ -191,9 +188,9 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 	public Result getActiveDesignContest() {
 		List<DesignContestDO> doList = designContestDAO.query("FROM DesignContestDO WHERE status = ?", new Object[] { DesignContestDO.IN_PROGRESS });
 		if(CollectionUtils.isEmpty(doList)) {
-//			return Result.newError().with(ResultCode.);
+			return Result.newError().with(ResultCode.Error_Active_Design_Contest_Empty);
 		}
-		return Result.newSuccess().with(ResultCode.Success).with("contestList", DesignContestVO.newInstance(doList));
+		return Result.newSuccess().with(ResultCode.Success).response(DesignContestVO.newInstance(doList.get(0)));
 	}
 
 	@Override
