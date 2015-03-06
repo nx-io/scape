@@ -131,6 +131,18 @@
                             </ul>
                         </li>
                       </sec:authorize>
+                      <sec:authorize url="/contest/list">
+                        <li class="treeview active">
+                            <a href="#">
+                                <i class="fa fa-gift"></i>
+                                <span>设计比赛</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="contest/list"><i class="fa fa-angle-double-right"></i> 比赛列表</a></li>
+                            </ul>
+                        </li>
+                      </sec:authorize>
                     </ul>
                 </section>
             </aside>
