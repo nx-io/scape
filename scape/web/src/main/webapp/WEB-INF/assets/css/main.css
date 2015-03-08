@@ -1,5 +1,6 @@
+@charset "utf-8";
 body {
-    font-family: "Microsoft YaHei",Î¢ÈíÑÅºÚ,"MicrosoftJhengHei",»ªÎÄÏ¸ºÚ,STHeiti,MingLiu;
+    font-family: "Microsoft YaHei",Î¢ï¿½ï¿½ï¿½Åºï¿½,"MicrosoftJhengHei",ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½,STHeiti,MingLiu;
     font-size: 14px;
     line-height: 1.428571429;
     color: #333;
@@ -49,7 +50,7 @@ a:hover, a:focus, a {
 .doj-nav {
     width: 100%;
     height: 95px;
-    background: url("../images/navbg.jpg") no-repeat left top;
+    background: url("../image/navbg.jpg") no-repeat left top;
 }
 .w1200 {
     width: 1200px;
@@ -283,7 +284,7 @@ footer {
     overflow: hidden;
     position: relative;
     width: 100%;
-    background: url("http://static.shijue.cvimage.cn/images/loaded.gif") no-repeat center center #F7F7F7;
+    background: url("../image/loaded.gif") no-repeat center center #F7F7F7;
     height: 100%;
 }
 .masonry-box .list-max-height-680 {
@@ -325,10 +326,10 @@ background-color: #fafafa;
 color: #999;
 }
 .icon-sj-preview {
-background: url("http://static.shijue.cvimage.cn/images/work_tool_001.png") no-repeat -339px 3px;
+background: url("../image/work_tool_001.png") no-repeat -339px 3px;
 }
 .icon-sj-collect {
-background: url("http://static.shijue.cvimage.cn/images/work_tool_001.png") no-repeat -305px -23px;
+background: url("../image/work_tool_001.png") no-repeat -305px -23px;
 }
 .icon-label {
 width: 16px;

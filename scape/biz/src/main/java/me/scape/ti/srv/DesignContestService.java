@@ -38,7 +38,7 @@ public interface DesignContestService {
 	Result joinDesignContest(JoinDesignContestRequest request);
 
 	/**
-	 * 获取正在进行的比赛
+	 * 获取正在进行的比赛信息
 	 */
 	Result getActiveDesignContest();
 	

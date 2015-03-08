@@ -55,6 +55,8 @@ public enum ResultCode {
 
 	Error_Contest_Result_Empty(-11007L, "比赛结果暂时还没有公布"),
 
+	Error_Active_Design_Contest_Empty(-11008L, "没有正在进行的项目"),
+
 	;
 	public final long code;
 	public final String description;

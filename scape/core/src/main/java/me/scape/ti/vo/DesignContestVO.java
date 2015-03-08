@@ -17,7 +17,7 @@ import org.springframework.util.CollectionUtils;
  * @since 2015年3月2日 下午2:20:30
  */
 public class DesignContestVO {
-
+	
 	private Integer id;
 
 	private String title;// 大赛标题

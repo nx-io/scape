@@ -22,7 +22,7 @@ public class ContestController extends BaseController {
 
 	@RequestMapping(value = "/index")
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
-//		Result result = designContestService.getActiveDesignContest();
+		Result result = designContestService.getActiveDesignContest();
 		return new ModelAndView("index");
 	}
 	

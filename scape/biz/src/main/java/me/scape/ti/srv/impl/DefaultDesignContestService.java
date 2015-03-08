@@ -195,7 +195,7 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 	public Result getActiveDesignContest() {
 		List<DesignContestDO> doList = designContestDAO.query("FROM DesignContestDO WHERE status = ?", new Object[] { DesignContestDO.IN_PROGRESS });
 		if(CollectionUtils.isEmpty(doList)) {
-			return Result.newError().with(ResultCode.Error_Contest_Result_Empty);
+			return Result.newError().with(ResultCode.Error_Active_Design_Contest_Empty);
 		}
 		return Result.newSuccess().with(ResultCode.Success).with("contest", DesignContestVO.newInstance(doList.get(0)));
 	}
