@@ -14,6 +14,6 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  * @since 2015年3月2日 下午2:10:33
  */
 @Repository(value = "designContestEntryVoteDAO")
-public class DefaultDesignContestEntryVoteDAO extends DefaultGenericDAO<DesignContestEntryVoteDO, Long> implements DesignContestEntryVoteDAO {
+public class DefaultDesignContestEntryVoteDAO extends DefaultGenericDAO<DesignContestEntryVoteDO, Integer> implements DesignContestEntryVoteDAO {
 	
 }

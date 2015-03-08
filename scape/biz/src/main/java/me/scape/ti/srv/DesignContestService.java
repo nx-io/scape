@@ -53,9 +53,14 @@ public interface DesignContestService {
 	Result uploadContestEntry(UploadContestEntryRequest request);
 	
 	/**
+	 * 获取比赛作品列表
+	 */
+	Result getContestEntryList(ContestEntryRequest request);
+	
+	/**
 	 * 获取比赛作品
 	 */
-	Result getContestEntry(ContestEntryRequest request);
+	Result getContestEntry(Integer entryId);
 	
 	/**
 	 * 投票

@@ -18,6 +18,7 @@ import org.springframework.util.CollectionUtils;
  * @since 2015年3月2日 下午3:31:52
  */
 public class DesignContestEntryVO {
+	private Integer id;
 
 	private Integer contest_id;// 赛事ID
 
@@ -63,7 +64,16 @@ public class DesignContestEntryVO {
 		setDescription(_do.getDescription());
 		setGmt_created(_do.getGmt_created());
 		setTitle(_do.getTitle());
+		setId(_do.getId());
 		return this;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Long getVoteCount() {

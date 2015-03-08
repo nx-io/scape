@@ -43,11 +43,18 @@ public class ContestController extends BaseController {
 	
 	@RequestMapping(value = "/entry", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> entry(@Valid ContestEntryRequest request, BindingResult validResult) {
+	public ResponseEntity<String> entryList(@Valid ContestEntryRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {
 			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
 		}
-		Result result = designContestService.getContestEntry(request);
+		Result result = designContestService.getContestEntryList(request);
+		return toResponse(result);
+	}
+	
+	@RequestMapping(value = "/entry/{entryId}", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> entry(@PathVariable Integer entryId) {
+		Result result = designContestService.getContestEntry(entryId);
 		return toResponse(result);
 	}
 	

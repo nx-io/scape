@@ -48,6 +48,31 @@ import org.springframework.stereotype.Service;
 public class DefaultDesignContestService extends BaseService implements DesignContestService {
 
 	@Override
+	public Result getContestEntry(Integer entryId) {
+		DesignContestEntryDO designContestEntryDO = designContestEntryDAO.get(entryId);
+		if(designContestEntryDO == null) {
+			return Result.newError().with(ResultCode.Error_Entry_Empty);
+		}
+		DesignContestEntryVO vo = DesignContestEntryVO.newInstance(designContestEntryDO);
+		vo.setUser(UserVO.newInstance(userDAO.get(designContestEntryDO.getUser_id())));
+		List<String> mediaList = new ArrayList<String>();
+		List<DesignContestEntryMediaDO> contestEntryMediaList = designContestEntryMediaDAO.query("FROM DesignContestEntryMediaDO WHERE entry_id = ?", new Object[] { designContestEntryDO.getId() });
+		if(CollectionUtils.isNotEmpty(contestEntryMediaList)) {
+			for (DesignContestEntryMediaDO media : contestEntryMediaList) {
+				mediaList.add(ImageUtils.urlWrapper(media.getUrl()));
+			}
+		}
+		vo.setMediaList(mediaList);
+		java.math.BigInteger c = (java.math.BigInteger) designContestEntryVoteDAO.createNativeQuery("SELECT COUNT(id) FROM design_contest_entry_vote WHERE voter_id = ? AND entry_id = ?", new Object[] { designContestEntryDO.getUser_id(), designContestEntryDO.getId() }).getSingleResult();
+		if (c != null && c.longValue() > 0L) {
+			vo.setVoteCount(c.longValue());
+		} else {
+			vo.setVoteCount(0L);
+		}
+		return Result.newSuccess().with(ResultCode.Success).with("entry", vo);
+	}
+
+	@Override
 	public Result getDesignContestNews(Integer contest_id) {
 		List<DesignContestNewsDO> newsList = designContestNewsDAO.query("FROM DesignContestNewsDO WHERE contest_id = ?", new Object[] { contest_id });
 		return Result.newSuccess().with(ResultCode.Success).with("newsList", newsList);
@@ -110,7 +135,7 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 	}
 	
 	@Override
-	public Result getContestEntry(ContestEntryRequest request) {
+	public Result getContestEntryList(ContestEntryRequest request) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT * FROM design_contest_entry c WHERE 1 = 1 ");
 		Map<String, Object> args = new HashMap<String, Object>();
