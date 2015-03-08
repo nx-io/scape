@@ -12,10 +12,9 @@ import redis.clients.jedis.Jedis;
 /**
  * 缺省Redis模版实现类。
  * 
- * @author fei.liu E-mail:fei.liu@andpay.me
- * 
+ * @author 刘飞 E-mail:liufei_it@126.com
  * @version 1.0.0
- * @since 2015年1月28日 下午1:54:08
+ * @since 2015年3月8日 下午6:36:07
  */
 public class DefaultRedisTemplate implements RedisTemplate {
 	/**
@@ -33,31 +32,29 @@ public class DefaultRedisTemplate implements RedisTemplate {
 	 */
 	private Map<Long, RedisConnection> connections = new ConcurrentHashMap<Long, RedisConnection>();
 
-	protected interface RedisCallback<T> {
-		T doInRedis(Jedis jedis) throws Throwable;
+	public <T> T execute(RedisCallback<T> action) {
+		return execute(action, null);
 	}
 
-	protected <T> T execute(RedisCallback<T> action) {
+	@Override
+	public <T> T execute(RedisCallback<T> action, T defaultValue) {
 		Assert.notNull(action, "Callback object must not be null");
 		RedisConnection conn = connectionFactory.getConnection();
-
 		try {
 			connections.put(Thread.currentThread().getId(), conn);
-
 			Jedis jedis = conn.getJedis();
 			if (dbIndex != null) {
 				jedis.select(dbIndex);
 			}
-
 			T retObj = action.doInRedis(jedis);
 			conn.close();
 			return retObj;
 		} catch (Throwable ex) {
 			conn.closeBroken();
-			throw new RuntimeException(ex.getLocalizedMessage(), ex);
 		} finally {
 			connections.remove(Thread.currentThread().getId());
 		}
+		return defaultValue;
 	}
 
 	public void closeConnections(Set<Long> consumerThreadIds) {

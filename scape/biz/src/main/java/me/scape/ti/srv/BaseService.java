@@ -2,7 +2,7 @@ package me.scape.ti.srv;
 
 import javax.servlet.http.HttpServletRequest;
 
-import me.scape.ti.auth.AuthService;
+import me.scape.ti.auth.AuthorizationService;
 import me.scape.ti.auth.request.CheckRequest;
 import me.scape.ti.auth.request.LoginRequest;
 import me.scape.ti.auth.response.CheckResponse;
@@ -15,6 +15,7 @@ import me.scape.ti.dao.DesignContestEntryDAO;
 import me.scape.ti.dao.DesignContestEntryMediaDAO;
 import me.scape.ti.dao.DesignContestEntryVoteDAO;
 import me.scape.ti.dao.DesignContestJudgesDAO;
+import me.scape.ti.dao.DesignContestNewsDAO;
 import me.scape.ti.dao.DesignContestResultDAO;
 import me.scape.ti.dao.DesignContestUserDAO;
 import me.scape.ti.dao.ItemDAO;
@@ -167,13 +168,21 @@ public class BaseService implements InitializingBean {
 	@Autowired
 	@Qualifier(value = "designContestResultDAO")
 	protected DesignContestResultDAO designContestResultDAO;
+
+	@Autowired
+	@Qualifier(value = "designContestNewsDAO")
+	protected DesignContestNewsDAO designContestNewsDAO;
+
+	@Autowired
+	@Qualifier(value = "redisAuthorizationService")
+	protected AuthorizationService authorizationService;
 	
 	protected Result doPrivileged(PrivilegedRequest request) {
 		CheckRequest checkRequest = new CheckRequest();
 		checkRequest.setApp_id(request.getApp_id());
 		checkRequest.setOpen_id(request.getOpen_id());
 		checkRequest.setAccess_token(request.getAccess_token());
-		CheckResponse checkResponse = AuthService.check(checkRequest);
+		CheckResponse checkResponse = authorizationService.check(checkRequest);
 		if (StringUtils.isBlank(checkResponse.getSecret_id())) {
 			return Result.newError().with(ResultCode.Error_Token);
 		}
@@ -189,9 +198,9 @@ public class BaseService implements InitializingBean {
 			return Result.newError().with(ResultCode.Error_Login);
 		}
 		LoginRequest loginRequest = new LoginRequest();
-		loginRequest.setApp_id(AuthService.App_Id);
+		loginRequest.setApp_id(AuthorizationService.App_Id);
 		loginRequest.setSecret_id(String.valueOf(userId));
-		LoginResponse loginResponse = AuthService.login(loginRequest);
+		LoginResponse loginResponse = authorizationService.login(loginRequest);
 		if (loginResponse == null || StringUtils.isEmpty(loginResponse.getAccess_token())) {
 			return Result.newError().with(ResultCode.Error_Login);
 		}

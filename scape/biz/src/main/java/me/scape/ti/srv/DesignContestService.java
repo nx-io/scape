@@ -18,6 +18,11 @@ import me.scape.ti.ro.UploadContestEntryRequest;
 public interface DesignContestService {
 	
 	/**
+	 * 获取比赛新闻动态
+	 */
+	Result getDesignContestNews(Integer contest_id);
+	
+	/**
 	 * 设置比赛结果
 	 */
 	Result setDesignContestResult(DesignContestResultRequest request);

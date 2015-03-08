@@ -26,4 +26,15 @@
 
 	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 
+	<bean id="redisConnectionFactory" class="me.scape.ti.redis.DefaultRedisConnectionFactory">
+		<property name="host" value="127.0.0.1"/>
+	</bean>
+	
+	<bean id="redisTemplate" class="me.scape.ti.redis.DefaultRedisTemplate">
+		<property name="connectionFactory" ref="redisConnectionFactory"/>
+	</bean>
+	
+	<bean id="redisAuthorizationService" class="me.scape.ti.auth.RedisAuthorizationService">
+		<property name="redisTemplate" ref="redisTemplate"/>
+	</bean>
 </beans>

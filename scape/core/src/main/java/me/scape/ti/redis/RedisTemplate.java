@@ -11,6 +11,11 @@ import java.util.Set;
  * @since 2015年1月28日 下午1:49:56
  */
 public interface RedisTemplate {
+	
+	<T> T execute(RedisCallback<T> action);
+	
+	<T> T execute(RedisCallback<T> action, T defaultValue);
+	
 	/**
 	 * 设置Value
 	 * 

@@ -1,9 +1,15 @@
 package me.scape.ti.controller;
 
+import javax.validation.Valid;
+
 import me.scape.ti.result.Result;
+import me.scape.ti.result.ResultCode;
+import me.scape.ti.ro.ContestEntryRequest;
+import me.scape.ti.ro.ContestEntryVoteRequest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,10 +31,37 @@ public class ContestController extends BaseController {
 		return toResponse(result);
 	}
 	
+	@RequestMapping(value = "/vote", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> vote(@Valid ContestEntryVoteRequest request, BindingResult validResult) {
+		if (validResult.hasErrors()) {
+			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
+		}
+		Result result = designContestService.contestEntryVote(request);
+		return toResponse(result);
+	}
+	
+	@RequestMapping(value = "/entry", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> entry(@Valid ContestEntryRequest request, BindingResult validResult) {
+		if (validResult.hasErrors()) {
+			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
+		}
+		Result result = designContestService.getContestEntry(request);
+		return toResponse(result);
+	}
+	
 	@RequestMapping(value = "/judges/{contestId}", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> item(@PathVariable Integer contestId) {
+	public ResponseEntity<String> judges(@PathVariable Integer contestId) {
 		Result result = designContestService.getDesignContestJudges(contestId);
+		return toResponse(result);
+	}
+	
+	@RequestMapping(value = "/news/{contestId}", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> news(@PathVariable Integer contestId) {
+		Result result = designContestService.getDesignContestNews(contestId);
 		return toResponse(result);
 	}
 }
