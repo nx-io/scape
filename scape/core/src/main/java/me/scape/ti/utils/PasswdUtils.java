@@ -25,6 +25,8 @@ public class PasswdUtils {
 	private static final String HMAC_256 = "HmacSHA256";
 
 	public static String signPwsswd(String passwd, String token) {
+		return encodePassword(passwd, token);
+		/**
 		String result = null;
 		try {
 			Mac sha256_HMAC = Mac.getInstance(HMAC_256);
@@ -36,6 +38,7 @@ public class PasswdUtils {
 			log.error("Passwd sign Error.", e);
 		}
 		return result;
+		**/
 	}
 
 	public static String genSalt() {
