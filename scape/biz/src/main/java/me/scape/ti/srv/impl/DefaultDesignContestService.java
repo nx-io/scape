@@ -173,6 +173,7 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 			} else {
 				vo.setVoteCount(0L);
 			}
+			voList.add(vo);
 		}
 		return Result.newSuccess().with(ResultCode.Success).with("contestEntryList", voList);
 	}
