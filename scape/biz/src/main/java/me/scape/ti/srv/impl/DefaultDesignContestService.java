@@ -35,6 +35,7 @@ import me.scape.ti.vo.UserVO;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 比赛相关业务.
@@ -79,6 +80,7 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 	}
 
 	@Override
+	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result setDesignContestResult(DesignContestResultRequest request) {
 		DesignContestResultDO result = new DesignContestResultDO();
 		result.setComment(request.getComment());
@@ -117,6 +119,7 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 	}
 
 	@Override
+	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result joinDesignContest(JoinDesignContestRequest request) {
 		Result privileged = doPrivileged(request);
 		if(!privileged.isSuccess()) {
@@ -179,6 +182,7 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 	}
 
 	@Override
+	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result uploadContestEntry(UploadContestEntryRequest request) {
 		Result privileged = doPrivileged(request);
 		if(!privileged.isSuccess()) {
@@ -233,6 +237,7 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 	}
 
 	@Override
+	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result contestEntryVote(ContestEntryVoteRequest request) {
 		Result privileged = doPrivileged(request);
 		if(!privileged.isSuccess()) {
