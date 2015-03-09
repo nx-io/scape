@@ -243,7 +243,7 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 		Object[] args = new Object[] { userId, entry_id };
 		java.math.BigInteger c = (java.math.BigInteger) designContestEntryVoteDAO.createNativeQuery("SELECT COUNT(id) FROM design_contest_entry_vote WHERE voter_id = ? AND entry_id = ?", args).getSingleResult();
 		if (c != null && c.longValue() > 0L) {
-			return Result.newSuccess().with(ResultCode.Error_EntryVote);
+			return Result.newError().with(ResultCode.Error_EntryVote);
 		}
 		DesignContestEntryVoteDO contestEntryVote = new DesignContestEntryVoteDO();
 		contestEntryVote.setEntry_id(entry_id);
