@@ -146,6 +146,10 @@ public class DefaultAccountService extends BaseService implements AccountService
 		if (uc != null && uc > 0L) {
 			return Result.newError().with(ResultCode.Error_Register_User_Exist);
 		}
+		uc = userDAO.createNamedQuery("User.existUserByMobile", Long.class, new Object[] { request.getMobile() }).getSingleResult();
+		if (uc != null && uc > 0L) {
+			return Result.newError().with(ResultCode.Error_Register_User_Exist);
+		}
 		UserDO user = new UserDO();
 		user.setAvatar(avatar);
 		user.setName(name);
