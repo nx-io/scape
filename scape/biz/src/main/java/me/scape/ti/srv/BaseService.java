@@ -9,6 +9,7 @@ import me.scape.ti.auth.response.CheckResponse;
 import me.scape.ti.auth.response.LoginResponse;
 import me.scape.ti.dao.AreaCategoryDAO;
 import me.scape.ti.dao.CategoryDAO;
+import me.scape.ti.dao.CityDAO;
 import me.scape.ti.dao.CommentsDAO;
 import me.scape.ti.dao.DesignContestDAO;
 import me.scape.ti.dao.DesignContestEntryDAO;
@@ -30,6 +31,11 @@ import me.scape.ti.dao.PlantsDAO;
 import me.scape.ti.dao.PlantsOrnamentalColorDAO;
 import me.scape.ti.dao.PlantsOrnamentalPeriodDAO;
 import me.scape.ti.dao.PlantsPeriodRelDAO;
+import me.scape.ti.dao.ProvinceDAO;
+import me.scape.ti.dao.RegionDAO;
+import me.scape.ti.dao.RequirementsCommentsDAO;
+import me.scape.ti.dao.RequirementsDAO;
+import me.scape.ti.dao.RequirementsSecondCategoryDAO;
 import me.scape.ti.dao.RoleDAO;
 import me.scape.ti.dao.StyleDAO;
 import me.scape.ti.dao.SystemSettingDAO;
@@ -176,6 +182,30 @@ public class BaseService implements InitializingBean {
 	@Autowired
 	@Qualifier(value = "redisAuthorizationService")
 	protected AuthorizationService authorizationService;
+
+	@Autowired
+	@Qualifier(value = "cityDAO")
+	protected CityDAO cityDAO;
+
+	@Autowired
+	@Qualifier(value = "regionDAO")
+	protected RegionDAO regionDAO;
+
+	@Autowired
+	@Qualifier(value = "provinceDAO")
+	protected ProvinceDAO provinceDAO;
+
+	@Autowired
+	@Qualifier(value = "requirementsCommentsDAO")
+	protected RequirementsCommentsDAO requirementsCommentsDAO;
+
+	@Autowired
+	@Qualifier(value = "requirementsSecondCategoryDAO")
+	protected RequirementsSecondCategoryDAO requirementsSecondCategoryDAO;
+
+	@Autowired
+	@Qualifier(value = "requirementsDAO")
+	protected RequirementsDAO requirementsDAO;
 	
 	protected Result doPrivileged(PrivilegedRequest request) {
 		CheckRequest checkRequest = new CheckRequest();

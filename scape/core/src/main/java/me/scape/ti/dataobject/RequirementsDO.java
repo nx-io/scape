@@ -1,0 +1,271 @@
+package me.scape.ti.dataobject;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ * 需求信息
+ * 
+ * @author 刘飞 E-mail:liufei_it@126.com
+ * @version 1.0.0
+ * @since 2015年4月12日 下午5:09:33
+ */
+@Entity
+@Table(name = "requirements", catalog = "scape")
+public class RequirementsDO implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", unique = true, nullable = false)
+	private Long id;
+
+	@Column(name = "title", nullable = false, length = 64)
+	private String title;// 需求信息标题
+
+	@Column(name = "conent", length = 2048)
+	private String conent;// 需求信息内容
+
+	@Column(name = "user_id", nullable = false)
+	private Long user_id;// 发布者
+
+	@Column(name = "provice_id", nullable = false)
+	private Long provice_id;// 省
+
+	@Column(name = "city_id", nullable = false)
+	private Long city_id;// 市
+
+	@Column(name = "region_id", nullable = false)
+	private Long region_id;// 区
+
+	@Column(name = "top_cat_id", nullable = false)
+	private Long top_cat_id;// 一级分类ID
+
+	@Column(name = "sec_cat_id", nullable = false)
+	private Long sec_cat_id;// 二级分类ID
+
+	@Column(name = "mobile", length = 64, nullable = false)
+	private String mobile;// 手机
+
+	@Column(name = "media", length = 255)
+	private String media;// 图片
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "gmt_created", nullable = false)
+	private Date gmt_created;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "gmt_modified", nullable = false)
+	private Date gmt_modified;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getConent() {
+		return conent;
+	}
+
+	public void setConent(String conent) {
+		this.conent = conent;
+	}
+
+	public Long getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(Long user_id) {
+		this.user_id = user_id;
+	}
+
+	public Long getProvice_id() {
+		return provice_id;
+	}
+
+	public void setProvice_id(Long provice_id) {
+		this.provice_id = provice_id;
+	}
+
+	public Long getCity_id() {
+		return city_id;
+	}
+
+	public void setCity_id(Long city_id) {
+		this.city_id = city_id;
+	}
+
+	public Long getRegion_id() {
+		return region_id;
+	}
+
+	public void setRegion_id(Long region_id) {
+		this.region_id = region_id;
+	}
+
+	public Long getTop_cat_id() {
+		return top_cat_id;
+	}
+
+	public void setTop_cat_id(Long top_cat_id) {
+		this.top_cat_id = top_cat_id;
+	}
+
+	public Long getSec_cat_id() {
+		return sec_cat_id;
+	}
+
+	public void setSec_cat_id(Long sec_cat_id) {
+		this.sec_cat_id = sec_cat_id;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getMedia() {
+		return media;
+	}
+
+	public void setMedia(String media) {
+		this.media = media;
+	}
+
+	public Date getGmt_created() {
+		return gmt_created;
+	}
+
+	public void setGmt_created(Date gmt_created) {
+		this.gmt_created = gmt_created;
+	}
+
+	public Date getGmt_modified() {
+		return gmt_modified;
+	}
+
+	public void setGmt_modified(Date gmt_modified) {
+		this.gmt_modified = gmt_modified;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((city_id == null) ? 0 : city_id.hashCode());
+		result = prime * result + ((conent == null) ? 0 : conent.hashCode());
+		result = prime * result + ((gmt_created == null) ? 0 : gmt_created.hashCode());
+		result = prime * result + ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((media == null) ? 0 : media.hashCode());
+		result = prime * result + ((mobile == null) ? 0 : mobile.hashCode());
+		result = prime * result + ((provice_id == null) ? 0 : provice_id.hashCode());
+		result = prime * result + ((region_id == null) ? 0 : region_id.hashCode());
+		result = prime * result + ((sec_cat_id == null) ? 0 : sec_cat_id.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((top_cat_id == null) ? 0 : top_cat_id.hashCode());
+		result = prime * result + ((user_id == null) ? 0 : user_id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RequirementsDO other = (RequirementsDO) obj;
+		if (city_id == null) {
+			if (other.city_id != null)
+				return false;
+		} else if (!city_id.equals(other.city_id))
+			return false;
+		if (conent == null) {
+			if (other.conent != null)
+				return false;
+		} else if (!conent.equals(other.conent))
+			return false;
+		if (gmt_created == null) {
+			if (other.gmt_created != null)
+				return false;
+		} else if (!gmt_created.equals(other.gmt_created))
+			return false;
+		if (gmt_modified == null) {
+			if (other.gmt_modified != null)
+				return false;
+		} else if (!gmt_modified.equals(other.gmt_modified))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (media == null) {
+			if (other.media != null)
+				return false;
+		} else if (!media.equals(other.media))
+			return false;
+		if (mobile == null) {
+			if (other.mobile != null)
+				return false;
+		} else if (!mobile.equals(other.mobile))
+			return false;
+		if (provice_id == null) {
+			if (other.provice_id != null)
+				return false;
+		} else if (!provice_id.equals(other.provice_id))
+			return false;
+		if (region_id == null) {
+			if (other.region_id != null)
+				return false;
+		} else if (!region_id.equals(other.region_id))
+			return false;
+		if (sec_cat_id == null) {
+			if (other.sec_cat_id != null)
+				return false;
+		} else if (!sec_cat_id.equals(other.sec_cat_id))
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		if (top_cat_id == null) {
+			if (other.top_cat_id != null)
+				return false;
+		} else if (!top_cat_id.equals(other.top_cat_id))
+			return false;
+		if (user_id == null) {
+			if (other.user_id != null)
+				return false;
+		} else if (!user_id.equals(other.user_id))
+			return false;
+		return true;
+	}
+}
