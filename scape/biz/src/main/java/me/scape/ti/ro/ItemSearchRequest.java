@@ -6,7 +6,7 @@ package me.scape.ti.ro;
  * @version 1.0.0
  * @since 2014年12月28日 下午3:13:29
  */
-public class ItemSearchRequest {
+public class ItemSearchRequest extends PageRequest {
 
 	private Long cid;// 景观分类
 
@@ -19,16 +19,6 @@ public class ItemSearchRequest {
 	private Long id;// 案例ID
 
 	private String sort;// 排序字段
-
-	private Integer page;
-
-	public Integer getPage() {
-		return page;
-	}
-
-	public void setPage(Integer page) {
-		this.page = page;
-	}
 
 	public String getSort() {
 		return sort;

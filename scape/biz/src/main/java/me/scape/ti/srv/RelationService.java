@@ -3,7 +3,7 @@ package me.scape.ti.srv;
 import me.scape.ti.result.Result;
 import me.scape.ti.ro.CommentsRequest;
 import me.scape.ti.ro.ItemFavoriteRequest;
-import me.scape.ti.ro.PageRequest;
+import me.scape.ti.ro.PrivilegedPageRequest;
 import me.scape.ti.ro.UserFavoriteRequest;
 
 /**
@@ -20,8 +20,8 @@ public interface RelationService {
 
 	Result favorite_user(UserFavoriteRequest request);
 
-	Result getFavoriteItems(PageRequest request);
+	Result getFavoriteItems(PrivilegedPageRequest request);
 
-	Result getFavoriteUsers(PageRequest request);
+	Result getFavoriteUsers(PrivilegedPageRequest request);
 
 }

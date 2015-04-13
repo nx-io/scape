@@ -8,12 +8,10 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @version 1.0.0
  * @since 2015年1月18日 下午2:53:44
  */
-public class PubfavRequest extends PrivilegedRequest {
+public class PubfavRequest extends PrivilegedPageRequest {
 
 	@NotEmpty
 	private Byte type;
-
-	private Integer page;
 
 	public Byte getType() {
 		return type;
@@ -21,13 +19,5 @@ public class PubfavRequest extends PrivilegedRequest {
 
 	public void setType(Byte type) {
 		this.type = type;
-	}
-
-	public Integer getPage() {
-		return page;
-	}
-
-	public void setPage(Integer page) {
-		this.page = page;
 	}
 }

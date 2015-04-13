@@ -13,7 +13,7 @@ import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
 import me.scape.ti.ro.CommentsRequest;
 import me.scape.ti.ro.ItemFavoriteRequest;
-import me.scape.ti.ro.PageRequest;
+import me.scape.ti.ro.PrivilegedPageRequest;
 import me.scape.ti.ro.UserFavoriteRequest;
 import me.scape.ti.srv.BaseService;
 import me.scape.ti.srv.RelationService;
@@ -89,7 +89,7 @@ public class DefaultRelationService extends BaseService implements RelationServi
 	 * 查询收藏的景观
 	 */
 	@Override
-	public Result getFavoriteItems(PageRequest request) {
+	public Result getFavoriteItems(PrivilegedPageRequest request) {
 		Result privileged = doPrivileged(request);
 		if(!privileged.isSuccess()) {
 			return privileged;
@@ -139,7 +139,7 @@ public class DefaultRelationService extends BaseService implements RelationServi
 	 * 查询收藏的用户
 	 */
 	@Override
-	public Result getFavoriteUsers(PageRequest request) {
+	public Result getFavoriteUsers(PrivilegedPageRequest request) {
 		Result privileged = doPrivileged(request);
 		if(!privileged.isSuccess()) {
 			return privileged;

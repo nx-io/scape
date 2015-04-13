@@ -2,6 +2,7 @@ package me.scape.ti.srv;
 
 import me.scape.ti.result.Result;
 import me.scape.ti.ro.PublishRequirementsRequest;
+import me.scape.ti.ro.RequirementsSearchRequest;
 
 /**
  * 
@@ -13,4 +14,6 @@ import me.scape.ti.ro.PublishRequirementsRequest;
 public interface RequirementsService {
 
 	Result publishRequirements(PublishRequirementsRequest request);
+	
+	Result search(RequirementsSearchRequest request);
 }

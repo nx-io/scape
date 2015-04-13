@@ -6,6 +6,7 @@ import me.scape.ti.dataobject.RequirementsDO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
 import me.scape.ti.ro.PublishRequirementsRequest;
+import me.scape.ti.ro.RequirementsSearchRequest;
 import me.scape.ti.srv.BaseService;
 import me.scape.ti.srv.RequirementsService;
 import me.scape.ti.vo.CityVO;
@@ -26,6 +27,11 @@ import org.springframework.transaction.annotation.Transactional;
  * @since 2015年4月13日 上午11:33:48
  */
 public class DefaultRequirementsService extends BaseService implements RequirementsService {
+
+	@Override
+	public Result search(RequirementsSearchRequest request) {
+		return null;
+	}
 
 	@Override
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)

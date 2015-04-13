@@ -6,7 +6,7 @@ import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
 import me.scape.ti.ro.CommentsRequest;
 import me.scape.ti.ro.ItemFavoriteRequest;
-import me.scape.ti.ro.PageRequest;
+import me.scape.ti.ro.PrivilegedPageRequest;
 import me.scape.ti.ro.UserFavoriteRequest;
 
 import org.springframework.http.ResponseEntity;
@@ -47,7 +47,7 @@ public class RelationController extends BaseController {
 
 	@RequestMapping(value = "/ifav/items", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> get_favorite_items(@Valid PageRequest request, BindingResult validResult) {
+	public ResponseEntity<String> get_favorite_items(@Valid PrivilegedPageRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {
 			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
 		}
@@ -67,7 +67,7 @@ public class RelationController extends BaseController {
 
 	@RequestMapping(value = "/ufav/users", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> get_favorite_user(@Valid PageRequest request, BindingResult validResult) {
+	public ResponseEntity<String> get_favorite_user(@Valid PrivilegedPageRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {
 			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
 		}
