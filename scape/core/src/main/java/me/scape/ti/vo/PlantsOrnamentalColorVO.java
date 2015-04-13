@@ -47,16 +47,13 @@ public class PlantsOrnamentalColorVO {
 		if (_do == null) {
 			return null;
 		}
-		return new PlantsOrnamentalColorVO().toPlantsOrnamentalColor(_do);
-	}
-
-	private final PlantsOrnamentalColorVO toPlantsOrnamentalColor(PlantsOrnamentalColorDO _do) {
-		setColor(_do.getColor());
-		setDisplay(_do.getDisplay());
-		setGmt_created(_do.getGmt_created());
-		setIcon(_do.getIcon());
-		setId(_do.getId());
-		return this;
+		PlantsOrnamentalColorVO vo = new PlantsOrnamentalColorVO();
+		vo.setColor(_do.getColor());
+		vo.setDisplay(_do.getDisplay());
+		vo.setGmt_created(_do.getGmt_created());
+		vo.setIcon(_do.getIcon());
+		vo.setId(_do.getId());
+		return vo;
 	}
 
 	public Integer getId() {

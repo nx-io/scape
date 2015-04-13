@@ -28,7 +28,7 @@ public class RequirementsTopCategoryDO implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
-	private Long id;
+	private Integer id;
 
 	@Column(name = "name", nullable = false, length = 20)
 	private String name;// 一级分类名称
@@ -40,11 +40,11 @@ public class RequirementsTopCategoryDO implements Serializable {
 	@Column(name = "gmt_created", nullable = false)
 	private Date gmt_created;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

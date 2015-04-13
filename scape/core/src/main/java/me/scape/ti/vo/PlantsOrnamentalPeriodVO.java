@@ -45,15 +45,12 @@ public class PlantsOrnamentalPeriodVO {
 		if (_do == null) {
 			return null;
 		}
-		return new PlantsOrnamentalPeriodVO().toPlantsOrnamentalPeriod(_do);
-	}
-
-	private final PlantsOrnamentalPeriodVO toPlantsOrnamentalPeriod(PlantsOrnamentalPeriodDO _do) {
-		setDisplay(_do.getDisplay());
-		setGmt_created(_do.getGmt_created());
-		setId(_do.getId());
-		setPeriod(_do.getPeriod());
-		return this;
+		PlantsOrnamentalPeriodVO vo = new PlantsOrnamentalPeriodVO();
+		vo.setDisplay(_do.getDisplay());
+		vo.setGmt_created(_do.getGmt_created());
+		vo.setId(_do.getId());
+		vo.setPeriod(_do.getPeriod());
+		return vo;
 	}
 
 	public Integer getId() {

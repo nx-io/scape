@@ -30,7 +30,13 @@ public class LabelVO {
 		if (_do == null) {
 			return null;
 		}
-		return new LabelVO().toLabel(_do);
+		LabelVO vo = new LabelVO();
+		vo.setDescription(_do.getDescription());
+		vo.setGmt_created(_do.getGmt_created());
+		vo.setIcon(_do.getIcon());
+		vo.setId(_do.getId());
+		vo.setName(_do.getName());
+		return vo;
 	}
 
 	public static List<LabelVO> newInstance(List<LabelDO> doList) {
@@ -46,15 +52,6 @@ public class LabelVO {
 			voList.add(vo);
 		}
 		return voList;
-	}
-
-	private final LabelVO toLabel(LabelDO _do) {
-		setDescription(_do.getDescription());
-		setGmt_created(_do.getGmt_created());
-		setIcon(_do.getIcon());
-		setId(_do.getId());
-		setName(_do.getName());
-		return this;
 	}
 
 	public Long getId() {

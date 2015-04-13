@@ -29,7 +29,12 @@ public class PlantMediaVO {
 		if (_do == null) {
 			return null;
 		}
-		return new PlantMediaVO().toMedia(_do);
+		PlantMediaVO vo = new PlantMediaVO();
+		vo.setPlant_id(_do.getPlant_id());
+		vo.setStatus(_do.getStatus());
+		vo.setType(_do.getType());
+		vo.setUrl(ImageUtils.urlWrapper(_do.getUrl()));
+		return vo;
 	}
 
 	public static List<PlantMediaVO> newInstance(List<PlantMediaDO> doList) {
@@ -45,14 +50,6 @@ public class PlantMediaVO {
 			voList.add(vo);
 		}
 		return voList;
-	}
-
-	private final PlantMediaVO toMedia(PlantMediaDO _do) {
-		setPlant_id(_do.getPlant_id());
-		setStatus(_do.getStatus());
-		setType(_do.getType());
-		setUrl(ImageUtils.urlWrapper(_do.getUrl()));
-		return this;
 	}
 
 	public Integer getPlant_id() {

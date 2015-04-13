@@ -1,0 +1,16 @@
+package me.scape.ti.srv;
+
+import me.scape.ti.result.Result;
+import me.scape.ti.ro.PublishRequirementsRequest;
+
+/**
+ * 
+ * @author 刘飞
+ * 
+ * @version 1.0.0
+ * @since 2015年4月13日 上午11:33:20
+ */
+public interface RequirementsService {
+
+	Result publishRequirements(PublishRequirementsRequest request);
+}

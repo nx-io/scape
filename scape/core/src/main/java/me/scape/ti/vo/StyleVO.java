@@ -23,16 +23,13 @@ public class StyleVO {
 		if (_do == null) {
 			return null;
 		}
-		return new StyleVO().toStyle(_do);
-	}
-
-	private final StyleVO toStyle(StyleDO _do) {
-		setDescription(_do.getDescription());
-		setDisplay(_do.getDisplay());
-		setIcon(_do.getIcon());
-		setId(_do.getId());
-		setName(_do.getName());
-		return this;
+		StyleVO vo = new StyleVO();
+		vo.setDescription(_do.getDescription());
+		vo.setDisplay(_do.getDisplay());
+		vo.setIcon(_do.getIcon());
+		vo.setId(_do.getId());
+		vo.setName(_do.getName());
+		return vo;
 	}
 
 	public String getName() {

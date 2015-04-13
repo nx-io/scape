@@ -55,17 +55,14 @@ public class DesignContestEntryVO {
 		if (_do == null) {
 			return null;
 		}
-		return new DesignContestEntryVO().toDesignContestEntry(_do);
-	}
-
-	private final DesignContestEntryVO toDesignContestEntry(DesignContestEntryDO _do) {
-		setAttachment(ImageUtils.urlWrapper(_do.getAttachment()));
-		setContest_id(_do.getContest_id());
-		setDescription(_do.getDescription());
-		setGmt_created(_do.getGmt_created());
-		setTitle(_do.getTitle());
-		setId(_do.getId());
-		return this;
+		DesignContestEntryVO vo = new DesignContestEntryVO();
+		vo.setAttachment(ImageUtils.urlWrapper(_do.getAttachment()));
+		vo.setContest_id(_do.getContest_id());
+		vo.setDescription(_do.getDescription());
+		vo.setGmt_created(_do.getGmt_created());
+		vo.setTitle(_do.getTitle());
+		vo.setId(_do.getId());
+		return vo;
 	}
 
 	public Integer getId() {

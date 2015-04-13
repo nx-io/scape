@@ -23,16 +23,13 @@ public class CategoryVO {
 		if (_do == null) {
 			return null;
 		}
-		return new CategoryVO().toCategory(_do);
-	}
-
-	private final CategoryVO toCategory(CategoryDO _do) {
-		setDescription(_do.getDescription());
-		setDisplay(_do.getDisplay());
-		setIcon(_do.getIcon());
-		setId(_do.getId());
-		setName(_do.getName());
-		return this;
+		CategoryVO vo = new CategoryVO();
+		vo.setDescription(_do.getDescription());
+		vo.setDisplay(_do.getDisplay());
+		vo.setIcon(_do.getIcon());
+		vo.setId(_do.getId());
+		vo.setName(_do.getName());
+		return vo;
 	}
 
 	public String getName() {

@@ -46,15 +46,12 @@ public class DesignContestJudgesVO {
 		if (_do == null) {
 			return null;
 		}
-		return new DesignContestJudgesVO().toDesignContestJudges(_do);
-	}
-
-	private final DesignContestJudgesVO toDesignContestJudges(DesignContestJudgesDO _do) {
-		setAvatar(ImageUtils.urlWrapper(_do.getAvatar()));
-		setName(_do.getName());
-		setProfile(_do.getProfile());
-		setTitle(_do.getTitle());
-		return this;
+		DesignContestJudgesVO vo = new DesignContestJudgesVO();
+		vo.setAvatar(ImageUtils.urlWrapper(_do.getAvatar()));
+		vo.setName(_do.getName());
+		vo.setProfile(_do.getProfile());
+		vo.setTitle(_do.getTitle());
+		return vo;
 	}
 
 	public String getName() {

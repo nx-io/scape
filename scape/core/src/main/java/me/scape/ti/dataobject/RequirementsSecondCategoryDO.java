@@ -28,10 +28,10 @@ public class RequirementsSecondCategoryDO implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
-	private Long id;
+	private Integer id;
 
 	@Column(name = "top_cat_id", nullable = false)
-	private Long top_cat_id;// 一级分类ID
+	private Integer top_cat_id;// 一级分类ID
 
 	@Column(name = "name", nullable = false, length = 20)
 	private String name;// 二级分类名称
@@ -43,19 +43,19 @@ public class RequirementsSecondCategoryDO implements Serializable {
 	@Column(name = "gmt_created", nullable = false)
 	private Date gmt_created;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Long getTop_cat_id() {
+	public Integer getTop_cat_id() {
 		return top_cat_id;
 	}
 
-	public void setTop_cat_id(Long top_cat_id) {
+	public void setTop_cat_id(Integer top_cat_id) {
 		this.top_cat_id = top_cat_id;
 	}
 

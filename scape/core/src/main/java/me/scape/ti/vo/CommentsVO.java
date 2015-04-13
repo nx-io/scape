@@ -32,7 +32,14 @@ public class CommentsVO {
 		if (_do == null) {
 			return null;
 		}
-		return new CommentsVO().toComments(_do);
+		CommentsVO vo = new CommentsVO();
+		vo.setContent(_do.getContent());
+		vo.setGmt_created(_do.getGmt_created());
+		vo.setId(_do.getId());
+		vo.setItem_id(_do.getItem_id());
+		vo.setStatus(_do.getStatus());
+		vo.setUser_name(_do.getUser_name());
+		return vo;
 	}
 
 	public static List<CommentsVO> newInstance(List<CommentsDO> doList) {
@@ -45,16 +52,6 @@ public class CommentsVO {
 			voList.add(vo);
 		}
 		return voList;
-	}
-
-	private final CommentsVO toComments(CommentsDO _do) {
-		setContent(_do.getContent());
-		setGmt_created(_do.getGmt_created());
-		setId(_do.getId());
-		setItem_id(_do.getItem_id());
-		setStatus(_do.getStatus());
-		setUser_name(_do.getUser_name());
-		return this;
 	}
 
 	public Long getId() {

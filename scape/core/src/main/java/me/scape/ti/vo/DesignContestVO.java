@@ -65,25 +65,22 @@ public class DesignContestVO {
 		if (_do == null) {
 			return null;
 		}
-		return new DesignContestVO().toDesignContest(_do);
-	}
-
-	private final DesignContestVO toDesignContest(DesignContestDO _do) {
-		setCo_organizers(_do.getCo_organizers());
-		setCommittee(_do.getCommittee());
-		setDescription(_do.getDescription());
-		setEnd_time(_do.getEnd_time());
-		setHost_organizers(_do.getHost_organizers());
-		setId(_do.getId());
-		setOrganizers(_do.getOrganizers());
-		setPrizes(_do.getPrizes());
-		setRequirements(_do.getRequirements());
-		setStart_time(_do.getStart_time());
-		setStatus(_do.getStatus());
-		setTimetable(_do.getTimetable());
-		setTitle(_do.getTitle());
-		setTopic(_do.getTopic());
-		return this;
+		DesignContestVO vo = new DesignContestVO();
+		vo.setCo_organizers(_do.getCo_organizers());
+		vo.setCommittee(_do.getCommittee());
+		vo.setDescription(_do.getDescription());
+		vo.setEnd_time(_do.getEnd_time());
+		vo.setHost_organizers(_do.getHost_organizers());
+		vo.setId(_do.getId());
+		vo.setOrganizers(_do.getOrganizers());
+		vo.setPrizes(_do.getPrizes());
+		vo.setRequirements(_do.getRequirements());
+		vo.setStart_time(_do.getStart_time());
+		vo.setStatus(_do.getStatus());
+		vo.setTimetable(_do.getTimetable());
+		vo.setTitle(_do.getTitle());
+		vo.setTopic(_do.getTopic());
+		return vo;
 	}
 
 	public Integer getId() {

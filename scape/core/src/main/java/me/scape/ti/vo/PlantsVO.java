@@ -75,25 +75,22 @@ public class PlantsVO {
 		if (_do == null) {
 			return null;
 		}
-		return new PlantsVO().toPlants(_do);
-	}
-
-	private final PlantsVO toPlants(PlantsDO _do) {
-		setAliasName(_do.getAlias_name());
-		setAreaApplicable(_do.getArea_applicable());
-		setCatId(_do.getCat_id());
-		setGardenUtilization(_do.getGarden_utilization());
-		setGenus(_do.getGenus());
-		setGmt_created(_do.getGmt_created());
-		setGmt_modified(_do.getGmt_modified());
-		setHabits(_do.getHabits());
-		setId(_do.getId());
-		setNameCn(_do.getName_cn());
-		setNameEn(_do.getName_en());
-		setCover_media(ImageUtils.urlWrapper(_do.getCover_media()));
-		setShortNameCn(_do.getShort_name_cn());
-		setShortNameEn(_do.getShort_name_en());
-		return this;
+		PlantsVO vo = new PlantsVO();
+		vo.setAliasName(_do.getAlias_name());
+		vo.setAreaApplicable(_do.getArea_applicable());
+		vo.setCatId(_do.getCat_id());
+		vo.setGardenUtilization(_do.getGarden_utilization());
+		vo.setGenus(_do.getGenus());
+		vo.setGmt_created(_do.getGmt_created());
+		vo.setGmt_modified(_do.getGmt_modified());
+		vo.setHabits(_do.getHabits());
+		vo.setId(_do.getId());
+		vo.setNameCn(_do.getName_cn());
+		vo.setNameEn(_do.getName_en());
+		vo.setCover_media(ImageUtils.urlWrapper(_do.getCover_media()));
+		vo.setShortNameCn(_do.getShort_name_cn());
+		vo.setShortNameEn(_do.getShort_name_en());
+		return vo;
 	}
 
 	public String getCover_media() {

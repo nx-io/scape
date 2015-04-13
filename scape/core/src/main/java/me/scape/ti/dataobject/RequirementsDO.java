@@ -39,20 +39,20 @@ public class RequirementsDO implements Serializable {
 	@Column(name = "user_id", nullable = false)
 	private Long user_id;// 发布者
 
-	@Column(name = "provice_id", nullable = false)
-	private Long provice_id;// 省
+	@Column(name = "province_id", nullable = false)
+	private Integer province_id;// 省
 
 	@Column(name = "city_id", nullable = false)
-	private Long city_id;// 市
+	private Integer city_id;// 市
 
-	@Column(name = "region_id", nullable = false)
-	private Long region_id;// 区
+	@Column(name = "region_id", nullable = true)
+	private Integer region_id;// 区
 
 	@Column(name = "top_cat_id", nullable = false)
-	private Long top_cat_id;// 一级分类ID
+	private Integer top_cat_id;// 一级分类ID
 
 	@Column(name = "sec_cat_id", nullable = false)
-	private Long sec_cat_id;// 二级分类ID
+	private Integer sec_cat_id;// 二级分类ID
 
 	@Column(name = "mobile", length = 64, nullable = false)
 	private String mobile;// 手机
@@ -100,43 +100,43 @@ public class RequirementsDO implements Serializable {
 		this.user_id = user_id;
 	}
 
-	public Long getProvice_id() {
-		return provice_id;
+	public Integer getProvince_id() {
+		return province_id;
 	}
 
-	public void setProvice_id(Long provice_id) {
-		this.provice_id = provice_id;
+	public void setProvince_id(Integer province_id) {
+		this.province_id = province_id;
 	}
 
-	public Long getCity_id() {
+	public Integer getCity_id() {
 		return city_id;
 	}
 
-	public void setCity_id(Long city_id) {
+	public void setCity_id(Integer city_id) {
 		this.city_id = city_id;
 	}
 
-	public Long getRegion_id() {
+	public Integer getRegion_id() {
 		return region_id;
 	}
 
-	public void setRegion_id(Long region_id) {
+	public void setRegion_id(Integer region_id) {
 		this.region_id = region_id;
 	}
 
-	public Long getTop_cat_id() {
+	public Integer getTop_cat_id() {
 		return top_cat_id;
 	}
 
-	public void setTop_cat_id(Long top_cat_id) {
+	public void setTop_cat_id(Integer top_cat_id) {
 		this.top_cat_id = top_cat_id;
 	}
 
-	public Long getSec_cat_id() {
+	public Integer getSec_cat_id() {
 		return sec_cat_id;
 	}
 
-	public void setSec_cat_id(Long sec_cat_id) {
+	public void setSec_cat_id(Integer sec_cat_id) {
 		this.sec_cat_id = sec_cat_id;
 	}
 
@@ -183,7 +183,7 @@ public class RequirementsDO implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((media == null) ? 0 : media.hashCode());
 		result = prime * result + ((mobile == null) ? 0 : mobile.hashCode());
-		result = prime * result + ((provice_id == null) ? 0 : provice_id.hashCode());
+		result = prime * result + ((province_id == null) ? 0 : province_id.hashCode());
 		result = prime * result + ((region_id == null) ? 0 : region_id.hashCode());
 		result = prime * result + ((sec_cat_id == null) ? 0 : sec_cat_id.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
@@ -236,10 +236,10 @@ public class RequirementsDO implements Serializable {
 				return false;
 		} else if (!mobile.equals(other.mobile))
 			return false;
-		if (provice_id == null) {
-			if (other.provice_id != null)
+		if (province_id == null) {
+			if (other.province_id != null)
 				return false;
-		} else if (!provice_id.equals(other.provice_id))
+		} else if (!province_id.equals(other.province_id))
 			return false;
 		if (region_id == null) {
 			if (other.region_id != null)

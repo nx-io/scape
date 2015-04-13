@@ -31,7 +31,13 @@ public class ItemMediaVO {
 		if (_do == null) {
 			return null;
 		}
-		return new ItemMediaVO().toItemMedia(_do);
+		ItemMediaVO vo = new ItemMediaVO();
+		vo.setId(_do.getId());
+		vo.setItem_id(_do.getItem_id());
+		vo.setStatus(_do.getStatus());
+		vo.setType(_do.getType());
+		vo.setUrl(ImageUtils.urlWrapper(_do.getUrl()));
+		return vo;
 	}
 
 	public static List<ItemMediaVO> newInstance(List<ItemMediaDO> doList) {
@@ -47,15 +53,6 @@ public class ItemMediaVO {
 			voList.add(vo);
 		}
 		return voList;
-	}
-
-	private final ItemMediaVO toItemMedia(ItemMediaDO _do) {
-		setId(_do.getId());
-		setItem_id(_do.getItem_id());
-		setStatus(_do.getStatus());
-		setType(_do.getType());
-		setUrl(ImageUtils.urlWrapper(_do.getUrl()));
-		return this;
 	}
 
 	public Long getItem_id() {

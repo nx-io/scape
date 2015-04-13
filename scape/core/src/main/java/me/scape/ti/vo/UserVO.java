@@ -65,25 +65,22 @@ public class UserVO {
 		if (_do == null) {
 			return null;
 		}
-		return new UserVO().toUser(_do);
-	}
-
-	private final UserVO toUser(UserDO _do) {
-		setAvatar(_do.getAvatar());
-		setCategory_id(_do.getCategory_id());
-		setContact(_do.getContact());
-		setEmail(_do.getEmail());
-		setFullname(_do.getFullname());
-		setGmt_created(_do.getGmt_created());
-		setIs_email_verified(_do.getIs_email_verified());
-		setIs_mobile_verified(_do.getIs_mobile_verified());
-		setLast_ip(WebUtils.lngToIp(_do.getLast_ip()));
-		setLast_login(_do.getLast_login());
-		setMobile(_do.getMobile());
-		setName(_do.getName());
-		setProfile(_do.getProfile());
-		setStatus(_do.getStatus());
-		return this;
+		UserVO vo = new UserVO();
+		vo.setAvatar(_do.getAvatar());
+		vo.setCategory_id(_do.getCategory_id());
+		vo.setContact(_do.getContact());
+		vo.setEmail(_do.getEmail());
+		vo.setFullname(_do.getFullname());
+		vo.setGmt_created(_do.getGmt_created());
+		vo.setIs_email_verified(_do.getIs_email_verified());
+		vo.setIs_mobile_verified(_do.getIs_mobile_verified());
+		vo.setLast_ip(WebUtils.lngToIp(_do.getLast_ip()));
+		vo.setLast_login(_do.getLast_login());
+		vo.setMobile(_do.getMobile());
+		vo.setName(_do.getName());
+		vo.setProfile(_do.getProfile());
+		vo.setStatus(_do.getStatus());
+		return vo;
 	}
 
 	public String getApp_id() {

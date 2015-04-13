@@ -49,17 +49,14 @@ public class PlantCategoryVO {
 		if (_do == null) {
 			return null;
 		}
-		return new PlantCategoryVO().toPlantCategory(_do);
-	}
-
-	private final PlantCategoryVO toPlantCategory(PlantCategoryDO _do) {
-		setDescription(_do.getDescription());
-		setDisplay(_do.getDisplay());
-		setGmt_created(_do.getGmt_created());
-		setIcon(_do.getIcon());
-		setId(_do.getId());
-		setName(_do.getName());
-		return this;
+		PlantCategoryVO vo = new PlantCategoryVO();
+		vo.setDescription(_do.getDescription());
+		vo.setDisplay(_do.getDisplay());
+		vo.setGmt_created(_do.getGmt_created());
+		vo.setIcon(_do.getIcon());
+		vo.setId(_do.getId());
+		vo.setName(_do.getName());
+		return vo;
 	}
 
 	public Integer getId() {

@@ -23,16 +23,13 @@ public class AreaCategoryVO {
 		if (_do == null) {
 			return null;
 		}
-		return new AreaCategoryVO().toAreaCategory(_do);
-	}
-
-	private final AreaCategoryVO toAreaCategory(AreaCategoryDO _do) {
-		setDescription(_do.getDescription());
-		setDisplay(_do.getDisplay());
-		setIcon(_do.getIcon());
-		setId(_do.getId());
-		setName(_do.getName());
-		return this;
+		AreaCategoryVO vo = new AreaCategoryVO();
+		vo.setDescription(_do.getDescription());
+		vo.setDisplay(_do.getDisplay());
+		vo.setIcon(_do.getIcon());
+		vo.setId(_do.getId());
+		vo.setName(_do.getName());
+		return vo;
 	}
 
 	public String getName() {

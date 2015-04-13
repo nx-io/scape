@@ -5,6 +5,7 @@ import java.util.Map;
 
 import me.scape.ti.vo.AreaCategoryVO;
 import me.scape.ti.vo.CategoryVO;
+import me.scape.ti.vo.CityVO;
 import me.scape.ti.vo.CommentsVO;
 import me.scape.ti.vo.DesignContestEntryVO;
 import me.scape.ti.vo.DesignContestJudgesVO;
@@ -18,6 +19,11 @@ import me.scape.ti.vo.PlantMediaVO;
 import me.scape.ti.vo.PlantsOrnamentalColorVO;
 import me.scape.ti.vo.PlantsOrnamentalPeriodVO;
 import me.scape.ti.vo.PlantsVO;
+import me.scape.ti.vo.ProviceVO;
+import me.scape.ti.vo.RegionVO;
+import me.scape.ti.vo.RequirementsSecondCategoryVO;
+import me.scape.ti.vo.RequirementsTopCategoryVO;
+import me.scape.ti.vo.RequirementsVO;
 import me.scape.ti.vo.StyleVO;
 import me.scape.ti.vo.UserVO;
 
@@ -106,6 +112,24 @@ public class SmartTypeAdapterFactory implements TypeAdapterFactory {
 		}
 		if (DesignContestResultVO.class == rawType) {
 			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<DesignContestResultVO>) gson.getDelegateAdapter(this, type), DesignContestResultVO.class);
+		}
+		if (RequirementsVO.class == rawType) {
+			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<RequirementsVO>) gson.getDelegateAdapter(this, type), RequirementsVO.class);
+		}
+		if (ProviceVO.class == rawType) {
+			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<ProviceVO>) gson.getDelegateAdapter(this, type), ProviceVO.class);
+		}
+		if (CityVO.class == rawType) {
+			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<CityVO>) gson.getDelegateAdapter(this, type), CityVO.class);
+		}
+		if (RegionVO.class == rawType) {
+			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<RegionVO>) gson.getDelegateAdapter(this, type), RegionVO.class);
+		}
+		if (RequirementsTopCategoryVO.class == rawType) {
+			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<RequirementsTopCategoryVO>) gson.getDelegateAdapter(this, type), RequirementsTopCategoryVO.class);
+		}
+		if (RequirementsSecondCategoryVO.class == rawType) {
+			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<RequirementsSecondCategoryVO>) gson.getDelegateAdapter(this, type), RequirementsSecondCategoryVO.class);
 		}
 		return null;
 	}

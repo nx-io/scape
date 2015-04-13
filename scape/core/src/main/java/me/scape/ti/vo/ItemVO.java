@@ -62,29 +62,26 @@ public class ItemVO {
 		if (_do == null) {
 			return null;
 		}
-		return new ItemVO().toItem(_do);
-	}
-
-	private final ItemVO toItem(ItemDO _do) {
-		setId(_do.getId());
-		setTitle(_do.getTitle());
-		setType(_do.getType());
-		setCategory_id(_do.getCategory_id());
-		setArea_category_id(_do.getArea_category_id());
-		setStyle_id(_do.getStyle_id());
-		setStatus(_do.getStatus());
-		setDescription(_do.getDescription());
-		setDesigner(_do.getDesigner());
-		setDesigner_contact(_do.getDesigner_contact());
-		setConstructor(_do.getConstructor());
-		setConstructor_contact(_do.getConstructor_contact());
-		setCover_media(ImageUtils.urlWrapper(_do.getCover_media()));
-		setMedia_count(_do.getMedia_count());
-		setComment_count(_do.getComment_count());
-		setPraise_count(_do.getPraise_count());
-		setLike_count(_do.getLike_count());
-		setGmt_created(_do.getGmt_created());
-		return this;
+		ItemVO vo = new ItemVO();
+		vo.setId(_do.getId());
+		vo.setTitle(_do.getTitle());
+		vo.setType(_do.getType());
+		vo.setCategory_id(_do.getCategory_id());
+		vo.setArea_category_id(_do.getArea_category_id());
+		vo.setStyle_id(_do.getStyle_id());
+		vo.setStatus(_do.getStatus());
+		vo.setDescription(_do.getDescription());
+		vo.setDesigner(_do.getDesigner());
+		vo.setDesigner_contact(_do.getDesigner_contact());
+		vo.setConstructor(_do.getConstructor());
+		vo.setConstructor_contact(_do.getConstructor_contact());
+		vo.setCover_media(ImageUtils.urlWrapper(_do.getCover_media()));
+		vo.setMedia_count(_do.getMedia_count());
+		vo.setComment_count(_do.getComment_count());
+		vo.setPraise_count(_do.getPraise_count());
+		vo.setLike_count(_do.getLike_count());
+		vo.setGmt_created(_do.getGmt_created());
+		return vo;
 	}
 
 	public List<LabelVO> getLabelList() {

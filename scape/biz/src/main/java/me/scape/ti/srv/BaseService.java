@@ -36,6 +36,7 @@ import me.scape.ti.dao.RegionDAO;
 import me.scape.ti.dao.RequirementsCommentsDAO;
 import me.scape.ti.dao.RequirementsDAO;
 import me.scape.ti.dao.RequirementsSecondCategoryDAO;
+import me.scape.ti.dao.RequirementsTopCategoryDAO;
 import me.scape.ti.dao.RoleDAO;
 import me.scape.ti.dao.StyleDAO;
 import me.scape.ti.dao.SystemSettingDAO;
@@ -202,6 +203,10 @@ public class BaseService implements InitializingBean {
 	@Autowired
 	@Qualifier(value = "requirementsSecondCategoryDAO")
 	protected RequirementsSecondCategoryDAO requirementsSecondCategoryDAO;
+
+	@Autowired
+	@Qualifier(value = "requirementsTopCategoryDAO")
+	protected RequirementsTopCategoryDAO requirementsTopCategoryDAO;
 
 	@Autowired
 	@Qualifier(value = "requirementsDAO")
