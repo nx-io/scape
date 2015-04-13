@@ -32,11 +32,6 @@ public class CityVO {
 		vo.setLat(city.getLat());
 		return vo;
 	}
-	
-	public CityVO provice(ProviceVO provice) {
-		setProvice(provice);
-		return this;
-	}
 
 	public Integer getId() {
 		return id;

@@ -33,7 +33,7 @@ public class RequirementsSecondCategoryDO implements Serializable {
 	@Column(name = "top_cat_id", nullable = false)
 	private Integer top_cat_id;// 一级分类ID
 
-	@Column(name = "name", nullable = false, length = 20)
+	@Column(name = "name", nullable = false, length = 64)
 	private String name;// 二级分类名称
 
 	@Column(name = "description", length = 255)

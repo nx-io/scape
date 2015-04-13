@@ -1,6 +1,5 @@
 package me.scape.ti.vo;
 
-import me.scape.ti.dataobject.CityDO;
 import me.scape.ti.dataobject.RegionDO;
 
 /**
@@ -14,7 +13,7 @@ public class RegionVO {
 
 	private Integer id;
 
-	private CityDO city;// 市
+	private CityVO city;// 市
 
 	private String name;// 名称
 
@@ -33,11 +32,6 @@ public class RegionVO {
 		vo.setLat(region.getLat());
 		return vo;
 	}
-	
-	public RegionVO city(CityDO city) {
-		setCity(city);
-		return this;
-	}
 
 	public Integer getId() {
 		return id;
@@ -47,11 +41,11 @@ public class RegionVO {
 		this.id = id;
 	}
 
-	public CityDO getCity() {
+	public CityVO getCity() {
 		return city;
 	}
 
-	public void setCity(CityDO city) {
+	public void setCity(CityVO city) {
 		this.city = city;
 	}
 

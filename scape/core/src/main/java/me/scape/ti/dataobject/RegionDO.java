@@ -28,7 +28,7 @@ public class RegionDO implements Serializable {
 	private Integer id;
 
 	@Column(name = "city_id", nullable = false)
-	private Long city_id;// 城
+	private Integer city_id;// 城
 
 	@Column(name = "name", nullable = false, length = 20)
 	private String name;// 名称
@@ -47,11 +47,11 @@ public class RegionDO implements Serializable {
 		this.id = id;
 	}
 
-	public Long getCity_id() {
+	public Integer getCity_id() {
 		return city_id;
 	}
 
-	public void setCity_id(Long city_id) {
+	public void setCity_id(Integer city_id) {
 		this.city_id = city_id;
 	}
 

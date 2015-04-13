@@ -57,6 +57,8 @@ public enum ResultCode {
 
 	Error_Active_Design_Contest_Empty(-11008L, "没有正在进行的项目"),
 
+	Error_Requirements_Empty(-11009L, "查询不到需求信息"),
+
 	;
 	public final long code;
 	public final String description;

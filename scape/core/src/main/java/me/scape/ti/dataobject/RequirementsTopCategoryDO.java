@@ -30,7 +30,7 @@ public class RequirementsTopCategoryDO implements Serializable {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
-	@Column(name = "name", nullable = false, length = 20)
+	@Column(name = "name", nullable = false, length = 64)
 	private String name;// 一级分类名称
 	
 	@Column(name = "description", length = 255)

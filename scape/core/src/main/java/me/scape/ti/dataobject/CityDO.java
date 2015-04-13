@@ -28,7 +28,7 @@ public class CityDO implements Serializable {
 	private Integer id;
 
 	@Column(name = "province_id", nullable = false)
-	private Long province_id;// 省
+	private Integer province_id;// 省
 
 	@Column(name = "name", nullable = false, length = 20)
 	private String name;// 名称
@@ -47,11 +47,11 @@ public class CityDO implements Serializable {
 		this.id = id;
 	}
 
-	public Long getProvince_id() {
+	public Integer getProvince_id() {
 		return province_id;
 	}
 
-	public void setProvince_id(Long province_id) {
+	public void setProvince_id(Integer province_id) {
 		this.province_id = province_id;
 	}
 
