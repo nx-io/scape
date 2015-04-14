@@ -10,7 +10,7 @@ import me.scape.ti.dataobject.ProvinceDO;
  * @version 1.0.0
  * @since 2015年4月13日 下午2:50:13
  */
-public class ProviceVO {
+public class ProvinceVO {
 	
 	private Integer id;
 
@@ -20,15 +20,15 @@ public class ProviceVO {
 
 	private Double lat;// 纬度
 	
-	public static ProviceVO newInstance(ProvinceDO provice) {
-		if(provice == null) {
+	public static ProvinceVO newInstance(ProvinceDO province) {
+		if(province == null) {
 			return null;
 		}
-		ProviceVO vo = new ProviceVO();
-		vo.setId(provice.getId());
-		vo.setName(provice.getName());
-		vo.setLng(provice.getLat());
-		vo.setLat(provice.getLat());
+		ProvinceVO vo = new ProvinceVO();
+		vo.setId(province.getId());
+		vo.setName(province.getName());
+		vo.setLng(province.getLat());
+		vo.setLat(province.getLat());
 		return vo;
 	}
 

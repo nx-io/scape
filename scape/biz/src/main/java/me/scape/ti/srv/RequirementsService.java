@@ -16,4 +16,14 @@ public interface RequirementsService {
 	Result publishRequirements(PublishRequirementsRequest request);
 	
 	Result search(RequirementsSearchRequest request);
+	
+	Result getProvinceList();
+	
+	Result getCityList(Integer provinceId);
+	
+	Result getRegionList(Integer cityId);
+	
+	Result getTopCategoryList();
+	
+	Result getSecondCategoryList(Integer topCatId);
 }

@@ -19,7 +19,7 @@ import me.scape.ti.vo.PlantMediaVO;
 import me.scape.ti.vo.PlantsOrnamentalColorVO;
 import me.scape.ti.vo.PlantsOrnamentalPeriodVO;
 import me.scape.ti.vo.PlantsVO;
-import me.scape.ti.vo.ProviceVO;
+import me.scape.ti.vo.ProvinceVO;
 import me.scape.ti.vo.RegionVO;
 import me.scape.ti.vo.RequirementsSecondCategoryVO;
 import me.scape.ti.vo.RequirementsTopCategoryVO;
@@ -116,8 +116,8 @@ public class SmartTypeAdapterFactory implements TypeAdapterFactory {
 		if (RequirementsVO.class == rawType) {
 			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<RequirementsVO>) gson.getDelegateAdapter(this, type), RequirementsVO.class);
 		}
-		if (ProviceVO.class == rawType) {
-			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<ProviceVO>) gson.getDelegateAdapter(this, type), ProviceVO.class);
+		if (ProvinceVO.class == rawType) {
+			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<ProvinceVO>) gson.getDelegateAdapter(this, type), ProvinceVO.class);
 		}
 		if (CityVO.class == rawType) {
 			return (TypeAdapter<T>) new ObjectTypeAdapter((TypeAdapter<CityVO>) gson.getDelegateAdapter(this, type), CityVO.class);

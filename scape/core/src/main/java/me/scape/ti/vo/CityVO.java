@@ -13,7 +13,7 @@ public class CityVO {
 
 	private Integer id;
 
-	private ProviceVO provice;// 省
+	private ProvinceVO province;// 省
 
 	private String name;// 名称
 
@@ -41,12 +41,12 @@ public class CityVO {
 		this.id = id;
 	}
 
-	public ProviceVO getProvice() {
-		return provice;
+	public ProvinceVO getProvince() {
+		return province;
 	}
 
-	public void setProvice(ProviceVO provice) {
-		this.provice = provice;
+	public void setProvince(ProvinceVO province) {
+		this.province = province;
 	}
 
 	public String getName() {

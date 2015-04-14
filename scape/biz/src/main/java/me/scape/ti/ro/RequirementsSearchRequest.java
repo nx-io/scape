@@ -9,6 +9,8 @@ package me.scape.ti.ro;
  * @since 2015年4月13日 上午11:35:31
  */
 public class RequirementsSearchRequest extends PageRequest {
+	
+	private Long id;
 
 	private String title;// 需求信息标题
 
@@ -21,6 +23,14 @@ public class RequirementsSearchRequest extends PageRequest {
 	private Integer top_cat_id;// 一级分类ID
 
 	private Integer sec_cat_id;// 二级分类ID
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getTitle() {
 		return title;

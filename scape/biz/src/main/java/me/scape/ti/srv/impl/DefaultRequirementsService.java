@@ -19,6 +19,11 @@ import me.scape.ti.ro.RequirementsSearchRequest;
 import me.scape.ti.srv.BaseService;
 import me.scape.ti.srv.PageQuery;
 import me.scape.ti.srv.RequirementsService;
+import me.scape.ti.vo.CityVO;
+import me.scape.ti.vo.ProvinceVO;
+import me.scape.ti.vo.RegionVO;
+import me.scape.ti.vo.RequirementsSecondCategoryVO;
+import me.scape.ti.vo.RequirementsTopCategoryVO;
 import me.scape.ti.vo.RequirementsVO;
 import me.scape.ti.vo.UserVO;
 
@@ -39,33 +44,38 @@ public class DefaultRequirementsService extends BaseService implements Requireme
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT * FROM requirements i WHERE 1 = 1 ");
 		Map<String, Object> args = new HashMap<String, Object>();
+		Long id = request.getId();
+		if (id != null && id > 0L) {
+			sb.append(" AND i.id = :id ");
+			args.put("id", id);
+		}
 		String title = request.getTitle();
 		if (StringUtils.isNotBlank(title)) {
 			sb.append(" AND i.title LIKE :title ");
 			args.put("title", "%" + title + "%");
 		}
 		Integer province_id = request.getProvince_id();
-		if (province_id != null && province_id > 0L) {
+		if (province_id != null && province_id > 0) {
 			sb.append(" AND i.province_id = :province_id ");
 			args.put("province_id", province_id);
 		}
 		Integer city_id = request.getCity_id();
-		if (city_id != null && city_id > 0L) {
+		if (city_id != null && city_id > 0) {
 			sb.append(" AND i.city_id = :city_id ");
 			args.put("city_id", city_id);
 		}
 		Integer region_id = request.getRegion_id();
-		if (region_id != null && region_id > 0L) {
+		if (region_id != null && region_id > 0) {
 			sb.append(" AND i.region_id = :region_id ");
 			args.put("region_id", region_id);
 		}
 		Integer top_cat_id = request.getTop_cat_id();
-		if (top_cat_id != null && top_cat_id > 0L) {
+		if (top_cat_id != null && top_cat_id > 0) {
 			sb.append(" AND i.top_cat_id = :top_cat_id ");
 			args.put("top_cat_id", top_cat_id);
 		}
 		Integer sec_cat_id = request.getSec_cat_id();
-		if (sec_cat_id != null && sec_cat_id > 0L) {
+		if (sec_cat_id != null && sec_cat_id > 0) {
 			sb.append(" AND i.sec_cat_id = :sec_cat_id ");
 			args.put("sec_cat_id", sec_cat_id);
 		}
@@ -126,6 +136,78 @@ public class DefaultRequirementsService extends BaseService implements Requireme
 		requirementsDAO.persist(requirements);
 		RequirementsVO vo = toRequirements(requirements);
 		return Result.newSuccess().with(ResultCode.Success).with("requirements", vo);
+	}
+
+	@Override
+	public Result getProvinceList() {
+		List<ProvinceDO> provinceList = provinceDAO.findAll();
+		List<ProvinceVO> voList = new ArrayList<ProvinceVO>();
+		if (provinceList != null && !provinceList.isEmpty()) {
+			for (ProvinceDO province : provinceList) {
+				voList.add(ProvinceVO.newInstance(province));
+			}
+		}
+		return Result.newSuccess().with(ResultCode.Success).with("provinceList", voList);
+	}
+
+	@Override
+	public Result getCityList(Integer provinceId) {
+		ProvinceDO _do = provinceDAO.get(provinceId);
+		ProvinceVO province = ProvinceVO.newInstance(_do);
+		List<CityDO> cityList = cityDAO.query("FROM CityDO WHERE province_id = ?", new Object[] { provinceId });
+		List<CityVO> voList = new ArrayList<CityVO>();
+		if (cityList != null && !cityList.isEmpty()) {
+			for (CityDO city : cityList) {
+				CityVO vo = CityVO.newInstance(city);
+				vo.setProvince(province);
+				voList.add(vo);
+			}
+		}
+		return Result.newSuccess().with(ResultCode.Success).with("cityList", voList);
+	}
+
+	@Override
+	public Result getRegionList(Integer cityId) {
+		CityDO _do = cityDAO.get(cityId);
+		CityVO city = CityVO.newInstance(_do);
+		List<RegionDO> regionList = regionDAO.query("FROM RegionDO WHERE city_id = ?", new Object[] { cityId });
+		List<RegionVO> voList = new ArrayList<RegionVO>();
+		if (regionList != null && !regionList.isEmpty()) {
+			for (RegionDO region : regionList) {
+				RegionVO vo = RegionVO.newInstance(region);
+				vo.setCity(city);
+				voList.add(vo);
+			}
+		}
+		return Result.newSuccess().with(ResultCode.Success).with("regionList", voList);
+	}
+
+	@Override
+	public Result getTopCategoryList() {
+		List<RequirementsTopCategoryDO> topCategoryList = requirementsTopCategoryDAO.findAll();
+		List<RequirementsTopCategoryVO> voList = new ArrayList<RequirementsTopCategoryVO>();
+		if (topCategoryList != null && !topCategoryList.isEmpty()) {
+			for (RequirementsTopCategoryDO topCategory : topCategoryList) {
+				voList.add(RequirementsTopCategoryVO.newInstance(topCategory));
+			}
+		}
+		return Result.newSuccess().with(ResultCode.Success).with("topCategoryList", voList);
+	}
+
+	@Override
+	public Result getSecondCategoryList(Integer topCatId) {
+		RequirementsTopCategoryDO _do = requirementsTopCategoryDAO.get(topCatId);
+		RequirementsTopCategoryVO topCategory = RequirementsTopCategoryVO.newInstance(_do);
+		List<RequirementsSecondCategoryDO> secondCategoryList = requirementsSecondCategoryDAO.query("FROM RequirementsSecondCategoryDO WHERE top_cat_id = ?", new Object[] { topCatId });
+		List<RequirementsSecondCategoryVO> voList = new ArrayList<RequirementsSecondCategoryVO>();
+		if (secondCategoryList != null && !secondCategoryList.isEmpty()) {
+			for (RequirementsSecondCategoryDO secondCategory : secondCategoryList) {
+				RequirementsSecondCategoryVO vo = RequirementsSecondCategoryVO.newInstance(secondCategory);
+				vo.setTop_cat(topCategory);
+				voList.add(vo);
+			}
+		}
+		return Result.newSuccess().with(ResultCode.Success).with("secondCategoryList", voList);
 	}
 
 	private RequirementsVO toRequirements(RequirementsDO requirements) {
