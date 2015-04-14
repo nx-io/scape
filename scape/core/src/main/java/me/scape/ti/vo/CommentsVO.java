@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import me.scape.ti.dataobject.CommentsDO;
+import me.scape.ti.utils.ImageUtils;
 
 /**
  * 
@@ -16,17 +17,17 @@ public class CommentsVO {
 
 	private Long id;
 
-	private Long ref_id;// 引用的父评论ID
-
 	private Long item_id;// 案例ID
 
 	private String user_name;// 冗余的设计师/企业名称
+	
+	private String avatar;// 头像
 
 	private String content;// 评论内容
 
-	private Byte status;// 状态，1可用，0不可用，-1删除
-
 	private Date gmt_created;
+	
+	private List<CommentsVO> childComments;
 
 	public static CommentsVO newInstance(CommentsDO _do) {
 		if (_do == null) {
@@ -37,8 +38,8 @@ public class CommentsVO {
 		vo.setGmt_created(_do.getGmt_created());
 		vo.setId(_do.getId());
 		vo.setItem_id(_do.getItem_id());
-		vo.setStatus(_do.getStatus());
 		vo.setUser_name(_do.getUser_name());
+		vo.setAvatar(ImageUtils.urlWrapper(_do.getAvatar()));
 		return vo;
 	}
 
@@ -54,20 +55,28 @@ public class CommentsVO {
 		return voList;
 	}
 
+	public List<CommentsVO> getChildComments() {
+		return childComments;
+	}
+
+	public void setChildComments(List<CommentsVO> childComments) {
+		this.childComments = childComments;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getRef_id() {
-		return ref_id;
-	}
-
-	public void setRef_id(Long ref_id) {
-		this.ref_id = ref_id;
 	}
 
 	public Long getItem_id() {
@@ -92,14 +101,6 @@ public class CommentsVO {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public Byte getStatus() {
-		return status;
-	}
-
-	public void setStatus(Byte status) {
-		this.status = status;
 	}
 
 	public Date getGmt_created() {

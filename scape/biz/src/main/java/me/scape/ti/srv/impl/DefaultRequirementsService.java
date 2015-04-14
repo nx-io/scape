@@ -9,6 +9,7 @@ import java.util.Map;
 import me.scape.ti.dataobject.CityDO;
 import me.scape.ti.dataobject.ProvinceDO;
 import me.scape.ti.dataobject.RegionDO;
+import me.scape.ti.dataobject.RequirementsCommentsDO;
 import me.scape.ti.dataobject.RequirementsDO;
 import me.scape.ti.dataobject.RequirementsSecondCategoryDO;
 import me.scape.ti.dataobject.RequirementsTopCategoryDO;
@@ -22,6 +23,7 @@ import me.scape.ti.srv.RequirementsService;
 import me.scape.ti.vo.CityVO;
 import me.scape.ti.vo.ProvinceVO;
 import me.scape.ti.vo.RegionVO;
+import me.scape.ti.vo.RequirementsCommentsVO;
 import me.scape.ti.vo.RequirementsSecondCategoryVO;
 import me.scape.ti.vo.RequirementsTopCategoryVO;
 import me.scape.ti.vo.RequirementsVO;
@@ -99,6 +101,22 @@ public class DefaultRequirementsService extends BaseService implements Requireme
 			voList.add(vo);
 		}
 		return Result.newSuccess().with(ResultCode.Success).with("requirementsList", voList);
+	}
+
+	@Override
+	public Result getRequirements(Long reqId) {
+		RequirementsDO requirements = requirementsDAO.get(reqId);
+		RequirementsVO vo = toRequirements(requirements);
+		List<RequirementsCommentsDO> commentsList = requirementsCommentsDAO.query("FROM RequirementsCommentsDO WHERE requirements_id = ?", new Object[] { reqId });
+		List<RequirementsCommentsVO> voList = RequirementsCommentsVO.newInstance(commentsList);
+		if(voList != null && !voList.isEmpty()) {
+			for (RequirementsCommentsVO comments : voList) {
+				comments.setChildComments(RequirementsCommentsVO.newInstance(requirementsCommentsDAO.query("FROM RequirementsCommentsDO WHERE ref_id = ?", new Object[] { comments.getId() })));
+			}
+		}
+		return Result.newSuccess().with(ResultCode.Success)
+				.with("requirements", vo)
+				.with("commentsList", voList);
 	}
 
 	@Override

@@ -48,14 +48,12 @@ public class DefaultRelationService extends BaseService implements RelationServi
 		Long userId = privileged.getResponse(Long.class);
 		CommentsDO comments = new CommentsDO();
 		comments.setContent(request.getContent());
-		Date now = new Date();
-		comments.setGmt_created(now);
-		comments.setGmt_modified(now);
+		comments.setGmt_created(new Date());
 		comments.setItem_id(request.getItem_id());
 		comments.setRef_id(request.getRef_id());
-		comments.setStatus(CommentsDO.Available);
 		comments.setUser_id(userId);
 		comments.setUser_name(request.getUser_name());
+		comments.setAvatar(request.getAvatar());
 		commentsDAO.persist(comments);
 		return Result.newSuccess().with(ResultCode.Success).with("comments", CommentsVO.newInstance(comments));
 	}

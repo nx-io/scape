@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import me.scape.ti.dataobject.CommentsDO;
 import me.scape.ti.dataobject.ItemDO;
 import me.scape.ti.dataobject.ItemMediaDO;
 import me.scape.ti.result.Result;
@@ -17,6 +18,7 @@ import me.scape.ti.srv.ItemService;
 import me.scape.ti.srv.PageQuery;
 import me.scape.ti.vo.AreaCategoryVO;
 import me.scape.ti.vo.CategoryVO;
+import me.scape.ti.vo.CommentsVO;
 import me.scape.ti.vo.ItemMediaVO;
 import me.scape.ti.vo.ItemVO;
 import me.scape.ti.vo.LabelVO;
@@ -190,9 +192,16 @@ public class DefaultItemService extends BaseService implements ItemService {
 		itemVO.setAreaCategory(AreaCategoryVO.newInstance(areaCategoryDAO.get(item.getArea_category_id())));
 		itemVO.setCategory(CategoryVO.newInstance(categoryDAO.get(item.getCategory_id())));
 		itemVO.setStyle(StyleVO.newInstance(styleDAO.get(item.getStyle_id())));
-
 		itemVO.setLabelList(LabelVO.newInstance(labelDAO.queryNamed("Label.getLabelByItemId", new Object[] { item.getId() })));
-
-		return Result.newSuccess().with(ResultCode.Success).with("item", itemVO);
+		List<CommentsDO> commentsDOList = commentsDAO.query("FROM CommentsDO WHERE item_id = ?", new Object[] { itemId });
+		List<CommentsVO> commentsVOList = CommentsVO.newInstance(commentsDOList);
+		if(commentsVOList != null && !commentsVOList.isEmpty()) {
+			for (CommentsVO comments : commentsVOList) {
+				comments.setChildComments(CommentsVO.newInstance(commentsDAO.query("FROM CommentsDO WHERE ref_id = ?", new Object[] { comments.getId() })));
+			}
+		}
+		return Result.newSuccess().with(ResultCode.Success)
+				.with("item", itemVO)
+				.with("commentsList", commentsVOList);
 	}
 }

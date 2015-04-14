@@ -17,6 +17,8 @@ public interface RequirementsService {
 	
 	Result search(RequirementsSearchRequest request);
 	
+	Result getRequirements(Long reqId);
+	
 	Result getProvinceList();
 	
 	Result getCityList(Integer provinceId);

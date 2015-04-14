@@ -17,6 +17,8 @@ public class CommentsRequest extends PrivilegedRequest {
 
 	@NotEmpty
 	private String user_name;// 冗余的设计师/企业名称
+	
+	private String avatar;// 头像
 
 	@NotEmpty
 	private String content;// 评论内容
@@ -51,5 +53,13 @@ public class CommentsRequest extends PrivilegedRequest {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 }

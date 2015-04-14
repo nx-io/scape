@@ -25,10 +25,6 @@ public class RequirementsCommentsDO implements Serializable {
 
 	private static final long serialVersionUID = 973425091883987786L;
 
-	public static final byte Available = 1;
-	public static final byte Unavailable = 0;
-	public static final byte Strike_out = -1;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
@@ -37,20 +33,20 @@ public class RequirementsCommentsDO implements Serializable {
 	@Column(name = "ref_id", nullable = false)
 	private Long ref_id;// 引用的父评论ID
 
-	@Column(name = "item_id", nullable = false)
-	private Long item_id;// 案例ID
+	@Column(name = "requirements_id", nullable = false)
+	private Long requirements_id;// 需求信息ID
 
 	@Column(name = "user_id", nullable = false)
 	private Long user_id;// 用户ID, 评论人ID
 
 	@Column(name = "user_name", nullable = false, length = 64)
 	private String user_name;// 冗余的设计师/企业名称
+	
+	@Column(name = "avatar", length = 255)
+	private String avatar;// 头像
 
 	@Column(name = "content", nullable = false, length = 255)
 	private String content;// 评论内容
-
-	@Column(name = "status", nullable = false)
-	private Byte status;// 状态，1可用，0不可用，-1删除
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "gmt_created", nullable = false)
@@ -72,12 +68,12 @@ public class RequirementsCommentsDO implements Serializable {
 		this.ref_id = ref_id;
 	}
 
-	public Long getItem_id() {
-		return item_id;
+	public Long getRequirements_id() {
+		return requirements_id;
 	}
 
-	public void setItem_id(Long item_id) {
-		this.item_id = item_id;
+	public void setRequirements_id(Long requirements_id) {
+		this.requirements_id = requirements_id;
 	}
 
 	public Long getUser_id() {
@@ -96,20 +92,20 @@ public class RequirementsCommentsDO implements Serializable {
 		this.user_name = user_name;
 	}
 
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
 	public String getContent() {
 		return content;
 	}
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public Byte getStatus() {
-		return status;
-	}
-
-	public void setStatus(Byte status) {
-		this.status = status;
 	}
 
 	public Date getGmt_created() {
@@ -124,12 +120,12 @@ public class RequirementsCommentsDO implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + ((gmt_created == null) ? 0 : gmt_created.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((item_id == null) ? 0 : item_id.hashCode());
 		result = prime * result + ((ref_id == null) ? 0 : ref_id.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((requirements_id == null) ? 0 : requirements_id.hashCode());
 		result = prime * result + ((user_id == null) ? 0 : user_id.hashCode());
 		result = prime * result + ((user_name == null) ? 0 : user_name.hashCode());
 		return result;
@@ -144,6 +140,11 @@ public class RequirementsCommentsDO implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		RequirementsCommentsDO other = (RequirementsCommentsDO) obj;
+		if (avatar == null) {
+			if (other.avatar != null)
+				return false;
+		} else if (!avatar.equals(other.avatar))
+			return false;
 		if (content == null) {
 			if (other.content != null)
 				return false;
@@ -159,20 +160,15 @@ public class RequirementsCommentsDO implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (item_id == null) {
-			if (other.item_id != null)
-				return false;
-		} else if (!item_id.equals(other.item_id))
-			return false;
 		if (ref_id == null) {
 			if (other.ref_id != null)
 				return false;
 		} else if (!ref_id.equals(other.ref_id))
 			return false;
-		if (status == null) {
-			if (other.status != null)
+		if (requirements_id == null) {
+			if (other.requirements_id != null)
 				return false;
-		} else if (!status.equals(other.status))
+		} else if (!requirements_id.equals(other.requirements_id))
 			return false;
 		if (user_id == null) {
 			if (other.user_id != null)
