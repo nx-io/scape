@@ -20,9 +20,6 @@ import me.scape.ti.ro.RequirementsSearchRequest;
 import me.scape.ti.srv.BaseService;
 import me.scape.ti.srv.PageQuery;
 import me.scape.ti.srv.RequirementsService;
-import me.scape.ti.vo.CityVO;
-import me.scape.ti.vo.ProvinceVO;
-import me.scape.ti.vo.RegionVO;
 import me.scape.ti.vo.RequirementsCommentsVO;
 import me.scape.ti.vo.RequirementsSecondCategoryVO;
 import me.scape.ti.vo.RequirementsTopCategoryVO;
@@ -30,6 +27,7 @@ import me.scape.ti.vo.RequirementsVO;
 import me.scape.ti.vo.UserVO;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
@@ -39,6 +37,7 @@ import org.springframework.util.CollectionUtils;
  * @version 1.0.0
  * @since 2015年4月13日 上午11:33:48
  */
+@Service(value = "requirementsService")
 public class DefaultRequirementsService extends BaseService implements RequirementsService {
 
 	@Override
@@ -154,50 +153,6 @@ public class DefaultRequirementsService extends BaseService implements Requireme
 		requirementsDAO.persist(requirements);
 		RequirementsVO vo = toRequirements(requirements);
 		return Result.newSuccess().with(ResultCode.Success).with("requirements", vo);
-	}
-
-	@Override
-	public Result getProvinceList() {
-		List<ProvinceDO> provinceList = provinceDAO.findAll();
-		List<ProvinceVO> voList = new ArrayList<ProvinceVO>();
-		if (provinceList != null && !provinceList.isEmpty()) {
-			for (ProvinceDO province : provinceList) {
-				voList.add(ProvinceVO.newInstance(province));
-			}
-		}
-		return Result.newSuccess().with(ResultCode.Success).with("provinceList", voList);
-	}
-
-	@Override
-	public Result getCityList(Integer provinceId) {
-		ProvinceDO _do = provinceDAO.get(provinceId);
-		ProvinceVO province = ProvinceVO.newInstance(_do);
-		List<CityDO> cityList = cityDAO.query("FROM CityDO WHERE province_id = ?", new Object[] { provinceId });
-		List<CityVO> voList = new ArrayList<CityVO>();
-		if (cityList != null && !cityList.isEmpty()) {
-			for (CityDO city : cityList) {
-				CityVO vo = CityVO.newInstance(city);
-				vo.setProvince(province);
-				voList.add(vo);
-			}
-		}
-		return Result.newSuccess().with(ResultCode.Success).with("cityList", voList);
-	}
-
-	@Override
-	public Result getRegionList(Integer cityId) {
-		CityDO _do = cityDAO.get(cityId);
-		CityVO city = CityVO.newInstance(_do);
-		List<RegionDO> regionList = regionDAO.query("FROM RegionDO WHERE city_id = ?", new Object[] { cityId });
-		List<RegionVO> voList = new ArrayList<RegionVO>();
-		if (regionList != null && !regionList.isEmpty()) {
-			for (RegionDO region : regionList) {
-				RegionVO vo = RegionVO.newInstance(region);
-				vo.setCity(city);
-				voList.add(vo);
-			}
-		}
-		return Result.newSuccess().with(ResultCode.Success).with("regionList", voList);
 	}
 
 	@Override

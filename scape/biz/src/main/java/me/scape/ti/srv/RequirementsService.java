@@ -19,12 +19,6 @@ public interface RequirementsService {
 	
 	Result getRequirements(Long reqId);
 	
-	Result getProvinceList();
-	
-	Result getCityList(Integer provinceId);
-	
-	Result getRegionList(Integer cityId);
-	
 	Result getTopCategoryList();
 	
 	Result getSecondCategoryList(Integer topCatId);

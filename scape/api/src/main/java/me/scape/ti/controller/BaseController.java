@@ -13,6 +13,7 @@ import me.scape.ti.srv.DesignContestService;
 import me.scape.ti.srv.ItemService;
 import me.scape.ti.srv.PlantService;
 import me.scape.ti.srv.RelationService;
+import me.scape.ti.srv.RequirementsService;
 import me.scape.ti.utils.CalendarUtil;
 
 import org.slf4j.Logger;
@@ -64,6 +65,10 @@ public class BaseController {
 	@Autowired
 	@Qualifier(value = "designContestService")
 	protected DesignContestService designContestService;
+
+	@Autowired
+	@Qualifier(value = "requirementsService")
+	protected RequirementsService requirementsService;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

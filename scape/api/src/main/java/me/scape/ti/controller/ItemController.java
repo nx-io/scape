@@ -42,7 +42,10 @@ public class ItemController extends BaseController {
 
 	@RequestMapping(value = "/item/search", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> search(ItemSearchRequest request) {
+	public ResponseEntity<String> search(@Valid ItemSearchRequest request, BindingResult validResult) {
+		if (validResult.hasErrors()) {
+			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
+		}
 		Result result = itemService.search(request);
 		return toResponse(result);
 	}

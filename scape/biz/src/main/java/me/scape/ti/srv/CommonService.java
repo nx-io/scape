@@ -17,4 +17,10 @@ public interface CommonService {
 	Result upload(MultipartFile file);
 
 	Result getSystemSetting(SystemSettingGroup group, SystemSettingKey key);
+	
+	Result getProvinceList();
+	
+	Result getCityList(Integer provinceId);
+	
+	Result getRegionList(Integer cityId);
 }

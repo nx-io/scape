@@ -1,8 +1,13 @@
 package me.scape.ti.srv.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import me.scape.ti.constant.CommonConstant;
+import me.scape.ti.dataobject.CityDO;
+import me.scape.ti.dataobject.ProvinceDO;
+import me.scape.ti.dataobject.RegionDO;
 import me.scape.ti.dataobject.SystemSettingDO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
@@ -12,6 +17,9 @@ import me.scape.ti.utils.CDNUtil;
 import me.scape.ti.utils.FileUtil;
 import me.scape.ti.utils.SystemSettingGroup;
 import me.scape.ti.utils.SystemSettingKey;
+import me.scape.ti.vo.CityVO;
+import me.scape.ti.vo.ProvinceVO;
+import me.scape.ti.vo.RegionVO;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,5 +53,49 @@ public class DefaultCommonService extends BaseService implements CommonService {
 			return Result.newSuccess().with(ResultCode.Success).with("url", setting.getSettingValue()).with("version", setting.getExtend());
 		}
 		return Result.newSuccess().with(ResultCode.Error_Empty_Setting);
+	}
+
+	@Override
+	public Result getProvinceList() {
+		List<ProvinceDO> provinceList = provinceDAO.findAll();
+		List<ProvinceVO> voList = new ArrayList<ProvinceVO>();
+		if (provinceList != null && !provinceList.isEmpty()) {
+			for (ProvinceDO province : provinceList) {
+				voList.add(ProvinceVO.newInstance(province));
+			}
+		}
+		return Result.newSuccess().with(ResultCode.Success).with("provinceList", voList);
+	}
+
+	@Override
+	public Result getCityList(Integer provinceId) {
+		ProvinceDO _do = provinceDAO.get(provinceId);
+		ProvinceVO province = ProvinceVO.newInstance(_do);
+		List<CityDO> cityList = cityDAO.query("FROM CityDO WHERE province_id = ?", new Object[] { provinceId });
+		List<CityVO> voList = new ArrayList<CityVO>();
+		if (cityList != null && !cityList.isEmpty()) {
+			for (CityDO city : cityList) {
+				CityVO vo = CityVO.newInstance(city);
+				vo.setProvince(province);
+				voList.add(vo);
+			}
+		}
+		return Result.newSuccess().with(ResultCode.Success).with("cityList", voList);
+	}
+
+	@Override
+	public Result getRegionList(Integer cityId) {
+		CityDO _do = cityDAO.get(cityId);
+		CityVO city = CityVO.newInstance(_do);
+		List<RegionDO> regionList = regionDAO.query("FROM RegionDO WHERE city_id = ?", new Object[] { cityId });
+		List<RegionVO> voList = new ArrayList<RegionVO>();
+		if (regionList != null && !regionList.isEmpty()) {
+			for (RegionDO region : regionList) {
+				RegionVO vo = RegionVO.newInstance(region);
+				vo.setCity(city);
+				voList.add(vo);
+			}
+		}
+		return Result.newSuccess().with(ResultCode.Success).with("regionList", voList);
 	}
 }
