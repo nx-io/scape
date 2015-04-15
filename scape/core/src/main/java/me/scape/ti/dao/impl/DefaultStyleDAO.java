@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
  * @version 1.0.0
  * @since 2014年12月21日 下午2:55:02
  */
-@Repository(value = "styleDAO")
+@Repository("styleDAO")
 public class DefaultStyleDAO extends DefaultGenericDAO<StyleDO, Long> implements StyleDAO {
 
 	@Override

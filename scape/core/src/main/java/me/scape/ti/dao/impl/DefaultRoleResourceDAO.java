@@ -6,7 +6,7 @@ import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.springframework.stereotype.Repository;
 
-@Repository(value = "roleResourceDAO")
+@Repository("roleResourceDAO")
 public class DefaultRoleResourceDAO extends DefaultGenericDAO<RoleResourceDO, Integer> implements RoleResourceDAO {
 
 }

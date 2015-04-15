@@ -32,7 +32,7 @@ import org.springframework.util.CollectionUtils;
  * @version 1.0.0
  * @since 2014年12月31日 下午3:36:23
  */
-@Service(value = "relationService")
+@Service("relationService")
 public class DefaultRelationService extends BaseService implements RelationService {
 
 	/**

@@ -15,7 +15,7 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  * @version 1.0.0
  * @since 2015年1月28日 下午2:48:53
  */
-@Repository(value = "plantMediaDAO")
+@Repository("plantMediaDAO")
 public class DefaultPlantMediaDAO extends DefaultGenericDAO<PlantMediaDO, Long> implements PlantMediaDAO {
 
 	@Override

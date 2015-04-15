@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
  * @version 1.0.0
  * @since 2015年3月2日 下午2:01:09
  */
-@Repository(value = "designContestDAO")
+@Repository("designContestDAO")
 public class DefaultDesignContestDAO extends DefaultGenericDAO<DesignContestDO, Integer> implements DesignContestDAO {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })

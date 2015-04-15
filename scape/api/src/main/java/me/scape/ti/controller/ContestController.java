@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @version 1.0.0
  * @since 2014年12月27日 下午2:36:45
  */
-@Controller
+@Controller("contestController")
 @RequestMapping(value = "/contest")
 public class ContestController extends BaseController {
 

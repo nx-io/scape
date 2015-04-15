@@ -8,7 +8,7 @@ import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.springframework.stereotype.Repository;
 
-@Repository(value = "resourceDAO")
+@Repository("resourceDAO")
 public class DefaultResourceDAO extends DefaultGenericDAO<ResourceDO, Integer> implements ResourceDAO {
 
 	@Override

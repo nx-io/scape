@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
  * @version 1.0.0
  * @since 2015年3月8日 下午7:02:36
  */
-@Repository(value = "designContestNewsDAO")
+@Repository("designContestNewsDAO")
 public class DefaultDesignContestNewsDAO extends DefaultGenericDAO<DesignContestNewsDO, Long> implements
         DesignContestNewsDAO {
 

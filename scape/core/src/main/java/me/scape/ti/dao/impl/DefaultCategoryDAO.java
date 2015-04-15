@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
  * @version 1.0.0
  * @since 2014年12月19日 上午12:17:53
  */
-@Repository(value = "categoryDAO")
+@Repository("categoryDAO")
 public class DefaultCategoryDAO extends DefaultGenericDAO<CategoryDO, Long> implements CategoryDAO {
 
 	@Override

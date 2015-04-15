@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @version 1.0.0
  * @since 2015年1月18日 下午12:39:22
  */
-@Controller
+@Controller("commonController")
 public class CommonController extends BaseController {
 
 	@RequestMapping(value = "/file/upload", produces = "application/json")

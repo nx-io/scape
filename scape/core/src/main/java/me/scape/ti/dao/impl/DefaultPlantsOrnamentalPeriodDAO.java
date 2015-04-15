@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @version 1.0.0
  * @since 2015年1月27日 下午8:52:05
  */
-@Repository(value = "plantsOrnamentalPeriodDAO")
+@Repository("plantsOrnamentalPeriodDAO")
 public class DefaultPlantsOrnamentalPeriodDAO extends DefaultGenericDAO<PlantsOrnamentalPeriodDO, Integer> implements PlantsOrnamentalPeriodDAO {
 
 	@Override

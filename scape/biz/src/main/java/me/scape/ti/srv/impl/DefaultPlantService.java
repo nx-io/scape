@@ -31,7 +31,7 @@ import org.springframework.util.CollectionUtils;
  * @version 1.0.0
  * @since 2015年1月27日 下午11:48:53
  */
-@Service(value = "plantService")
+@Service("plantService")
 public class DefaultPlantService extends BaseService implements PlantService {
 
 	private static final String QueryColorRelSQL = "SELECT * FROM plant_ornamental_color pc WHERE pc.id IN (SELECT pcr.color_id FROM plant_color_rel pcr WHERE pcr.plant_id = ?)";

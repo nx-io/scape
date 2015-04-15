@@ -35,7 +35,7 @@ import org.springframework.util.CollectionUtils;
  * @version 1.0.0
  * @since 2014年12月27日 下午4:33:16
  */
-@Service(value = "itemService")
+@Service("itemService")
 public class DefaultItemService extends BaseService implements ItemService {
 
 	@Override

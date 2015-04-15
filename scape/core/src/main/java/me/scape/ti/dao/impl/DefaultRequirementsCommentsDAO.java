@@ -12,7 +12,7 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  * @version 1.0.0
  * @since 2015年4月12日 下午11:10:11
  */
-@Repository(value = "requirementsCommentsDAO")
+@Repository("requirementsCommentsDAO")
 public class DefaultRequirementsCommentsDAO extends DefaultGenericDAO<RequirementsCommentsDO, Long> implements RequirementsCommentsDAO {
 	
 }

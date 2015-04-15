@@ -12,7 +12,7 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  * @version 1.0.0
  * @since 2015年4月12日 下午11:07:47
  */
-@Repository(value = "provinceDAO")
+@Repository("provinceDAO")
 public class DefaultProvinceDAO extends DefaultGenericDAO<ProvinceDO, Integer> implements ProvinceDAO {
 
 }

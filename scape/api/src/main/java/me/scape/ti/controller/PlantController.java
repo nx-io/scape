@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @version 1.0.0
  * @since 2015年1月27日 下午11:51:36
  */
-@Controller
+@Controller("plantController")
 public class PlantController extends BaseController {
 
 	@RequestMapping(value = "/plant/detail/{plantId}", produces = "application/json")

@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
  * @version 1.0.0
  * @since 2015年3月2日 下午2:04:00
  */
-@Repository(value = "designContestJudgesDAO")
+@Repository("designContestJudgesDAO")
 public class DefaultDesignContestJudgesDAO extends DefaultGenericDAO<DesignContestJudgesDO, Long> implements
         DesignContestJudgesDAO {
 

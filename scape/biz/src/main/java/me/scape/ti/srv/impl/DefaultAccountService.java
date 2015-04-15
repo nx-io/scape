@@ -35,7 +35,7 @@ import org.springframework.util.CollectionUtils;
  * @version 1.0.0
  * @since 2014年12月27日 下午4:29:58
  */
-@Service(value = "accountService")
+@Service("accountService")
 public class DefaultAccountService extends BaseService implements AccountService {
 
 	@Override

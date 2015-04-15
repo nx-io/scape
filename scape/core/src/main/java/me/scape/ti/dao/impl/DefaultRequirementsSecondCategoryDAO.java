@@ -12,7 +12,7 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  * @version 1.0.0
  * @since 2015年4月12日 下午11:12:40
  */
-@Repository(value = "requirementsSecondCategoryDAO")
+@Repository("requirementsSecondCategoryDAO")
 public class DefaultRequirementsSecondCategoryDAO extends DefaultGenericDAO<RequirementsSecondCategoryDO, Integer> implements RequirementsSecondCategoryDAO {
 	
 }

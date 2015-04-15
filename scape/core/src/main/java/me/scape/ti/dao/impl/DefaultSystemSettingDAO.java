@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @version 1.0.0
  * @since 2015年2月3日 上午10:37:57
  */
-@Repository(value = "systemSettingDAO")
+@Repository("systemSettingDAO")
 public class DefaultSystemSettingDAO extends DefaultGenericDAO<SystemSettingDO, Long> implements SystemSettingDAO {
 
 	@Override

@@ -13,7 +13,7 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  * @version 1.0.0
  * @since 2015年1月27日 下午8:45:49
  */
-@Repository(value = "plantsColorRelDAO")
+@Repository("plantsColorRelDAO")
 public class DefaultPlantsColorRelDAO extends DefaultGenericDAO<PlantsColorRelDO, Long> implements PlantsColorRelDAO {
 
 	@Override

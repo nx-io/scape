@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * @version 1.0.0
  * @since 2014年12月19日 上午12:21:43
  */
-@Repository(value = "commentsDAO")
+@Repository("commentsDAO")
 public class DefaultCommentsDAO extends DefaultGenericDAO<CommentsDO, Long> implements CommentsDAO {
 
 }

@@ -45,7 +45,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @version 1.0.0
  * @since 2015年3月2日 下午2:19:17
  */
-@Service(value = "designContestService")
+@Service("designContestService")
 public class DefaultDesignContestService extends BaseService implements DesignContestService {
 
 	@Override

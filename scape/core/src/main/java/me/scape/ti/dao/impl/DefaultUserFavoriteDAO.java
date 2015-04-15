@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * @version 1.0.0
  * @since 2014年12月21日 下午2:57:46
  */
-@Repository(value = "userFavoriteDAO")
+@Repository("userFavoriteDAO")
 public class DefaultUserFavoriteDAO extends DefaultGenericDAO<UserFavoriteDO, Long> implements UserFavoriteDAO {
 
 }

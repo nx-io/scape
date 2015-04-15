@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @version 1.0.0
  * @since 2014年12月21日 下午2:46:30
  */
-@Repository(value = "itemMediaDAO")
+@Repository("itemMediaDAO")
 public class DefaultItemMediaDAO extends DefaultGenericDAO<ItemMediaDO, Long> implements ItemMediaDAO {
 
 	@Override

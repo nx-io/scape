@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @version 1.0.0
  * @since 2014年12月21日 下午2:53:18
  */
-@Repository(value = "roleDAO")
+@Repository("roleDAO")
 public class DefaultRoleDAO extends DefaultGenericDAO<RoleDO, Integer> implements RoleDAO {
 
 	@Override

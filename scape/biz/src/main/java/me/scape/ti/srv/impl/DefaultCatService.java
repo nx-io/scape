@@ -13,7 +13,7 @@ import me.scape.ti.srv.CatService;
  * @version 1.0.0
  * @since 2014年12月29日 下午11:23:48
  */
-@Service(value = "catService")
+@Service("catService")
 public class DefaultCatService extends BaseService implements CatService {
 
 	@Override

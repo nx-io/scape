@@ -13,7 +13,7 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  * @version 1.0.0
  * @since 2015年1月27日 下午8:53:46
  */
-@Repository(value = "plantsPeriodRelDAO")
+@Repository("plantsPeriodRelDAO")
 public class DefaultPlantsPeriodRelDAO extends DefaultGenericDAO<PlantsPeriodRelDO, Long> implements PlantsPeriodRelDAO {
 
 	@Override

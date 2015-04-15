@@ -12,7 +12,7 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  * @version 1.0.0
  * @since 2015年4月12日 下午11:03:49
  */
-@Repository(value = "cityDAO")
+@Repository("cityDAO")
 public class DefaultCityDAO extends DefaultGenericDAO<CityDO, Integer> implements CityDAO {
 	
 }

@@ -30,7 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @version 1.0.0
  * @since 2015年1月18日 下午12:32:39
  */
-@Service(value = "commonService")
+@Service("commonService")
 public class DefaultCommonService extends BaseService implements CommonService {
 
 	@Override

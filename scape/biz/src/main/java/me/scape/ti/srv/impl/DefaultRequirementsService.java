@@ -37,7 +37,7 @@ import org.springframework.util.CollectionUtils;
  * @version 1.0.0
  * @since 2015年4月13日 上午11:33:48
  */
-@Service(value = "requirementsService")
+@Service("requirementsService")
 public class DefaultRequirementsService extends BaseService implements RequirementsService {
 
 	@Override

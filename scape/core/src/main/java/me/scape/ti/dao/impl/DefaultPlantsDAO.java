@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
  * @version 1.0.0
  * @since 2015年1月27日 下午8:47:31
  */
-@Repository(value = "plantsDAO")
+@Repository("plantsDAO")
 public class DefaultPlantsDAO extends DefaultGenericDAO<PlantsDO, Integer> implements PlantsDAO {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

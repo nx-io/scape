@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * @version 1.0.0
  * @since 2014年12月19日 上午12:27:13
  */
-@Repository(value = "labelDAO")
+@Repository("labelDAO")
 public class DefaultLabelDAO extends DefaultGenericDAO<LabelDO, Long> implements LabelDAO {
 
 }

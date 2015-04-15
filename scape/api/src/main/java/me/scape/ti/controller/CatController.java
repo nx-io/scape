@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @version 1.0.0
  * @since 2014年12月29日 下午11:27:45
  */
-@Controller
+@Controller("catController")
 public class CatController extends BaseController {
 
 	@RequestMapping(value = "/item/cat", produces = "application/json")

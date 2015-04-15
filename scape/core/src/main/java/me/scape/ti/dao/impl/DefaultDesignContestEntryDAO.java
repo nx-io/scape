@@ -13,7 +13,7 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  * @version 1.0.0
  * @since 2015年3月2日 下午2:06:33
  */
-@Repository(value = "designContestEntryDAO")
+@Repository("designContestEntryDAO")
 public class DefaultDesignContestEntryDAO extends DefaultGenericDAO<DesignContestEntryDO, Integer> implements DesignContestEntryDAO {
 	
 }

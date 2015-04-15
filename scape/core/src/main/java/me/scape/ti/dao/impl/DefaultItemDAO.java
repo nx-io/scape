@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
  * @version 1.0.0
  * @since 2014年12月21日 下午2:42:32
  */
-@Repository(value = "itemDAO")
+@Repository("itemDAO")
 public class DefaultItemDAO extends DefaultGenericDAO<ItemDO, Long> implements ItemDAO {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
