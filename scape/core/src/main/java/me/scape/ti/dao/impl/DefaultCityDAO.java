@@ -1,5 +1,7 @@
 package me.scape.ti.dao.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import me.scape.ti.dao.CityDAO;
@@ -14,5 +16,11 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  */
 @Repository("cityDAO")
 public class DefaultCityDAO extends DefaultGenericDAO<CityDO, Integer> implements CityDAO {
+
+	static final String Query_City_HQL = "FROM CityDO WHERE province_id = ?";
 	
+	@Override
+	public List<CityDO> queryProvinceCity(Integer provinceId) {
+		return query(Query_City_HQL, new Object[] { provinceId });
+	}
 }

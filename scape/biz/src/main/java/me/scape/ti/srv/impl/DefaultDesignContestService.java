@@ -51,20 +51,23 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 	@Override
 	public Result getContestEntry(Integer entryId) {
 		DesignContestEntryDO designContestEntryDO = designContestEntryDAO.get(entryId);
-		if(designContestEntryDO == null) {
+		if (designContestEntryDO == null) {
 			return Result.newError().with(ResultCode.Error_Entry_Empty);
 		}
 		DesignContestEntryVO vo = DesignContestEntryVO.newInstance(designContestEntryDO);
 		vo.setUser(UserVO.newInstance(userDAO.get(designContestEntryDO.getUser_id())));
 		List<String> mediaList = new ArrayList<String>();
-		List<DesignContestEntryMediaDO> contestEntryMediaList = designContestEntryMediaDAO.query("FROM DesignContestEntryMediaDO WHERE entry_id = ?", new Object[] { designContestEntryDO.getId() });
-		if(CollectionUtils.isNotEmpty(contestEntryMediaList)) {
+		String hql = "FROM DesignContestEntryMediaDO WHERE entry_id = ?";
+		List<DesignContestEntryMediaDO> contestEntryMediaList = designContestEntryMediaDAO.query(hql, new Object[] { designContestEntryDO.getId() });
+		if (CollectionUtils.isNotEmpty(contestEntryMediaList)) {
 			for (DesignContestEntryMediaDO media : contestEntryMediaList) {
 				mediaList.add(ImageUtils.urlWrapper(media.getUrl()));
 			}
 		}
 		vo.setMediaList(mediaList);
-		java.math.BigInteger c = (java.math.BigInteger) designContestEntryVoteDAO.createNativeQuery("SELECT COUNT(id) FROM design_contest_entry_vote WHERE voter_id = ? AND entry_id = ?", new Object[] { designContestEntryDO.getUser_id(), designContestEntryDO.getId() }).getSingleResult();
+		String sql = "SELECT COUNT(id) FROM design_contest_entry_vote WHERE voter_id = ? AND entry_id = ?";
+		java.math.BigInteger c = (java.math.BigInteger) designContestEntryVoteDAO.createNativeQuery(sql, new Object[] { designContestEntryDO.getUser_id(), designContestEntryDO.getId() })
+				.getSingleResult();
 		if (c != null && c.longValue() > 0L) {
 			vo.setVoteCount(c.longValue());
 		} else {
@@ -75,7 +78,8 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 
 	@Override
 	public Result getDesignContestNews(Integer contest_id) {
-		List<DesignContestNewsDO> newsList = designContestNewsDAO.query("FROM DesignContestNewsDO WHERE contest_id = ?", new Object[] { contest_id });
+		String hql = "FROM DesignContestNewsDO WHERE contest_id = ?";
+		List<DesignContestNewsDO> newsList = designContestNewsDAO.query(hql, new Object[] { contest_id });
 		return Result.newSuccess().with(ResultCode.Success).with("newsList", newsList);
 	}
 
@@ -96,20 +100,21 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 
 	@Override
 	public Result getDesignContestResult(Integer contestId) {
-		List<DesignContestResultDO> contestResultList = designContestResultDAO.query("FROM DesignContestResultDO WHERE contest_id = ?", new Object[] { contestId });
-		if(CollectionUtils.isEmpty(contestResultList)) {
+		String hql = "FROM DesignContestResultDO WHERE contest_id = ?";
+		List<DesignContestResultDO> contestResultList = designContestResultDAO.query(hql, new Object[] { contestId });
+		if (CollectionUtils.isEmpty(contestResultList)) {
 			return Result.newError().with(ResultCode.Error_Contest_Result_Empty);
 		}
 		List<DesignContestResultVO> resultList = new ArrayList<DesignContestResultVO>();
 		for (DesignContestResultDO result : contestResultList) {
-			if(result == null) {
+			if (result == null) {
 				continue;
 			}
 			DesignContestResultVO vo = new DesignContestResultVO();
 			vo.setComment(result.getComment());
 			vo.setRanking(result.getRanking());
 			DesignContestEntryDO entry = designContestEntryDAO.get(result.getEntry_id());
-			if(entry == null) {
+			if (entry == null) {
 				continue;
 			}
 			vo.setContestEntry(DesignContestEntryVO.newInstance(entry));
@@ -122,7 +127,7 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result joinDesignContest(JoinDesignContestRequest request) {
 		Result privileged = doPrivileged(request);
-		if(!privileged.isSuccess()) {
+		if (!privileged.isSuccess()) {
 			return privileged;
 		}
 		Long userId = privileged.getResponse(Long.class);
@@ -136,7 +141,7 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 		designContestUserDAO.persist(contestUser);
 		return Result.newSuccess().with(ResultCode.Success).with("NUM", contestUser.getNumber());
 	}
-	
+
 	@Override
 	public Result getContestEntryList(ContestEntryRequest request) {
 		StringBuilder sb = new StringBuilder();
@@ -155,22 +160,25 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 		args.put("start", pageQuery.getIndex());
 		args.put("size", pageQuery.getSize());
 		List<DesignContestEntryDO> contestEntryList = designContestEntryDAO.queryNative(sb.toString(), args);
-		if(CollectionUtils.isEmpty(contestEntryList)) {
+		if (CollectionUtils.isEmpty(contestEntryList)) {
 			return Result.newError().with(ResultCode.Error_Entry_Empty);
 		}
 		List<DesignContestEntryVO> voList = new ArrayList<DesignContestEntryVO>();
+		String hql = "FROM DesignContestEntryMediaDO WHERE entry_id = ?";
+		String sql = "SELECT COUNT(id) FROM design_contest_entry_vote WHERE voter_id = ? AND entry_id = ?";
 		for (DesignContestEntryDO designContestEntryDO : contestEntryList) {
 			DesignContestEntryVO vo = DesignContestEntryVO.newInstance(designContestEntryDO);
 			vo.setUser(UserVO.newInstance(userDAO.get(designContestEntryDO.getUser_id())));
 			List<String> mediaList = new ArrayList<String>();
-			List<DesignContestEntryMediaDO> contestEntryMediaList = designContestEntryMediaDAO.query("FROM DesignContestEntryMediaDO WHERE entry_id = ?", new Object[] { designContestEntryDO.getId() });
-			if(CollectionUtils.isNotEmpty(contestEntryMediaList)) {
+			List<DesignContestEntryMediaDO> contestEntryMediaList = designContestEntryMediaDAO.query(hql, new Object[] { designContestEntryDO.getId() });
+			if (CollectionUtils.isNotEmpty(contestEntryMediaList)) {
 				for (DesignContestEntryMediaDO media : contestEntryMediaList) {
 					mediaList.add(ImageUtils.urlWrapper(media.getUrl()));
 				}
 			}
 			vo.setMediaList(mediaList);
-			java.math.BigInteger c = (java.math.BigInteger) designContestEntryVoteDAO.createNativeQuery("SELECT COUNT(id) FROM design_contest_entry_vote WHERE voter_id = ? AND entry_id = ?", new Object[] { designContestEntryDO.getUser_id(), designContestEntryDO.getId() }).getSingleResult();
+			java.math.BigInteger c = (java.math.BigInteger) designContestEntryVoteDAO.createNativeQuery(sql, new Object[] { designContestEntryDO.getUser_id(), designContestEntryDO.getId() })
+					.getSingleResult();
 			if (c != null && c.longValue() > 0L) {
 				vo.setVoteCount(c.longValue());
 			} else {
@@ -185,7 +193,7 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result uploadContestEntry(UploadContestEntryRequest request) {
 		Result privileged = doPrivileged(request);
-		if(!privileged.isSuccess()) {
+		if (!privileged.isSuccess()) {
 			return privileged;
 		}
 		Long userId = privileged.getResponse(Long.class);
@@ -200,9 +208,9 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 		contestEntry.setUser_id(userId);
 		designContestEntryDAO.persist(contestEntry);
 		List<String> mediaList = new ArrayList<String>();
-		if(StringUtils.isNotBlank(request.getMediaList())) {
+		if (StringUtils.isNotBlank(request.getMediaList())) {
 			String[] medias = StringUtils.split(request.getMediaList(), ",");
-			if(medias != null && medias.length > 0) {
+			if (medias != null && medias.length > 0) {
 				for (String media : medias) {
 					DesignContestEntryMediaDO contestEntryMedia = new DesignContestEntryMediaDO();
 					contestEntryMedia.setEntry_id(contestEntry.getId());
@@ -223,8 +231,9 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 
 	@Override
 	public Result getActiveDesignContest() {
-		List<DesignContestDO> doList = designContestDAO.query("FROM DesignContestDO WHERE status = ?", new Object[] { DesignContestDO.IN_PROGRESS });
-		if(CollectionUtils.isEmpty(doList)) {
+		String hql = "FROM DesignContestDO WHERE status = ?";
+		List<DesignContestDO> doList = designContestDAO.query(hql, new Object[] { DesignContestDO.IN_PROGRESS });
+		if (CollectionUtils.isEmpty(doList)) {
 			return Result.newError().with(ResultCode.Error_Active_Design_Contest_Empty);
 		}
 		return Result.newSuccess().with(ResultCode.Success).with("contest", DesignContestVO.newInstance(doList.get(0)));
@@ -232,7 +241,8 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 
 	@Override
 	public Result getDesignContestJudges(Integer contestId) {
-		List<DesignContestJudgesDO> doList = designContestJudgesDAO.query("FROM DesignContestJudgesDO WHERE contest_id = ?", new Object[]{ contestId });
+		String hql = "FROM DesignContestJudgesDO WHERE contest_id = ?";
+		List<DesignContestJudgesDO> doList = designContestJudgesDAO.query(hql, new Object[] { contestId });
 		return Result.newSuccess().with(ResultCode.Success).with("judgesList", DesignContestJudgesVO.newInstance(doList));
 	}
 
@@ -240,13 +250,14 @@ public class DefaultDesignContestService extends BaseService implements DesignCo
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result contestEntryVote(ContestEntryVoteRequest request) {
 		Result privileged = doPrivileged(request);
-		if(!privileged.isSuccess()) {
+		if (!privileged.isSuccess()) {
 			return privileged;
 		}
 		Long userId = privileged.getResponse(Long.class);
 		Integer entry_id = request.getEntry_id();
 		Object[] args = new Object[] { userId, entry_id };
-		java.math.BigInteger c = (java.math.BigInteger) designContestEntryVoteDAO.createNativeQuery("SELECT COUNT(id) FROM design_contest_entry_vote WHERE voter_id = ? AND entry_id = ?", args).getSingleResult();
+		String sql = "SELECT COUNT(id) FROM design_contest_entry_vote WHERE voter_id = ? AND entry_id = ?";
+		java.math.BigInteger c = (java.math.BigInteger) designContestEntryVoteDAO.createNativeQuery(sql, args).getSingleResult();
 		if (c != null && c.longValue() > 0L) {
 			return Result.newError().with(ResultCode.Error_EntryVote);
 		}

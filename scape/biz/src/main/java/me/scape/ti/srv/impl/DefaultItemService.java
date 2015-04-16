@@ -108,7 +108,7 @@ public class DefaultItemService extends BaseService implements ItemService {
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result publish(ItemPublishRequest request) {
 		Result privileged = doPrivileged(request);
-		if(!privileged.isSuccess()) {
+		if (!privileged.isSuccess()) {
 			return privileged;
 		}
 		Long userId = privileged.getResponse(Long.class);
@@ -195,13 +195,12 @@ public class DefaultItemService extends BaseService implements ItemService {
 		itemVO.setLabelList(LabelVO.newInstance(labelDAO.queryNamed("Label.getLabelByItemId", new Object[] { item.getId() })));
 		List<CommentsDO> commentsDOList = commentsDAO.query("FROM CommentsDO WHERE item_id = ?", new Object[] { itemId });
 		List<CommentsVO> commentsVOList = CommentsVO.newInstance(commentsDOList);
-		if(commentsVOList != null && !commentsVOList.isEmpty()) {
+		if (commentsVOList != null && !commentsVOList.isEmpty()) {
+			String hql = "FROM CommentsDO WHERE ref_id = ?";
 			for (CommentsVO comments : commentsVOList) {
-				comments.setChildComments(CommentsVO.newInstance(commentsDAO.query("FROM CommentsDO WHERE ref_id = ?", new Object[] { comments.getId() })));
+				comments.setChildComments(CommentsVO.newInstance(commentsDAO.query(hql, new Object[] { comments.getId() })));
 			}
 		}
-		return Result.newSuccess().with(ResultCode.Success)
-				.with("item", itemVO)
-				.with("commentsList", commentsVOList);
+		return Result.newSuccess().with(ResultCode.Success).with("item", itemVO).with("commentsList", commentsVOList);
 	}
 }

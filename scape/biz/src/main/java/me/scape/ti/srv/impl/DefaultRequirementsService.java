@@ -106,16 +106,16 @@ public class DefaultRequirementsService extends BaseService implements Requireme
 	public Result getRequirements(Long reqId) {
 		RequirementsDO requirements = requirementsDAO.get(reqId);
 		RequirementsVO vo = toRequirements(requirements);
-		List<RequirementsCommentsDO> commentsList = requirementsCommentsDAO.query("FROM RequirementsCommentsDO WHERE requirements_id = ?", new Object[] { reqId });
+		String query = "FROM RequirementsCommentsDO WHERE requirements_id = ?";
+		List<RequirementsCommentsDO> commentsList = requirementsCommentsDAO.query(query, new Object[] { reqId });
 		List<RequirementsCommentsVO> voList = RequirementsCommentsVO.newInstance(commentsList);
-		if(voList != null && !voList.isEmpty()) {
+		if (voList != null && !voList.isEmpty()) {
+			String hql = "FROM RequirementsCommentsDO WHERE ref_id = ?";
 			for (RequirementsCommentsVO comments : voList) {
-				comments.setChildComments(RequirementsCommentsVO.newInstance(requirementsCommentsDAO.query("FROM RequirementsCommentsDO WHERE ref_id = ?", new Object[] { comments.getId() })));
+				comments.setChildComments(RequirementsCommentsVO.newInstance(requirementsCommentsDAO.query(hql, new Object[] { comments.getId() })));
 			}
 		}
-		return Result.newSuccess().with(ResultCode.Success)
-				.with("requirements", vo)
-				.with("commentsList", voList);
+		return Result.newSuccess().with(ResultCode.Success).with("requirements", vo).with("commentsList", voList);
 	}
 
 	@Override
@@ -171,7 +171,8 @@ public class DefaultRequirementsService extends BaseService implements Requireme
 	public Result getSecondCategoryList(Integer topCatId) {
 		RequirementsTopCategoryDO _do = requirementsTopCategoryDAO.get(topCatId);
 		RequirementsTopCategoryVO topCategory = RequirementsTopCategoryVO.newInstance(_do);
-		List<RequirementsSecondCategoryDO> secondCategoryList = requirementsSecondCategoryDAO.query("FROM RequirementsSecondCategoryDO WHERE top_cat_id = ?", new Object[] { topCatId });
+		String query = "FROM RequirementsSecondCategoryDO WHERE top_cat_id = ?";
+		List<RequirementsSecondCategoryDO> secondCategoryList = requirementsSecondCategoryDAO.query(query, new Object[] { topCatId });
 		List<RequirementsSecondCategoryVO> voList = new ArrayList<RequirementsSecondCategoryVO>();
 		if (secondCategoryList != null && !secondCategoryList.isEmpty()) {
 			for (RequirementsSecondCategoryDO secondCategory : secondCategoryList) {

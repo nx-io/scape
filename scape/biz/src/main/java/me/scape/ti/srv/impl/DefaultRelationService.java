@@ -42,7 +42,7 @@ public class DefaultRelationService extends BaseService implements RelationServi
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result comments(CommentsRequest request) {
 		Result privileged = doPrivileged(request);
-		if(!privileged.isSuccess()) {
+		if (!privileged.isSuccess()) {
 			return privileged;
 		}
 		Long userId = privileged.getResponse(Long.class);
@@ -65,12 +65,13 @@ public class DefaultRelationService extends BaseService implements RelationServi
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result favorite_item(ItemFavoriteRequest request) {
 		Result privileged = doPrivileged(request);
-		if(!privileged.isSuccess()) {
+		if (!privileged.isSuccess()) {
 			return privileged;
 		}
 		Long userId = privileged.getResponse(Long.class);
 		Object[] args = new Object[] { userId, request.getItem_id(), request.getType() };
-		java.math.BigInteger c = (java.math.BigInteger) itemFavoriteDAO.createNativeQuery("SELECT COUNT(id) FROM item_favorite WHERE user_id = ? AND item_id = ? AND type = ?", args).getSingleResult();
+		String sql = "SELECT COUNT(id) FROM item_favorite WHERE user_id = ? AND item_id = ? AND type = ?";
+		java.math.BigInteger c = (java.math.BigInteger) itemFavoriteDAO.createNativeQuery(sql, args).getSingleResult();
 		if (c != null && c.longValue() > 0L) {
 			return Result.newSuccess().with(ResultCode.Error_Favorited);
 		}
@@ -89,7 +90,7 @@ public class DefaultRelationService extends BaseService implements RelationServi
 	@Override
 	public Result getFavoriteItems(PrivilegedPageRequest request) {
 		Result privileged = doPrivileged(request);
-		if(!privileged.isSuccess()) {
+		if (!privileged.isSuccess()) {
 			return privileged;
 		}
 		Long userId = privileged.getResponse(Long.class);
@@ -116,12 +117,13 @@ public class DefaultRelationService extends BaseService implements RelationServi
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result favorite_user(UserFavoriteRequest request) {
 		Result privileged = doPrivileged(request);
-		if(!privileged.isSuccess()) {
+		if (!privileged.isSuccess()) {
 			return privileged;
 		}
 		Long userId = privileged.getResponse(Long.class);
 		Object[] args = new Object[] { userId, request.getFavorite_id() };
-		java.math.BigInteger c = (java.math.BigInteger) userFavoriteDAO.createNativeQuery("SELECT COUNT(id) FROM user_favorite WHERE user_id = ? AND favorite_id = ?", args).getSingleResult();
+		String sql = "SELECT COUNT(id) FROM user_favorite WHERE user_id = ? AND favorite_id = ?";
+		java.math.BigInteger c = (java.math.BigInteger) userFavoriteDAO.createNativeQuery(sql, args).getSingleResult();
 		if (c != null && c.longValue() > 0L) {
 			return Result.newSuccess().with(ResultCode.Error_User_Favorited);
 		}
@@ -139,7 +141,7 @@ public class DefaultRelationService extends BaseService implements RelationServi
 	@Override
 	public Result getFavoriteUsers(PrivilegedPageRequest request) {
 		Result privileged = doPrivileged(request);
-		if(!privileged.isSuccess()) {
+		if (!privileged.isSuccess()) {
 			return privileged;
 		}
 		Long userId = privileged.getResponse(Long.class);

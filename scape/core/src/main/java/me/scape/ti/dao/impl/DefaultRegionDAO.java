@@ -1,5 +1,7 @@
 package me.scape.ti.dao.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import me.scape.ti.dao.RegionDAO;
@@ -15,4 +17,10 @@ import me.scape.ti.jpa.DefaultGenericDAO;
 @Repository("regionDAO")
 public class DefaultRegionDAO extends DefaultGenericDAO<RegionDO, Integer> implements RegionDAO {
 
+	static final String Query_Region_HQL = "FROM RegionDO WHERE city_id = ?";
+	
+	@Override
+	public List<RegionDO> queryCityRegion(Integer cityId) {
+		return query(Query_Region_HQL, new Object[] { cityId });
+	}
 }

@@ -1,5 +1,7 @@
 package me.scape.ti.dao;
 
+import java.util.List;
+
 import me.scape.ti.dataobject.RegionDO;
 import me.scape.ti.jpa.GenericDAO;
 
@@ -10,5 +12,7 @@ import me.scape.ti.jpa.GenericDAO;
  * @since 2015年4月12日 下午10:58:23
  */
 public interface RegionDAO extends GenericDAO<RegionDO, Integer> {
+
+	List<RegionDO> queryCityRegion(Integer cityId);
 
 }

@@ -41,7 +41,7 @@ public class DefaultAccountService extends BaseService implements AccountService
 	@Override
 	public Result queryPubOrFavItem(PubfavRequest request) {
 		Result privileged = doPrivileged(request);
-		if(!privileged.isSuccess()) {
+		if (!privileged.isSuccess()) {
 			return privileged;
 		}
 		Long userId = privileged.getResponse(Long.class);
@@ -73,7 +73,7 @@ public class DefaultAccountService extends BaseService implements AccountService
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result reset_passwd(ResetPasswdRequest request) {
 		Result privileged = doPrivileged(request);
-		if(!privileged.isSuccess()) {
+		if (!privileged.isSuccess()) {
 			return privileged;
 		}
 		Long userId = privileged.getResponse(Long.class);
@@ -112,9 +112,8 @@ public class DefaultAccountService extends BaseService implements AccountService
 		user.setLast_ip(getIp());
 		user.setLast_login(now);
 		userDAO.merge(user);
-		// 安全登录
 		Result login = login(user.getId());
-		if(!login.isSuccess()) {
+		if (!login.isSuccess()) {
 			return login;
 		}
 		LoginResponse loginResponse = login.getResponse(LoginResponse.class);
@@ -165,9 +164,8 @@ public class DefaultAccountService extends BaseService implements AccountService
 		user.setLast_login(now);
 		try {
 			userDAO.persist(user);
-			// 安全登录
 			Result login = login(user.getId());
-			if(!login.isSuccess()) {
+			if (!login.isSuccess()) {
 				return login;
 			}
 			LoginResponse loginResponse = login.getResponse(LoginResponse.class);

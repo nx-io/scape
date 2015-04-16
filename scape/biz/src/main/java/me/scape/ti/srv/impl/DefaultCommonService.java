@@ -41,6 +41,7 @@ public class DefaultCommonService extends BaseService implements CommonService {
 		try {
 			path = CDNUtil.uploadFile(file.getInputStream(), fileName);
 		} catch (Exception e) {
+			log.error("Upload File Error.\nFile Name " + file.getOriginalFilename(), e);
 			return Result.newError().with(ResultCode.Error_Exception);
 		}
 		return Result.newSuccess().with(ResultCode.Success).with(CommonConstant.IMAGE_PATH, path).with(CommonConstant.ORIGINAL_IMAGE_URL, CDNUtil.getFullPath(path));
@@ -71,7 +72,7 @@ public class DefaultCommonService extends BaseService implements CommonService {
 	public Result getCityList(Integer provinceId) {
 		ProvinceDO _do = provinceDAO.get(provinceId);
 		ProvinceVO province = ProvinceVO.newInstance(_do);
-		List<CityDO> cityList = cityDAO.query("FROM CityDO WHERE province_id = ?", new Object[] { provinceId });
+		List<CityDO> cityList = cityDAO.queryProvinceCity(provinceId);
 		List<CityVO> voList = new ArrayList<CityVO>();
 		if (cityList != null && !cityList.isEmpty()) {
 			for (CityDO city : cityList) {
@@ -87,7 +88,7 @@ public class DefaultCommonService extends BaseService implements CommonService {
 	public Result getRegionList(Integer cityId) {
 		CityDO _do = cityDAO.get(cityId);
 		CityVO city = CityVO.newInstance(_do);
-		List<RegionDO> regionList = regionDAO.query("FROM RegionDO WHERE city_id = ?", new Object[] { cityId });
+		List<RegionDO> regionList = regionDAO.queryCityRegion(cityId);
 		List<RegionVO> voList = new ArrayList<RegionVO>();
 		if (regionList != null && !regionList.isEmpty()) {
 			for (RegionDO region : regionList) {
