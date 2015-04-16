@@ -69,147 +69,147 @@ public class BaseService implements InitializingBean {
 	protected HttpServletRequest request;
 
 	@Autowired
-	@Qualifier(value = "areaCategoryDAO")
+	@Qualifier("areaCategoryDAO")
 	protected AreaCategoryDAO areaCategoryDAO;
 
 	@Autowired
-	@Qualifier(value = "categoryDAO")
+	@Qualifier("categoryDAO")
 	protected CategoryDAO categoryDAO;
 
 	@Autowired
-	@Qualifier(value = "commentsDAO")
+	@Qualifier("commentsDAO")
 	protected CommentsDAO commentsDAO;
 
 	@Autowired
-	@Qualifier(value = "itemDAO")
+	@Qualifier("itemDAO")
 	protected ItemDAO itemDAO;
 
 	@Autowired
-	@Qualifier(value = "itemFavoriteDAO")
+	@Qualifier("itemFavoriteDAO")
 	protected ItemFavoriteDAO itemFavoriteDAO;
 
 	@Autowired
-	@Qualifier(value = "itemMediaDAO")
+	@Qualifier("itemMediaDAO")
 	protected ItemMediaDAO itemMediaDAO;
 
 	@Autowired
-	@Qualifier(value = "labelDAO")
+	@Qualifier("labelDAO")
 	protected LabelDAO labelDAO;
 
 	@Autowired
-	@Qualifier(value = "managerDAO")
+	@Qualifier("managerDAO")
 	protected ManagerDAO managerDAO;
 
 	@Autowired
-	@Qualifier(value = "roleDAO")
+	@Qualifier("roleDAO")
 	protected RoleDAO roleDAO;
 
 	@Autowired
-	@Qualifier(value = "styleDAO")
+	@Qualifier("styleDAO")
 	protected StyleDAO styleDAO;
 
 	@Autowired
-	@Qualifier(value = "userDAO")
+	@Qualifier("userDAO")
 	protected UserDAO userDAO;
 
 	@Autowired
-	@Qualifier(value = "userFavoriteDAO")
+	@Qualifier("userFavoriteDAO")
 	protected UserFavoriteDAO userFavoriteDAO;
 
 	@Autowired
-	@Qualifier(value = "plantCategoryDAO")
+	@Qualifier("plantCategoryDAO")
 	protected PlantCategoryDAO plantCategoryDAO;
 
 	@Autowired
-	@Qualifier(value = "plantsColorRelDAO")
+	@Qualifier("plantsColorRelDAO")
 	protected PlantsColorRelDAO plantsColorRelDAO;
 
 	@Autowired
-	@Qualifier(value = "plantsDAO")
+	@Qualifier("plantsDAO")
 	protected PlantsDAO plantsDAO;
 
 	@Autowired
-	@Qualifier(value = "plantsOrnamentalColorDAO")
+	@Qualifier("plantsOrnamentalColorDAO")
 	protected PlantsOrnamentalColorDAO plantsOrnamentalColorDAO;
 
 	@Autowired
-	@Qualifier(value = "plantsOrnamentalPeriodDAO")
+	@Qualifier("plantsOrnamentalPeriodDAO")
 	protected PlantsOrnamentalPeriodDAO plantsOrnamentalPeriodDAO;
 
 	@Autowired
-	@Qualifier(value = "plantsPeriodRelDAO")
+	@Qualifier("plantsPeriodRelDAO")
 	protected PlantsPeriodRelDAO plantsPeriodRelDAO;
 
 	@Autowired
-	@Qualifier(value = "plantMediaDAO")
+	@Qualifier("plantMediaDAO")
 	protected PlantMediaDAO plantMediaDAO;
 
 	@Autowired
-	@Qualifier(value = "systemSettingDAO")
+	@Qualifier("systemSettingDAO")
 	protected SystemSettingDAO systemSettingDAO;
 
 	@Autowired
-	@Qualifier(value = "designContestDAO")
+	@Qualifier("designContestDAO")
 	protected DesignContestDAO designContestDAO;
 
 	@Autowired
-	@Qualifier(value = "designContestJudgesDAO")
+	@Qualifier("designContestJudgesDAO")
 	protected DesignContestJudgesDAO designContestJudgesDAO;
 
 	@Autowired
-	@Qualifier(value = "designContestEntryDAO")
+	@Qualifier("designContestEntryDAO")
 	protected DesignContestEntryDAO designContestEntryDAO;
 
 	@Autowired
-	@Qualifier(value = "designContestEntryMediaDAO")
+	@Qualifier("designContestEntryMediaDAO")
 	protected DesignContestEntryMediaDAO designContestEntryMediaDAO;
 
 	@Autowired
-	@Qualifier(value = "designContestEntryVoteDAO")
+	@Qualifier("designContestEntryVoteDAO")
 	protected DesignContestEntryVoteDAO designContestEntryVoteDAO;
 
 	@Autowired
-	@Qualifier(value = "designContestUserDAO")
+	@Qualifier("designContestUserDAO")
 	protected DesignContestUserDAO designContestUserDAO;
 
 	@Autowired
-	@Qualifier(value = "designContestResultDAO")
+	@Qualifier("designContestResultDAO")
 	protected DesignContestResultDAO designContestResultDAO;
 
 	@Autowired
-	@Qualifier(value = "designContestNewsDAO")
+	@Qualifier("designContestNewsDAO")
 	protected DesignContestNewsDAO designContestNewsDAO;
 
 	@Autowired
-	@Qualifier(value = "redisAuthorizationService")
+	@Qualifier("redisAuthorizationService")
 	protected AuthorizationService authorizationService;
 
 	@Autowired
-	@Qualifier(value = "cityDAO")
+	@Qualifier("cityDAO")
 	protected CityDAO cityDAO;
 
 	@Autowired
-	@Qualifier(value = "regionDAO")
+	@Qualifier("regionDAO")
 	protected RegionDAO regionDAO;
 
 	@Autowired
-	@Qualifier(value = "provinceDAO")
+	@Qualifier("provinceDAO")
 	protected ProvinceDAO provinceDAO;
 
 	@Autowired
-	@Qualifier(value = "requirementsCommentsDAO")
+	@Qualifier("requirementsCommentsDAO")
 	protected RequirementsCommentsDAO requirementsCommentsDAO;
 
 	@Autowired
-	@Qualifier(value = "requirementsSecondCategoryDAO")
+	@Qualifier("requirementsSecondCategoryDAO")
 	protected RequirementsSecondCategoryDAO requirementsSecondCategoryDAO;
 
 	@Autowired
-	@Qualifier(value = "requirementsTopCategoryDAO")
+	@Qualifier("requirementsTopCategoryDAO")
 	protected RequirementsTopCategoryDAO requirementsTopCategoryDAO;
 
 	@Autowired
-	@Qualifier(value = "requirementsDAO")
+	@Qualifier("requirementsDAO")
 	protected RequirementsDAO requirementsDAO;
 	
 	protected Result doPrivileged(PrivilegedRequest request) {
