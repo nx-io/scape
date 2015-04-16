@@ -1,8 +1,8 @@
 package me.scape.ti.auth;
 
-import me.scape.ti.auth.request.CheckRequest;
+import me.scape.ti.auth.request.PrivilegedRequest;
 import me.scape.ti.auth.request.LoginRequest;
-import me.scape.ti.auth.response.CheckResponse;
+import me.scape.ti.auth.response.PrivilegedResponse;
 import me.scape.ti.auth.response.LoginResponse;
 
 /**
@@ -15,7 +15,7 @@ public interface AuthorizationService {
 
 	String App_Id = "S0wLiaXE6fXUflFy8O9urhW7imsi";
 
-	LoginResponse login(LoginRequest request);
+	LoginResponse doLogin(LoginRequest request);
 	
-	CheckResponse check(CheckRequest request);
+	PrivilegedResponse doPrivileged(PrivilegedRequest request);
 }

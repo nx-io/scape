@@ -3,9 +3,9 @@ package me.scape.ti.srv;
 import javax.servlet.http.HttpServletRequest;
 
 import me.scape.ti.auth.AuthorizationService;
-import me.scape.ti.auth.request.CheckRequest;
+import me.scape.ti.auth.request.PrivilegedRequest;
 import me.scape.ti.auth.request.LoginRequest;
-import me.scape.ti.auth.response.CheckResponse;
+import me.scape.ti.auth.response.PrivilegedResponse;
 import me.scape.ti.auth.response.LoginResponse;
 import me.scape.ti.dao.AreaCategoryDAO;
 import me.scape.ti.dao.CategoryDAO;
@@ -44,7 +44,6 @@ import me.scape.ti.dao.UserDAO;
 import me.scape.ti.dao.UserFavoriteDAO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
-import me.scape.ti.ro.PrivilegedRequest;
 import me.scape.ti.utils.WebUtils;
 
 import org.apache.commons.lang.math.NumberUtils;
@@ -212,16 +211,16 @@ public class BaseService implements InitializingBean {
 	@Qualifier("requirementsDAO")
 	protected RequirementsDAO requirementsDAO;
 	
-	protected Result doPrivileged(PrivilegedRequest request) {
-		CheckRequest checkRequest = new CheckRequest();
+	protected Result doPrivileged(me.scape.ti.ro.PrivilegedRequest request) {
+		PrivilegedRequest checkRequest = new PrivilegedRequest();
 		checkRequest.setApp_id(request.getApp_id());
 		checkRequest.setOpen_id(request.getOpen_id());
 		checkRequest.setAccess_token(request.getAccess_token());
-		CheckResponse checkResponse = authorizationService.check(checkRequest);
-		if (StringUtils.isBlank(checkResponse.getSecret_id())) {
+		PrivilegedResponse privilegedResponse = authorizationService.doPrivileged(checkRequest);
+		if (StringUtils.isBlank(privilegedResponse.getSecret_id())) {
 			return Result.newError().with(ResultCode.Error_Token);
 		}
-		Long user_id = NumberUtils.toLong(checkResponse.getSecret_id(), 0L);
+		Long user_id = NumberUtils.toLong(privilegedResponse.getSecret_id(), 0L);
 		if (user_id <= 0L) {
 			return Result.newError().with(ResultCode.Error_Token);
 		}
@@ -235,7 +234,7 @@ public class BaseService implements InitializingBean {
 		LoginRequest loginRequest = new LoginRequest();
 		loginRequest.setApp_id(AuthorizationService.App_Id);
 		loginRequest.setSecret_id(String.valueOf(userId));
-		LoginResponse loginResponse = authorizationService.login(loginRequest);
+		LoginResponse loginResponse = authorizationService.doLogin(loginRequest);
 		if (loginResponse == null || StringUtils.isEmpty(loginResponse.getAccess_token())) {
 			return Result.newError().with(ResultCode.Error_Login);
 		}

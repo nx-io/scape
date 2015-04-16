@@ -1,8 +1,8 @@
 package me.scape.ti.auth;
 
-import me.scape.ti.auth.request.CheckRequest;
+import me.scape.ti.auth.request.PrivilegedRequest;
 import me.scape.ti.auth.request.LoginRequest;
-import me.scape.ti.auth.response.CheckResponse;
+import me.scape.ti.auth.response.PrivilegedResponse;
 import me.scape.ti.auth.response.LoginResponse;
 import me.scape.ti.redis.RedisCallback;
 import me.scape.ti.redis.RedisTemplate;
@@ -30,7 +30,7 @@ public class RedisAuthorizationService implements AuthorizationService {
 	private static final int DEFAULT_TOKEN_EXPIRES_IN_SEC = 60 * 60 * 24 * 30;
 
 	@Override
-	public LoginResponse login(LoginRequest request) {
+	public LoginResponse doLogin(LoginRequest request) {
 		final String appId = request.getApp_id();
 		final String secretId = request.getSecret_id();
 		final String open_id = redisTemplate.execute(new RedisCallback<String>() {
@@ -55,27 +55,27 @@ public class RedisAuthorizationService implements AuthorizationService {
 	}
 
 	@Override
-	public CheckResponse check(CheckRequest request) {
+	public PrivilegedResponse doPrivileged(PrivilegedRequest request) {
 		final String appId = request.getApp_id();
 		final String open_id = request.getOpen_id();
 		final String access_token = request.getAccess_token();
-		return redisTemplate.execute(new RedisCallback<CheckResponse>() {
+		return redisTemplate.execute(new RedisCallback<PrivilegedResponse>() {
 			@Override
-			public CheckResponse doInRedis(Jedis jedis) throws Throwable {
+			public PrivilegedResponse doInRedis(Jedis jedis) throws Throwable {
 				String _access_token = jedis.get(open_id);
 				if (StringUtils.isEmpty(_access_token)) {
-					return CheckResponse.DEFAULT_RESPONSE;
+					return PrivilegedResponse.DEFAULT_RESPONSE;
 				}
 				if (!StringUtils.equals(_access_token, access_token)) {
-					return CheckResponse.DEFAULT_RESPONSE;
+					return PrivilegedResponse.DEFAULT_RESPONSE;
 				}
 				String secretId = jedis.hget(appId, open_id);
 				if (StringUtils.isEmpty(secretId)) {
-					return CheckResponse.DEFAULT_RESPONSE;
+					return PrivilegedResponse.DEFAULT_RESPONSE;
 				}
-				return new CheckResponse(secretId);
+				return new PrivilegedResponse(secretId);
 			}
-		}, CheckResponse.DEFAULT_RESPONSE);
+		}, PrivilegedResponse.DEFAULT_RESPONSE);
 	}
 
 	public void setRedisTemplate(RedisTemplate redisTemplate) {
