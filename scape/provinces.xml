@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<provinces>
+	<province>
+		<name>上海市</name>
+
+		<latlng>31.8833, 120.85</latlng>
+		<latlng>30.6667, 120.85</latlng>
+		<latlng>30.6667, 122.2</latlng>
+		<latlng>31.8833, 122.2</latlng>
+
+	</province>
+
+	<province>
+		<name>云南省</name>
+
+		<latlng>29.25, 97.5167</latlng>
+		<latlng>21.1333, 97.5167</latlng>
+		<latlng>21.1333, 106.1833</latlng>
+		<latlng>29.25, 106.1833</latlng>
+
+	</province>
+
+	<province>
+		<name>黑龙江省</name>
+
+		<latlng>53.55, 121.183</latlng>
+		<latlng>43.4167, 121.183</latlng>
+		<latlng>43.4167, 135.0833</latlng>
+		<latlng>53.55, 135.0833</latlng>
+
+	</province>
+	<province>
+		<name>广东省</name>
+
+		<latlng>25.51, 109.75</latlng>
+		<latlng>20.2, 109.75</latlng>
+		<latlng>20.2, 117.334</latlng>
+		<latlng>25.51, 117.334</latlng>
+
+	</province>
+	<province>
+		<name>山西省</name>
+
+		<latlng>40.7203, 110.2494</latlng>
+		<latlng>34.5827, 110.2494</latlng>
+		<latlng>34.5827, 114.5536</latlng>
+		<latlng>40.7203, 114.5536</latlng>
+
+	</province>
+	<province>
+		<name>山东省</name>
+
+		<latlng>38.3869, 114.3327</latlng>
+		<latlng>34.3827, 114.3327</latlng>
+		<latlng>34.3827, 122.7203</latlng>
+		<latlng>38.3869, 122.7203</latlng>
+
+	</province>
+
+
+	<province>
+		<name>河北省</name>
+
+		<latlng>42.6203, 113.0827</latlng>
+		<latlng>36.0327, 113.0827</latlng>
+		<latlng>36.0327, 119.8669</latlng>
+		<latlng>42.6203, 119.8669</latlng>
+
+	</province>
+	<province>
+		<name>河南省</name>
+
+		<latlng>36.3827, 110.3661</latlng>
+		<latlng>31.3994, 110.3661</latlng>
+		<latlng>31.3994, 116.6531</latlng>
+		<latlng>36.3827, 116.6531</latlng>
+
+	</province>
+	<province>
+		<name>贵州省</name>
+
+		<latlng>29.2203, 103.6161</latlng>
+		<latlng>24.6327, 103.6161</latlng>
+		<latlng>24.6327, 109.5869</latlng>
+		<latlng>29.2203, 109.5869</latlng>
+
+	</province>
+	<province>
+		<name>福建省</name>
+
+		<latlng>28.3702, 115.8494</latlng>
+		<latlng>23.5161, 115.8494</latlng>
+		<latlng>23.5161, 120.6702</latlng>
+		<latlng>28.3702, 120.6702</latlng>
+
+	</province>
+	<province>
+		<name>辽宁省</name>
+
+		<latlng>43.4369, 118.8994</latlng>
+		<latlng>38.7327, 118.8994</latlng>
+		<latlng>38.7327, 125.7703</latlng>
+		<latlng>43.4369, 125.7703</latlng>
+
+	</province>
+	<province>
+		<name>吉林省</name>
+
+		<latlng>46.3036, 121.6494</latlng>
+		<latlng>40.8827, 121.6494</latlng>
+		<latlng>40.8827, 131.3203</latlng>
+		<latlng>46.3036, 131.3203</latlng>
+
+	</province>
+	<province>
+		<name>江苏省</name>
+
+		<latlng>35.3364, 116.3036</latlng>
+		<latlng>30.7531, 116.3036</latlng>
+		<latlng>30.7531, 121.9661</latlng>
+		<latlng>35.3364, 121.9661</latlng>
+
+	</province>
+	<province>
+		<name>江西省</name>
+
+		<latlng>29.1536, 114.0494</latlng>
+		<latlng>24.1327, 114.0494</latlng>
+		<latlng>24.1327, 118.4703</latlng>
+		<latlng>29.1536, 118.4703</latlng>
+
+	</province>
+	<province>
+		<name>浙江省</name>
+
+		<latlng>31.5203, 118</latlng>
+		<latlng>27.2161, 118</latlng>
+		<latlng>27.2161, 123</latlng>
+		<latlng>31.5203, 123</latlng>
+
+	</province>
+	<province>
+		<name>安徽省</name>
+
+		<latlng>34.6494, 114.9161</latlng>
+		<latlng>29.6864, 114.9161</latlng>
+		<latlng>29.6864, 119.6203</latlng>
+		<latlng>34.6494, 119.6203</latlng>
+
+	</province>
+	<province>
+		<name>湖北省</name>
+
+		<latlng>33.3364, 108.3661</latlng>
+		<latlng>29.0994, 108.3661</latlng>
+		<latlng>29.0994, 116.1327</latlng>
+		<latlng>33.3364, 116.1327</latlng>
+
+	</province>
+	<province>
+		<name>湖南省</name>
+
+		<latlng>30.1731, 108.673</latlng>
+		<latlng>24.5061, 108.673</latlng>
+		<latlng>24.5061, 114.3397</latlng>
+		<latlng>30.1731, 114.3397</latlng>
+
+	</province>
+	<province>
+		<name>陕西省</name>
+
+		<latlng>39.5864, 105.4864</latlng>
+		<latlng>31.7030, 105.4864</latlng>
+		<latlng>31.7030, 111.2661</latlng>
+		<latlng>39.5864, 111.2661</latlng>
+
+	</province>
+	<province>
+		<name>甘肃省</name>
+
+		<latlng>42.9661, 92.2327</latlng>
+		<latlng>32.1864, 92.2327</latlng>
+		<latlng>32.1864, 108.7697</latlng>
+		<latlng>42.9661, 108.7697</latlng>
+
+	</province>
+	<province>
+		<name>台湾省</name>
+
+		<latlng>25.9369, 119.3036</latlng>
+		<latlng>20.7661, 119.3036</latlng>
+		<latlng>20.7661, 124.5703</latlng>
+		<latlng>25.9369, 124.5703</latlng>
+
+	</province>
+	<province>
+		<name>海南省</name>
+
+		<latlng>20.1697, 108.6203</latlng>
+		<latlng>18.1697, 108.6203</latlng>
+		<latlng>18.1697, 111.0994</latlng>
+		<latlng>20.1697, 111.0994</latlng>
+
+	</province>
+	<province>
+		<name>四川省</name>
+
+		<latlng>34.3203, 97.3661</latlng>
+		<latlng>26.0661, 97.3661</latlng>
+		<latlng>26.0661, 108.5329</latlng>
+		<latlng>34.3203, 108.5329</latlng>
+
+	</province>
+	<province>
+		<name>内蒙古省</name>
+
+		<latlng>53.3869, 97.2161</latlng>
+		<latlng>37.4161, 97.2161</latlng>
+		<latlng>37.4161, 126.0702</latlng>
+		<latlng>53.3869, 126.0702</latlng>
+
+	</province>
+	<province>
+		<name>青海省</name>
+
+		<latlng>39.0703, 89.4161</latlng>
+		<latlng>31.4161, 89.4161</latlng>
+		<latlng>31.4161, 103.0702</latlng>
+		<latlng>39.0703, 103.0702</latlng>
+
+	</province>
+
+	<province>
+		<name>宁夏省</name>
+
+		<latlng>39.8758, 104.2869</latlng>
+		<latlng>35.2494, 104.2869</latlng>
+		<latlng>35.2494, 107.6536</latlng>
+		<latlng>39.8758, 107.6536</latlng>
+
+	</province>
+	<province>
+		<name>西藏省</name>
+
+		<latlng>36.5333, 78.4167</latlng>
+		<latlng>26.7333, 78.4167</latlng>
+		<latlng>26.7333, 99.1</latlng>
+		<latlng>36.5333, 99.1</latlng>
+
+	</province>
+	<province>
+		<name>新疆省</name>
+
+		<latlng>49.173, 70.0062</latlng>
+		<latlng>34.0059, 70.0062</latlng>
+		<latlng>34.0059, 96.0062</latlng>
+		<latlng>49.173, 96.0062</latlng>
+
+	</province>
+
+</provinces>

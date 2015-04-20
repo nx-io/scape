@@ -74,6 +74,18 @@ public class UserDO implements Serializable {
 
 	@Column(name = "profile", length = 255)
 	private String profile;// 简介
+	
+	@Column(name = "province_id", nullable = false)
+	private Integer province_id;// 省
+	
+	@Column(name = "province", nullable = false, length = 20)
+	private String province;
+
+	@Column(name = "city_id", nullable = false)
+	private Integer city_id;// 市
+	
+	@Column(name = "city", nullable = false, length = 20)
+	private String city;
 
 	@Column(name = "is_email_verified", nullable = false)
 	private Boolean is_email_verified = false;// 邮箱是否验证
@@ -192,6 +204,38 @@ public class UserDO implements Serializable {
 		this.profile = profile;
 	}
 
+	public Integer getProvince_id() {
+		return province_id;
+	}
+
+	public void setProvince_id(Integer province_id) {
+		this.province_id = province_id;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public Integer getCity_id() {
+		return city_id;
+	}
+
+	public void setCity_id(Integer city_id) {
+		this.city_id = city_id;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	public Boolean getIs_email_verified() {
 		return is_email_verified;
 	}
@@ -246,6 +290,8 @@ public class UserDO implements Serializable {
 		int result = 1;
 		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
 		result = prime * result + ((category_id == null) ? 0 : category_id.hashCode());
+		result = prime * result + ((city == null) ? 0 : city.hashCode());
+		result = prime * result + ((city_id == null) ? 0 : city_id.hashCode());
 		result = prime * result + ((contact == null) ? 0 : contact.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((fullname == null) ? 0 : fullname.hashCode());
@@ -260,6 +306,8 @@ public class UserDO implements Serializable {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((profile == null) ? 0 : profile.hashCode());
+		result = prime * result + ((province == null) ? 0 : province.hashCode());
+		result = prime * result + ((province_id == null) ? 0 : province_id.hashCode());
 		result = prime * result + ((salt == null) ? 0 : salt.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
@@ -283,6 +331,16 @@ public class UserDO implements Serializable {
 			if (other.category_id != null)
 				return false;
 		} else if (!category_id.equals(other.category_id))
+			return false;
+		if (city == null) {
+			if (other.city != null)
+				return false;
+		} else if (!city.equals(other.city))
+			return false;
+		if (city_id == null) {
+			if (other.city_id != null)
+				return false;
+		} else if (!city_id.equals(other.city_id))
 			return false;
 		if (contact == null) {
 			if (other.contact != null)
@@ -354,6 +412,16 @@ public class UserDO implements Serializable {
 				return false;
 		} else if (!profile.equals(other.profile))
 			return false;
+		if (province == null) {
+			if (other.province != null)
+				return false;
+		} else if (!province.equals(other.province))
+			return false;
+		if (province_id == null) {
+			if (other.province_id != null)
+				return false;
+		} else if (!province_id.equals(other.province_id))
+			return false;
 		if (salt == null) {
 			if (other.salt != null)
 				return false;
@@ -366,5 +434,4 @@ public class UserDO implements Serializable {
 			return false;
 		return true;
 	}
-
 }

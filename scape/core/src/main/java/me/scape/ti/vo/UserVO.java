@@ -60,6 +60,12 @@ public class UserVO {
 	 * 凭证有效时间，单位：秒
 	 */
 	private Integer expires_in;
+	
+	private Integer province_id;// 省
+	private String province;
+
+	private Integer city_id;// 市
+	private String city;
 
 	public static UserVO newInstance(UserDO _do) {
 		if (_do == null) {
@@ -80,7 +86,45 @@ public class UserVO {
 		vo.setName(_do.getName());
 		vo.setProfile(_do.getProfile());
 		vo.setStatus(_do.getStatus());
+		
+		vo.setProvince_id(_do.getProvince_id());
+		vo.setProvince(_do.getProvince());
+		vo.setCity_id(_do.getCity_id());
+		vo.setCity(_do.getCity());
+		
 		return vo;
+	}
+
+	public Integer getProvince_id() {
+		return province_id;
+	}
+
+	public void setProvince_id(Integer province_id) {
+		this.province_id = province_id;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public Integer getCity_id() {
+		return city_id;
+	}
+
+	public void setCity_id(Integer city_id) {
+		this.city_id = city_id;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	public String getApp_id() {
