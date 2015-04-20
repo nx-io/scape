@@ -79,7 +79,7 @@ public class DefaultItemService extends BaseService implements ItemService {
 			} else if (StringUtils.equals("lc", sort)) {
 				sb.append(" ORDER BY i.like_count DESC, i.gmt_created DESC ");
 			} else {
-				sb.append(" ORDER BY i.gmt_created DESC ");
+				sb.append(" ORDER BY i.like_count DESC, i.gmt_created DESC ");
 			}
 		}
 		sb.append(" LIMIT :start, :size ");

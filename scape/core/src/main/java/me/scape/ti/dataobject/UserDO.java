@@ -23,12 +23,9 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "user", catalog = "scape")
-@NamedQueries({ 
-	    @NamedQuery(name = "User.getUserByName", query = "FROM UserDO u WHERE u.name = ?"),
-		@NamedQuery(name = "User.existUserByName", query = "SELECT COUNT(u.id) FROM UserDO u WHERE u.name = ?"), 
-		@NamedQuery(name = "User.existUserByMobile", query = "SELECT COUNT(u.id) FROM UserDO u WHERE u.mobile = ?"), 
-		@NamedQuery(name = "User.getUsersByIds", query = "FROM UserDO WHERE id IN :ids") 
-	    })
+@NamedQueries({ @NamedQuery(name = "User.getUserByName", query = "FROM UserDO u WHERE u.name = ?"),
+		@NamedQuery(name = "User.existUserByName", query = "SELECT COUNT(u.id) FROM UserDO u WHERE u.name = ?"),
+		@NamedQuery(name = "User.existUserByMobile", query = "SELECT COUNT(u.id) FROM UserDO u WHERE u.mobile = ?"), @NamedQuery(name = "User.getUsersByIds", query = "FROM UserDO WHERE id IN :ids") })
 public class UserDO implements Serializable {
 
 	private static final long serialVersionUID = 829998693975891020L;
@@ -74,18 +71,21 @@ public class UserDO implements Serializable {
 
 	@Column(name = "profile", length = 255)
 	private String profile;// 简介
-	
-	@Column(name = "province_id", nullable = false)
+
+	@Column(name = "province_id")
 	private Integer province_id;// 省
-	
-	@Column(name = "province", nullable = false, length = 20)
+
+	@Column(name = "province", length = 20)
 	private String province;
 
-	@Column(name = "city_id", nullable = false)
+	@Column(name = "city_id")
 	private Integer city_id;// 市
-	
-	@Column(name = "city", nullable = false, length = 20)
+
+	@Column(name = "city", length = 20)
 	private String city;
+
+	@Column(name = "attention_count")
+	private Long attention_count;// 关注数量
 
 	@Column(name = "is_email_verified", nullable = false)
 	private Boolean is_email_verified = false;// 邮箱是否验证
@@ -236,6 +236,14 @@ public class UserDO implements Serializable {
 		this.city = city;
 	}
 
+	public Long getAttention_count() {
+		return attention_count;
+	}
+
+	public void setAttention_count(Long attention_count) {
+		this.attention_count = attention_count;
+	}
+
 	public Boolean getIs_email_verified() {
 		return is_email_verified;
 	}
@@ -288,6 +296,7 @@ public class UserDO implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((attention_count == null) ? 0 : attention_count.hashCode());
 		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
 		result = prime * result + ((category_id == null) ? 0 : category_id.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
@@ -322,6 +331,11 @@ public class UserDO implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		UserDO other = (UserDO) obj;
+		if (attention_count == null) {
+			if (other.attention_count != null)
+				return false;
+		} else if (!attention_count.equals(other.attention_count))
+			return false;
 		if (avatar == null) {
 			if (other.avatar != null)
 				return false;

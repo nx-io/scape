@@ -55,6 +55,7 @@ public class DefaultRelationService extends BaseService implements RelationServi
 		comments.setUser_name(request.getUser_name());
 		comments.setAvatar(request.getAvatar());
 		commentsDAO.persist(comments);
+		itemDAO.queryNativeUpdate("UPDATE item SET comment_count = comment_count + 1 WHERE id = ?", new Object[] {request.getItem_id()});
 		return Result.newSuccess().with(ResultCode.Success).with("comments", CommentsVO.newInstance(comments));
 	}
 
@@ -81,6 +82,13 @@ public class DefaultRelationService extends BaseService implements RelationServi
 		favoriteDO.setType(request.getType());
 		favoriteDO.setUser_id(userId);
 		itemFavoriteDAO.persist(favoriteDO);
+		if(request.getType() != null) {
+			if(request.getType().byteValue() == ItemFavoriteDO.Collection) {
+				itemDAO.queryNativeUpdate("UPDATE item SET like_count = like_count + 1 WHERE id = ?", new Object[] {request.getItem_id()});
+			} else if(request.getType().byteValue() == ItemFavoriteDO.Praise) {
+				itemDAO.queryNativeUpdate("UPDATE item SET praise_count = praise_count + 1 WHERE id = ?", new Object[] {request.getItem_id()});
+			}
+		}
 		return Result.newSuccess().with(ResultCode.Success);
 	}
 
@@ -94,7 +102,7 @@ public class DefaultRelationService extends BaseService implements RelationServi
 			return privileged;
 		}
 		Long userId = privileged.getResponse(Long.class);
-		String sql = "SELECT * FROM item i WHERE i.id IN (SELECT ifav.item_id FROM item_favorite ifav WHERE ifav.type = 2 AND ifav.user_id = ?) LIMIT ?, 10";
+		String sql = "SELECT * FROM item i WHERE i.id IN (SELECT ifav.item_id FROM item_favorite ifav WHERE ifav.type = 2 AND ifav.user_id = ?) ORDER BY like_count DESC LIMIT ?, 10";
 		List<ItemDO> itemList = itemDAO.queryNative(sql, new Object[] { userId, request.getPage() });
 		if (CollectionUtils.isEmpty(itemList)) {
 			return Result.newError().with(ResultCode.Error_Favorite_Item_Empty);
@@ -132,6 +140,7 @@ public class DefaultRelationService extends BaseService implements RelationServi
 		favoriteDO.setFavorite_id(request.getFavorite_id());
 		favoriteDO.setUser_id(userId);
 		userFavoriteDAO.persist(favoriteDO);
+		userDAO.queryNativeUpdate("UPDATE user SET attention_count = attention_count + 1 WHERE id = ?", new Object[] {request.getFavorite_id()});
 		return Result.newSuccess().with(ResultCode.Success);
 	}
 
@@ -145,7 +154,7 @@ public class DefaultRelationService extends BaseService implements RelationServi
 			return privileged;
 		}
 		Long userId = privileged.getResponse(Long.class);
-		String sql = "SELECT * FROM user u WHERE u.id in (SELECT ufav.favorite_id FROM user_favorite ufav WHERE ufav.user_id = ?) LIMIT ?, 10";
+		String sql = "SELECT * FROM user u WHERE u.id in (SELECT ufav.favorite_id FROM user_favorite ufav WHERE ufav.user_id = ?) ORDER BY attention_count DESC LIMIT ?, 10";
 		List<UserDO> userList = userDAO.queryNative(sql, new Object[] { userId, request.getPage() });
 		if (CollectionUtils.isEmpty(userList)) {
 			return Result.newError().with(ResultCode.Error_Favorite_User_Empty);
