@@ -21,7 +21,7 @@ import redis.clients.jedis.Jedis;
  * @version 1.0.0
  * @since 2015年3月8日 下午6:40:29
  */
-public class RedisAuthorizationService implements AuthorizationService {
+public class RedisAuthenticationProvider implements AuthenticationProvider {
 
 	protected final Log log = LogFactory.getLog(getClass());
 

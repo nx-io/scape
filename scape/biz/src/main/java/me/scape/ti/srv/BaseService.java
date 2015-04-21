@@ -2,7 +2,7 @@ package me.scape.ti.srv;
 
 import javax.servlet.http.HttpServletRequest;
 
-import me.scape.ti.auth.AuthorizationService;
+import me.scape.ti.auth.AuthenticationProvider;
 import me.scape.ti.auth.request.PrivilegedRequest;
 import me.scape.ti.auth.request.LoginRequest;
 import me.scape.ti.auth.response.PrivilegedResponse;
@@ -180,8 +180,8 @@ public class BaseService implements InitializingBean {
 	protected DesignContestNewsDAO designContestNewsDAO;
 
 	@Autowired
-	@Qualifier("redisAuthorizationService")
-	protected AuthorizationService authorizationService;
+	@Qualifier("redisAuthenticationProvider")
+	protected AuthenticationProvider authenticationProvider;
 
 	@Autowired
 	@Qualifier("cityDAO")
@@ -216,7 +216,7 @@ public class BaseService implements InitializingBean {
 		checkRequest.setApp_id(request.getApp_id());
 		checkRequest.setOpen_id(request.getOpen_id());
 		checkRequest.setAccess_token(request.getAccess_token());
-		PrivilegedResponse privilegedResponse = authorizationService.doPrivileged(checkRequest);
+		PrivilegedResponse privilegedResponse = authenticationProvider.doPrivileged(checkRequest);
 		if (StringUtils.isBlank(privilegedResponse.getSecret_id())) {
 			return Result.newError().with(ResultCode.Error_Token);
 		}
@@ -232,9 +232,9 @@ public class BaseService implements InitializingBean {
 			return Result.newError().with(ResultCode.Error_Login);
 		}
 		LoginRequest loginRequest = new LoginRequest();
-		loginRequest.setApp_id(AuthorizationService.App_Id);
+		loginRequest.setApp_id(AuthenticationProvider.App_Id);
 		loginRequest.setSecret_id(String.valueOf(userId));
-		LoginResponse loginResponse = authorizationService.doLogin(loginRequest);
+		LoginResponse loginResponse = authenticationProvider.doLogin(loginRequest);
 		if (loginResponse == null || StringUtils.isEmpty(loginResponse.getAccess_token())) {
 			return Result.newError().with(ResultCode.Error_Login);
 		}

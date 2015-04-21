@@ -11,7 +11,7 @@ import me.scape.ti.auth.response.LoginResponse;
  * @version 1.0.0
  * @since 2015年3月8日 下午6:38:51
  */
-public interface AuthorizationService {
+public interface AuthenticationProvider {
 
 	String App_Id = "S0wLiaXE6fXUflFy8O9urhW7imsi";
 
