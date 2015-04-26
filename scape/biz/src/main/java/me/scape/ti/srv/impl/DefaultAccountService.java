@@ -43,6 +43,7 @@ import org.springframework.util.CollectionUtils;
 public class DefaultAccountService extends BaseService implements AccountService {
 
 	@Override
+	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result updateUserProfile(UserProfileRequest request) {
 		Result privileged = doPrivileged(request);
 		if (!privileged.isSuccess()) {
@@ -51,41 +52,41 @@ public class DefaultAccountService extends BaseService implements AccountService
 		Long userId = privileged.getResponse(Long.class);
 		UserDO user = userDAO.get(userId);
 		String name = request.getName();// 设计师/企业名称
-		if(StringUtils.isNotBlank(name)) {
+		if (StringUtils.isNotBlank(name)) {
 			user.setName(name);
 		}
 		String fullname = request.getFullname();// 真实姓名
-		if(StringUtils.isNotBlank(fullname)) {
+		if (StringUtils.isNotBlank(fullname)) {
 			user.setFullname(fullname);
 		}
 		String avatar = request.getAvatar();// 头像
-		if(StringUtils.isNotBlank(avatar)) {
+		if (StringUtils.isNotBlank(avatar)) {
 			user.setAvatar(avatar);
 		}
 		String contact = request.getContact();// 联系方式
-		if(StringUtils.isNotBlank(contact)) {
+		if (StringUtils.isNotBlank(contact)) {
 			user.setContact(contact);
 		}
 		Long category_id = request.getCategory_id();// 特长
-		if(category_id != null && category_id > 0L) {
+		if (category_id != null && category_id > 0L) {
 			user.setCategory_id(category_id);
 		}
 		String profile = request.getProfile();// 简介
-		if(StringUtils.isNotBlank(profile)) {
+		if (StringUtils.isNotBlank(profile)) {
 			user.setProfile(profile);
 		}
 		Integer province_id = request.getProvince_id();// 省
-		if(province_id != null && province_id > 0) {
+		if (province_id != null && province_id > 0) {
 			ProvinceDO province = provinceDAO.get(province_id);
-			if(province != null) {
+			if (province != null) {
 				user.setProvince_id(province_id);
 				user.setProvince(province.getName());
 			}
 		}
 		Integer city_id = request.getCity_id();// 市
-		if(city_id != null && city_id > 0) {
+		if (city_id != null && city_id > 0) {
 			CityDO city = cityDAO.get(city_id);
-			if(city != null) {
+			if (city != null) {
 				user.setCity_id(city_id);
 				user.setCity(city.getName());
 			}
