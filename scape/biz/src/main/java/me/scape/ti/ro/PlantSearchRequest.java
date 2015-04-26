@@ -7,7 +7,7 @@ package me.scape.ti.ro;
  * @version 1.0.0
  * @since 2015年1月27日 下午8:59:32
  */
-public class PlantSearchRequest extends PageRequest {
+public class PlantSearchRequest extends NonPrivilegedPageRequest {
 
 	private Long id;// 植物ID
 

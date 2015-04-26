@@ -8,7 +8,7 @@ package me.scape.ti.ro;
  * @version 1.0.0
  * @since 2015年4月13日 上午11:35:31
  */
-public class RequirementsSearchRequest extends PageRequest {
+public class RequirementsSearchRequest extends NonPrivilegedPageRequest {
 	
 	private Long id;
 

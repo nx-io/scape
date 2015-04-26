@@ -159,6 +159,7 @@ public class DefaultItemService extends BaseService implements ItemService {
 			item.setMedia_count(itemMediaList.size() + 1);
 		}
 		itemDAO.persist(item);
+		userDAO.queryNativeUpdate("UPDATE user SET item_count = item_count + 1 WHERE id = ?", new Object[] { userId });
 		if (!isMediaEmpty) {
 			for (ItemMediaDO itemMedia : itemMediaList) {
 				itemMedia.setItem_id(item.getId());

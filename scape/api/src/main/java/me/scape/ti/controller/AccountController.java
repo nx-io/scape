@@ -7,6 +7,7 @@ import me.scape.ti.result.ResultCode;
 import me.scape.ti.ro.PubfavRequest;
 import me.scape.ti.ro.RegisterRequest;
 import me.scape.ti.ro.ResetPasswdRequest;
+import me.scape.ti.ro.UserProfileRequest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller("accountController")
 @RequestMapping(value = "/account")
 public class AccountController extends BaseController {
+	
+	@RequestMapping(value = "/profile", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> profile(@Valid UserProfileRequest request, BindingResult validResult) {
+		if (validResult.hasErrors()) {
+			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
+		}
+		Result result = accountService.updateUserProfile(request);
+		return toResponse(result);
+	}
 
 	@RequestMapping(value = "/register", produces = "application/json")
 	@ResponseBody
@@ -54,7 +65,7 @@ public class AccountController extends BaseController {
 
 	@RequestMapping(value = "/pubfav", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> publish(@Valid PubfavRequest request, BindingResult validResult) {
+	public ResponseEntity<String> pubfav(@Valid PubfavRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {
 			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
 		}

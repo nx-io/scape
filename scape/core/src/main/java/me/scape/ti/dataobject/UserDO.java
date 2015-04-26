@@ -85,7 +85,10 @@ public class UserDO implements Serializable {
 	private String city;
 
 	@Column(name = "attention_count")
-	private Long attention_count;// 关注数量
+	private Long attention_count = 0L;// 关注数量
+
+	@Column(name = "item_count")
+	private Long item_count = 0L;// 景观数量
 
 	@Column(name = "is_email_verified", nullable = false)
 	private Boolean is_email_verified = false;// 邮箱是否验证
@@ -244,6 +247,14 @@ public class UserDO implements Serializable {
 		this.attention_count = attention_count;
 	}
 
+	public Long getItem_count() {
+		return item_count;
+	}
+
+	public void setItem_count(Long item_count) {
+		this.item_count = item_count;
+	}
+
 	public Boolean getIs_email_verified() {
 		return is_email_verified;
 	}
@@ -309,6 +320,7 @@ public class UserDO implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((is_email_verified == null) ? 0 : is_email_verified.hashCode());
 		result = prime * result + ((is_mobile_verified == null) ? 0 : is_mobile_verified.hashCode());
+		result = prime * result + ((item_count == null) ? 0 : item_count.hashCode());
 		result = prime * result + ((last_ip == null) ? 0 : last_ip.hashCode());
 		result = prime * result + ((last_login == null) ? 0 : last_login.hashCode());
 		result = prime * result + ((mobile == null) ? 0 : mobile.hashCode());
@@ -395,6 +407,11 @@ public class UserDO implements Serializable {
 			if (other.is_mobile_verified != null)
 				return false;
 		} else if (!is_mobile_verified.equals(other.is_mobile_verified))
+			return false;
+		if (item_count == null) {
+			if (other.item_count != null)
+				return false;
+		} else if (!item_count.equals(other.item_count))
 			return false;
 		if (last_ip == null) {
 			if (other.last_ip != null)

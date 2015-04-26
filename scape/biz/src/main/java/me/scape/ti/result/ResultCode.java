@@ -33,6 +33,8 @@ public enum ResultCode {
 
 	Error_Item_Empty(-6000L, "查询不到案例"),
 
+	Error_Talents_Empty(-6001L, "查询不到设计师"),
+
 	Error_Favorite_Item_Empty(-7000L, "无收藏案例"),
 
 	Error_Favorited(-7001L, "不能重复收藏或者赞"),

@@ -4,6 +4,8 @@ import me.scape.ti.result.Result;
 import me.scape.ti.ro.PubfavRequest;
 import me.scape.ti.ro.RegisterRequest;
 import me.scape.ti.ro.ResetPasswdRequest;
+import me.scape.ti.ro.TalentsSearchRequest;
+import me.scape.ti.ro.UserProfileRequest;
 
 /**
  * 
@@ -14,10 +16,14 @@ import me.scape.ti.ro.ResetPasswdRequest;
 public interface AccountService {
 
 	Result register(RegisterRequest request);
+	
+	Result updateUserProfile(UserProfileRequest request);
 
 	Result login(String name, String password);
 
 	Result reset_passwd(ResetPasswdRequest request);
 
 	Result queryPubOrFavItem(PubfavRequest request);
+	
+	Result search(TalentsSearchRequest request);
 }

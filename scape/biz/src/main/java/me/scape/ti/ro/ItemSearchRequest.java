@@ -6,7 +6,7 @@ package me.scape.ti.ro;
  * @version 1.0.0
  * @since 2014年12月28日 下午3:13:29
  */
-public class ItemSearchRequest extends PageRequest {
+public class ItemSearchRequest extends NonPrivilegedPageRequest {
 
 	private Long cid;// 景观分类
 

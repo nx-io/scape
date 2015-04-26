@@ -7,7 +7,7 @@ package me.scape.ti.ro;
  * @version 1.0.0
  * @since 2015年3月2日 下午3:47:18
  */
-public class PageRequest {
+public class NonPrivilegedPageRequest {
 
 	private Integer page = 1;
 

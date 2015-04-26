@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @version 1.0.0
  * @since 2015年3月2日 下午3:46:20
  */
-public class ContestEntryRequest extends PageRequest {
+public class ContestEntryRequest extends NonPrivilegedPageRequest {
 
 	@NotEmpty
 	private Integer contestId;

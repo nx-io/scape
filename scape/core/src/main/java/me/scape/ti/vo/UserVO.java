@@ -66,6 +66,9 @@ public class UserVO {
 
 	private Integer city_id;// 市
 	private String city;
+	
+	private Long attention_count;
+	private Long item_count;
 
 	public static UserVO newInstance(UserDO _do) {
 		if (_do == null) {
@@ -93,6 +96,22 @@ public class UserVO {
 		vo.setCity(_do.getCity());
 		
 		return vo;
+	}
+
+	public Long getAttention_count() {
+		return attention_count;
+	}
+
+	public void setAttention_count(Long attention_count) {
+		this.attention_count = attention_count;
+	}
+
+	public Long getItem_count() {
+		return item_count;
+	}
+
+	public void setItem_count(Long item_count) {
+		this.item_count = item_count;
 	}
 
 	public Integer getProvince_id() {
