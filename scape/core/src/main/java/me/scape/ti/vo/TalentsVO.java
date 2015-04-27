@@ -11,7 +11,7 @@ import me.scape.ti.utils.WebUtils;
  * @version 1.0.0
  * @since 2014年12月27日 下午7:21:05
  */
-public class UserVO {
+public class TalentsVO {
 
 	private String name;// 设计师/企业名称
 
@@ -53,11 +53,11 @@ public class UserVO {
 
 	private Long item_count;
 
-	public static UserVO newInstance(UserDO _do) {
+	public static TalentsVO newInstance(UserDO _do) {
 		if (_do == null) {
 			return null;
 		}
-		UserVO vo = new UserVO();
+		TalentsVO vo = new TalentsVO();
 		vo.setAvatar(_do.getAvatar());
 		vo.setCategory_id(_do.getCategory_id());
 		vo.setContact(_do.getContact());
@@ -77,106 +77,6 @@ public class UserVO {
 		vo.setCity_id(_do.getCity_id());
 		vo.setCity(_do.getCity());
 		return vo;
-	}
-
-	/**
-	 * 应用ID
-	 */
-	private String app_id;
-
-	/**
-	 * 用于绑定应用系统用户开放ID
-	 */
-	private String open_id;
-
-	/**
-	 * 访问凭证令牌
-	 */
-	private String access_token;
-
-	/**
-	 * 凭证有效时间，单位：秒
-	 */
-	private Integer expires_in;
-
-	public Long getAttention_count() {
-		return attention_count;
-	}
-
-	public void setAttention_count(Long attention_count) {
-		this.attention_count = attention_count;
-	}
-
-	public Long getItem_count() {
-		return item_count;
-	}
-
-	public void setItem_count(Long item_count) {
-		this.item_count = item_count;
-	}
-
-	public Integer getProvince_id() {
-		return province_id;
-	}
-
-	public void setProvince_id(Integer province_id) {
-		this.province_id = province_id;
-	}
-
-	public String getProvince() {
-		return province;
-	}
-
-	public void setProvince(String province) {
-		this.province = province;
-	}
-
-	public Integer getCity_id() {
-		return city_id;
-	}
-
-	public void setCity_id(Integer city_id) {
-		this.city_id = city_id;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getApp_id() {
-		return app_id;
-	}
-
-	public void setApp_id(String app_id) {
-		this.app_id = app_id;
-	}
-
-	public String getOpen_id() {
-		return open_id;
-	}
-
-	public void setOpen_id(String open_id) {
-		this.open_id = open_id;
-	}
-
-	public String getAccess_token() {
-		return access_token;
-	}
-
-	public void setAccess_token(String access_token) {
-		this.access_token = access_token;
-	}
-
-	public Integer getExpires_in() {
-		return expires_in;
-	}
-
-	public void setExpires_in(Integer expires_in) {
-		this.expires_in = expires_in;
 	}
 
 	public String getName() {
@@ -289,5 +189,53 @@ public class UserVO {
 
 	public void setGmt_created(Date gmt_created) {
 		this.gmt_created = gmt_created;
+	}
+
+	public Integer getProvince_id() {
+		return province_id;
+	}
+
+	public void setProvince_id(Integer province_id) {
+		this.province_id = province_id;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public Integer getCity_id() {
+		return city_id;
+	}
+
+	public void setCity_id(Integer city_id) {
+		this.city_id = city_id;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public Long getAttention_count() {
+		return attention_count;
+	}
+
+	public void setAttention_count(Long attention_count) {
+		this.attention_count = attention_count;
+	}
+
+	public Long getItem_count() {
+		return item_count;
+	}
+
+	public void setItem_count(Long item_count) {
+		this.item_count = item_count;
 	}
 }

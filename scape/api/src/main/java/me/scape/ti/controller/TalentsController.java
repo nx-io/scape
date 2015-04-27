@@ -27,7 +27,7 @@ public class TalentsController extends BaseController {
 		if (validResult.hasErrors()) {
 			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
 		}
-		Result result = accountService.search(request);
+		Result result = talentsService.search(request);
 		return toResponse(result);
 	}
 }

@@ -14,6 +14,7 @@ import me.scape.ti.srv.ItemService;
 import me.scape.ti.srv.PlantService;
 import me.scape.ti.srv.RelationService;
 import me.scape.ti.srv.RequirementsService;
+import me.scape.ti.srv.TalentsService;
 import me.scape.ti.utils.CalendarUtil;
 
 import org.slf4j.Logger;
@@ -69,6 +70,10 @@ public class BaseController {
 	@Autowired
 	@Qualifier(value = "requirementsService")
 	protected RequirementsService requirementsService;
+
+	@Autowired
+	@Qualifier(value = "talentsService")
+	protected TalentsService talentsService;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

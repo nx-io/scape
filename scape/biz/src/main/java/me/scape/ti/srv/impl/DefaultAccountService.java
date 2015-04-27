@@ -16,7 +16,6 @@ import me.scape.ti.result.ResultCode;
 import me.scape.ti.ro.PubfavRequest;
 import me.scape.ti.ro.RegisterRequest;
 import me.scape.ti.ro.ResetPasswdRequest;
-import me.scape.ti.ro.TalentsSearchRequest;
 import me.scape.ti.ro.UserProfileRequest;
 import me.scape.ti.srv.AccountService;
 import me.scape.ti.srv.BaseService;
@@ -93,61 +92,6 @@ public class DefaultAccountService extends BaseService implements AccountService
 		}
 		userDAO.merge(user);
 		return Result.newSuccess().with(ResultCode.Success).with("user", UserVO.newInstance(user));
-	}
-
-	@Override
-	public Result search(TalentsSearchRequest request) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT * FROM user i WHERE 1 = 1 ");
-		Map<String, Object> args = new HashMap<String, Object>();
-		Long category_id = request.getCategory_id();
-		if (category_id != null && category_id > 0L) {
-			sb.append(" AND i.category_id = :category_id ");
-			args.put("category_id", category_id);
-		}
-		Integer province_id = request.getProvince_id();
-		if (province_id != null && province_id > 0L) {
-			sb.append(" AND i.province_id = :province_id ");
-			args.put("province_id", province_id);
-		}
-		Integer city_id = request.getCity_id();
-		if (city_id != null && city_id > 0L) {
-			sb.append(" AND i.city_id = :city_id ");
-			args.put("city_id", city_id);
-		}
-		// 搜索类型 1:最近更新 2:最多案例 3:最多关注
-		Byte type = request.getType();
-		if (type != null && type > 0) {
-			if (type == 1) {
-				sb.append(" ORDER BY i.gmt_modified DESC, i.gmt_created DESC ");
-			} else if (type == 2) {
-				sb.append(" ORDER BY i.item_count DESC, i.gmt_created DESC ");
-			} else if (type == 3) {
-				sb.append(" ORDER BY i.attention_count DESC, i.gmt_created DESC ");
-			} else {
-				sb.append(" ORDER BY i.gmt_created DESC ");
-			}
-		}
-		sb.append(" LIMIT :start, :size ");
-		Integer page = request.getPage();
-		page = (page != null && page > 0) ? page : 1;
-		PageQuery pageQuery = new PageQuery(page);
-		args.put("start", pageQuery.getIndex());
-		args.put("size", pageQuery.getSize());
-
-		List<UserDO> userList = userDAO.queryNative(sb.toString(), args);
-		if (CollectionUtils.isEmpty(userList)) {
-			return Result.newError().with(ResultCode.Error_Talents_Empty);
-		}
-		List<UserVO> voList = new ArrayList<UserVO>();
-		for (UserDO userDO : userList) {
-			UserVO vo = UserVO.newInstance(userDO);
-			if (vo == null) {
-				continue;
-			}
-			voList.add(vo);
-		}
-		return Result.newSuccess().with(ResultCode.Success).with("talents", voList);
 	}
 
 	@Override
