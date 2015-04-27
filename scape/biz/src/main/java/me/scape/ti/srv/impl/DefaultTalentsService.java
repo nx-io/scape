@@ -28,6 +28,15 @@ import me.scape.ti.vo.TalentsVO;
 public class DefaultTalentsService extends BaseService implements TalentsService {
 
 	@Override
+	public Result queryTalents(String guid) {
+		UserDO user = userDAO.queryForObject("FROM UserDO WHERE guid = ?", new Object[] { guid });
+		if(user == null) {
+			
+		}
+		return null;
+	}
+
+	@Override
 	public Result search(TalentsSearchRequest request) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT * FROM user i WHERE 1 = 1 ");

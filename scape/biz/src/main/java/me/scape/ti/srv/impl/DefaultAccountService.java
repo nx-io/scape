@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import me.scape.ti.auth.response.LoginResponse;
+import me.scape.ti.commons.SequenceType;
 import me.scape.ti.dataobject.CityDO;
 import me.scape.ti.dataobject.ItemDO;
 import me.scape.ti.dataobject.ProvinceDO;
@@ -206,6 +207,7 @@ public class DefaultAccountService extends BaseService implements AccountService
 			return Result.newError().with(ResultCode.Error_Register_User_Exist);
 		}
 		UserDO user = new UserDO();
+		user.setGuid(sequenceService.nextValueAsString(SequenceType.USER_GUID_SEQUENCE, 25));
 		user.setAvatar(avatar);
 		user.setName(name);
 		user.setMobile(mobile);

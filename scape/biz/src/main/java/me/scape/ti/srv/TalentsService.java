@@ -13,4 +13,6 @@ import me.scape.ti.ro.TalentsSearchRequest;
 public interface TalentsService {
 	
 	Result search(TalentsSearchRequest request);
+	
+	Result queryTalents(String guid);
 }

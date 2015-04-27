@@ -12,6 +12,8 @@ import me.scape.ti.utils.WebUtils;
  * @since 2014年12月27日 下午7:21:05
  */
 public class TalentsVO {
+	
+	private String guid;
 
 	private String name;// 设计师/企业名称
 
@@ -58,6 +60,7 @@ public class TalentsVO {
 			return null;
 		}
 		TalentsVO vo = new TalentsVO();
+		vo.setGuid(_do.getGuid());
 		vo.setAvatar(_do.getAvatar());
 		vo.setCategory_id(_do.getCategory_id());
 		vo.setContact(_do.getContact());
@@ -77,6 +80,14 @@ public class TalentsVO {
 		vo.setCity_id(_do.getCity_id());
 		vo.setCity(_do.getCity());
 		return vo;
+	}
+
+	public String getGuid() {
+		return guid;
+	}
+
+	public void setGuid(String guid) {
+		this.guid = guid;
 	}
 
 	public String getName() {

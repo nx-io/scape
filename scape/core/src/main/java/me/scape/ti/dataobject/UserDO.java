@@ -33,11 +33,14 @@ public class UserDO implements Serializable {
 	public static final byte Available = 1;
 	public static final byte Unavailable = 0;
 	public static final byte Strike_out = -1;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
+
+	@Column(name = "guid", nullable = false, length = 30, unique = true)
+	private String guid;
 
 	@Column(name = "name", nullable = false, length = 64, unique = true)
 	private String name;// 设计师/企业名称
@@ -125,6 +128,14 @@ public class UserDO implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getGuid() {
+		return guid;
+	}
+
+	public void setGuid(String guid) {
+		this.guid = guid;
 	}
 
 	public String getFullname() {
@@ -317,6 +328,7 @@ public class UserDO implements Serializable {
 		result = prime * result + ((fullname == null) ? 0 : fullname.hashCode());
 		result = prime * result + ((gmt_created == null) ? 0 : gmt_created.hashCode());
 		result = prime * result + ((gmt_modified == null) ? 0 : gmt_modified.hashCode());
+		result = prime * result + ((guid == null) ? 0 : guid.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((is_email_verified == null) ? 0 : is_email_verified.hashCode());
 		result = prime * result + ((is_mobile_verified == null) ? 0 : is_mobile_verified.hashCode());
@@ -392,6 +404,11 @@ public class UserDO implements Serializable {
 			if (other.gmt_modified != null)
 				return false;
 		} else if (!gmt_modified.equals(other.gmt_modified))
+			return false;
+		if (guid == null) {
+			if (other.guid != null)
+				return false;
+		} else if (!guid.equals(other.guid))
 			return false;
 		if (id == null) {
 			if (other.id != null)

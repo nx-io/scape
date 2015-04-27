@@ -37,4 +37,6 @@
 	<bean id="redisAuthenticationProvider" class="me.scape.ti.auth.RedisAuthenticationProvider">
 		<property name="redisTemplate" ref="redisTemplate"/>
 	</bean>
+	
+	<bean id="sequenceService" class="me.scape.ti.sequence.DefaultSequenceService"/>
 </beans>

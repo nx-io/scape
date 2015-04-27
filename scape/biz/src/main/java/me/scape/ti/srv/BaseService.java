@@ -3,10 +3,10 @@ package me.scape.ti.srv;
 import javax.servlet.http.HttpServletRequest;
 
 import me.scape.ti.auth.AuthenticationProvider;
-import me.scape.ti.auth.request.PrivilegedRequest;
 import me.scape.ti.auth.request.LoginRequest;
-import me.scape.ti.auth.response.PrivilegedResponse;
+import me.scape.ti.auth.request.PrivilegedRequest;
 import me.scape.ti.auth.response.LoginResponse;
+import me.scape.ti.auth.response.PrivilegedResponse;
 import me.scape.ti.dao.AreaCategoryDAO;
 import me.scape.ti.dao.CategoryDAO;
 import me.scape.ti.dao.CityDAO;
@@ -44,6 +44,7 @@ import me.scape.ti.dao.UserDAO;
 import me.scape.ti.dao.UserFavoriteDAO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
+import me.scape.ti.sequence.SequenceService;
 import me.scape.ti.utils.WebUtils;
 
 import org.apache.commons.lang.math.NumberUtils;
@@ -210,6 +211,10 @@ public class BaseService implements InitializingBean {
 	@Autowired
 	@Qualifier("requirementsDAO")
 	protected RequirementsDAO requirementsDAO;
+
+	@Autowired
+	@Qualifier("sequenceService")
+	protected SequenceService sequenceService;
 	
 	protected Result doPrivileged(me.scape.ti.ro.PrivilegedRequest request) {
 		PrivilegedRequest checkRequest = new PrivilegedRequest();
