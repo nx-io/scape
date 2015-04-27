@@ -1,6 +1,7 @@
 package me.scape.ti.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import me.scape.ti.dataobject.UserDO;
 import me.scape.ti.utils.WebUtils;
@@ -12,7 +13,7 @@ import me.scape.ti.utils.WebUtils;
  * @since 2014年12月27日 下午7:21:05
  */
 public class TalentsVO {
-	
+
 	private String guid;
 
 	private String name;// 设计师/企业名称
@@ -55,6 +56,10 @@ public class TalentsVO {
 
 	private Long item_count;
 
+	private List<ItemVO> publishedItemList;// 发布的案例
+
+	private List<ItemVO> sharedItemList;// 分享的案例
+
 	public static TalentsVO newInstance(UserDO _do) {
 		if (_do == null) {
 			return null;
@@ -80,6 +85,22 @@ public class TalentsVO {
 		vo.setCity_id(_do.getCity_id());
 		vo.setCity(_do.getCity());
 		return vo;
+	}
+
+	public List<ItemVO> getSharedItemList() {
+		return sharedItemList;
+	}
+
+	public void setSharedItemList(List<ItemVO> sharedItemList) {
+		this.sharedItemList = sharedItemList;
+	}
+
+	public List<ItemVO> getPublishedItemList() {
+		return publishedItemList;
+	}
+
+	public void setPublishedItemList(List<ItemVO> publishedItemList) {
+		this.publishedItemList = publishedItemList;
 	}
 
 	public String getGuid() {

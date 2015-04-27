@@ -74,7 +74,7 @@ public class ItemServiceImpl extends BaseServiceImpl implements ItemService {
         criteria.setOffset((curn - 1) * pageSize);
         criteria.setLimit(pageSize);
 
-        Pagination<ItemDO> items = itemDAO.ListItems(criteria);
+        Pagination<ItemDO> items = itemDAO.queryItems(criteria);
 
         List<ItemListVO> itemVOs = formatItems(items.getItems());
 

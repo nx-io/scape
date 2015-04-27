@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import me.scape.ti.dataobject.ItemDO;
 import me.scape.ti.dataobject.UserDO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
@@ -31,9 +32,13 @@ public class DefaultTalentsService extends BaseService implements TalentsService
 	public Result queryTalents(String guid) {
 		UserDO user = userDAO.queryForObject("FROM UserDO WHERE guid = ?", new Object[] { guid });
 		if(user == null) {
-			
+			return Result.newError().with(ResultCode.Error_User_Not_Exist);
 		}
-		return null;
+		TalentsVO talents = TalentsVO.newInstance(user);
+		
+		List<ItemDO> publishedItems = itemDAO.getUserItems(user.getId(), ItemDO.published);
+		List<ItemDO> sharedItems = itemDAO.getUserItems(user.getId(), ItemDO.shared);
+		return Result.newSuccess().with(ResultCode.Success).with("talents", talents);
 	}
 
 	@Override

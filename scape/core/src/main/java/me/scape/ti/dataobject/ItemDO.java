@@ -29,6 +29,9 @@ public class ItemDO implements Serializable {
 	public static final byte Unavailable = 0;
 	public static final byte Strike_out = -1;
 
+	public static final byte published = 1;
+	public static final byte shared = 2;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)

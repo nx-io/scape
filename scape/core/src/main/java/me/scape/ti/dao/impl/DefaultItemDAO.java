@@ -22,9 +22,14 @@ import org.springframework.stereotype.Repository;
 @Repository("itemDAO")
 public class DefaultItemDAO extends DefaultGenericDAO<ItemDO, Long> implements ItemDAO {
 
+	@Override
+	public List<ItemDO> getUserItems(Long userId, Byte type) {
+		return query("FROM ItemDO WHERE user_id = ? AND type = ?", new Object[] { userId, type });
+	}
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public Pagination<ItemDO> ListItems(ItemQueryCriteria criteria) {
+	public Pagination<ItemDO> queryItems(ItemQueryCriteria criteria) {
 		List<Object> args = new ArrayList<Object>();
 
 		StringBuilder sqlCountRows = new StringBuilder();
