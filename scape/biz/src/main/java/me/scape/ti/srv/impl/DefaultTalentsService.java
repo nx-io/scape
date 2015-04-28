@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
 import me.scape.ti.dataobject.ItemDO;
 import me.scape.ti.dataobject.UserDO;
 import me.scape.ti.result.Result;
@@ -16,7 +13,11 @@ import me.scape.ti.ro.TalentsSearchRequest;
 import me.scape.ti.srv.BaseService;
 import me.scape.ti.srv.PageQuery;
 import me.scape.ti.srv.TalentsService;
+import me.scape.ti.vo.ItemVO;
 import me.scape.ti.vo.TalentsVO;
+
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 /**
  * 
@@ -35,9 +36,24 @@ public class DefaultTalentsService extends BaseService implements TalentsService
 			return Result.newError().with(ResultCode.Error_User_Not_Exist);
 		}
 		TalentsVO talents = TalentsVO.newInstance(user);
-		
 		List<ItemDO> publishedItems = itemDAO.getUserItems(user.getId(), ItemDO.published);
+		if(publishedItems != null && !publishedItems.isEmpty()) {
+			List<ItemVO> published = new ArrayList<ItemVO>();
+			for (ItemDO item : publishedItems) {
+				ItemVO vo = toItem(item);
+				published.add(vo);
+			}
+			talents.setPublishedItemList(published);
+		}
 		List<ItemDO> sharedItems = itemDAO.getUserItems(user.getId(), ItemDO.shared);
+		if(sharedItems != null && !sharedItems.isEmpty()) {
+			List<ItemVO> shared = new ArrayList<ItemVO>();
+			for (ItemDO item : sharedItems) {
+				ItemVO vo = toItem(item);
+				shared.add(vo);
+			}
+			talents.setSharedItemList(shared);
+		}
 		return Result.newSuccess().with(ResultCode.Success).with("talents", talents);
 	}
 

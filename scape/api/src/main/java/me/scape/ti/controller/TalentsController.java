@@ -9,6 +9,7 @@ import me.scape.ti.ro.TalentsSearchRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -28,6 +29,13 @@ public class TalentsController extends BaseController {
 			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
 		}
 		Result result = talentsService.search(request);
+		return toResponse(result);
+	}
+	
+	@RequestMapping(value = "/{guid}", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> item(@PathVariable String guid) {
+		Result result = talentsService.queryTalents(guid);
 		return toResponse(result);
 	}
 }

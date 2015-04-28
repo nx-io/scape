@@ -21,7 +21,6 @@ import me.scape.ti.vo.CategoryVO;
 import me.scape.ti.vo.CommentsVO;
 import me.scape.ti.vo.ItemMediaVO;
 import me.scape.ti.vo.ItemVO;
-import me.scape.ti.vo.LabelVO;
 import me.scape.ti.vo.StyleVO;
 
 import org.apache.commons.lang3.StringUtils;
@@ -185,15 +184,7 @@ public class DefaultItemService extends BaseService implements ItemService {
 		if (item == null) {
 			return Result.newError().with(ResultCode.Error_Item_Detail);
 		}
-		ItemVO itemVO = ItemVO.newInstance(item);
-		List<ItemMediaDO> itemMediaList = itemMediaDAO.queryNamed("ItemMedia.getItemMediaByItemId", new Object[] { item.getId() });
-		if (!CollectionUtils.isEmpty(itemMediaList)) {
-			itemVO.setItemMediaList(ItemMediaVO.newInstance(itemMediaList));
-		}
-		itemVO.setAreaCategory(AreaCategoryVO.newInstance(areaCategoryDAO.get(item.getArea_category_id())));
-		itemVO.setCategory(CategoryVO.newInstance(categoryDAO.get(item.getCategory_id())));
-		itemVO.setStyle(StyleVO.newInstance(styleDAO.get(item.getStyle_id())));
-		itemVO.setLabelList(LabelVO.newInstance(labelDAO.queryNamed("Label.getLabelByItemId", new Object[] { item.getId() })));
+		ItemVO itemVO = toItem(item);
 		List<CommentsDO> commentsDOList = commentsDAO.query("FROM CommentsDO WHERE item_id = ?", new Object[] { itemId });
 		List<CommentsVO> commentsVOList = CommentsVO.newInstance(commentsDOList);
 		if (commentsVOList != null && !commentsVOList.isEmpty()) {

@@ -1,5 +1,7 @@
 package me.scape.ti.srv;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import me.scape.ti.auth.AuthenticationProvider;
@@ -42,10 +44,18 @@ import me.scape.ti.dao.StyleDAO;
 import me.scape.ti.dao.SystemSettingDAO;
 import me.scape.ti.dao.UserDAO;
 import me.scape.ti.dao.UserFavoriteDAO;
+import me.scape.ti.dataobject.ItemDO;
+import me.scape.ti.dataobject.ItemMediaDO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
 import me.scape.ti.sequence.SequenceService;
 import me.scape.ti.utils.WebUtils;
+import me.scape.ti.vo.AreaCategoryVO;
+import me.scape.ti.vo.CategoryVO;
+import me.scape.ti.vo.ItemMediaVO;
+import me.scape.ti.vo.ItemVO;
+import me.scape.ti.vo.LabelVO;
+import me.scape.ti.vo.StyleVO;
 
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -54,6 +64,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.util.CollectionUtils;
 
 /**
  * 
@@ -215,6 +226,19 @@ public class BaseService implements InitializingBean {
 	@Autowired
 	@Qualifier("sequenceService")
 	protected SequenceService sequenceService;
+	
+	protected ItemVO toItem(ItemDO item) {
+		ItemVO vo = ItemVO.newInstance(item);
+		List<ItemMediaDO> itemMediaList = itemMediaDAO.queryNamed("ItemMedia.getItemMediaByItemId", new Object[] { item.getId() });
+		if (!CollectionUtils.isEmpty(itemMediaList)) {
+			vo.setItemMediaList(ItemMediaVO.newInstance(itemMediaList));
+		}
+		vo.setAreaCategory(AreaCategoryVO.newInstance(areaCategoryDAO.get(item.getArea_category_id())));
+		vo.setCategory(CategoryVO.newInstance(categoryDAO.get(item.getCategory_id())));
+		vo.setStyle(StyleVO.newInstance(styleDAO.get(item.getStyle_id())));
+		vo.setLabelList(LabelVO.newInstance(labelDAO.queryNamed("Label.getLabelByItemId", new Object[] { item.getId() })));
+		return vo;
+	}
 	
 	protected Result doPrivileged(me.scape.ti.ro.PrivilegedRequest request) {
 		PrivilegedRequest checkRequest = new PrivilegedRequest();
