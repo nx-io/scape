@@ -36,7 +36,7 @@ public class Sequence implements Serializable {
 	/**
 	 * 当前数值
 	 */
-	@Column(name = "start_value")
+	@Column(name = "value")
 	private Long value;
 
 	public String getSequenceType() {
