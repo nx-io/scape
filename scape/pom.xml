@@ -27,6 +27,21 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>me.ocs.commons</groupId>
+			<artifactId>ocs-commons</artifactId>
+			<version>1.0.0-RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>me.ocs.oauth</groupId>
+			<artifactId>ocs-oauth</artifactId>
+			<version>1.0.0-RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>me.ocs.oss</groupId>
+			<artifactId>ocs-oss</artifactId>
+			<version>1.0.0-RELEASE</version>
+		</dependency>
+		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
 			<version>${xstream.version}</version>
