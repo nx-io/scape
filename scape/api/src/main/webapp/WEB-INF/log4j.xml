@@ -3,7 +3,7 @@
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" threshold="null" debug="null">
 
-	<appender name="PROJECT" class="me.scape.ti.commons.DailyRollingFileAppender">
+	<appender name="PROJECT" class="me.ocs.commons.log4j.DailyRollingFileAppender">
 		<param name="file" value="${loggingRoot}/scape-api.log" />
 		<param name="append" value="true" />
 		<param name="encoding" value="UTF-8" />
@@ -14,7 +14,7 @@
 		</layout>
 	</appender>
 
-	<appender name="TI-FW-Appender" class="me.scape.ti.commons.DailyRollingFileAppender">
+	<appender name="TI-FW-Appender" class="me.ocs.commons.log4j.DailyRollingFileAppender">
 		<param name="file" value="${loggingRoot}/scape-fw.log" />
 		<param name="append" value="true" />
 		<param name="encoding" value="UTF-8" />

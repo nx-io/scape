@@ -6,9 +6,9 @@ import java.util.List;
 
 import me.scape.ti.commons.Pagination;
 import me.scape.ti.criteria.PlantQueryCriteria;
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.PlantsDAO;
 import me.scape.ti.dataobject.PlantsDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
  * @since 2015年1月27日 下午8:47:31
  */
 @Repository("plantsDAO")
-public class DefaultPlantsDAO extends DefaultGenericDAO<PlantsDO, Integer> implements PlantsDAO {
+public class DefaultPlantsDAO extends EntityManagerSupportGenericDAO<PlantsDO, Integer> implements PlantsDAO {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override

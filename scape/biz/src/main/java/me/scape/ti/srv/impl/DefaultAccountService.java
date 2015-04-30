@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.scape.ti.auth.response.LoginResponse;
+import me.ocs.oauth.token.response.LoginResponse;
 import me.scape.ti.commons.SequenceType;
 import me.scape.ti.dataobject.CityDO;
 import me.scape.ti.dataobject.ItemDO;

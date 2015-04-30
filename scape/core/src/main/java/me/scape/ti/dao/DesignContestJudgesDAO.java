@@ -1,9 +1,9 @@
 package me.scape.ti.dao;
 
+import me.ocs.commons.jpa.GenericDAO;
 import me.scape.ti.commons.Pagination;
 import me.scape.ti.criteria.DesignContestJudgeQueryCriteria;
 import me.scape.ti.dataobject.DesignContestJudgesDO;
-import me.scape.ti.jpa.GenericDAO;
 
 /**
  * 

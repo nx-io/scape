@@ -2,9 +2,9 @@ package me.scape.ti.dao.impl;
 
 import java.util.List;
 
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.PlantsOrnamentalColorDAO;
 import me.scape.ti.dataobject.PlantsOrnamentalColorDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  * @since 2015年1月27日 下午8:49:54
  */
 @Repository("plantsOrnamentalColorDAO")
-public class DefaultPlantsOrnamentalColorDAO extends DefaultGenericDAO<PlantsOrnamentalColorDO, Integer> implements PlantsOrnamentalColorDAO {
+public class DefaultPlantsOrnamentalColorDAO extends EntityManagerSupportGenericDAO<PlantsOrnamentalColorDO, Integer> implements PlantsOrnamentalColorDAO {
 
 	@Override
 	public List<PlantsOrnamentalColorDO> getAllPlantColors() {

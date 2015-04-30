@@ -1,7 +1,7 @@
 package me.scape.ti.dao;
 
+import me.ocs.commons.jpa.GenericDAO;
 import me.scape.ti.dataobject.RequirementsTopCategoryDO;
-import me.scape.ti.jpa.GenericDAO;
 
 /**
  * 

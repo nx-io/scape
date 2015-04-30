@@ -9,8 +9,8 @@ import java.util.Map;
 import me.scape.ti.commons.Pagination;
 import me.scape.ti.criteria.DesignContestQueryCriteria;
 import me.scape.ti.dao.DesignContestDAO;
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dataobject.DesignContestDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Repository;
  * @since 2015年3月2日 下午2:01:09
  */
 @Repository("designContestDAO")
-public class DefaultDesignContestDAO extends DefaultGenericDAO<DesignContestDO, Integer> implements DesignContestDAO {
+public class DefaultDesignContestDAO extends EntityManagerSupportGenericDAO<DesignContestDO, Integer> implements DesignContestDAO {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override

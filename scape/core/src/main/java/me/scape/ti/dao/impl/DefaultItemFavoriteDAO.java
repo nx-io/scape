@@ -1,8 +1,8 @@
 package me.scape.ti.dao.impl;
 
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.ItemFavoriteDAO;
 import me.scape.ti.dataobject.ItemFavoriteDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
  * @since 2014年12月21日 下午2:44:49
  */
 @Repository("itemFavoriteDAO")
-public class DefaultItemFavoriteDAO extends DefaultGenericDAO<ItemFavoriteDO, Long> implements ItemFavoriteDAO {
+public class DefaultItemFavoriteDAO extends EntityManagerSupportGenericDAO<ItemFavoriteDO, Long> implements ItemFavoriteDAO {
 
 }

@@ -1,10 +1,10 @@
 package me.scape.ti.dao.impl;
 
-import org.springframework.stereotype.Repository;
-
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.PlantsPeriodRelDAO;
 import me.scape.ti.dataobject.PlantsPeriodRelDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
+
+import org.springframework.stereotype.Repository;
 
 /**
  * 
@@ -14,7 +14,7 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  * @since 2015年1月27日 下午8:53:46
  */
 @Repository("plantsPeriodRelDAO")
-public class DefaultPlantsPeriodRelDAO extends DefaultGenericDAO<PlantsPeriodRelDO, Long> implements PlantsPeriodRelDAO {
+public class DefaultPlantsPeriodRelDAO extends EntityManagerSupportGenericDAO<PlantsPeriodRelDO, Long> implements PlantsPeriodRelDAO {
 
 	@Override
 	public void deleteByPlantId(Integer plantId) {

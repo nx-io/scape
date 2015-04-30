@@ -2,10 +2,10 @@ package me.scape.ti.dao;
 
 import java.util.List;
 
+import me.ocs.commons.jpa.GenericDAO;
 import me.scape.ti.commons.Pagination;
 import me.scape.ti.criteria.DesignContestQueryCriteria;
 import me.scape.ti.dataobject.DesignContestDO;
-import me.scape.ti.jpa.GenericDAO;
 
 /**
  * 

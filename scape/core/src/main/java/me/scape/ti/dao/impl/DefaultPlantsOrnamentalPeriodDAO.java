@@ -2,9 +2,9 @@ package me.scape.ti.dao.impl;
 
 import java.util.List;
 
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.PlantsOrnamentalPeriodDAO;
 import me.scape.ti.dataobject.PlantsOrnamentalPeriodDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  * @since 2015年1月27日 下午8:52:05
  */
 @Repository("plantsOrnamentalPeriodDAO")
-public class DefaultPlantsOrnamentalPeriodDAO extends DefaultGenericDAO<PlantsOrnamentalPeriodDO, Integer> implements PlantsOrnamentalPeriodDAO {
+public class DefaultPlantsOrnamentalPeriodDAO extends EntityManagerSupportGenericDAO<PlantsOrnamentalPeriodDO, Integer> implements PlantsOrnamentalPeriodDAO {
 
 	@Override
 	public List<PlantsOrnamentalPeriodDO> getAllPlantPeriods() {

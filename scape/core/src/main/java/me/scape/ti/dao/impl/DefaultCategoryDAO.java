@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import me.scape.ti.dao.CategoryDAO;
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dataobject.CategoryDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
  * @since 2014年12月19日 上午12:17:53
  */
 @Repository("categoryDAO")
-public class DefaultCategoryDAO extends DefaultGenericDAO<CategoryDO, Long> implements CategoryDAO {
+public class DefaultCategoryDAO extends EntityManagerSupportGenericDAO<CategoryDO, Long> implements CategoryDAO {
 
 	@Override
 	public List<CategoryDO> getCategoriesByIds(List<Long> ids) {

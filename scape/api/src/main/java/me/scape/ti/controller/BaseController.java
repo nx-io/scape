@@ -3,7 +3,7 @@ package me.scape.ti.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import me.scape.ti.http.JSONResponseBody;
+import me.ocs.commons.response.json.JSONResponseBody;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
 import me.scape.ti.srv.AccountService;

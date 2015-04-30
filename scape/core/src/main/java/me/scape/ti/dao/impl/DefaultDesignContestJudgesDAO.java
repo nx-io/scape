@@ -7,8 +7,8 @@ import java.util.List;
 import me.scape.ti.commons.Pagination;
 import me.scape.ti.criteria.DesignContestJudgeQueryCriteria;
 import me.scape.ti.dao.DesignContestJudgesDAO;
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dataobject.DesignContestJudgesDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
  * @since 2015年3月2日 下午2:04:00
  */
 @Repository("designContestJudgesDAO")
-public class DefaultDesignContestJudgesDAO extends DefaultGenericDAO<DesignContestJudgesDO, Long> implements
+public class DefaultDesignContestJudgesDAO extends EntityManagerSupportGenericDAO<DesignContestJudgesDO, Long> implements
         DesignContestJudgesDAO {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })

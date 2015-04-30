@@ -2,11 +2,11 @@ package me.scape.ti.dao.impl;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import me.scape.ti.dao.CityDAO;
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dataobject.CityDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
+
+import org.springframework.stereotype.Repository;
 
 /**
  * 
@@ -15,7 +15,7 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  * @since 2015年4月12日 下午11:03:49
  */
 @Repository("cityDAO")
-public class DefaultCityDAO extends DefaultGenericDAO<CityDO, Integer> implements CityDAO {
+public class DefaultCityDAO extends EntityManagerSupportGenericDAO<CityDO, Integer> implements CityDAO {
 
 	static final String Query_City_HQL = "FROM CityDO WHERE province_id = ?";
 	

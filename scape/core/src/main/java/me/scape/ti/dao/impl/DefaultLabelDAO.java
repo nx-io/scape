@@ -1,8 +1,8 @@
 package me.scape.ti.dao.impl;
 
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.LabelDAO;
 import me.scape.ti.dataobject.LabelDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
  * @since 2014年12月19日 上午12:27:13
  */
 @Repository("labelDAO")
-public class DefaultLabelDAO extends DefaultGenericDAO<LabelDO, Long> implements LabelDAO {
+public class DefaultLabelDAO extends EntityManagerSupportGenericDAO<LabelDO, Long> implements LabelDAO {
 
 }

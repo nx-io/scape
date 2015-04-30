@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.StyleDAO;
 import me.scape.ti.dataobject.StyleDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
  * @since 2014年12月21日 下午2:55:02
  */
 @Repository("styleDAO")
-public class DefaultStyleDAO extends DefaultGenericDAO<StyleDO, Long> implements StyleDAO {
+public class DefaultStyleDAO extends EntityManagerSupportGenericDAO<StyleDO, Long> implements StyleDAO {
 
 	@Override
 	public List<StyleDO> getStylesByIds(List<Long> ids) {

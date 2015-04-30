@@ -8,9 +8,9 @@ import java.util.Map;
 
 import me.scape.ti.commons.Pagination;
 import me.scape.ti.criteria.UserQueryCriteria;
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.UserDAO;
 import me.scape.ti.dataobject.UserDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
  * @since 2014年12月19日 上午12:32:18
  */
 @Repository("userDAO")
-public class DefaultUserDAO extends DefaultGenericDAO<UserDO, Long> implements UserDAO {
+public class DefaultUserDAO extends EntityManagerSupportGenericDAO<UserDO, Long> implements UserDAO {
 
 	@Override
 	public List<UserDO> getUsersByIds(List<Long> ids) {

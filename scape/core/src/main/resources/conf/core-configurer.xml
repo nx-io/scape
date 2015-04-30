@@ -12,8 +12,7 @@
 	<context:annotation-config />
 	<context:component-scan base-package="me.scape.ti.dao.impl" />
 
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="persistenceUnitName" value="scape" />
 		<property name="packagesToScan" value="me.scape.ti.dataobject" />
 	</bean>
@@ -26,17 +25,24 @@
 
 	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 
-	<bean id="redisConnectionFactory" class="me.scape.ti.redis.DefaultRedisConnectionFactory">
-		<property name="host" value="127.0.0.1"/>
+	<bean id="redisConnectionFactory" class="me.ocs.commons.redis.DefaultRedisConnectionFactory">
+		<property name="host" value="127.0.0.1" />
 	</bean>
-	
-	<bean id="redisTemplate" class="me.scape.ti.redis.DefaultRedisTemplate">
-		<property name="connectionFactory" ref="redisConnectionFactory"/>
+
+	<bean id="redisTemplate" class="me.ocs.commons.redis.DefaultRedisTemplate">
+		<property name="connectionFactory" ref="redisConnectionFactory" />
 	</bean>
-	
-	<bean id="redisAuthenticationProvider" class="me.scape.ti.auth.RedisAuthenticationProvider">
-		<property name="redisTemplate" ref="redisTemplate"/>
+
+	<bean id="securityService" class="me.ocs.oauth.security.DefaultSecurityService">
+		<property name="secretKey" value="H8cO8RaYmxo=" />
 	</bean>
-	
-	<bean id="sequenceService" class="me.scape.ti.sequence.DefaultSequenceService"/>
+
+	<bean id="redisAuthenticationProvider" class="me.ocs.oauth.token.RedisAuthenticationProvider">
+		<property name="redisTemplate" ref="redisTemplate" />
+		<property name="sequenceService" ref="sequenceService" />
+		<property name="securityService" ref="securityService" />
+		<property name="tokenExpiresInSec" value="2592000" />
+	</bean>
+
+	<bean id="sequenceService" class="me.scape.ti.sequence.DefaultSequenceService" />
 </beans>

@@ -2,9 +2,9 @@ package me.scape.ti.dao.impl;
 
 import java.util.List;
 
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.RoleDAO;
 import me.scape.ti.dataobject.RoleDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @since 2014年12月21日 下午2:53:18
  */
 @Repository("roleDAO")
-public class DefaultRoleDAO extends DefaultGenericDAO<RoleDO, Integer> implements RoleDAO {
+public class DefaultRoleDAO extends EntityManagerSupportGenericDAO<RoleDO, Integer> implements RoleDAO {
 
 	@Override
 	public List<RoleDO> getAllRoles() {

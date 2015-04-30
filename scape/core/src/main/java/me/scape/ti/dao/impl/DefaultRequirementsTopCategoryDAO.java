@@ -1,10 +1,10 @@
 package me.scape.ti.dao.impl;
 
-import org.springframework.stereotype.Repository;
-
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.RequirementsTopCategoryDAO;
 import me.scape.ti.dataobject.RequirementsTopCategoryDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
+
+import org.springframework.stereotype.Repository;
 
 /**
  * 
@@ -13,6 +13,6 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  * @since 2015年4月12日 下午11:14:38
  */
 @Repository("requirementsTopCategoryDAO")
-public class DefaultRequirementsTopCategoryDAO extends DefaultGenericDAO<RequirementsTopCategoryDO, Integer> implements RequirementsTopCategoryDAO {
+public class DefaultRequirementsTopCategoryDAO extends EntityManagerSupportGenericDAO<RequirementsTopCategoryDO, Integer> implements RequirementsTopCategoryDAO {
 	
 }

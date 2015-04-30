@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.PlantCategoryDAO;
 import me.scape.ti.dataobject.PlantCategoryDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
  * @since 2015年1月27日 下午8:42:11
  */
 @Repository("plantCategoryDAO")
-public class DefaultPlantCategoryDAO extends DefaultGenericDAO<PlantCategoryDO, Integer> implements PlantCategoryDAO {
+public class DefaultPlantCategoryDAO extends EntityManagerSupportGenericDAO<PlantCategoryDO, Integer> implements PlantCategoryDAO {
 
 	@Override
 	public List<PlantCategoryDO> getCategoriesByIds(List<Integer> ids) {

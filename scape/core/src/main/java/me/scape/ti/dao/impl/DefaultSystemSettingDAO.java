@@ -1,8 +1,8 @@
 package me.scape.ti.dao.impl;
 
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.SystemSettingDAO;
 import me.scape.ti.dataobject.SystemSettingDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
 import me.scape.ti.utils.SystemSettingGroup;
 import me.scape.ti.utils.SystemSettingKey;
 
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  * @since 2015年2月3日 上午10:37:57
  */
 @Repository("systemSettingDAO")
-public class DefaultSystemSettingDAO extends DefaultGenericDAO<SystemSettingDO, Long> implements SystemSettingDAO {
+public class DefaultSystemSettingDAO extends EntityManagerSupportGenericDAO<SystemSettingDO, Long> implements SystemSettingDAO {
 
 	@Override
 	public SystemSettingDO getSystemSetting(SystemSettingGroup group, SystemSettingKey key) {

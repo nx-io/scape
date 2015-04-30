@@ -7,8 +7,8 @@ import java.util.List;
 import me.scape.ti.commons.Pagination;
 import me.scape.ti.criteria.DesignContestNewsQueryCriteria;
 import me.scape.ti.dao.DesignContestNewsDAO;
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dataobject.DesignContestNewsDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
  * @since 2015年3月8日 下午7:02:36
  */
 @Repository("designContestNewsDAO")
-public class DefaultDesignContestNewsDAO extends DefaultGenericDAO<DesignContestNewsDO, Long> implements
+public class DefaultDesignContestNewsDAO extends EntityManagerSupportGenericDAO<DesignContestNewsDO, Long> implements
         DesignContestNewsDAO {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })

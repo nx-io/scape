@@ -2,11 +2,11 @@ package me.scape.ti.dao.impl;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.PlantMediaDAO;
 import me.scape.ti.dataobject.PlantMediaDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
+
+import org.springframework.stereotype.Repository;
 
 /**
  * 
@@ -16,7 +16,7 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  * @since 2015年1月28日 下午2:48:53
  */
 @Repository("plantMediaDAO")
-public class DefaultPlantMediaDAO extends DefaultGenericDAO<PlantMediaDO, Long> implements PlantMediaDAO {
+public class DefaultPlantMediaDAO extends EntityManagerSupportGenericDAO<PlantMediaDO, Long> implements PlantMediaDAO {
 
 	@Override
 	public List<PlantMediaDO> getMediasByPlantId(Integer plantId) {

@@ -1,10 +1,10 @@
 package me.scape.ti.dao.impl;
 
-import org.springframework.stereotype.Repository;
-
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.RequirementsCommentsDAO;
 import me.scape.ti.dataobject.RequirementsCommentsDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
+
+import org.springframework.stereotype.Repository;
 
 /**
  * 
@@ -13,6 +13,6 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  * @since 2015年4月12日 下午11:10:11
  */
 @Repository("requirementsCommentsDAO")
-public class DefaultRequirementsCommentsDAO extends DefaultGenericDAO<RequirementsCommentsDO, Long> implements RequirementsCommentsDAO {
+public class DefaultRequirementsCommentsDAO extends EntityManagerSupportGenericDAO<RequirementsCommentsDO, Long> implements RequirementsCommentsDAO {
 	
 }

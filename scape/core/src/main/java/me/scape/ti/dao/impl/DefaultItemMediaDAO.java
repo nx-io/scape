@@ -2,9 +2,9 @@ package me.scape.ti.dao.impl;
 
 import java.util.List;
 
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.ItemMediaDAO;
 import me.scape.ti.dataobject.ItemMediaDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @since 2014年12月21日 下午2:46:30
  */
 @Repository("itemMediaDAO")
-public class DefaultItemMediaDAO extends DefaultGenericDAO<ItemMediaDO, Long> implements ItemMediaDAO {
+public class DefaultItemMediaDAO extends EntityManagerSupportGenericDAO<ItemMediaDO, Long> implements ItemMediaDAO {
 
 	@Override
 	public List<ItemMediaDO> getItemMediasByItemId(Long itemId) {

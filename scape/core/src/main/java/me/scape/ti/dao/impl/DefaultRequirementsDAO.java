@@ -1,10 +1,10 @@
 package me.scape.ti.dao.impl;
 
-import org.springframework.stereotype.Repository;
-
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.RequirementsDAO;
 import me.scape.ti.dataobject.RequirementsDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
+
+import org.springframework.stereotype.Repository;
 
 /**
  * 
@@ -13,6 +13,6 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  * @since 2015年4月12日 下午11:16:29
  */
 @Repository("requirementsDAO")
-public class DefaultRequirementsDAO extends DefaultGenericDAO<RequirementsDO, Long> implements RequirementsDAO {
+public class DefaultRequirementsDAO extends EntityManagerSupportGenericDAO<RequirementsDO, Long> implements RequirementsDAO {
 	
 }

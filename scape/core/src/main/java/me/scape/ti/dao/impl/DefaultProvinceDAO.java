@@ -1,10 +1,10 @@
 package me.scape.ti.dao.impl;
 
-import org.springframework.stereotype.Repository;
-
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.ProvinceDAO;
 import me.scape.ti.dataobject.ProvinceDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
+
+import org.springframework.stereotype.Repository;
 
 /**
  * 
@@ -13,6 +13,6 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  * @since 2015年4月12日 下午11:07:47
  */
 @Repository("provinceDAO")
-public class DefaultProvinceDAO extends DefaultGenericDAO<ProvinceDO, Integer> implements ProvinceDAO {
+public class DefaultProvinceDAO extends EntityManagerSupportGenericDAO<ProvinceDO, Integer> implements ProvinceDAO {
 
 }

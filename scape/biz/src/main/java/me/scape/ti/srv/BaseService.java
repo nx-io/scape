@@ -4,11 +4,15 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import me.scape.ti.auth.AuthenticationProvider;
-import me.scape.ti.auth.request.LoginRequest;
-import me.scape.ti.auth.request.PrivilegedRequest;
-import me.scape.ti.auth.response.LoginResponse;
-import me.scape.ti.auth.response.PrivilegedResponse;
+import me.ocs.commons.redis.RedisTemplate;
+import me.ocs.commons.sequence.SequenceService;
+import me.ocs.oauth.security.SecurityService;
+import me.ocs.oauth.token.AuthenticationProvider;
+import me.ocs.oauth.token.request.LoginRequest;
+import me.ocs.oauth.token.request.PrivilegedRequest;
+import me.ocs.oauth.token.response.LoginResponse;
+import me.ocs.oauth.token.response.PrivilegedResponse;
+import me.scape.ti.constant.CommonConstant;
 import me.scape.ti.dao.AreaCategoryDAO;
 import me.scape.ti.dao.CategoryDAO;
 import me.scape.ti.dao.CityDAO;
@@ -48,7 +52,6 @@ import me.scape.ti.dataobject.ItemDO;
 import me.scape.ti.dataobject.ItemMediaDO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
-import me.scape.ti.sequence.SequenceService;
 import me.scape.ti.utils.WebUtils;
 import me.scape.ti.vo.AreaCategoryVO;
 import me.scape.ti.vo.CategoryVO;
@@ -192,10 +195,6 @@ public class BaseService implements InitializingBean {
 	protected DesignContestNewsDAO designContestNewsDAO;
 
 	@Autowired
-	@Qualifier("redisAuthenticationProvider")
-	protected AuthenticationProvider authenticationProvider;
-
-	@Autowired
 	@Qualifier("cityDAO")
 	protected CityDAO cityDAO;
 
@@ -222,6 +221,18 @@ public class BaseService implements InitializingBean {
 	@Autowired
 	@Qualifier("requirementsDAO")
 	protected RequirementsDAO requirementsDAO;
+
+	@Autowired
+	@Qualifier("redisTemplate")
+	protected RedisTemplate redisTemplate;
+
+	@Autowired
+	@Qualifier("securityService")
+	protected SecurityService securityService;
+
+	@Autowired
+	@Qualifier("redisAuthenticationProvider")
+	protected AuthenticationProvider authenticationProvider;
 
 	@Autowired
 	@Qualifier("sequenceService")
@@ -261,7 +272,7 @@ public class BaseService implements InitializingBean {
 			return Result.newError().with(ResultCode.Error_Login);
 		}
 		LoginRequest loginRequest = new LoginRequest();
-		loginRequest.setApp_id(AuthenticationProvider.App_Id);
+		loginRequest.setApp_id(CommonConstant.App_Id);
 		loginRequest.setSecret_id(String.valueOf(userId));
 		LoginResponse loginResponse = authenticationProvider.doLogin(loginRequest);
 		if (loginResponse == null || StringUtils.isEmpty(loginResponse.getAccess_token())) {

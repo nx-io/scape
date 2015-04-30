@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import me.scape.ti.dao.AreaCategoryDAO;
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dataobject.AreaCategoryDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
  * @since 2014年12月19日 上午12:15:39
  */
 @Repository("areaCategoryDAO")
-public class DefaultAreaCategoryDAO extends DefaultGenericDAO<AreaCategoryDO, Long> implements AreaCategoryDAO {
+public class DefaultAreaCategoryDAO extends EntityManagerSupportGenericDAO<AreaCategoryDO, Long> implements AreaCategoryDAO {
 
 	@Override
 	public List<AreaCategoryDO> getAreaCategoriesByIds(List<Long> ids) {

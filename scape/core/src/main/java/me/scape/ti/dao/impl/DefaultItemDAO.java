@@ -6,9 +6,9 @@ import java.util.List;
 
 import me.scape.ti.commons.Pagination;
 import me.scape.ti.criteria.ItemQueryCriteria;
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.ItemDAO;
 import me.scape.ti.dataobject.ItemDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
  * @since 2014年12月21日 下午2:42:32
  */
 @Repository("itemDAO")
-public class DefaultItemDAO extends DefaultGenericDAO<ItemDO, Long> implements ItemDAO {
+public class DefaultItemDAO extends EntityManagerSupportGenericDAO<ItemDO, Long> implements ItemDAO {
 
 	@Override
 	public List<ItemDO> getUserItems(Long userId, Byte type) {

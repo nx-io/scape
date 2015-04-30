@@ -1,10 +1,10 @@
 package me.scape.ti.dao.impl;
 
-import org.springframework.stereotype.Repository;
-
 import me.scape.ti.dao.DesignContestEntryVoteDAO;
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dataobject.DesignContestEntryVoteDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
+
+import org.springframework.stereotype.Repository;
 
 /**
  * 
@@ -14,6 +14,6 @@ import me.scape.ti.jpa.DefaultGenericDAO;
  * @since 2015年3月2日 下午2:10:33
  */
 @Repository("designContestEntryVoteDAO")
-public class DefaultDesignContestEntryVoteDAO extends DefaultGenericDAO<DesignContestEntryVoteDO, Integer> implements DesignContestEntryVoteDAO {
+public class DefaultDesignContestEntryVoteDAO extends EntityManagerSupportGenericDAO<DesignContestEntryVoteDO, Integer> implements DesignContestEntryVoteDAO {
 	
 }

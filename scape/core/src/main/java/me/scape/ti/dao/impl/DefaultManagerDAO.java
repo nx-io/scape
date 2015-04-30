@@ -1,8 +1,8 @@
 package me.scape.ti.dao.impl;
 
+import me.scape.ti.dao.EntityManagerSupportGenericDAO;
 import me.scape.ti.dao.ManagerDAO;
 import me.scape.ti.dataobject.ManagerDO;
-import me.scape.ti.jpa.DefaultGenericDAO;
 
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * @since 2014年12月21日 下午2:49:36
  */
 @Repository("managerDAO")
-public class DefaultManagerDAO extends DefaultGenericDAO<ManagerDO, Integer> implements ManagerDAO {
+public class DefaultManagerDAO extends EntityManagerSupportGenericDAO<ManagerDO, Integer> implements ManagerDAO {
 
 	@Override
 	public ManagerDO getByEmail(String email) {

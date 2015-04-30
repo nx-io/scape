@@ -1,5 +1,6 @@
 package me.scape.ti.sequence;
 
+import me.ocs.commons.sequence.SequenceService;
 import me.scape.ti.dao.SequenceDAO;
 import me.scape.ti.dataobject.Sequence;
 import me.scape.ti.utils.StringUtil;
