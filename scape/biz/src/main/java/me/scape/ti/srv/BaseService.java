@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import me.ocs.commons.redis.RedisTemplate;
 import me.ocs.commons.sequence.SequenceService;
 import me.ocs.oauth.security.SecurityService;
+import me.ocs.oauth.token.Alias;
 import me.ocs.oauth.token.AuthenticationProvider;
 import me.ocs.oauth.token.request.LoginRequest;
 import me.ocs.oauth.token.request.PrivilegedRequest;
@@ -53,6 +54,7 @@ import me.scape.ti.dataobject.ItemMediaDO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
 import me.scape.ti.utils.WebUtils;
+import me.scape.ti.utils.XmlUtils;
 import me.scape.ti.vo.AreaCategoryVO;
 import me.scape.ti.vo.CategoryVO;
 import me.scape.ti.vo.ItemMediaVO;
@@ -257,6 +259,7 @@ public class BaseService implements InitializingBean {
 		checkRequest.setOpen_id(request.getOpen_id());
 		checkRequest.setAccess_token(request.getAccess_token());
 		PrivilegedResponse privilegedResponse = authenticationProvider.doPrivileged(checkRequest);
+		log.error(XmlUtils.toXML(privilegedResponse, Alias.Privileged_Response));
 		if (StringUtils.isBlank(privilegedResponse.getSecret_id())) {
 			return Result.newError().with(ResultCode.Error_Token);
 		}
