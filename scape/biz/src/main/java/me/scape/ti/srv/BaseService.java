@@ -254,12 +254,13 @@ public class BaseService implements InitializingBean {
 	}
 	
 	protected Result doPrivileged(me.scape.ti.ro.PrivilegedRequest request) {
-		PrivilegedRequest checkRequest = new PrivilegedRequest();
-		checkRequest.setApp_id(request.getApp_id());
-		checkRequest.setOpen_id(request.getOpen_id());
-		checkRequest.setAccess_token(request.getAccess_token());
-		PrivilegedResponse privilegedResponse = authenticationProvider.doPrivileged(checkRequest);
-		log.error(XmlUtils.toXML(privilegedResponse, Alias.Privileged_Response));
+		PrivilegedRequest privilegedRequest = new PrivilegedRequest();
+		privilegedRequest.setApp_id(request.getApp_id());
+		privilegedRequest.setOpen_id(request.getOpen_id());
+		privilegedRequest.setAccess_token(request.getAccess_token());
+		PrivilegedResponse privilegedResponse = authenticationProvider.doPrivileged(privilegedRequest);
+		log.error("Privileged Request : " + XmlUtils.toXML(privilegedRequest, Alias.Privileged_Request)
+				+ " Response : " + XmlUtils.toXML(privilegedResponse, Alias.Privileged_Response));
 		if (StringUtils.isBlank(privilegedResponse.getSecret_id())) {
 			return Result.newError().with(ResultCode.Error_Token);
 		}
@@ -278,6 +279,8 @@ public class BaseService implements InitializingBean {
 		loginRequest.setApp_id(CommonConstant.App_Id);
 		loginRequest.setSecret_id(String.valueOf(userId));
 		LoginResponse loginResponse = authenticationProvider.doLogin(loginRequest);
+		log.error("Login Request : " + XmlUtils.toXML(loginRequest, Alias.Login_Request)
+				+ " Response : " + XmlUtils.toXML(loginResponse, Alias.Login_Response));
 		if (loginResponse == null || StringUtils.isEmpty(loginResponse.getAccess_token())) {
 			return Result.newError().with(ResultCode.Error_Login);
 		}
