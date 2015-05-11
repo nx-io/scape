@@ -46,6 +46,7 @@
 
 	<bean id="sequenceService" class="me.scape.ti.sequence.DefaultSequenceService" />
 	
+	<!--
 	<bean id="messageService" class="me.ocs.oss.mss.DefaultMessageService">
 		<property name="messageProviders">
 			<list>
@@ -62,4 +63,5 @@
 	</bean>
 	
 	<bean id="iosMessageProvider" class="me.ocs.oss.mss.providers.IosMessageProvider"/>
+	-->
 </beans>
