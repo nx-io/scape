@@ -39,34 +39,34 @@ public class RequirementsDO implements Serializable {
 	@Column(name = "user_id", nullable = false)
 	private Long user_id;// 发布者
 
-	@Column(name = "province_id", nullable = false)
+	@Column(name = "province_id")
 	private Integer province_id;// 省
-	
-	@Column(name = "province", nullable = false, length = 20)
+
+	@Column(name = "province", length = 20)
 	private String province;
 
-	@Column(name = "city_id", nullable = false)
+	@Column(name = "city_id")
 	private Integer city_id;// 市
-	
-	@Column(name = "city", nullable = false, length = 20)
+
+	@Column(name = "city", length = 20)
 	private String city;
 
-	@Column(name = "region_id", nullable = true)
+	@Column(name = "region_id")
 	private Integer region_id;// 区
-	
-	@Column(name = "region", nullable = false, length = 20)
+
+	@Column(name = "region", length = 20)
 	private String region;
 
-	@Column(name = "top_cat_id", nullable = false)
+	@Column(name = "top_cat_id")
 	private Integer top_cat_id;// 一级分类ID
-	
-	@Column(name = "top_cat", nullable = false, length = 64)
+
+	@Column(name = "top_cat", length = 64)
 	private String top_cat;
 
-	@Column(name = "sec_cat_id", nullable = false)
+	@Column(name = "sec_cat_id")
 	private Integer sec_cat_id;// 二级分类ID
-	
-	@Column(name = "sec_cat", nullable = false, length = 64)
+
+	@Column(name = "sec_cat", length = 64)
 	private String sec_cat;
 
 	@Column(name = "mobile", length = 64, nullable = false)

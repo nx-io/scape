@@ -132,44 +132,59 @@ public class DefaultRequirementsService extends BaseService implements Requireme
 		requirements.setConent(request.getConent());
 		requirements.setMedia(request.getMedia());
 		requirements.setMobile(request.getMobile());
-		requirements.setTop_cat_id(request.getTop_cat_id());
-		requirements.setSec_cat_id(request.getSec_cat_id());
-		try {
-			requirements.setProvince_id(request.getProvince_id());
-			ProvinceDO province = provinceDAO.get(request.getProvince_id());
-			requirements.setProvince(province == null ? StringUtils.EMPTY : province.getName());
-		} catch (Exception e) {
-			log.error("PublishRequirements Province Error.", e);
-		}
-		try {
-			requirements.setCity_id(request.getCity_id());
-			CityDO city = cityDAO.get(request.getCity_id());
-			requirements.setCity(city == null ? StringUtils.EMPTY : city.getName());
-		} catch (Exception e) {
-			log.error("PublishRequirements City Error.", e);
-		}
-		try {
-			requirements.setRegion_id(request.getRegion_id());
-			RegionDO region = regionDAO.get(request.getRegion_id());
-			requirements.setRegion(region == null ? StringUtils.EMPTY : region.getName());
-		} catch (Exception e) {
-			log.error("PublishRequirements Region Error.", e);
-		}
-		try {
-			RequirementsTopCategoryDO topCategory = requirementsTopCategoryDAO.get(request.getTop_cat_id());
-			requirements.setTop_cat(topCategory == null ? StringUtils.EMPTY : topCategory.getName());
-		} catch (Exception e) {
-			log.error("PublishRequirements TopCategory Error.", e);
-		}
-		try {
-			RequirementsSecondCategoryDO secCategory = requirementsSecondCategoryDAO.get(request.getSec_cat_id());
-			requirements.setSec_cat(secCategory == null ? StringUtils.EMPTY : secCategory.getName());
-		} catch (Exception e) {
-			log.error("PublishRequirements SecondCategory Error.", e);
-		}
+		Integer province_id = request.getProvince_id();
+		Integer city_id = request.getCity_id();
+		Integer region_id = request.getRegion_id();
+		requirements.setProvince_id(province_id);
+		requirements.setCity_id(city_id);
+		requirements.setRegion_id(region_id);
+		Integer top_cat_id = request.getTop_cat_id();
+		Integer sec_cat_id = request.getSec_cat_id();
+		requirements.setTop_cat_id(top_cat_id);
+		requirements.setSec_cat_id(sec_cat_id);
 		Date date = new Date();
 		requirements.setGmt_created(date);
 		requirements.setGmt_modified(date);
+		if (province_id != null && province_id > 0) {
+			try {
+				ProvinceDO province = provinceDAO.get(province_id);
+				requirements.setProvince(province == null ? StringUtils.EMPTY : province.getName());
+			} catch (Exception e) {
+				log.error("PublishRequirements Province Error.", e);
+			}
+		}
+		if (city_id != null && city_id > 0) {
+			try {
+				CityDO city = cityDAO.get(city_id);
+				requirements.setCity(city == null ? StringUtils.EMPTY : city.getName());
+			} catch (Exception e) {
+				log.error("PublishRequirements City Error.", e);
+			}
+		}
+		if (region_id != null && region_id > 0) {
+			try {
+				RegionDO region = regionDAO.get(region_id);
+				requirements.setRegion(region == null ? StringUtils.EMPTY : region.getName());
+			} catch (Exception e) {
+				log.error("PublishRequirements Region Error.", e);
+			}
+		}
+		if (top_cat_id != null && top_cat_id > 0) {
+			try {
+				RequirementsTopCategoryDO topCategory = requirementsTopCategoryDAO.get(top_cat_id);
+				requirements.setTop_cat(topCategory == null ? StringUtils.EMPTY : topCategory.getName());
+			} catch (Exception e) {
+				log.error("PublishRequirements TopCategory Error.", e);
+			}
+		}
+		if (sec_cat_id != null && sec_cat_id > 0) {
+			try {
+				RequirementsSecondCategoryDO secCategory = requirementsSecondCategoryDAO.get(sec_cat_id);
+				requirements.setSec_cat(secCategory == null ? StringUtils.EMPTY : secCategory.getName());
+			} catch (Exception e) {
+				log.error("PublishRequirements SecondCategory Error.", e);
+			}
+		}
 		requirementsDAO.persist(requirements);
 		RequirementsVO vo = toRequirements(requirements);
 		return Result.newSuccess().with(ResultCode.Success).with("requirements", vo);
