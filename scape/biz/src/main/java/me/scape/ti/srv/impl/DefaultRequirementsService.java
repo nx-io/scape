@@ -127,26 +127,46 @@ public class DefaultRequirementsService extends BaseService implements Requireme
 		}
 		Long userId = privileged.getResponse(Long.class);
 		RequirementsDO requirements = new RequirementsDO();
+		requirements.setUser_id(userId);
 		requirements.setTitle(request.getTitle());
 		requirements.setConent(request.getConent());
-		requirements.setProvince_id(request.getProvince_id());
-		ProvinceDO province = provinceDAO.get(request.getProvince_id());
-		requirements.setProvince(province.getName());
-		requirements.setCity_id(request.getCity_id());
-		CityDO city = cityDAO.get(request.getCity_id());
-		requirements.setCity(city.getName());
-		requirements.setRegion_id(request.getRegion_id());
-		RegionDO region = regionDAO.get(request.getRegion_id());
-		requirements.setRegion(region.getName());
 		requirements.setMedia(request.getMedia());
 		requirements.setMobile(request.getMobile());
 		requirements.setTop_cat_id(request.getTop_cat_id());
-		RequirementsTopCategoryDO topCategory = requirementsTopCategoryDAO.get(request.getTop_cat_id());
-		requirements.setTop_cat(topCategory.getName());
 		requirements.setSec_cat_id(request.getSec_cat_id());
-		RequirementsSecondCategoryDO secCategory = requirementsSecondCategoryDAO.get(request.getSec_cat_id());
-		requirements.setSec_cat(secCategory.getName());
-		requirements.setUser_id(userId);
+		try {
+			requirements.setProvince_id(request.getProvince_id());
+			ProvinceDO province = provinceDAO.get(request.getProvince_id());
+			requirements.setProvince(province == null ? StringUtils.EMPTY : province.getName());
+		} catch (Exception e) {
+			log.error("PublishRequirements Province Error.", e);
+		}
+		try {
+			requirements.setCity_id(request.getCity_id());
+			CityDO city = cityDAO.get(request.getCity_id());
+			requirements.setCity(city == null ? StringUtils.EMPTY : city.getName());
+		} catch (Exception e) {
+			log.error("PublishRequirements City Error.", e);
+		}
+		try {
+			requirements.setRegion_id(request.getRegion_id());
+			RegionDO region = regionDAO.get(request.getRegion_id());
+			requirements.setRegion(region == null ? StringUtils.EMPTY : region.getName());
+		} catch (Exception e) {
+			log.error("PublishRequirements Region Error.", e);
+		}
+		try {
+			RequirementsTopCategoryDO topCategory = requirementsTopCategoryDAO.get(request.getTop_cat_id());
+			requirements.setTop_cat(topCategory == null ? StringUtils.EMPTY : topCategory.getName());
+		} catch (Exception e) {
+			log.error("PublishRequirements TopCategory Error.", e);
+		}
+		try {
+			RequirementsSecondCategoryDO secCategory = requirementsSecondCategoryDAO.get(request.getSec_cat_id());
+			requirements.setSec_cat(secCategory == null ? StringUtils.EMPTY : secCategory.getName());
+		} catch (Exception e) {
+			log.error("PublishRequirements SecondCategory Error.", e);
+		}
 		Date date = new Date();
 		requirements.setGmt_created(date);
 		requirements.setGmt_modified(date);
