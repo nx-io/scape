@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
+import me.scape.ti.ro.PrivilegedRequest;
 import me.scape.ti.ro.PubfavRequest;
 import me.scape.ti.ro.RegisterRequest;
 import me.scape.ti.ro.ResetPasswdRequest;
@@ -33,6 +34,16 @@ public class AccountController extends BaseController {
 			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
 		}
 		Result result = accountService.updateUserProfile(request);
+		return toResponse(result);
+	}
+	
+	@RequestMapping(value = "/iprofile", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> get_profile(@Valid PrivilegedRequest request, BindingResult validResult) {
+		if (validResult.hasErrors()) {
+			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
+		}
+		Result result = accountService.getProfile(request);
 		return toResponse(result);
 	}
 

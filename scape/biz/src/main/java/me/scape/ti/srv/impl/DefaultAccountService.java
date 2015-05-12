@@ -14,6 +14,7 @@ import me.scape.ti.dataobject.ProvinceDO;
 import me.scape.ti.dataobject.UserDO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
+import me.scape.ti.ro.PrivilegedRequest;
 import me.scape.ti.ro.PubfavRequest;
 import me.scape.ti.ro.RegisterRequest;
 import me.scape.ti.ro.ResetPasswdRequest;
@@ -41,6 +42,17 @@ import org.springframework.util.CollectionUtils;
  */
 @Service("accountService")
 public class DefaultAccountService extends BaseService implements AccountService {
+
+	@Override
+	public Result getProfile(PrivilegedRequest request) {
+		Result privileged = doPrivileged(request);
+		if (!privileged.isSuccess()) {
+			return privileged;
+		}
+		Long userId = privileged.getResponse(Long.class);
+		UserDO user = userDAO.get(userId);
+		return Result.newSuccess().with(ResultCode.Success).with("user", UserVO.newInstance(user));
+	}
 
 	@Override
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)

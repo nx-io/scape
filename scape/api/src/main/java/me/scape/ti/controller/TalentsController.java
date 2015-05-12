@@ -34,7 +34,7 @@ public class TalentsController extends BaseController {
 	
 	@RequestMapping(value = "/{guid}", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> item(@PathVariable String guid) {
+	public ResponseEntity<String> talents(@PathVariable String guid) {
 		Result result = talentsService.queryTalents(guid);
 		return toResponse(result);
 	}

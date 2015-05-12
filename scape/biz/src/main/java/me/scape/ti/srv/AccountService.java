@@ -1,6 +1,7 @@
 package me.scape.ti.srv;
 
 import me.scape.ti.result.Result;
+import me.scape.ti.ro.PrivilegedRequest;
 import me.scape.ti.ro.PubfavRequest;
 import me.scape.ti.ro.RegisterRequest;
 import me.scape.ti.ro.ResetPasswdRequest;
@@ -23,4 +24,6 @@ public interface AccountService {
 	Result reset_passwd(ResetPasswdRequest request);
 
 	Result queryPubOrFavItem(PubfavRequest request);
+	
+	Result getProfile(PrivilegedRequest request);
 }

@@ -53,6 +53,8 @@ public class UserVO {
 
 	private Long item_count;
 
+	private String guid;
+
 	public static UserVO newInstance(UserDO _do) {
 		if (_do == null) {
 			return null;
@@ -76,6 +78,7 @@ public class UserVO {
 		vo.setProvince(_do.getProvince());
 		vo.setCity_id(_do.getCity_id());
 		vo.setCity(_do.getCity());
+		vo.setGuid(_do.getGuid());
 		return vo;
 	}
 
@@ -98,6 +101,14 @@ public class UserVO {
 	 * 凭证有效时间，单位：秒
 	 */
 	private Integer expires_in;
+
+	public String getGuid() {
+		return guid;
+	}
+
+	public void setGuid(String guid) {
+		this.guid = guid;
+	}
 
 	public Long getAttention_count() {
 		return attention_count;
