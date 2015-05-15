@@ -2,7 +2,12 @@
 <projectDescription>
   <name>scape-core</name>
   <comment>Landscape Assistant CORE. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
-  <projects/>
+  <projects>
+    <project>ocs-apns</project>
+    <project>ocs-comm</project>
+    <project>ocs-oauth</project>
+    <project>ocs-oss</project>
+  </projects>
   <buildSpec>
     <buildCommand>
       <name>org.eclipse.wst.common.project.facet.core.builder</name>
