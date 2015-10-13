@@ -25,6 +25,10 @@ public enum ResultCode {
 
 	Error_User_Passwd(-2002L, "密码错误"),
 
+    Error_User_Login_Info(-2003L, "用户名或密码不能为空"),
+
+    Error_User_NameOrPasswd(-2004L, "用户名或密码错误"),
+
 	Error_Exception(-3000L, "System Business Error."),
 
 	Error_Valid_Request(-4000L, "数据验证失败"),

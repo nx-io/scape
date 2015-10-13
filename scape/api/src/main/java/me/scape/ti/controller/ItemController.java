@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller("itemController")
 public class ItemController extends BaseController {
 
-	@RequestMapping(value = "/item/publish", produces = "application/json")
+	@RequestMapping(value = "/item/publish", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> publish(@Valid ItemPublishRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {
@@ -33,14 +34,14 @@ public class ItemController extends BaseController {
 		return toResponse(result);
 	}
 
-	@RequestMapping(value = "/item/{itemId}", produces = "application/json")
+	@RequestMapping(value = "/item/{itemId}", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> item(@PathVariable Long itemId) {
 		Result result = itemService.getItem(itemId);
 		return toResponse(result);
 	}
 
-	@RequestMapping(value = "/item/search", produces = "application/json")
+	@RequestMapping(value = "/item/search", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> search(@Valid ItemSearchRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {

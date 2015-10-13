@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/rel")
 public class RelationController extends BaseController {
 
-	@RequestMapping(value = "/comments", produces = "application/json")
+	@RequestMapping(value = "/comments", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> comments(@Valid CommentsRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {
@@ -35,7 +36,7 @@ public class RelationController extends BaseController {
 		return toResponse(result);
 	}
 
-	@RequestMapping(value = "/ifav", produces = "application/json")
+	@RequestMapping(value = "/ifav", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> favorite_item(@Valid ItemFavoriteRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {
@@ -45,7 +46,7 @@ public class RelationController extends BaseController {
 		return toResponse(result);
 	}
 
-	@RequestMapping(value = "/ifav/items", produces = "application/json")
+	@RequestMapping(value = "/ifav/items", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> get_favorite_items(@Valid PrivilegedPageRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {
@@ -55,7 +56,7 @@ public class RelationController extends BaseController {
 		return toResponse(result);
 	}
 
-	@RequestMapping(value = "/ufav", produces = "application/json")
+	@RequestMapping(value = "/ufav", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> favorite_user(@Valid UserFavoriteRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {
@@ -65,7 +66,7 @@ public class RelationController extends BaseController {
 		return toResponse(result);
 	}
 
-	@RequestMapping(value = "/ufav/users", produces = "application/json")
+	@RequestMapping(value = "/ufav/users", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> get_favorite_user(@Valid PrivilegedPageRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {

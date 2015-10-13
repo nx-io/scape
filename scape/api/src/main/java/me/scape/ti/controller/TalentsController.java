@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/talents")
 public class TalentsController extends BaseController {
 
-	@RequestMapping(value = "/search", produces = "application/json")
+	@RequestMapping(value = "/search", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> search(@Valid TalentsSearchRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {
@@ -32,7 +33,7 @@ public class TalentsController extends BaseController {
 		return toResponse(result);
 	}
 	
-	@RequestMapping(value = "/{guid}", produces = "application/json")
+	@RequestMapping(value = "/{guid}", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> talents(@PathVariable String guid) {
 		Result result = talentsService.queryTalents(guid);

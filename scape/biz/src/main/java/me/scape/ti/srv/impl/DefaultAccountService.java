@@ -163,18 +163,15 @@ public class DefaultAccountService extends BaseService implements AccountService
 	@Override
 	@Transactional(value = "transactionManager", rollbackFor = Throwable.class)
 	public Result login(String name, String password) {
-		if (StringUtils.isBlank(name)) {
-			return Result.newError().with(ResultCode.Error_Permission);
-		}
-		if (StringUtils.isBlank(password)) {
-			return Result.newError().with(ResultCode.Error_Permission);
+		if (StringUtils.isBlank(name) || StringUtils.isBlank(password)) {
+			return Result.newError().with(ResultCode.Error_User_Login_Info);
 		}
 		UserDO user = userDAO.queryForObject("FROM UserDO u WHERE u.name = ?", new Object[] { name });
 		if (user == null) {
-			return Result.newError().with(ResultCode.Error_Permission);
+			return Result.newError().with(ResultCode.Error_User_Not_Exist);
 		}
 		if (!StringUtils.equals(PasswdUtils.signPwsswd(password, user.getSalt()), user.getPassword())) {
-			return Result.newError().with(ResultCode.Error_Permission);
+			return Result.newError().with(ResultCode.Error_User_NameOrPasswd);
 		}
 		Date now = new Date();
 		user.setGmt_modified(now);

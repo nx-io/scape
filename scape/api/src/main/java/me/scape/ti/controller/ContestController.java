@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -24,14 +25,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/contest")
 public class ContestController extends BaseController {
 
-	@RequestMapping(value = "/active", produces = "application/json")
+	@RequestMapping(value = "/active", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> activeDesignContest() {
 		Result result = designContestService.getActiveDesignContest();
 		return toResponse(result);
 	}
 	
-	@RequestMapping(value = "/vote", produces = "application/json")
+	@RequestMapping(value = "/vote", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> vote(@Valid ContestEntryVoteRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {
@@ -41,7 +42,7 @@ public class ContestController extends BaseController {
 		return toResponse(result);
 	}
 	
-	@RequestMapping(value = "/entry", produces = "application/json")
+	@RequestMapping(value = "/entry", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> entryList(@Valid ContestEntryRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {
@@ -51,21 +52,21 @@ public class ContestController extends BaseController {
 		return toResponse(result);
 	}
 	
-	@RequestMapping(value = "/entry/{entryId}", produces = "application/json")
+	@RequestMapping(value = "/entry/{entryId}", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> entry(@PathVariable Integer entryId) {
 		Result result = designContestService.getContestEntry(entryId);
 		return toResponse(result);
 	}
 	
-	@RequestMapping(value = "/judges/{contestId}", produces = "application/json")
+	@RequestMapping(value = "/judges/{contestId}", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> judges(@PathVariable Integer contestId) {
 		Result result = designContestService.getDesignContestJudges(contestId);
 		return toResponse(result);
 	}
 	
-	@RequestMapping(value = "/news/{contestId}", produces = "application/json")
+	@RequestMapping(value = "/news/{contestId}", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> news(@PathVariable Integer contestId) {
 		Result result = designContestService.getDesignContestNews(contestId);
