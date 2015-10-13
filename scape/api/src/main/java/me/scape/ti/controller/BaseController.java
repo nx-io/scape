@@ -3,6 +3,18 @@ package me.scape.ti.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import me.ocs.commons.response.json.JSONResponseBody;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
@@ -15,19 +27,8 @@ import me.scape.ti.srv.PlantService;
 import me.scape.ti.srv.RelationService;
 import me.scape.ti.srv.RequirementsService;
 import me.scape.ti.srv.TalentsService;
+import me.scape.ti.srv.TaskService;
 import me.scape.ti.utils.CalendarUtil;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 
@@ -74,6 +75,10 @@ public class BaseController {
 	@Autowired
 	@Qualifier(value = "talentsService")
 	protected TalentsService talentsService;
+
+    @Autowired
+    @Qualifier(value = "taskService")
+    protected TaskService taskService;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

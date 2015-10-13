@@ -61,6 +61,8 @@ public enum ResultCode {
 
 	Error_Requirements_Empty(-11009L, "查询不到需求信息"),
 
+    Error_Task_NotExists(-12000L, "任务不存在"),
+
 	;
 	public final long code;
 	public final String description;

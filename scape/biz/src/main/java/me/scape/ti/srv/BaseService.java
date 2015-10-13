@@ -4,6 +4,15 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.util.CollectionUtils;
+
 import me.ocs.commons.redis.RedisTemplate;
 import me.ocs.commons.sequence.SequenceService;
 import me.ocs.oauth.security.SecurityService;
@@ -47,6 +56,8 @@ import me.scape.ti.dao.RequirementsTopCategoryDAO;
 import me.scape.ti.dao.RoleDAO;
 import me.scape.ti.dao.StyleDAO;
 import me.scape.ti.dao.SystemSettingDAO;
+import me.scape.ti.dao.TaskDAO;
+import me.scape.ti.dao.TaskUserDAO;
 import me.scape.ti.dao.UserDAO;
 import me.scape.ti.dao.UserFavoriteDAO;
 import me.scape.ti.dataobject.ItemDO;
@@ -61,15 +72,6 @@ import me.scape.ti.vo.ItemMediaVO;
 import me.scape.ti.vo.ItemVO;
 import me.scape.ti.vo.LabelVO;
 import me.scape.ti.vo.StyleVO;
-
-import org.apache.commons.lang.math.NumberUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.util.CollectionUtils;
 
 /**
  * 
@@ -239,6 +241,14 @@ public class BaseService implements InitializingBean {
 	@Autowired
 	@Qualifier("sequenceService")
 	protected SequenceService sequenceService;
+
+    @Autowired
+    @Qualifier("taskDAO")
+    protected TaskDAO taskDAO;
+
+    @Autowired
+    @Qualifier("taskUserDAO")
+    protected TaskUserDAO taskUserDAO;
 	
 	protected ItemVO toItem(ItemDO item) {
 		ItemVO vo = ItemVO.newInstance(item);
