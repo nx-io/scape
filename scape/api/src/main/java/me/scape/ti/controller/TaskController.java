@@ -28,7 +28,7 @@ public class TaskController extends BaseController {
 	
 	@RequestMapping(value = "/search", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> profile(@Valid TaskSearchRequest request, BindingResult validResult) {
+	public ResponseEntity<String> search(@Valid TaskSearchRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {
 			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
 		}
@@ -82,14 +82,4 @@ public class TaskController extends BaseController {
         Result result = taskService.myPublishTask(request);
         return toResponse(result);
     }
-
-	@RequestMapping(value = "/search", produces = "application/json")
-	@ResponseBody
-	public ResponseEntity<String> pubfav(@Valid TaskSearchRequest request, BindingResult validResult) {
-		if (validResult.hasErrors()) {
-			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
-		}
-		Result result = taskService.search(request);
-		return toResponse(result);
-	}
 }
