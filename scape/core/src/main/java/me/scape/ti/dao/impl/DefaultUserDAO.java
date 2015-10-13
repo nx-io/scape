@@ -32,7 +32,7 @@ public class DefaultUserDAO extends EntityManagerSupportGenericDAO<UserDO, Long>
 
 		Map<String, Object> args = new HashMap<String, Object>();
 		args.put("ids", ids);
-		return queryNamed("User.getUsersByIds", args);
+		return queryNamed("FROM UserDO WHERE id IN :ids", args);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

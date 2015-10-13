@@ -169,7 +169,7 @@ public class DefaultAccountService extends BaseService implements AccountService
 		if (StringUtils.isBlank(password)) {
 			return Result.newError().with(ResultCode.Error_Permission);
 		}
-		UserDO user = userDAO.queryNamedForObject("User.getUserByName", new Object[] { name });
+		UserDO user = userDAO.queryForObject("FROM UserDO u WHERE u.name = ?", new Object[] { name });
 		if (user == null) {
 			return Result.newError().with(ResultCode.Error_Permission);
 		}
@@ -210,11 +210,11 @@ public class DefaultAccountService extends BaseService implements AccountService
 		if (!ValidationUtils.isMobilePhoneNumber(mobile)) {
 			return Result.newError().with(ResultCode.Error_Register_Mobile);
 		}
-		Long uc = userDAO.createNamedQuery("User.existUserByName", Long.class, new Object[] { name }).getSingleResult();
+		Long uc = userDAO.createQuery("SELECT COUNT(u.id) FROM UserDO u WHERE u.name = ?", Long.class, new Object[] { name }).getSingleResult();
 		if (uc != null && uc > 0L) {
 			return Result.newError().with(ResultCode.Error_Register_User_Exist);
 		}
-		uc = userDAO.createNamedQuery("User.existUserByMobile", Long.class, new Object[] { request.getMobile() }).getSingleResult();
+		uc = userDAO.createQuery("SELECT COUNT(u.id) FROM UserDO u WHERE u.mobile = ?", Long.class, new Object[] { request.getMobile() }).getSingleResult();
 		if (uc != null && uc > 0L) {
 			return Result.newError().with(ResultCode.Error_Register_User_Exist);
 		}
