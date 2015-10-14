@@ -3,7 +3,6 @@ package me.scape.ti.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -14,19 +13,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller("catController")
 public class CatController extends BaseController {
 
-	@RequestMapping(value = "/item/cat", produces = "application/json", method = RequestMethod.GET)
+	@RequestMapping(value = "/item/cat", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> cat() {
 		return toResponse(catService.getAllCat());
 	}
 
-	@RequestMapping(value = "/item/area", produces = "application/json", method = RequestMethod.GET)
+	@RequestMapping(value = "/item/area", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> area() {
 		return toResponse(catService.getAllAreaCat());
 	}
 
-	@RequestMapping(value = "/item/style", produces = "application/json", method = RequestMethod.GET)
+	@RequestMapping(value = "/item/style", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> style() {
 		return toResponse(catService.getAllStyle());
