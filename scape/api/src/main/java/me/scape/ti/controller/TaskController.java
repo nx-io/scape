@@ -63,7 +63,7 @@ public class TaskController extends BaseController {
 		return toResponse(result);
 	}
 
-	@RequestMapping(value = "/apply_task", produces = "application/json")
+	@RequestMapping(value = "/my_apply_task", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> my_apply_task(@Valid PrivilegedPageRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {
@@ -73,7 +73,7 @@ public class TaskController extends BaseController {
 		return toResponse(result);
 	}
 
-    @RequestMapping(value = "/publish_task", produces = "application/json")
+    @RequestMapping(value = "/my_publish_task", produces = "application/json")
     @ResponseBody
     public ResponseEntity<String> my_publish_task(@Valid PrivilegedPageRequest request, BindingResult validResult) {
         if (validResult.hasErrors()) {
