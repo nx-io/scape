@@ -212,14 +212,24 @@ public class DefaultAccountService extends BaseService implements AccountService
 		if (!ValidationUtils.isMobilePhoneNumber(mobile)) {
 			return Result.newError().with(ResultCode.Error_Register_Mobile);
 		}
+		UserDO u = userDAO.queryForObject("FROM UserDO u WHERE u.name = ?", new Object[] { name });
+		if (u != null) {
+		    return Result.newError().with(ResultCode.Error_Register_User_Exist);
+		}
+		u = userDAO.queryForObject("FROM UserDO u WHERE u.mobile = ?", new Object[] { request.getMobile() });
+		if (u != null) {
+            return Result.newError().with(ResultCode.Error_Register_User_Exist);
+        }
+		/**
 		Long uc = userDAO.createQuery("SELECT COUNT(u.id) FROM UserDO u WHERE u.name = ?", Long.class, new Object[] { name }).getSingleResult();
 		if (uc != null && uc > 0L) {
-			return Result.newError().with(ResultCode.Error_Register_User_Exist);
+		    return Result.newError().with(ResultCode.Error_Register_User_Exist);
 		}
 		uc = userDAO.createQuery("SELECT COUNT(u.id) FROM UserDO u WHERE u.mobile = ?", Long.class, new Object[] { request.getMobile() }).getSingleResult();
 		if (uc != null && uc > 0L) {
 			return Result.newError().with(ResultCode.Error_Register_User_Exist);
 		}
+		**/
 		UserDO user = new UserDO();
 		user.setGuid(sequenceService.nextValueAsStringWithCreate(SequenceType.USER_GUID_SEQUENCE, 25, 1L));
 		user.setAvatar(avatar);
