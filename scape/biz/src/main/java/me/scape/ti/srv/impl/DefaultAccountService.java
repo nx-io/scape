@@ -61,9 +61,14 @@ public class DefaultAccountService extends BaseService implements AccountService
 		if (!privileged.isSuccess()) {
 			return privileged;
 		}
+        String name = request.getName();// 设计师/企业名称
+		UserDO u = userDAO.queryForObject("FROM UserDO u WHERE u.name = ?", new Object[] { name });
+        if (u != null) {
+            return Result.newError().with(ResultCode.Error_User_Exist);
+        }
+        
 		Long userId = privileged.getResponse(Long.class);
 		UserDO user = userDAO.get(userId);
-		String name = request.getName();// 设计师/企业名称
 		if (StringUtils.isNotBlank(name)) {
 			user.setName(name);
 		}

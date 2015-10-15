@@ -29,6 +29,8 @@ public enum ResultCode {
 
     Error_User_NameOrPasswd(-2004L, "用户名或密码错误"),
 
+    Error_User_Exist(-2005L, "用户名已存在"),
+
 	Error_Exception(-3000L, "System Business Error."),
 
 	Error_Valid_Request(-4000L, "数据验证失败"),
