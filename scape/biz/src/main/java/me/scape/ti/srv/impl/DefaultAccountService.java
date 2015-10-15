@@ -109,7 +109,7 @@ public class DefaultAccountService extends BaseService implements AccountService
 			}
 		}
 		userDAO.merge(user);
-		return Result.newSuccess().with(ResultCode.Success).with("user", UserVO.newInstance(user));
+		return Result.newSuccess().with(ResultCode.Success).with("user", UserVO.newInstance(userDAO.get(userId)));
 	}
 
 	@Override
