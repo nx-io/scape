@@ -8,8 +8,6 @@ package me.scape.ti.ro;
  */
 public class UserProfileRequest extends PrivilegedRequest {
 
-	private String name;// 设计师/企业名称
-	
 	private String fullname;// 真实姓名
 	
 	private String avatar;// 头像
@@ -23,14 +21,6 @@ public class UserProfileRequest extends PrivilegedRequest {
 	private Integer province_id;// 省
 	
 	private Integer city_id;// 市
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public String getFullname() {
 		return fullname;

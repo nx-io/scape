@@ -2,6 +2,8 @@ package me.scape.ti.controller;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -33,6 +35,7 @@ public class AccountController extends BaseController {
 		if (validResult.hasErrors()) {
 			return toResponse(Result.newError().with(ResultCode.Error_Valid_Request));
 		}
+		log.error("request : " + ToStringBuilder.reflectionToString(request, ToStringStyle.SHORT_PREFIX_STYLE));
 		Result result = accountService.updateUserProfile(request);
 		return toResponse(result);
 	}
