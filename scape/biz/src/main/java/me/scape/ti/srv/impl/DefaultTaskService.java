@@ -36,7 +36,7 @@ public class DefaultTaskService extends BaseService implements TaskService {
     @Override
     public Result search(TaskSearchRequest request) {
         TaskQueryCriteria criteria = new TaskQueryCriteria();
-        criteria.setDescription(request.getDescription());
+        criteria.setTitle(request.getTitle());
         criteria.setFromCreated(request.getFromCreated());
         criteria.setFromReward(request.getFromReward());
         criteria.setFromStartDate(request.getFromStartDate());

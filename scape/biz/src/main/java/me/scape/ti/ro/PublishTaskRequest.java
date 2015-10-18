@@ -19,6 +19,9 @@ public class PublishTaskRequest extends PrivilegedRequest {
     @NotEmpty
 	private Byte type;// 任务类型（1建筑设计、2室内设计、3景观设计、4家具设计、5平面设计、6工业设计）
 
+    @NotEmpty
+    private String title;// 标题
+    
     private String description;// 详细描述
 
     @NotEmpty
@@ -29,6 +32,14 @@ public class PublishTaskRequest extends PrivilegedRequest {
 
     @NotEmpty
     private BigDecimal reward;// 任务金额
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public Byte getType() {
         return type;

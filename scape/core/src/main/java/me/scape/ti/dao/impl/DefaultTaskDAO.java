@@ -41,9 +41,9 @@ public class DefaultTaskDAO extends EntityManagerSupportGenericDAO<TaskDO, Long>
             condition.append(" AND i.status != -1");
         }
         
-        if (StringUtils.isNotEmpty(criteria.getDescription())) {
-            condition.append(" AND i.description LIKE ?");
-            args.add("%" + criteria.getDescription() + "%");
+        if (StringUtils.isNotEmpty(criteria.getTitle())) {
+            condition.append(" AND i.title LIKE ?");
+            args.add("%" + criteria.getTitle() + "%");
         }
         if (null != criteria.getType() || criteria.getType() > 0) {
             condition.append(" AND i.type = ?");

@@ -31,6 +31,8 @@ public class TaskVO {
     private Byte status;// 状态，(1待招标，2招标中, 3结束)
     
     private Date gmt_created;
+    
+    private String title;// 标题
 	
 	public static TaskVO newInstance(TaskDO task) {
 		if(task == null) {
@@ -46,8 +48,17 @@ public class TaskVO {
 		vo.setStatus(task.getStatus());
 		vo.setType(task.getType());
 		vo.setUser_id(task.getUser_id());
+		vo.setTitle(task.getTitle());
 		return vo;
 	}
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public Long getId() {
         return id;

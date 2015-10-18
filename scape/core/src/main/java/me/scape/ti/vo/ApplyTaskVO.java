@@ -19,6 +19,8 @@ public class ApplyTaskVO {
 
     private Byte type;// 任务类型（1建筑设计、2室内设计、3景观设计、4家具设计、5平面设计、6工业设计）
 
+    private String title;
+    
     private String description;// 详细描述
 
     private Date start_date;// 启动时间
@@ -51,6 +53,7 @@ public class ApplyTaskVO {
 		vo.setStatus(task.getStatus());
 		vo.setType(task.getType());
 		vo.setPublished_user_id(task.getUser_id());
+		vo.setTitle(task.getTitle());
 		return vo;
 	}
 	
@@ -60,6 +63,14 @@ public class ApplyTaskVO {
 	    setApply_user_id(task.getUser_id());
 	    return this;
 	}
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public Long getPublished_user_id() {
         return published_user_id;

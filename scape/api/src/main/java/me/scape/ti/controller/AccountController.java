@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,7 +30,7 @@ import me.scape.ti.ro.UserProfileRequest;
 @RequestMapping(value = "/account")
 public class AccountController extends BaseController {
 	
-	@RequestMapping(value = "/profile", produces = "application/json")
+	@RequestMapping(value = "/profile", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> profile(@Valid UserProfileRequest request, BindingResult validResult) {
 		if (validResult.hasErrors()) {

@@ -11,7 +11,7 @@ public class TaskQueryCriteria extends PaginationCriteria {
 
     private Byte status;// 状态，(1待招标，2招标中, 3结束)
 
-    private String description;// 详细描述
+    private String title;// 详细描述
 
     private BigDecimal fromReward;// 任务金额
     private BigDecimal toReward;// 任务金额
@@ -46,12 +46,12 @@ public class TaskQueryCriteria extends PaginationCriteria {
         this.type = type;
     }
 
-    public String getDescription() {
-        return description;
+    public String getTitle() {
+        return title;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public BigDecimal getFromReward() {
