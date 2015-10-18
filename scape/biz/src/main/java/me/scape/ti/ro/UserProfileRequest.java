@@ -8,7 +8,9 @@ package me.scape.ti.ro;
  */
 public class UserProfileRequest extends PrivilegedRequest {
 
-	private String fullname;// 真实姓名
+	private static final long serialVersionUID = 6233290260010436285L;
+
+    private String fullname;// 真实姓名
 	
 	private String avatar;// 头像
 	

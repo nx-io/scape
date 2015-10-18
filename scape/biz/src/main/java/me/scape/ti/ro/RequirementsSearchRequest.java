@@ -10,7 +10,9 @@ package me.scape.ti.ro;
  */
 public class RequirementsSearchRequest extends NonPrivilegedPageRequest {
 	
-	private Long id;
+	private static final long serialVersionUID = -4603795734887766567L;
+
+    private Long id;
 
 	private String title;// 需求信息标题
 

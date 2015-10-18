@@ -12,7 +12,9 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class UploadContestEntryRequest extends PrivilegedRequest {
 
-	@NotEmpty
+	private static final long serialVersionUID = -2325016562647376117L;
+
+    @NotEmpty
 	private Integer contest_id;// 赛事ID
 
 	@NotEmpty

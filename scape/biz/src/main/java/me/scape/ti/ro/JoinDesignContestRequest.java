@@ -11,7 +11,8 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class JoinDesignContestRequest extends PrivilegedRequest {
 
-	@NotEmpty
+	private static final long serialVersionUID = -7388308650831810217L;
+    @NotEmpty
 	private Integer contestId;
 
 	public Integer getContestId() {

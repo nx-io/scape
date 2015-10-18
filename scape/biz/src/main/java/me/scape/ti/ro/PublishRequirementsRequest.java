@@ -12,7 +12,9 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class PublishRequirementsRequest extends PrivilegedRequest {
 
-	@NotEmpty
+	private static final long serialVersionUID = 8433629238227391557L;
+
+    @NotEmpty
 	private String title;// 需求信息标题
 
 	private String conent;// 需求信息内容

@@ -1,5 +1,7 @@
 package me.scape.ti.ro;
 
+import java.io.Serializable;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -8,8 +10,10 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @version 1.0.0
  * @since 2015年2月7日 上午12:35:55
  */
-public class PrivilegedRequest {
-	/**
+public class PrivilegedRequest implements Serializable {
+	private static final long serialVersionUID = -4576752932512810367L;
+
+    /**
 	 * 应用ID
 	 */
 	@NotEmpty

@@ -14,7 +14,9 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class PublishTaskRequest extends PrivilegedRequest {
 	
-	@NotEmpty
+	private static final long serialVersionUID = 1850018110514006119L;
+
+    @NotEmpty
 	private Byte type;// 任务类型（1建筑设计、2室内设计、3景观设计、4家具设计、5平面设计、6工业设计）
 
     private String description;// 详细描述

@@ -8,7 +8,8 @@ package me.scape.ti.ro;
  */
 public class PrivilegedPageRequest extends PrivilegedRequest {
 
-	private Integer page = 1;
+	private static final long serialVersionUID = -1356572585244579312L;
+    private Integer page = 1;
 
 	public Integer getPage() {
 		return page;

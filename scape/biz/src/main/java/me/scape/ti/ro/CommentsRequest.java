@@ -10,7 +10,9 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @since 2014年12月31日 下午3:33:06
  */
 public class CommentsRequest extends PrivilegedRequest {
-	private Long ref_id;// 引用的父评论ID
+	private static final long serialVersionUID = 7017220573136140766L;
+
+    private Long ref_id;// 引用的父评论ID
 
 	@NotEmpty
 	private Long item_id;// 案例ID

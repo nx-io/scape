@@ -11,7 +11,8 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class ApplyTaskRequest extends PrivilegedRequest {
 	
-	@NotEmpty
+	private static final long serialVersionUID = -4565857987031446409L;
+    @NotEmpty
     private Long task_id;// 任务
 
     public Long getTask_id() {

@@ -10,7 +10,8 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class PubfavRequest extends PrivilegedPageRequest {
 
-	@NotEmpty
+	private static final long serialVersionUID = -8429914125637434058L;
+    @NotEmpty
 	private Byte type;
 
 	public Byte getType() {

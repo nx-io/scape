@@ -9,7 +9,9 @@ package me.scape.ti.ro;
  */
 public class PlantSearchRequest extends NonPrivilegedPageRequest {
 
-	private Long id;// 植物ID
+	private static final long serialVersionUID = -1253560703718377987L;
+
+    private Long id;// 植物ID
 
 	private Long catId;// 植物类别
 

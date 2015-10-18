@@ -1,5 +1,7 @@
 package me.scape.ti.ro;
 
+import java.io.Serializable;
+
 /**
  * 设置比赛结果.
  * 
@@ -8,9 +10,11 @@ package me.scape.ti.ro;
  * @version 1.0.0
  * @since 2015年3月2日 下午4:11:24
  */
-public class DesignContestResultRequest {
+public class DesignContestResultRequest implements Serializable {
 
-	private Integer contest_id;// 赛事ID
+	private static final long serialVersionUID = -3493851338263036235L;
+
+    private Integer contest_id;// 赛事ID
 
 	private Integer entry_id;// 作品ID
 

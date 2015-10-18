@@ -11,6 +11,8 @@ import java.util.Date;
  */
 public class TaskSearchRequest extends NonPrivilegedPageRequest {
     
+    private static final long serialVersionUID = 250158796375836473L;
+
     private Long publishUserId;// 发布者
 
     private Byte type;// 任务类型（1建筑设计、2室内设计、3景观设计、4家具设计、5平面设计、6工业设计）

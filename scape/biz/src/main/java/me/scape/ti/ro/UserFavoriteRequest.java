@@ -10,7 +10,8 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class UserFavoriteRequest extends PrivilegedRequest {
 
-	@NotEmpty
+	private static final long serialVersionUID = 5894736402154429732L;
+    @NotEmpty
 	private Long favorite_id;// 被收藏的用户ID
 
 	public Long getFavorite_id() {

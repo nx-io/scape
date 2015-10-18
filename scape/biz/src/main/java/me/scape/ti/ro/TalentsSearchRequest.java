@@ -8,7 +8,9 @@ package me.scape.ti.ro;
  */
 public class TalentsSearchRequest extends NonPrivilegedPageRequest {
 
-	private Long category_id;// 特长
+	private static final long serialVersionUID = -7313184558141486930L;
+
+    private Long category_id;// 特长
 
 	private Integer province_id;// 省
 

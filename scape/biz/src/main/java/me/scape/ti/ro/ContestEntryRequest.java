@@ -12,7 +12,8 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class ContestEntryRequest extends NonPrivilegedPageRequest {
 
-	@NotEmpty
+	private static final long serialVersionUID = 8631184699842185894L;
+    @NotEmpty
 	private Integer contestId;
 
 	public Integer getContestId() {

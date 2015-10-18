@@ -11,7 +11,8 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class ContestEntryVoteRequest extends PrivilegedRequest {
 
-	@NotEmpty
+	private static final long serialVersionUID = -5894106911599343141L;
+    @NotEmpty
 	private Integer entry_id;// 作品ID
 
 	public Integer getEntry_id() {

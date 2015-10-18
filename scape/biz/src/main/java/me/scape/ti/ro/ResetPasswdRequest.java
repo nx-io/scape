@@ -11,7 +11,9 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class ResetPasswdRequest extends PrivilegedRequest {
 
-	@NotEmpty
+	private static final long serialVersionUID = 7938620520315533234L;
+
+    @NotEmpty
 	private String old_passwd;
 
 	@NotEmpty

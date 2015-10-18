@@ -11,7 +11,9 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class ItemFavoriteRequest extends PrivilegedRequest {
 
-	@NotEmpty
+	private static final long serialVersionUID = -1668538538647792292L;
+
+    @NotEmpty
 	private Long item_id;// 案例ID
 
 	@NotEmpty

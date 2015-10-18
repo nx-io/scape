@@ -8,7 +8,9 @@ package me.scape.ti.ro;
  */
 public class ItemSearchRequest extends NonPrivilegedPageRequest {
 
-	private Long cid;// 景观分类
+	private static final long serialVersionUID = 7587792535355689684L;
+
+    private Long cid;// 景观分类
 
 	private Long acid;// 景观区域分类
 
