@@ -163,6 +163,12 @@ public class DefaultAccountService extends BaseService implements AccountService
 			return Result.newError().with(ResultCode.Error_User_Login_Info);
 		}
 		UserDO user = userDAO.queryForObject("FROM UserDO u WHERE u.name = ?", new Object[] { name });
+        if (user == null) {
+            user = userDAO.queryForObject("FROM UserDO u WHERE u.mobile = ?", new Object[] { name });
+        }
+		if (user == null) {
+		    user = userDAO.queryForObject("FROM UserDO u WHERE u.email = ?", new Object[] { name });
+		}
 		if (user == null) {
 			return Result.newError().with(ResultCode.Error_User_Not_Exist);
 		}
