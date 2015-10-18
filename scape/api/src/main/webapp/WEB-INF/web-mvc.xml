@@ -70,7 +70,7 @@
             </list>
         </property>
         <property name="objectMapper">
-            <beans:bean class="com.fasterxml.jackson.databind.ObjectMapper" scope="singleton" />
+            <bean class="com.fasterxml.jackson.databind.ObjectMapper" scope="singleton" />
         </property>
 	</bean>
 
