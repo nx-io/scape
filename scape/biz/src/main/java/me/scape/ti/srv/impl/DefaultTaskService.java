@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import me.scape.ti.commons.Pagination;
 import me.scape.ti.criteria.TaskApplyQueryCriteria;
@@ -162,6 +163,7 @@ public class DefaultTaskService extends BaseService implements TaskService {
     }
 
     @Override
+    @Transactional(value = "transactionManager", rollbackFor = Throwable.class)
     public Result publishTask(PublishTaskRequest request) {
         Result privileged = doPrivileged(request);
         if (!privileged.isSuccess()) {
@@ -183,6 +185,7 @@ public class DefaultTaskService extends BaseService implements TaskService {
     }
 
     @Override
+    @Transactional(value = "transactionManager", rollbackFor = Throwable.class)
     public Result applyTask(ApplyTaskRequest request) {
         Result privileged = doPrivileged(request);
         if (!privileged.isSuccess()) {
