@@ -69,12 +69,12 @@ public class TaskDO implements Serializable {
     @Column(name = "end_date", nullable = false)
     private Date end_date;// 招标截止时间
 
-    @Column(name = "reward", precision = 10, scale = 2)
+    @Column(name = "reward", precision = 19, scale = 2)
     private BigDecimal reward;// 任务金额
 
     @Column(name = "user_id", nullable = false)
     private Long user_id;// 发布者
-
+    
     @Column(name = "status", nullable = false)
     private Byte status;// 状态，(1待招标，2招标中, 3结束)
     

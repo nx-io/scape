@@ -174,6 +174,7 @@ public class DefaultTaskService extends BaseService implements TaskService {
         task.setDescription(request.getDescription());
         task.setEnd_date(request.getEnd_date());
         task.setGmt_created(new Date());
+        task.setTitle(request.getTitle());
         task.setGmt_modified(new Date());
         task.setReward(request.getReward());
         task.setStart_date(request.getStart_date());
