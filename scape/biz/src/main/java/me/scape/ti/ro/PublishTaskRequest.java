@@ -30,7 +30,6 @@ public class PublishTaskRequest extends PrivilegedRequest {
     @NotEmpty
     private Date end_date;// 招标截止时间
 
-    @NotEmpty
     private BigDecimal reward;// 任务金额
 
     public String getTitle() {

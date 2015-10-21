@@ -70,6 +70,7 @@ public class TaskDO implements Serializable {
     private Date end_date;// 招标截止时间
 
     @Column(name = "reward", precision = 19, scale = 2)
+//    @Column(name = "reward")
     private BigDecimal reward;// 任务金额
 
     @Column(name = "user_id", nullable = false)
