@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import me.scape.ti.dataobject.TaskDO;
+import me.scape.ti.dataobject.UserDO;
 
 /**
  * 
@@ -26,7 +27,7 @@ public class TaskVO {
 
     private BigDecimal reward;// 任务金额
 
-    private Long user_id;// 发布者
+    private SimpleUserVO user;// 发布者
 
     private Byte status;// 状态，(1待招标，2招标中, 3结束)
     
@@ -47,9 +48,13 @@ public class TaskVO {
 		vo.setStart_date(task.getStart_date());
 		vo.setStatus(task.getStatus());
 		vo.setType(task.getType());
-		vo.setUser_id(task.getUser_id());
 		vo.setTitle(task.getTitle());
 		return vo;
+	}
+	
+	public TaskVO user(UserDO user) {
+	    setUser(SimpleUserVO.newInstance(user));
+	    return this;
 	}
 
     public String getTitle() {
@@ -108,12 +113,12 @@ public class TaskVO {
         this.reward = reward;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public SimpleUserVO getUser() {
+        return user;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUser(SimpleUserVO user) {
+        this.user = user;
     }
 
     public Byte getStatus() {

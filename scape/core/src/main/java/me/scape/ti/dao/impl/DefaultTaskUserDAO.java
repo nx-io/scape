@@ -33,9 +33,13 @@ public class DefaultTaskUserDAO extends EntityManagerSupportGenericDAO<TaskUserD
         sqlFetchRows.append("SELECT i.* FROM task_user i where 1 = 1");
 
         StringBuilder condition = new StringBuilder();
-        if (null != criteria.getApplyUserId() || criteria.getApplyUserId() > 0L) {
+        if (null != criteria.getApplyUserId() && criteria.getApplyUserId() > 0L) {
             condition.append(" AND i.user_id = ?");
             args.add(criteria.getApplyUserId());
+        }
+        if (null != criteria.getTask_id() && criteria.getTask_id() > 0L) {
+            condition.append(" AND i.task_id = ?");
+            args.add(criteria.getTask_id());
         }
 
         BigInteger count = (BigInteger) (createNativeQuery(sqlCountRows.append(condition).toString(), args.toArray()).getSingleResult());

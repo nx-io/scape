@@ -5,6 +5,7 @@ import java.util.Date;
 
 import me.scape.ti.dataobject.TaskDO;
 import me.scape.ti.dataobject.TaskUserDO;
+import me.scape.ti.dataobject.UserDO;
 
 /**
  * 
@@ -29,9 +30,7 @@ public class ApplyTaskVO {
 
     private BigDecimal reward;// 任务金额
 
-    private Long published_user_id;// 发布者
-
-    private Long apply_user_id;// 申请人
+    private SimpleUserVO published_user;// 发布者
 
     private Byte status;// 状态，(1待招标，2招标中, 3结束)
     
@@ -52,7 +51,6 @@ public class ApplyTaskVO {
 		vo.setStart_date(task.getStart_date());
 		vo.setStatus(task.getStatus());
 		vo.setType(task.getType());
-		vo.setPublished_user_id(task.getUser_id());
 		vo.setTitle(task.getTitle());
 		return vo;
 	}
@@ -60,9 +58,13 @@ public class ApplyTaskVO {
 	public ApplyTaskVO applyTask(TaskUserDO task) {
 	    setGmt_created(task.getGmt_created());
 	    setIsBid(task.getIsBid());
-	    setApply_user_id(task.getUser_id());
 	    return this;
 	}
+	
+	public ApplyTaskVO publishedUser(UserDO user) {
+        setPublished_user(SimpleUserVO.newInstance(user));
+        return this;
+    }
 
     public String getTitle() {
         return title;
@@ -72,20 +74,12 @@ public class ApplyTaskVO {
         this.title = title;
     }
 
-    public Long getPublished_user_id() {
-        return published_user_id;
+    public SimpleUserVO getPublished_user() {
+        return published_user;
     }
 
-    public void setPublished_user_id(Long published_user_id) {
-        this.published_user_id = published_user_id;
-    }
-
-    public Long getApply_user_id() {
-        return apply_user_id;
-    }
-
-    public void setApply_user_id(Long apply_user_id) {
-        this.apply_user_id = apply_user_id;
+    public void setPublished_user(SimpleUserVO published_user) {
+        this.published_user = published_user;
     }
 
     public Byte getIsBid() {

@@ -45,25 +45,25 @@ public class DefaultTaskDAO extends EntityManagerSupportGenericDAO<TaskDO, Long>
             condition.append(" AND i.title LIKE ?");
             args.add("%" + criteria.getTitle() + "%");
         }
-        if (null != criteria.getType() || criteria.getType() > 0) {
+        if (null != criteria.getType() && criteria.getType() > 0) {
             condition.append(" AND i.type = ?");
             args.add(criteria.getType());
         }
-        if (null != criteria.getPublishUserId() || criteria.getPublishUserId() > 0L) {
+        if (null != criteria.getPublishUserId() && criteria.getPublishUserId() > 0L) {
             condition.append(" AND i.user_id = ?");
             args.add(criteria.getPublishUserId());
         }
-        if (null != criteria.getFromReward() || null != criteria.getToReward()) {
+        if (null != criteria.getFromReward() && null != criteria.getToReward()) {
             condition.append(" AND i.reward BETWEEN ? AND ? ");
             args.add(criteria.getFromReward());
             args.add(criteria.getToReward());
         }
-        if (null != criteria.getFromCreated() || null != criteria.getToCreated()) {
+        if (null != criteria.getFromCreated() && null != criteria.getToCreated()) {
             condition.append(" AND i.gmt_created BETWEEN ? AND ? ");
             args.add(criteria.getFromCreated());
             args.add(criteria.getToCreated());
         }
-        if (null != criteria.getFromStartDate() || null != criteria.getToStartDate()) {
+        if (null != criteria.getFromStartDate() && null != criteria.getToStartDate()) {
             condition.append(" AND i.start_date BETWEEN ? AND ? ");
             args.add(criteria.getFromStartDate());
             args.add(criteria.getToStartDate());

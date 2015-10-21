@@ -12,6 +12,7 @@ import me.scape.ti.criteria.TaskApplyQueryCriteria;
 import me.scape.ti.criteria.TaskQueryCriteria;
 import me.scape.ti.dataobject.TaskDO;
 import me.scape.ti.dataobject.TaskUserDO;
+import me.scape.ti.dataobject.UserDO;
 import me.scape.ti.result.Result;
 import me.scape.ti.result.ResultCode;
 import me.scape.ti.ro.ApplyTaskRequest;
@@ -23,6 +24,7 @@ import me.scape.ti.srv.PageQuery;
 import me.scape.ti.srv.TaskService;
 import me.scape.ti.vo.ApplyTaskVO;
 import me.scape.ti.vo.TaskVO;
+import me.scape.ti.vo.UserVO;
 
 /**
  * @author 刘飞 E-mail:liufei_it@126.com
@@ -57,7 +59,7 @@ public class DefaultTaskService extends BaseService implements TaskService {
             List<TaskVO> taskVOList = new ArrayList<TaskVO>();
             for (TaskDO task : taskList) {
                 try {
-                    taskVOList.add(TaskVO.newInstance(task));
+                    taskVOList.add(TaskVO.newInstance(task).user(userDAO.get(task.getUser_id())));
                 } catch (Exception ingore) {
                 }
             }
@@ -91,7 +93,7 @@ public class DefaultTaskService extends BaseService implements TaskService {
                     if (task == null) {
                         continue;
                     }
-                    applyTaskList.add(ApplyTaskVO.newInstance(task).applyTask(taskUser));
+                    applyTaskList.add(ApplyTaskVO.newInstance(task).publishedUser(userDAO.get(task.getUser_id())).applyTask(taskUser));
                 } catch (Exception ingore) {
                 }
             }
@@ -108,6 +110,11 @@ public class DefaultTaskService extends BaseService implements TaskService {
         }
         Long userId = privileged.getResponse(Long.class);
         TaskQueryCriteria criteria = new TaskQueryCriteria();
+        Integer page = request.getPage();
+        page = (page != null && page > 0) ? page : 1;
+        PageQuery pageQuery = new PageQuery(page);
+        criteria.setLimit(pageQuery.getSize());
+        criteria.setOffset(pageQuery.getIndex());
         criteria.setPublishUserId(userId);
         Pagination<TaskDO> taskPage = taskDAO.query(criteria);
         List<TaskDO> taskList = taskPage.getItems();
@@ -115,7 +122,7 @@ public class DefaultTaskService extends BaseService implements TaskService {
             List<TaskVO> taskVOList = new ArrayList<TaskVO>();
             for (TaskDO task : taskList) {
                 try {
-                    taskVOList.add(TaskVO.newInstance(task));
+                    taskVOList.add(TaskVO.newInstance(task).user(userDAO.get(userId)));
                 } catch (Exception ingore) {
                 }
             }
@@ -130,7 +137,28 @@ public class DefaultTaskService extends BaseService implements TaskService {
         if (task == null) {
             return Result.newSuccess().with(ResultCode.Error_Task_NotExists);
         }
-        return Result.newSuccess().with(ResultCode.Success).with("task", TaskVO.newInstance(task));
+        TaskVO taskVO = TaskVO.newInstance(task).user(userDAO.get(task.getUser_id()));
+        TaskApplyQueryCriteria criteria= new TaskApplyQueryCriteria();
+        criteria.setTask_id(taskId);
+        criteria.setLimit(10000);
+        criteria.setOffset(0);
+        Pagination<TaskUserDO> pageTaskUser = taskUserDAO.query(criteria);
+        List<TaskUserDO> taskUserList = pageTaskUser.getItems();
+        List<UserVO> applyUserList = new ArrayList<UserVO>();
+        if (CollectionUtils.isNotEmpty(taskUserList)) {
+            for (TaskUserDO taskUserDO : taskUserList) {
+                UserDO _do = userDAO.get(taskUserDO.getUser_id());
+                if (_do == null) {
+                    continue;
+                }
+                UserVO user = UserVO.newInstance(_do);
+                applyUserList.add(user);
+            }
+        }
+        return Result.newSuccess().with(ResultCode.Success)
+                .with("task", taskVO)
+                .with("apply_user_list", applyUserList)
+                ;
     }
 
     @Override
@@ -151,7 +179,7 @@ public class DefaultTaskService extends BaseService implements TaskService {
         task.setType(request.getType());
         task.setUser_id(userId);
         taskDAO.persist(task);
-        return Result.newSuccess().with(ResultCode.Success).with("task", TaskVO.newInstance(task));
+        return Result.newSuccess().with(ResultCode.Success).with("task", TaskVO.newInstance(task).user(userDAO.get(userId)));
     }
 
     @Override
@@ -172,6 +200,7 @@ public class DefaultTaskService extends BaseService implements TaskService {
         applyTask.setTask_id(request.getTask_id());
         applyTask.setUser_id(userId);
         taskUserDAO.persist(applyTask);
-        return Result.newSuccess().with(ResultCode.Success).with("apply_task", ApplyTaskVO.newInstance(task).applyTask(applyTask));
+        ApplyTaskVO applyTaskVO = ApplyTaskVO.newInstance(task).publishedUser(userDAO.get(task.getUser_id())).applyTask(applyTask);
+        return Result.newSuccess().with(ResultCode.Success).with("apply_task", applyTaskVO);
     }
 }
