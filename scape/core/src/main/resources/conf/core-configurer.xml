@@ -11,20 +11,54 @@
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<context:annotation-config />
 	<context:component-scan base-package="me.scape.ti.dao.impl" />
+	
+	<bean id="coreDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="initialSize" value="1"/>
+        <property name="minIdle" value="1"/>
+        <property name="maxActive" value="20"/>
+        <property name="maxWait" value="60000"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="filters" value="stat"/>
+    </bean>
 
-	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="scape" />
-		<property name="packagesToScan" value="me.scape.ti.dataobject" />
-	</bean>
+    <bean id="coreEntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="packagesToScan" value="me.scape.ti.dataobject" />
+        <property name="persistenceUnitName" value="scape" />
+        <property name="dataSource" ref="coreDataSource" />
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="showSql" value="true"></property>
+                <property name="database" value="MYSQL"></property>
+            </bean>
+        </property>
+        <property name="persistenceProvider">
+            <bean class="org.hibernate.ejb.HibernatePersistence" />
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
+                <prop key="hibernate.show_sql">true</prop><!-- production环境注释掉 -->
+                <prop key="hibernate.format_sql">true</prop><!-- production环境注释掉 -->
+                <prop key="hibernate.hbm2ddl.auto">update</prop><!-- production环境注释掉 -->
+            </props>
+        </property>
+    </bean>
 
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-	</bean>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="coreEntityManagerFactory" />
+    </bean>
 
-	<tx:annotation-driven transaction-manager="transactionManager" />
-
-	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
-
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    
 	<bean id="redisConnectionFactory" class="me.ocs.commons.redis.DefaultRedisConnectionFactory">
 		<property name="host" value="127.0.0.1" />
 	</bean>
