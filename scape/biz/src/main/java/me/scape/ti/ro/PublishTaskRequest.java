@@ -3,6 +3,8 @@ package me.scape.ti.ro;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -16,16 +18,18 @@ public class PublishTaskRequest extends PrivilegedRequest {
 	
 	private static final long serialVersionUID = 1850018110514006119L;
 
-    @NotEmpty
+    @NotNull
 	private Byte type;// 任务类型（1建筑设计、2室内设计、3景观设计、4家具设计、5平面设计、6工业设计）
 
     @NotEmpty
     private String title;// 标题
     
     private String description;// 详细描述
-
+    
+    @NotNull
     private Date start_date;// 启动时间
-
+    
+    @NotNull
     private Date end_date;// 招标截止时间
 
     private BigDecimal reward;// 任务金额

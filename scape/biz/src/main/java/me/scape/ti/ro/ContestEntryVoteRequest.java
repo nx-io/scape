@@ -1,6 +1,6 @@
 package me.scape.ti.ro;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ContestEntryVoteRequest extends PrivilegedRequest {
 
 	private static final long serialVersionUID = -5894106911599343141L;
-    @NotEmpty
+	@NotNull
 	private Integer entry_id;// 作品ID
 
 	public Integer getEntry_id() {

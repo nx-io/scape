@@ -1,6 +1,6 @@
 package me.scape.ti.ro;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class PubfavRequest extends PrivilegedPageRequest {
 
 	private static final long serialVersionUID = -8429914125637434058L;
-    @NotEmpty
+	@NotNull
 	private Byte type;
 
 	public Byte getType() {

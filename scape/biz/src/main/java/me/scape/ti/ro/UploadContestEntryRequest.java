@@ -1,5 +1,7 @@
 package me.scape.ti.ro;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -14,7 +16,7 @@ public class UploadContestEntryRequest extends PrivilegedRequest {
 
 	private static final long serialVersionUID = -2325016562647376117L;
 
-    @NotEmpty
+	@NotNull
 	private Integer contest_id;// 赛事ID
 
 	@NotEmpty

@@ -1,6 +1,6 @@
 package me.scape.ti.ro;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * 收藏/赞景观请求
@@ -13,10 +13,10 @@ public class ItemFavoriteRequest extends PrivilegedRequest {
 
 	private static final long serialVersionUID = -1668538538647792292L;
 
-    @NotEmpty
+	@NotNull
 	private Long item_id;// 案例ID
 
-	@NotEmpty
+	@NotNull
 	private Byte type;// 1:赞，2:收藏
 
 	public Long getItem_id() {

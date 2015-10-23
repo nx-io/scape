@@ -1,6 +1,6 @@
 package me.scape.ti.ro;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * 发布任务
@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ApplyTaskRequest extends PrivilegedRequest {
 	
 	private static final long serialVersionUID = -4565857987031446409L;
-    @NotEmpty
+	@NotNull
     private Long task_id;// 任务
 
     public Long getTask_id() {

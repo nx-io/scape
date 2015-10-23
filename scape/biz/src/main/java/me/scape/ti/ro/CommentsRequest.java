@@ -1,5 +1,7 @@
 package me.scape.ti.ro;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -14,7 +16,7 @@ public class CommentsRequest extends PrivilegedRequest {
 
     private Long ref_id;// 引用的父评论ID
 
-	@NotEmpty
+    @NotNull
 	private Long item_id;// 案例ID
 
 	@NotEmpty

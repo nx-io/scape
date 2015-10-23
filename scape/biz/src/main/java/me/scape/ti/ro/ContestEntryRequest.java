@@ -1,6 +1,6 @@
 package me.scape.ti.ro;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * 读取比赛作品.
@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ContestEntryRequest extends NonPrivilegedPageRequest {
 
 	private static final long serialVersionUID = 8631184699842185894L;
-    @NotEmpty
+	@NotNull
 	private Integer contestId;
 
 	public Integer getContestId() {

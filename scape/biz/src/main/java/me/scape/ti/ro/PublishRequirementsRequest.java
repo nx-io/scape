@@ -1,5 +1,7 @@
 package me.scape.ti.ro;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -19,18 +21,18 @@ public class PublishRequirementsRequest extends PrivilegedRequest {
 
 	private String conent;// 需求信息内容
 
-	@NotEmpty
+	@NotNull
 	private Integer province_id;// 省
 
-	@NotEmpty
+	@NotNull
 	private Integer city_id;// 市
 
 	private Integer region_id;// 区
 
-	@NotEmpty
+	@NotNull
 	private Integer top_cat_id;// 一级分类ID
 
-	@NotEmpty
+	@NotNull
 	private Integer sec_cat_id;// 二级分类ID
 
 	@NotEmpty

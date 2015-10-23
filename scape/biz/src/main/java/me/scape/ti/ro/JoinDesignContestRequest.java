@@ -1,6 +1,6 @@
 package me.scape.ti.ro;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class JoinDesignContestRequest extends PrivilegedRequest {
 
 	private static final long serialVersionUID = -7388308650831810217L;
-    @NotEmpty
+	@NotNull
 	private Integer contestId;
 
 	public Integer getContestId() {

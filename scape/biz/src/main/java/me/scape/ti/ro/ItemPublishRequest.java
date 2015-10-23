@@ -1,5 +1,7 @@
 package me.scape.ti.ro;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -18,13 +20,13 @@ public class ItemPublishRequest extends PrivilegedRequest {
 
 	private Byte type;// 1:原创，2:分享
 
-	@NotEmpty
+	@NotNull
 	private Long category_id;// 景观分类
 
-	@NotEmpty
+	@NotNull
 	private Long area_category_id;// 景观区域分类
 
-	@NotEmpty
+	@NotNull
 	private Long style_id;// 风格
 
 	private String description;// 案例描述, 过长的话考虑以后放入redis缓存
