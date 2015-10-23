@@ -24,10 +24,8 @@ public class PublishTaskRequest extends PrivilegedRequest {
     
     private String description;// 详细描述
 
-    @NotEmpty
     private Date start_date;// 启动时间
 
-    @NotEmpty
     private Date end_date;// 招标截止时间
 
     private BigDecimal reward;// 任务金额
