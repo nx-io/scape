@@ -1,0 +1,16 @@
+/target
+/.settings
+.classpath
+.project
+.settings
+.DS_Store
+.idea
+/.project
+
+scape/api/.project
+scape/biz/.project
+scape/core/.project
+scape/manager/.project
+scape/web/.project
+
+
